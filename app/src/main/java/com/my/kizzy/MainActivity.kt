@@ -1,21 +1,22 @@
 package com.my.kizzy
 
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.*
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.my.kizzy.ui.theme.KizzyTheme
-import com.my.kizzy.ui.theme.screen.home.Home
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.my.kizzy.ui.common.Routes
+import com.my.kizzy.ui.screen.home.Home
+import com.my.kizzy.ui.screen.rpc.apps.AppsRPC
+import com.my.kizzy.ui.screen.rpc.custom.CustomRPC
+import com.my.kizzy.ui.screen.rpc.media.MediaRPC
+import com.my.kizzy.ui.screen.settings.Settings
+import com.my.kizzy.ui.screen.settings.language.Languages
+import com.my.kizzy.ui.screen.settings.style.Appearance
 import me.rerere.md3compat.Md3CompatTheme
 
 class MainActivity : ComponentActivity() {
@@ -29,30 +30,31 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun Kizzy() {
-        Scaffold(
-            topBar = {
-                LargeTopAppBar(
-                    title = {
-                        Text(text = "Kizzy")
-                    }
-                )
+        val navcontroller = rememberNavController()
+        NavHost(navController = navcontroller, startDestination = Routes.HOME){
+            composable(Routes.HOME){
+                Home(navcontroller)
             }
-        ) {
-            Column(modifier = Modifier.padding(it),
-                verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                Home()
-            }
+            composable(Routes.SETTINGS){ Settings()}
+            composable(Routes.APPS_DETECTION) { AppsRPC()}
+            composable(Routes.CUSTOM_RPC) { CustomRPC(navcontroller)}
+            composable(Routes.MEDIA_RPC){ MediaRPC(navcontroller)}
+
+            //Todo Setup settings navGraph
+            composable(Routes.LANGUAGES){ Languages()}
+            composable(Routes.STYLE_AND_APPEAREANCE){ Appearance(navcontroller)}
         }
     }
+
+
 
     @Preview(showBackground = true)
     @Composable
     fun DefaultPreview() {
         MaterialTheme {
-            Kizzy()
+            Settings()
         }
     }
 }

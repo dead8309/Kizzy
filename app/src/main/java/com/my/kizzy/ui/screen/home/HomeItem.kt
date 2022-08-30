@@ -1,17 +1,17 @@
-package com.my.kizzy.ui.theme.screen.home
+package com.my.kizzy.ui.screen.home
 
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import com.my.kizzy.R
+import com.my.kizzy.ui.common.Routes
 import com.my.kizzy.ui.theme.*
 
 data class HomeItem(
     val title: String,
     @DrawableRes val icon: Int,
     val bgColor: List<Color>,
-    val iconColor: List<Color>
+    val iconColor: List<Color>,
+    val route: String
 )
 
 fun getHomeitems() = listOf(
@@ -24,7 +24,8 @@ fun getHomeitems() = listOf(
         iconColor = listOf(
             DarkBlueIcon,
             LightBlueIcon
-        )
+        ),
+        route = Routes.APPS_DETECTION
     ),
     HomeItem(
         title = "Media Rpc",
@@ -36,7 +37,8 @@ fun getHomeitems() = listOf(
         iconColor = listOf(
             DarkGreenIcon,
             LightGreenIcon
-        )
+        ),
+        route = Routes.MEDIA_RPC
     ),
     HomeItem(
         title = "Custom Rpc",
@@ -48,7 +50,8 @@ fun getHomeitems() = listOf(
         iconColor = listOf(
             DarkRedIcon,
             LightRedIcon
-        )
+        ),
+        route = Routes.CUSTOM_RPC
     )
 
 )
