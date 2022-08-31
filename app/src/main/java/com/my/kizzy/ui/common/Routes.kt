@@ -9,5 +9,7 @@ class Routes (){
         const val SETTINGS = "settings"
         const val LANGUAGES = "languages"
         const val STYLE_AND_APPEAREANCE = "style_and_appeareance"
+        const val PROFILE = "profile"
+        const val RPC_SETTINGS = "rpc_settings"
     }
 }

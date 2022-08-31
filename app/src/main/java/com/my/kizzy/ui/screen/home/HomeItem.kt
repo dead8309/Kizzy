@@ -9,49 +9,49 @@ import com.my.kizzy.ui.theme.*
 data class HomeItem(
     val title: String,
     @DrawableRes val icon: Int,
-    val bgColor: List<Color>,
-    val iconColor: List<Color>,
-    val route: String
+    val bgColor: Color,
+    val iconColor: Color,
+    val route: String,
+    val lightColor: Color,
+    val mediumColor: Color
 )
 
 fun getHomeitems() = listOf(
     HomeItem(
         title = "App Detection",
         icon = R.drawable.ic_apps,
-        bgColor = listOf(
-            DarkBlueBg, LightBlueBg
-        ),
-        iconColor = listOf(
-            DarkBlueIcon,
-            LightBlueIcon
-        ),
-        route = Routes.APPS_DETECTION
+        bgColor = LightBlueBg,
+        iconColor =
+        LightBlueIcon,
+        route = Routes.APPS_DETECTION,
+        Blue1,
+        Blue2,
     ),
     HomeItem(
         title = "Media Rpc",
         icon = R.drawable.ic_media_rpc,
-        bgColor = listOf(
-            DarkGreenBg,
-            LightGreenBg
-        ),
-        iconColor = listOf(
-            DarkGreenIcon,
-            LightGreenIcon
-        ),
-        route = Routes.MEDIA_RPC
+        bgColor = LightGreenBg,
+        iconColor = LightGreenIcon,
+        route = Routes.MEDIA_RPC,
+        Green1,
+        Green2,
     ),
     HomeItem(
         title = "Custom Rpc",
+        icon = R.drawable.ic_rpc_placeholder,
+        bgColor = LightRedBg,
+        iconColor = LightRedIcon,
+        route = Routes.CUSTOM_RPC,
+        Red1,
+        Red2,
+    ),
+    HomeItem(
+        title = "Rpc Settings",
         icon = R.drawable.ic_custom_rpc,
-        bgColor = listOf(
-            DarkRedBg,
-            LightRedBg
-        ),
-        iconColor = listOf(
-            DarkRedIcon,
-            LightRedIcon
-        ),
-        route = Routes.CUSTOM_RPC
+        bgColor = LightPurpleBg,
+        iconColor = LightPurpleIcon,
+        route = Routes.RPC_SETTINGS,
+        Purple1,
+        Purple2
     )
-
 )

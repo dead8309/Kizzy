@@ -6,14 +6,17 @@ import androidx.activity.compose.setContent
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.my.kizzy.ui.common.Routes
 import com.my.kizzy.ui.screen.home.Home
+import com.my.kizzy.ui.screen.profile.Profile
 import com.my.kizzy.ui.screen.rpc.apps.AppsRPC
 import com.my.kizzy.ui.screen.rpc.custom.CustomRPC
 import com.my.kizzy.ui.screen.rpc.media.MediaRPC
+import com.my.kizzy.ui.screen.rpc.settings.RpcSettings
 import com.my.kizzy.ui.screen.settings.Settings
 import com.my.kizzy.ui.screen.settings.language.Languages
 import com.my.kizzy.ui.screen.settings.style.Appearance
@@ -37,11 +40,12 @@ class MainActivity : ComponentActivity() {
             composable(Routes.HOME){
                 Home(navcontroller)
             }
-            composable(Routes.SETTINGS){ Settings()}
+            composable(Routes.SETTINGS){ Settings(navcontroller)}
             composable(Routes.APPS_DETECTION) { AppsRPC()}
             composable(Routes.CUSTOM_RPC) { CustomRPC(navcontroller)}
             composable(Routes.MEDIA_RPC){ MediaRPC(navcontroller)}
-
+            composable(Routes.PROFILE) { Profile(navcontroller) }
+            composable(Routes.RPC_SETTINGS){RpcSettings(navcontroller)}
             //Todo Setup settings navGraph
             composable(Routes.LANGUAGES){ Languages()}
             composable(Routes.STYLE_AND_APPEAREANCE){ Appearance(navcontroller)}
@@ -54,7 +58,7 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun DefaultPreview() {
         MaterialTheme {
-            Settings()
+            Settings(navController = rememberNavController())
         }
     }
 }
