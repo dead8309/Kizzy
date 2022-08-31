@@ -27,8 +27,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.my.kizzy.R
@@ -240,8 +244,11 @@ fun RpcItem(item: HomeItem,
             )
             Text(
                 text = item.title,
-                style = MaterialTheme.typography.headlineMedium
-                , color = Color.Black
+                style = TextStyle(
+                    fontSize = 32.sp,
+                    fontWeight = FontWeight.W600,
+                    color = Color.Black
+                )
             )
         }
     }
