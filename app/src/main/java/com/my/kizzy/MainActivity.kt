@@ -1,5 +1,6 @@
 package com.my.kizzy
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -7,10 +8,13 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.lifecycleScope
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.my.kizzy.ui.common.Routes
@@ -39,35 +43,32 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    @OptIn(ExperimentalAnimationApi::class)
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+    @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterial3Api::class)
     @Composable
     fun Kizzy() {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background)
-        ) {
+        Scaffold()
+        {
             val navcontroller = rememberAnimatedNavController()
             AnimatedNavHost(
                 navController = navcontroller,
                 startDestination = Routes.HOME
-            ){
+            ) {
                 animatedComposable(Routes.HOME) {
                     Home(navController = navcontroller)
                 }
-                animatedComposable(Routes.SETTINGS){ Settings(navcontroller)}
-                animatedComposable(Routes.APPS_DETECTION) { AppsRPC()}
-                animatedComposable(Routes.CUSTOM_RPC) { CustomRPC(navcontroller)}
-                animatedComposable(Routes.MEDIA_RPC){ MediaRPC(navcontroller)}
+                animatedComposable(Routes.SETTINGS) { Settings(navcontroller) }
+                animatedComposable(Routes.APPS_DETECTION) { AppsRPC() }
+                animatedComposable(Routes.CUSTOM_RPC) { CustomRPC(navcontroller) }
+                animatedComposable(Routes.MEDIA_RPC) { MediaRPC(navcontroller) }
                 animatedComposable(Routes.PROFILE) { Profile(navcontroller) }
-                animatedComposable(Routes.RPC_SETTINGS){RpcSettings(navcontroller)}
-                animatedComposable(Routes.LANGUAGES){ Language(navcontroller)}
-                animatedComposable(Routes.STYLE_AND_APPEAREANCE){ Appearance(navcontroller)}
-                animatedComposable(Routes.ABOUT){About()}
-        }
+                animatedComposable(Routes.RPC_SETTINGS) { RpcSettings(navcontroller) }
+                animatedComposable(Routes.LANGUAGES) { Language(navcontroller) }
+                animatedComposable(Routes.STYLE_AND_APPEAREANCE) { Appearance(navcontroller) }
+                animatedComposable(Routes.ABOUT) { About() }
+            }
         }
     }
-
 
 
     @Preview(showBackground = true)
