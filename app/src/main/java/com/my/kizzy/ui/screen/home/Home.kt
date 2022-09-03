@@ -3,12 +3,13 @@ package com.my.kizzy.ui.screen.home
 import android.content.Intent
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.net.Uri
-import androidx.compose.foundation.*
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
@@ -25,19 +26,16 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.my.kizzy.R
 import com.my.kizzy.ui.common.Routes
 import com.my.kizzy.ui.utils.standardQuadFromTo
+import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -49,9 +47,12 @@ fun Home(
     }
     Scaffold(
         topBar = {
-            MediumTopAppBar(
+            LargeTopAppBar(
                 title = {
-                    Text(text = "Hello $user")
+                    Text(
+                        text = "Welcome, $user",
+                        style = MaterialTheme.typography.headlineLarge,
+                    )
                 },
                 navigationIcon = {
                     IconButton(
@@ -65,40 +66,40 @@ fun Home(
                 },
                 actions = {
                     IconButton(onClick = { navController.navigate(Routes.PROFILE) }) {
-                        Icon(imageVector = Icons.Outlined.Person,
-                            contentDescription = Icons.Default.Person.name,
-                            modifier = Modifier
-                                .border(border = BorderStroke(
-                                                    4.dp
-                                                    , MaterialTheme.colorScheme.secondaryContainer),
-                                        shape = CircleShape)
-                                .size(48.dp)
+                        Icon(
+                            imageVector = Icons.Outlined.Person,
+                            contentDescription = Icons.Default.Person.name
                         )
                     }
                 }
             )
         }
     ) {
-        Column(modifier = Modifier.padding(it),
-            verticalArrangement = Arrangement.spacedBy(16.dp)) {
-            ChipSection(listOf(
-                Chips(
-                    "Discord",
-                    R.drawable.ic_discord,
-                    Intent(Intent.ACTION_VIEW, Uri.parse("https://discord.gg/vUPc7zzpV5"))
-                ),
-                Chips(
-                    "Youtube",
-                    R.drawable.ic_youtube,
-                    Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/channel/UCh-zsCv66gwHCIbMKLMJmaw"))
+        Column(
+            modifier = Modifier.padding(it),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            ChipSection(
+                listOf(
+                    Chips(
+                        "Discord",
+                        Intent(Intent.ACTION_VIEW, Uri.parse("https://discord.gg/vUPc7zzpV5"))
+                    ),
+                    Chips(
+                        "Youtube",
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("https://youtube.com/channel/UCh-zsCv66gwHCIbMKLMJmaw")
+                        )
+                    )
                 )
-            ))
-                Text(
-                    text = "Features",
-                    style = MaterialTheme.typography.headlineLarge,
-                    modifier = Modifier.padding(start = 10.dp)
-                )
-                RpcCards(getHomeitems(), navController)
+            )
+            Text(
+                text = "Features",
+                style = MaterialTheme.typography.headlineMedium,
+                modifier = Modifier.padding(start = 15.dp)
+            )
+            RpcCards(getHomeitems(), navController)
         }
     }
 }
@@ -114,11 +115,11 @@ fun ChipSection(
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
-                    .padding(start = 15.dp, top = 15.dp, bottom = 15.dp)
+                    .padding(15.dp)
                     .clickable {
                         context.startActivity(chips[it].intent)
                     }
-                    .clip(RoundedCornerShape(10.dp))
+                    .clip(RoundedCornerShape(12.dp))
                     .background(
                         MaterialTheme.colorScheme.secondaryContainer
                     )
@@ -132,18 +133,10 @@ fun ChipSection(
                         .fillMaxWidth()
                 )
                 {
-                    Image(
-                        painterResource(chips[it].icon),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(32.dp)
-                            .clip(CircleShape)
-                    )
-                    Text(text = chips[it].title,
+                    Text(
+                        text = chips[it].title,
                         color = MaterialTheme.colorScheme.onSecondaryContainer,
-                        modifier = Modifier.padding(start = 5.dp)
                     )
-
                 }
             }
         }
@@ -151,8 +144,10 @@ fun ChipSection(
 }
 
 @Composable
-fun RpcCards(Rpc: List<HomeItem>,
-navController: NavController) {
+fun RpcCards(
+    Rpc: List<HomeItem>,
+    navController: NavController
+) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(start = 7.5.dp, end = 7.5.dp, bottom = 7.5.dp),
@@ -169,17 +164,17 @@ navController: NavController) {
 }
 
 @Composable
-fun RpcItem(item: HomeItem,
-            navController: NavController
+fun RpcItem(
+    item: HomeItem,
+    navController: NavController
 ) {
     BoxWithConstraints(
         modifier = Modifier
-            .padding(16.dp)
-            .height(200.dp)
-            .width(180.dp)
-            .clip(RoundedCornerShape(10.dp))
-            .background(item.bgColor)
-            .clickable { navController.navigate(item.route) }
+            .padding(7.5.dp)
+            .aspectRatio(1f)
+            .clip(RoundedCornerShape(25.dp))
+            .background(MaterialTheme.colorScheme.secondaryContainer)
+            .clickable { item.route?.let { navController.navigate(it) } }
     ) {
         val width = constraints.maxWidth
         val height = constraints.maxHeight
@@ -209,6 +204,7 @@ fun RpcItem(item: HomeItem,
         val lightPoint4 = Offset(width * 0.65f, height.toFloat())
         val lightPoint5 = Offset(width * 1.4f, -height.toFloat() / 3f)
 
+        val color: Color = MaterialTheme.colorScheme.secondaryContainer
         val lightColoredPath = Path().apply {
             moveTo(lightPoint1.x, lightPoint1.y)
             standardQuadFromTo(lightPoint1, lightPoint2)
@@ -223,41 +219,66 @@ fun RpcItem(item: HomeItem,
             modifier = Modifier
                 .fillMaxSize()
         ) {
+            //Middle
             drawPath(
                 path = mediumColoredPath,
-                color = item.mediumColor
+                color = Color(
+                    manipulateColor(
+                        color.toArgb(),
+                        1.03f
+                    )
+                )
             )
+            //Bottom
             drawPath(
                 path = lightColoredPath,
-                color = item.lightColor
+                color = Color(
+                    manipulateColor(
+                        color.toArgb(),
+                        0.96f
+                    )
+                )
             )
         }
-        Column(
+        Box(
             modifier = Modifier
-                .fillMaxHeight()
-                .padding(10.dp),
-            verticalArrangement = Arrangement.SpaceBetween) {
+                .fillMaxSize()
+                .padding(15.dp),
+        ) {
+            Text(
+                text = item.title,
+                style = MaterialTheme.typography.headlineMedium,
+                modifier = Modifier.align(Alignment.TopStart)
+            )
             Icon(
                 tint = item.iconColor,
                 painter = painterResource(id = item.icon),
-                contentDescription = item.title
-            )
-            Text(
-                text = item.title,
-                style = TextStyle(
-                    fontSize = 32.sp,
-                    fontWeight = FontWeight.W600,
-                    color = Color.Black
-                )
+                contentDescription = item.title,
+                modifier = Modifier.align(Alignment.BottomStart)
             )
         }
     }
 }
 
-@Preview(showBackground = true,
-uiMode = UI_MODE_NIGHT_YES)
+@Preview(
+    showBackground = true,
+    uiMode = UI_MODE_NIGHT_YES
+)
 @Composable
-fun Prev(){
+fun Prev() {
     val navController = rememberNavController()
     Home(navController = navController)
+}
+
+fun manipulateColor(color: Int, factor: Float): Int {
+    val a = android.graphics.Color.alpha(color)
+    val r = (android.graphics.Color.red(color) * factor).roundToInt()
+    val g = (android.graphics.Color.green(color) * factor).roundToInt()
+    val b = (android.graphics.Color.blue(color) * factor).roundToInt()
+    return android.graphics.Color.argb(
+        a,
+        r.coerceAtMost(255),
+        g.coerceAtMost(255),
+        b.coerceAtMost(255)
+    )
 }

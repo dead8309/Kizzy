@@ -3,14 +3,18 @@ package com.my.kizzy
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.my.kizzy.ui.common.Routes
+import com.my.kizzy.ui.common.animatedComposable
 import com.my.kizzy.ui.screen.home.Home
 import com.my.kizzy.ui.screen.profile.Profile
 import com.my.kizzy.ui.screen.rpc.apps.AppsRPC
@@ -18,8 +22,10 @@ import com.my.kizzy.ui.screen.rpc.custom.CustomRPC
 import com.my.kizzy.ui.screen.rpc.media.MediaRPC
 import com.my.kizzy.ui.screen.rpc.settings.RpcSettings
 import com.my.kizzy.ui.screen.settings.Settings
-import com.my.kizzy.ui.screen.settings.language.Languages
+import com.my.kizzy.ui.screen.settings.about.About
+import com.my.kizzy.ui.screen.settings.language.Language
 import com.my.kizzy.ui.screen.settings.style.Appearance
+import com.my.kizzy.ui.theme.AppTypography
 import me.rerere.md3compat.Md3CompatTheme
 
 class MainActivity : ComponentActivity() {
@@ -27,28 +33,38 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Md3CompatTheme {
+            Md3CompatTheme(typography = AppTypography) {
                 Kizzy()
             }
         }
     }
 
+    @OptIn(ExperimentalAnimationApi::class)
     @Composable
     fun Kizzy() {
-        val navcontroller = rememberNavController()
-        NavHost(navController = navcontroller, startDestination = Routes.HOME){
-            composable(Routes.HOME){
-                Home(navcontroller)
-            }
-            composable(Routes.SETTINGS){ Settings(navcontroller)}
-            composable(Routes.APPS_DETECTION) { AppsRPC()}
-            composable(Routes.CUSTOM_RPC) { CustomRPC(navcontroller)}
-            composable(Routes.MEDIA_RPC){ MediaRPC(navcontroller)}
-            composable(Routes.PROFILE) { Profile(navcontroller) }
-            composable(Routes.RPC_SETTINGS){RpcSettings(navcontroller)}
-            //Todo Setup settings navGraph
-            composable(Routes.LANGUAGES){ Languages()}
-            composable(Routes.STYLE_AND_APPEAREANCE){ Appearance(navcontroller)}
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
+        ) {
+            val navcontroller = rememberAnimatedNavController()
+            AnimatedNavHost(
+                navController = navcontroller,
+                startDestination = Routes.HOME
+            ){
+                animatedComposable(Routes.HOME) {
+                    Home(navController = navcontroller)
+                }
+                animatedComposable(Routes.SETTINGS){ Settings(navcontroller)}
+                animatedComposable(Routes.APPS_DETECTION) { AppsRPC()}
+                animatedComposable(Routes.CUSTOM_RPC) { CustomRPC(navcontroller)}
+                animatedComposable(Routes.MEDIA_RPC){ MediaRPC(navcontroller)}
+                animatedComposable(Routes.PROFILE) { Profile(navcontroller) }
+                animatedComposable(Routes.RPC_SETTINGS){RpcSettings(navcontroller)}
+                animatedComposable(Routes.LANGUAGES){ Language(navcontroller)}
+                animatedComposable(Routes.STYLE_AND_APPEAREANCE){ Appearance(navcontroller)}
+                animatedComposable(Routes.ABOUT){About()}
+        }
         }
     }
 
@@ -58,7 +74,6 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun DefaultPreview() {
         MaterialTheme {
-            Settings(navController = rememberNavController())
         }
     }
 }

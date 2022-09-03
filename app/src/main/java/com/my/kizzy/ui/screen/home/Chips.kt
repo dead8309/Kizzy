@@ -5,7 +5,6 @@ import androidx.annotation.DrawableRes
 
 data class Chips(
     val title: String,
-    @DrawableRes val icon: Int,
     val intent: Intent
 )
 

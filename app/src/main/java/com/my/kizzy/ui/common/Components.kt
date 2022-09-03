@@ -6,10 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,7 +32,7 @@ fun BackButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
 fun PreferencesHint(
     title: String = "Title ".repeat(2),
     description: String? = "Description text ".repeat(3),
-    icon: Int,
+    icon: ImageVector,
     onClick: () -> Unit = {},
 ) {
 
@@ -51,7 +48,7 @@ fun PreferencesHint(
     ) {
         icon.let {
             Icon(
-                painter = painterResource(id = icon),
+                imageVector = icon,
                 contentDescription = title,
                 modifier = Modifier
                     .padding(start = 8.dp, end = 16.dp)
@@ -83,9 +80,47 @@ fun PreferencesHint(
         }
     }
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun PreferenceSingleChoiceItem(
+    text: String,
+    selected: Boolean,
+    onClick: () -> Unit
+) {
+    Surface(
+        modifier = Modifier.clickable { onClick() }
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp, 16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 10.dp)
+            ) {
+                Text(
+                    text = text,
+                    maxLines = 1,
+                    style = MaterialTheme.typography.titleLarge.copy(fontSize = 20.sp),
+                    color = MaterialTheme.colorScheme.onSurface, overflow = TextOverflow.Ellipsis
+                )
+            }
+            RadioButton(
+                selected = selected,
+                onClick = onClick,
+                modifier = Modifier.padding(start = 20.dp, end = 6.dp),
+            )
+        }
+    }
+}
 @Preview
 @Composable
-fun pre() {
-    BackButton {
+fun Preview() {
+    PreferenceSingleChoiceItem(text = ""
+        , selected = true) {
     }
 }

@@ -5,20 +5,23 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.PowerManager
-import androidx.annotation.DrawableRes
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.EnergySavingsLeaf
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Palette
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.my.kizzy.R
+import androidx.navigation.NavHostController
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.PreferencesHint
 import com.my.kizzy.ui.common.Routes
@@ -26,7 +29,7 @@ import com.my.kizzy.ui.common.Routes
 @SuppressLint("BatteryLife")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Settings(navController: NavController) {
+fun Settings(navController: NavHostController) {
     val context = LocalContext.current
     val pm = context.getSystemService(Context.POWER_SERVICE) as PowerManager
     var showBatteryHint by remember { mutableStateOf(!pm.isIgnoringBatteryOptimizations(context.packageName)) }
@@ -49,7 +52,7 @@ fun Settings(navController: NavController) {
                     AnimatedVisibility(visible = showBatteryHint) {
                         PreferencesHint(
                             title = "Battery Optimisation",
-                            icon = R.drawable.ic_battery_optimisation,
+                            icon = Icons.Default.EnergySavingsLeaf,
                             description = "Turn off battery optimisation for better stability of rpc"
                         ) {
                             context.startActivity(Intent(android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).apply {
@@ -62,26 +65,38 @@ fun Settings(navController: NavController) {
                 }
                 item {
                     SettingItem(
+                        title = "Account",
+                        description = "Account info",
+                        icon = Icons.Outlined.Person
+                    ) {
+                        navController.navigate(Routes.PROFILE) {
+                            launchSingleTop = true
+
+                        }
+                    }
+                }
+                item {
+                    SettingItem(
                         title = "Display",
                         description = "Theme,Dynamic Colors,Languages",
-                        icon = R.drawable.ic_aod
+                        icon = Icons.Outlined.Palette
                     ) {
                         navController.navigate(Routes.STYLE_AND_APPEAREANCE) {
                             launchSingleTop = true
                         }
                     }
                 }
-                /*
                 item {
                     SettingItem(
                         title = "About",
-                        description = "Version,releases,credits",
-                        icon = Icons.Sharp.Info
+                        description = "Version,releases",
+                        icon = Icons.Outlined.Info
                     ) {
-                        navController.navigate(Routes.INFO) { launchSingleTop = true }
+                        navController.navigate(Routes.ABOUT) {
+                            launchSingleTop = true
+                        }
                     }
                 }
-                */
             }
         }
     }
@@ -92,8 +107,7 @@ fun Settings(navController: NavController) {
 fun SettingItem(
     title: String,
     description: String,
-    @DrawableRes
-    icon: Int,
+    icon: ImageVector,
     onClick: () -> Unit
 ) {
     Surface(
@@ -106,11 +120,11 @@ fun SettingItem(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(
-                painter = painterResource(icon),
+                imageVector = icon,
                 contentDescription = title,
                 modifier = Modifier
                     .padding(start = 8.dp, end = 16.dp)
-                    .size(24.dp),
+                    .size(25.dp),
                 tint = MaterialTheme.colorScheme.secondary
             )
             Column(
@@ -134,5 +148,4 @@ fun SettingItem(
         }
     }
 }
-
 

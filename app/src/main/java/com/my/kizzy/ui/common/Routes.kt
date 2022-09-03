@@ -2,6 +2,7 @@ package com.my.kizzy.ui.common
 
 class Routes (){
     companion object{
+        const val ABOUT ="about"
         const val HOME = "home"
         const val APPS_DETECTION = "apps_rpc"
         const val MEDIA_RPC = "media_rpc"
