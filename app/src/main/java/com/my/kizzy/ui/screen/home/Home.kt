@@ -23,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
@@ -34,7 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.my.kizzy.ui.common.Routes
-import com.my.kizzy.ui.utils.standardQuadFromTo
+import com.my.kizzy.utils.standardQuadFromTo
 import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -115,7 +116,7 @@ fun ChipSection(
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
-                    .padding(15.dp)
+                    .padding(start = 15.dp, top = 15.dp , bottom = 15.dp)
                     .clickable {
                         context.startActivity(chips[it].intent)
                     }
@@ -171,6 +172,10 @@ fun RpcItem(
     BoxWithConstraints(
         modifier = Modifier
             .padding(7.5.dp)
+            .shadow(
+                elevation = 6.dp,
+                shape = RoundedCornerShape(25.dp),
+            )
             .aspectRatio(1f)
             .clip(RoundedCornerShape(25.dp))
             .background(MaterialTheme.colorScheme.secondaryContainer)

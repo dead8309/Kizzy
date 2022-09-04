@@ -1,4 +1,4 @@
-package com.my.kizzy.ui.utils
+package com.my.kizzy.utils
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Path

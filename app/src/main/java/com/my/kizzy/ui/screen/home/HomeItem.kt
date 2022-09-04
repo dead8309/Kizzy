@@ -44,8 +44,7 @@ fun getHomeitems() = listOf(
     HomeItem(
         title = "Soon",
         icon = R.drawable.ic_info,
-        iconColor = Color.DarkGray,
+        iconColor = Color.White,
         route = null,
-    ),
-
     )
+)

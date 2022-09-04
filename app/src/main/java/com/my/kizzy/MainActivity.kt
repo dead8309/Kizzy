@@ -58,7 +58,7 @@ class MainActivity : ComponentActivity() {
                     Home(navController = navcontroller)
                 }
                 animatedComposable(Routes.SETTINGS) { Settings(navcontroller) }
-                animatedComposable(Routes.APPS_DETECTION) { AppsRPC() }
+                animatedComposable(Routes.APPS_DETECTION) { AppsRPC(navcontroller) }
                 animatedComposable(Routes.CUSTOM_RPC) { CustomRPC(navcontroller) }
                 animatedComposable(Routes.MEDIA_RPC) { MediaRPC(navcontroller) }
                 animatedComposable(Routes.PROFILE) { Profile(navcontroller) }

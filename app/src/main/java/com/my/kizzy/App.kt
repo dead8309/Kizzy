@@ -1,9 +1,7 @@
 package com.my.kizzy
 
 import android.app.Application
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import com.my.kizzy.utils.Prefs
 import me.rerere.compose_setting.preference.initComposeSetting
 
 class App: Application() {
@@ -11,5 +9,6 @@ class App: Application() {
     override fun onCreate() {
         super.onCreate()
         initComposeSetting()
+        Prefs.init(this)
     }
 }

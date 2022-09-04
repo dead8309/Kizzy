@@ -4,10 +4,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -81,7 +82,6 @@ fun PreferencesHint(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PreferenceSingleChoiceItem(
     text: String,
@@ -117,10 +117,67 @@ fun PreferenceSingleChoiceItem(
         }
     }
 }
+
 @Preview
 @Composable
 fun Preview() {
-    PreferenceSingleChoiceItem(text = ""
-        , selected = true) {
+
+    SwitchBar(
+        title = "Enable App Detection",
+        checked = true
+    ) {
+
+    }
+}
+
+@Composable
+fun SwitchBar(
+title: String,
+checked: Boolean,
+onClick: (Boolean) -> Unit,
+) {
+    var switch by remember {
+        mutableStateOf(checked)
+    }
+    val icon: (@Composable () -> Unit)? =
+        if (checked) {
+        {
+            Icon(
+                imageVector = Icons.Filled.Check,
+                contentDescription = null,
+                modifier = Modifier.size(SwitchDefaults.IconSize),
+            )
+
+        }
+        } else {
+        null
+    }
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 12.dp)
+            .clip(MaterialTheme.shapes.extraLarge)
+            .background(MaterialTheme.colorScheme.secondaryContainer)
+            .clickable {
+                switch = !switch
+            }
+            .padding(horizontal = 12.dp, vertical = 16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+        with(MaterialTheme) {
+
+            Text(
+                text = title,
+                maxLines = 1,
+                style = typography.titleLarge.copy(fontSize = 20.sp),
+                color = colorScheme.onSecondaryContainer
+            )
+            Switch(
+                checked = switch,
+                onCheckedChange = onClick,
+                thumbContent = icon
+            )
+        }
     }
 }
