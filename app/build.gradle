@@ -5,6 +5,7 @@ plugins {
 
 android {
     compileSdk 33
+    buildToolsVersion "33.0.0"
 
     defaultConfig {
         applicationId "com.my.kizzy"

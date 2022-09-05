@@ -2,6 +2,5 @@
 <resources>
 
     <style name="Theme.Kizzy" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:windowDisablePreview">true</item>
     </style>
 </resources>

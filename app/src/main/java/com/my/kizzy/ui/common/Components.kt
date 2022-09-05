@@ -118,27 +118,14 @@ fun PreferenceSingleChoiceItem(
     }
 }
 
-@Preview
-@Composable
-fun Preview() {
-
-    SwitchBar(
-        title = "Enable App Detection",
-        checked = true
-    ) {
-
-    }
-}
 
 @Composable
 fun SwitchBar(
 title: String,
 checked: Boolean,
-onClick: (Boolean) -> Unit,
+onClick: () -> Unit,
 ) {
-    var switch by remember {
-        mutableStateOf(checked)
-    }
+    
     val icon: (@Composable () -> Unit)? =
         if (checked) {
         {
@@ -147,11 +134,11 @@ onClick: (Boolean) -> Unit,
                 contentDescription = null,
                 modifier = Modifier.size(SwitchDefaults.IconSize),
             )
-
         }
         } else {
         null
     }
+    
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -159,14 +146,13 @@ onClick: (Boolean) -> Unit,
             .clip(MaterialTheme.shapes.extraLarge)
             .background(MaterialTheme.colorScheme.secondaryContainer)
             .clickable {
-                switch = !switch
+                onClick()
             }
             .padding(horizontal = 12.dp, vertical = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
         ) {
         with(MaterialTheme) {
-
             Text(
                 text = title,
                 maxLines = 1,
@@ -174,9 +160,66 @@ onClick: (Boolean) -> Unit,
                 color = colorScheme.onSecondaryContainer
             )
             Switch(
-                checked = switch,
-                onCheckedChange = onClick,
+                checked = checked,
+                onCheckedChange = {},
                 thumbContent = icon
+            )
+        }
+    }
+}
+
+@Composable
+fun PreferenceSwitch(
+    title: String = "",
+    description: String? = null,
+    icon: ImageVector? = null,
+    enabled: Boolean = true,
+    isChecked: Boolean = true,
+    checkedIcon: ImageVector? = Icons.Filled.Check,
+    onClick: (() -> Unit) = {},
+) {
+    Surface(
+        modifier = if (enabled) Modifier.clickable { onClick() } else Modifier
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp, 20.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            icon?.let {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = title,
+                    modifier = Modifier
+                        .padding(start = 8.dp, end = 16.dp)
+                        .size(24.dp),
+                    tint = MaterialTheme.colorScheme.secondary
+                )
+            }
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(
+                    text = title,
+                    maxLines = 1,
+                    style = MaterialTheme.typography.titleLarge.copy(fontSize = 20.sp),
+                    color = MaterialTheme.colorScheme.onSurface,
+                    overflow = TextOverflow.Ellipsis
+                )
+                if (!description.isNullOrEmpty())
+                    Text(
+                        text = description,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        maxLines = 2,
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+            }
+            Switch(
+                checked = isChecked,
+                onCheckedChange = null,
+                modifier = Modifier.padding(start = 20.dp, end = 6.dp),
+                enabled = enabled
             )
         }
     }

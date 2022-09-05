@@ -43,11 +43,11 @@ fun Language(navController: NavController) {
             for (language in languages()) {
                 item {
                     PreferenceSingleChoiceItem(
-                        text = language.key + " (${language.value}",
+                        text = language.key + " (${language.value})",
                         selected = language.key == locale
                     ) {
                         locale = language.key
-                        Prefs[LANGUAGE] = language
+                        Prefs[LANGUAGE] = language.key
                     }
                 }
             }

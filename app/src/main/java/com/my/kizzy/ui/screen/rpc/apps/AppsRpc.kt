@@ -24,11 +24,26 @@ import androidx.navigation.compose.rememberNavController
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.Routes
 import com.my.kizzy.ui.common.SwitchBar
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+
+
+import com.my.kizzy.ui.common.PreferenceSwitch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppsRPC(navController: NavHostController) {
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
+        rememberTopAppBarState(),
+        canScroll = { true })
+        
     Scaffold(
+    modifier = Modifier
+        .fillMaxSize()
+        .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             LargeTopAppBar(
                 title = {
@@ -38,25 +53,38 @@ fun AppsRPC(navController: NavHostController) {
                     )
                 },
                 navigationIcon = { BackButton{navController.popBackStack()} },
-                scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+                scrollBehavior = scrollBehavior
             )
         }
     ){
+    
         Column(modifier = Modifier
             .fillMaxSize()
             .padding(it)) {
-            SwitchBar(
-                title = "Enable App Detection",
-                checked = false,
-                onClick = {}
-            )
-
+            
+            var serviceEnabled by remember {
+                        mutableStateOf(false)
+                    }
+                    
             LazyColumn{
+                item {
+                    SwitchBar(
+                title = "Enable App Detection",
+                checked = serviceEnabled,
+                onClick = { serviceEnabled = !serviceEnabled}
+                )
+                }
                 for (item in getItems()){
                     item {
-                        ItemCard(
-                            title = item,
-                            subtitile = "package name")
+                        var isChecked by remember {
+                        mutableStateOf(true)
+                        }
+                        PreferenceSwitch(
+                        title = item,
+                        description = "packageName",
+                        isChecked = isChecked,
+                        onClick = { isChecked = !isChecked }
+                        )
                     }
                 }
             }
@@ -64,55 +92,7 @@ fun AppsRPC(navController: NavHostController) {
     }
 }
 
-@Composable
-fun ItemCard(title: String,subtitile: String) {
-    Card(shape = RoundedCornerShape(15.dp),
-    modifier = Modifier
-        .padding(15.dp)
-        .fillMaxWidth(),
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(15.dp),
-            horizontalArrangement = Arrangement.SpaceAround,
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Icon(
-                imageVector = Icons.Default.Android,
-                contentDescription = null
-            )
-            Box(modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp),
-            ){
-                Text(
-                    text = subtitile,
-                    style = MaterialTheme
-                        .typography
-                        .bodySmall
-                        .copy(
-                        fontStyle = FontStyle.Italic
-                        ),
-                    modifier = Modifier
-                        .align(Alignment.TopStart)
-                        .padding(bottom = 25.dp)
-                )
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier
-                        .align(Alignment.BottomStart)
-                )
-            }
-            Switch(
-                checked = false,
-                onCheckedChange = {}
-            )
-        }
-    }
 
-}
 
 
 @Preview
@@ -124,4 +104,13 @@ fun AppsSreen() {
 
 fun getItems():List<String> = listOf(
         "Hello","hi","Hello","hi","Hello","hi","Hello","hi","Hello","hi",
+        "Hello","hi","Hello","hi","Hello","hi","Hello","hi","Hello","hi",
+        "Hello","hi","Hello","hi","Hello","hi","Hello","hi","Hello","hi",
+         "Hello","hi","Hello","hi","Hello","hi","Hello","hi","Hello","hi",
+        "Hello","hi","Hello","hi","Hello","hi","Hello","hi","Hello","hi",
+        "Hello","hi","Hello","hi","Hello","hi","Hello","hi","Hello","hi",
+         "Hello","hi","Hello","hi","Hello","hi","Hello","hi","Hello","hi",
+        "Hello","hi","Hello","hi","Hello","hi","Hello","hi","Hello","hi",
+        "Hello","hi","Hello","hi","Hello","hi","Hello","hi","Hello","hi",
 )
+
