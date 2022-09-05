@@ -12,6 +12,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
@@ -30,6 +31,8 @@ import com.my.kizzy.ui.screen.settings.about.About
 import com.my.kizzy.ui.screen.settings.language.Language
 import com.my.kizzy.ui.screen.settings.style.Appearance
 import com.my.kizzy.ui.theme.AppTypography
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.coroutineScope
 import me.rerere.md3compat.Md3CompatTheme
 
 class MainActivity : ComponentActivity() {

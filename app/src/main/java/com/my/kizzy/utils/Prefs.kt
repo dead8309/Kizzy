@@ -2,6 +2,9 @@ package com.my.kizzy.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+
 
 object Prefs {
     private const val APP_PREFERENCES = "kizzy_preferences"
@@ -40,8 +43,34 @@ object Prefs {
             else -> throw UnsupportedOperationException("Not yet implemented")
         }
 
+    fun isAppEnabled(packageName: String?): Boolean {
+        val apps = get(ENABLED_APPS,"[]")
+        val enabled_packages: ArrayList<String> = Gson().fromJson(
+            apps,
+            object : TypeToken<ArrayList<String>?>() {}.type
+        )
+        return enabled_packages.contains(packageName)
+    }
+
+    fun saveToPrefs(pkg: String){
+        val apps = get(ENABLED_APPS,"[]")
+        val enabled_packages: ArrayList<String> = Gson().fromJson(
+            apps,
+            object : TypeToken<ArrayList<String>?>() {}.type
+        )
+        if (enabled_packages.contains(pkg))
+            enabled_packages.remove(pkg)
+        else
+            enabled_packages.add(pkg)
+
+        set(ENABLED_APPS,Gson().toJson(enabled_packages))
+    }
+
+
     const val TOKEN = "token"
     const val LANGUAGE = "language"
+    const val USER_NAME = "username"
+    const val ENABLED_APPS = "enabled_apps"
 
 
 }

@@ -175,8 +175,7 @@ fun PreferenceSwitch(
     icon: ImageVector? = null,
     enabled: Boolean = true,
     isChecked: Boolean = true,
-    checkedIcon: ImageVector? = Icons.Filled.Check,
-    onClick: (() -> Unit) = {},
+    onClick: () -> Unit = {},
 ) {
     Surface(
         modifier = if (enabled) Modifier.clickable { onClick() } else Modifier
@@ -221,6 +220,7 @@ fun PreferenceSwitch(
                 modifier = Modifier.padding(start = 20.dp, end = 6.dp),
                 enabled = enabled
             )
+
         }
     }
 }

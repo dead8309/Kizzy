@@ -35,6 +35,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.my.kizzy.ui.common.Routes
+import com.my.kizzy.utils.Prefs
+import com.my.kizzy.utils.Prefs.USER_NAME
 import com.my.kizzy.utils.standardQuadFromTo
 import kotlin.math.roundToInt
 
@@ -44,7 +46,7 @@ fun Home(
     navController: NavController
 ) {
     val user by remember {
-        mutableStateOf("Kizzy")
+        mutableStateOf(Prefs[USER_NAME,""])
     }
     Scaffold(
         topBar = {
@@ -116,7 +118,7 @@ fun ChipSection(
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
-                    .padding(start = 15.dp, top = 15.dp , bottom = 15.dp)
+                    .padding(start = 15.dp, top = 15.dp, bottom = 15.dp)
                     .clickable {
                         context.startActivity(chips[it].intent)
                     }
