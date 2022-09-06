@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.SwitchBar
+import com.my.kizzy.utils.AppUtils
 import com.my.kizzy.utils.Prefs
 import com.skydoves.landscapist.glide.GlideImage
 
@@ -56,8 +57,8 @@ fun AppsRPC(navController: NavHostController) {
             .padding(it)) {
             
             var serviceEnabled by remember {
-                        mutableStateOf(false)
-                    }
+                mutableStateOf(AppUtils.appDetectionRunning(ctx))
+            }
 
 
             var apps by remember {
@@ -72,7 +73,7 @@ fun AppsRPC(navController: NavHostController) {
                 checked = serviceEnabled
                     ) {
                         serviceEnabled = !serviceEnabled
-                        //Start Service
+                        ctx.startService(Intent(ctx,AppDetectionService::class.java))
                     }
                 }
                 items(apps.size){i ->

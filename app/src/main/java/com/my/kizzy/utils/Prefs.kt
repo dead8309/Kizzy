@@ -44,7 +44,7 @@ object Prefs {
         }
 
     fun isAppEnabled(packageName: String?): Boolean {
-        val apps = get(ENABLED_APPS,"[]")
+        val apps = get(ENABLED_APPS, "[]")
         val enabled_packages: ArrayList<String> = Gson().fromJson(
             apps,
             object : TypeToken<ArrayList<String>?>() {}.type
@@ -52,8 +52,8 @@ object Prefs {
         return enabled_packages.contains(packageName)
     }
 
-    fun saveToPrefs(pkg: String){
-        val apps = get(ENABLED_APPS,"[]")
+    fun saveToPrefs(pkg: String) {
+        val apps = get(ENABLED_APPS, "[]")
         val enabled_packages: ArrayList<String> = Gson().fromJson(
             apps,
             object : TypeToken<ArrayList<String>?>() {}.type
@@ -63,14 +63,17 @@ object Prefs {
         else
             enabled_packages.add(pkg)
 
-        set(ENABLED_APPS,Gson().toJson(enabled_packages))
+        set(ENABLED_APPS, Gson().toJson(enabled_packages))
     }
 
 
     const val TOKEN = "token"
     const val LANGUAGE = "language"
     const val USER_NAME = "username"
-    const val ENABLED_APPS = "enabled_apps"
+    private const val ENABLED_APPS = "enabled_apps"
 
+    //Media Rpc Preferences
+    const val MEDIA_RPC_ARTIST_NAME = "media_rpc_artist_name"
+    const val MEDIA_RPC_APP_ICON = "media_rpc_app_icon"
 
 }

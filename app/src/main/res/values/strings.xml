@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Kizzy</string>
+
+    <!-- Activities -->
+    <string name="activity_name">Activity Name</string>
+    <string name="activity_details">Activity Details</string>
+    <string name="activity_state">Activity State</string>
+    <string name="activity_start_timestamps">Start Timestamps</string>
+    <string name="activity_stop_timestamps">Stop Timestamps</string>
+    <string name="activity_status_online_idle_dnd">Activity status(online,idle,dnd)</string>
+    <string name="activity_button1_text">Activity button1 text</string>
+    <string name="activity_button2_text">Activity button2 text</string>
+    <string name="activity_button1_url">Button 1 Url</string>
+    <string name="activity_button2_url">Button 2 Url</string>
+    <string name="activity_large_image">Activity Large Image</string>
+    <string name="activity_small_image">Activity Small Image</string>
+    <string name="activity_type">Activity Type</string>
+
+
 </resources>
