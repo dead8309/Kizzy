@@ -6,26 +6,24 @@ import android.content.Context
 import android.content.Intent
 import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.google.gson.Gson
 import com.my.kizzy.R
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.SwitchBar
@@ -86,6 +84,9 @@ fun CustomRPC(navController: NavController) {
         mutableStateOf(false)
     }
 
+    var menuClicked by remember {
+        mutableStateOf(false)
+    }
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -99,7 +100,120 @@ fun CustomRPC(navController: NavController) {
                     )
                 },
                 navigationIcon = { BackButton { navController.popBackStack() } },
-                scrollBehavior = scrollBehavior
+                scrollBehavior = scrollBehavior,
+                actions = {
+                    IconButton(onClick = { menuClicked = !menuClicked }) {
+                        Icon(
+                            imageVector = Icons.Default.MoreVert,
+                            contentDescription = "menu"
+                        )
+                        DropdownMenu(
+                            expanded = menuClicked,
+                            onDismissRequest = { menuClicked = !menuClicked }) {
+
+                            DropdownMenuItem(
+                                text = { Text(stringResource(id = R.string.load_config)) },
+                                onClick = {
+                                    LoadConfig {
+                                        name = it.name
+                                        details = it.details.toString()
+                                        state = it.state.toString()
+                                        startTimestamps = it.startTime.toString()
+                                        stopTimestamps = it.StopTime.toString()
+                                        status = it.status.toString()
+                                        button1 = it.button1.toString()
+                                        button2 = it.button2.toString()
+                                        button1Url = it.button1Url.toString()
+                                        button2Url = it.button2Url.toString()
+                                        largeImg = it.largeImg.toString()
+                                        smallImg = it.smallImg.toString()
+                                        type = it.type.toString()
+                                    }
+                                },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Default.FileOpen,
+                                        contentDescription = null
+                                    )
+                                }
+                            )
+
+                            DropdownMenuItem(
+                                text = { Text(stringResource(id = R.string.save_config)) },
+                                onClick = {
+                                    SaveConfig(
+                                        rpc = Rpc(
+                                            name = name,
+                                            details = details,
+                                            state = state,
+                                            startTime = toLong(startTimestamps),
+                                            StopTime = toLong(stopTimestamps),
+                                            status = status,
+                                            button1 = button1,
+                                            button2 = button2,
+                                            button1Url = button1Url,
+                                            button2Url = button2Url,
+                                            largeImg = largeImg,
+                                            smallImg = smallImg,
+                                            type = toInt(type)
+                                        )
+                                    )
+                                },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Default.SaveAs,
+                                        contentDescription = null
+                                    )
+                                }
+                            )
+
+                            DropdownMenuItem(
+                                text = { Text(stringResource(id = R.string.delete_configs)) },
+                                onClick = { DeleteConfig() },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Default.Delete,
+                                        contentDescription = null,
+                                        tint = MaterialTheme.colorScheme.error
+                                    )
+                                }
+                            )
+
+                            DropdownMenuItem(
+                                text = { Text(stringResource(id = R.string.preview_rpc)) },
+                                onClick = {
+                                    PreviewRpc(
+                                        rpc = Rpc(
+                                            name = name,
+                                            details = details,
+                                            state = state,
+                                            startTime = toLong(startTimestamps),
+                                            StopTime = toLong(stopTimestamps),
+                                            status = status,
+                                            button1 = button1,
+                                            button2 = button2,
+                                            button1Url = button1Url,
+                                            button2Url = button2Url,
+                                            largeImg = largeImg,
+                                            smallImg = smallImg,
+                                            type = toInt(type)
+                                        )
+                                    )
+                                },
+                                leadingIcon = {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_rpc_placeholder),
+                                        contentDescription = null,
+                                        modifier = Modifier.size(
+                                            Icons.Default.Delete.defaultWidth,
+                                            Icons.Default.Delete.defaultHeight
+                                        )
+                                    )
+                                }
+                            )
+                        }
+                    }
+                }
             )
         }
     )
@@ -115,7 +229,32 @@ fun CustomRPC(navController: NavController) {
                         checked = isCustomRpcEnabled
                     ) {
                         isCustomRpcEnabled = !isCustomRpcEnabled
-                        context.startService(Intent(context, CustomRpcService::class.java))
+                        with(context) {
+                            if (isCustomRpcEnabled) {
+                                val intent = Intent(this, CustomRpcService::class.java)
+                                val string = Gson().toJson(
+                                    Rpc(
+                                        name = name,
+                                        details = details,
+                                        state = state,
+                                        startTime = toLong(startTimestamps),
+                                        StopTime = toLong(stopTimestamps),
+                                        status = status,
+                                        button1 = button1,
+                                        button2 = button2,
+                                        button1Url = button1Url,
+                                        button2Url = button2Url,
+                                        largeImg = largeImg,
+                                        smallImg = smallImg,
+                                        type = toInt(type),
+                                    )
+                                )
+                                intent.putExtra("RPC",string)
+                                startService(intent)
+
+                            } else
+                                stopService(Intent(this, CustomRpcService::class.java))
+                        }
                     }
                 }
 
@@ -154,7 +293,7 @@ fun CustomRPC(navController: NavController) {
                             timestampsPicker(
                                 context = context
                             ) {
-                                startTimestamps = it
+                                startTimestamps = it.toString()
                             }
                         },
                         enabled = false
@@ -169,7 +308,7 @@ fun CustomRPC(navController: NavController) {
                             timestampsPicker(
                                 context = context
                             ) {
-                                stopTimestamps = it
+                                stopTimestamps = it.toString()
                             }
                         },
                         enabled = false
@@ -266,8 +405,9 @@ fun CustomRPC(navController: NavController) {
                         onDismissRequest = {
                             activityTypeisExpanded = !activityTypeisExpanded
                         },
-                    modifier = Modifier.fillMaxWidth()
-                        .padding(10.dp)
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(10.dp)
                     )
                     {
                         val rpcTypes = listOf(
@@ -294,7 +434,6 @@ fun CustomRPC(navController: NavController) {
         }
     }
 }
-
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -326,7 +465,7 @@ fun RpcField(
 }
 
 
-fun timestampsPicker(context: Context, onTimeSet: (String) -> Unit) {
+fun timestampsPicker(context: Context, onTimeSet: (Long) -> Unit) {
     val currentDate = Calendar.getInstance()
     val time = Calendar.getInstance()
 
@@ -339,7 +478,7 @@ fun timestampsPicker(context: Context, onTimeSet: (String) -> Unit) {
                 { _, hourOfDay, minute ->
                     time.set(Calendar.HOUR_OF_DAY, hourOfDay)
                     time.set(Calendar.MINUTE, minute)
-                    onTimeSet(time.time.time.toString() + "")
+                    onTimeSet(time.time.time)
                 },
                 currentDate[Calendar.HOUR_OF_DAY],
                 currentDate[Calendar.MINUTE],
@@ -354,6 +493,15 @@ fun timestampsPicker(context: Context, onTimeSet: (String) -> Unit) {
         .show()
 
 }
+
+fun toLong(s: String): Long? {
+      return try{ s.toLong()} catch (e: NumberFormatException) { null }
+}
+
+fun toInt(s: String): Int? {
+      return try{ s.toInt()} catch (e: NumberFormatException) { null }
+}
+
 
 @Preview
 @Composable
