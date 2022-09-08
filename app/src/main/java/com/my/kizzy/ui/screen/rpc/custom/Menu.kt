@@ -1,91 +1,226 @@
+@file:Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
+
 package com.my.kizzy.ui.screen.rpc.custom
 
-import android.content.Context
 import android.os.Environment
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DeleteForever
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
 import com.blankj.utilcode.util.FileIOUtils
-import com.google.gson.Gson
+import com.blankj.utilcode.util.FileUtils
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import com.my.kizzy.R
+import com.my.kizzy.ui.common.MultiChoiceItem
 import com.my.kizzy.ui.common.SingleChoiceItem
 import java.io.File
 import java.io.FilenameFilter
 
-object Menu {
 
-    var PATH = File(
+private val gson = GsonBuilder().setPrettyPrinting().serializeNulls().create()
+private val FILE_FILTER = FilenameFilter { _: File?, f: String ->
+    f.endsWith(".json")
+}
+
+@Composable
+fun LoadConfig(
+    onDismiss: () -> Unit,
+    onConfigSelected: (Rpc) -> Unit
+) {
+    val dir = File(
         Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
         "Kizzy"
     )
-    private val gson = GsonBuilder().setPrettyPrinting().serializeNulls().create()
-    private val FILE_FILTER = FilenameFilter { _: File?, f: String -> f.endsWith(".json") }
+    var data: String?
+    dir.mkdirs()
 
-    init {
-        PATH.mkdirs()
-    }
+    AlertDialog(onDismissRequest = { onDismiss() },
+        confirmButton = {},
+        title = { Text(text = stringResource(id = R.string.select_a_config)) }, text = {
+            var selected by remember {
+                mutableStateOf("")
+            }
+            LazyColumn {
+                val files = dir.list(FILE_FILTER)?.asList()
+                files?.forEach { file ->
+                    item {
+                        SingleChoiceItem(
+                            text = file.dropLast(5),
+                            selected = file.equals(selected)
+                        ) {
+                            onDismiss()
+                            selected = file
+                            FileIOUtils.readFile2String(
+                                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                                    .toString() + "/Kizzy/"
+                                        + file
 
-    @Composable
-    fun LoadConfig(onConfigSelected: (Rpc) -> Unit, context: Context) {
-        var show by remember {
-            mutableStateOf(true)
-        }
-
-        val listfiles = PATH.list(FILE_FILTER)
-        if (listfiles != null) {
-            for (i in listfiles.indices)
-                listfiles[i] = listfiles[i].substring(0, listfiles[i].length - 5)
-        }
-        if (show) {
-            SingleSelectDialog(
-                title = stringResource(id = R.string.select_a_config),
-                optionsList = listfiles,
-                defaultSelected = -1,
-                submitButtonText = "Select",
-                onDismissRequest = { show = !show },
-                onSubmitButtonClick = {
-                    val data = FileIOUtils.readFile2String(
-                        PATH.toString() + "/"
-                                + listfiles!![it]
-                                + ".json"
-                    )
-                    returnConfig(data)?.let { it1 -> onConfigSelected(it1) }
-
+                            ).also { data = it }
+                            data?.let {
+                                it.stringToData()?.let { it1 ->
+                                    onConfigSelected(it1)
+                                }
+                            }
+                        }
+                    }
                 }
+            }
+        })
+
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SaveConfig(
+    rpc: Rpc,
+    onDismiss: () -> Unit,
+    onSaved: (String) -> Unit
+) {
+
+    var configName by remember {
+        mutableStateOf("")
+    }
+    val dir = File(
+        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+        "Kizzy"
+    )
+    dir.mkdirs()
+
+    AlertDialog(onDismissRequest = { onDismiss() },
+        confirmButton = {
+            OutlinedButton(
+                onClick = {
+                    onDismiss()
+                    FileIOUtils
+                        .writeFileFromString(
+                            "$dir/$configName.json",
+                            rpc.dataToString()
+                        ).also {
+                            when (it) {
+                                true -> onSaved("Saved $configName Successfully")
+                                false -> onSaved("Error Saving Config")
+                            }
+                        }
+                }) {
+                Text(text = "Save")
+            }
+        },
+        title = { Text(text = stringResource(id = R.string.save_config)) },
+        text = {
+            TextField(
+                onValueChange = {
+                    configName = it
+                },
+                label = { Text(text = "Config Name") },
+                value = configName,
             )
-        }
+        })
+}
+
+
+@Composable
+fun DeleteConfig(
+    onDismiss: () -> Unit,
+    onFilesDeleted: (String) -> Unit
+) {
+
+    val configs: MutableState<List<String>> = remember {
+        mutableStateOf(listOf())
     }
-        @Composable
-        fun SaveConfig(rpc: Rpc) {
-            Box(modifier = Modifier.fillMaxWidth())
+
+    val dir = File(
+        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+        "Kizzy"
+    )
+    dir.mkdirs()
+
+    AlertDialog(onDismissRequest = { onDismiss() },
+        confirmButton = {
+            Button(
+                onClick = {
+                    onDismiss()
+                    configs.value.forEach {
+                        FileUtils.delete("$dir/$it")
+                        onFilesDeleted("${it.dropLast(5)} was deleted Successfully")
+                    }
+                },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.errorContainer,
+                    contentColor = MaterialTheme.colorScheme.onErrorContainer
+                )
+            ) {
+                Icon(
+                    imageVector = Icons.Default.DeleteForever,
+                    contentDescription = null,
+                    modifier = Modifier.padding(end = 2.dp),
+                    tint = MaterialTheme.colorScheme.error
+                )
+                Text(text = "Delete")
+            }
+        },
+        title = { Text(text = stringResource(id = R.string.delete_configs)) },
+        text = {
+            LazyColumn {
+                val files = dir.list(FILE_FILTER)
+                files?.let {
+                    items(files.size) { item ->
+                        MultiChoiceItem(
+                            text = files[item].dropLast(5),
+                            checked = configs.value.contains(files[item])
+                        ) {
+                            val newList = mutableListOf<String>()
+                            configs.value.forEach {
+                                newList.add(it)
+                            }
+                            if (configs.value.contains(files[item])) newList.remove(files[item])
+                            else newList += files[item]
+                            newList.also { configs.value = it }
+                        }
+                    }
+                }
+
+            }
         }
+    )
+}
 
-        @Composable
-        fun DeleteConfig() {
 
-        }
-    }
+fun Rpc.dataToString(): String {
+    val value: MutableMap<String, String> = HashMap()
+    value["name"] = this.name
+    value["details"] = this.details.toString()
+    value["state"] = this.state.toString()
+    value["status"] = this.status.toString()
+    value["button1"] = this.button1.toString()
+    value["button2"] = this.button2.toString()
+    value["largeImg"] = this.largeImg.toString()
+    value["smallImg"] = this.smallImg.toString()
+    value["type"] = this.type.toString()
+    value["timeatampsStart"] = this.startTime.toString()
+    value["timeatampsStop"] = this.StopTime.toString()
+    value["button1link"] = this.button1Url.toString()
+    value["button2link"] = this.button2Url.toString()
+    return gson.toJson(value)
+}
 
-fun returnConfig(s: String): Rpc? {
-    val values = Gson().fromJson<Map<String, String>>(
-        s,
-        object : TypeToken<HashMap<String, String>>() {}.type
+fun String.stringToData(): Rpc? {
+    val values = gson.fromJson<Map<String, String>>(
+        this,
+        object : TypeToken<HashMap<String?, String?>?>() {}.type
     )
     return values["name"]?.let {
         Rpc(
             it,
             values["details"],
             values["state"],
-            values["timeatampsStart"]?.toLong(),
-            values["timeatampsStop"]?.toLong(),
+            values["timeatampsStart"],
+            values["timeatampsStop"],
             values["status"],
             values["button1"],
             values["button2"],
@@ -93,59 +228,9 @@ fun returnConfig(s: String): Rpc? {
             values["button2link"],
             values["largeImg"],
             values["smallImg"],
-            values["type"]?.toInt()
+            values["type"]
         )
     }
 }
-
-
-@Composable
-fun SingleSelectDialog(
-    title: String,
-    optionsList: Array<String>?,
-    defaultSelected: Int,
-    submitButtonText: String,
-    onSubmitButtonClick: (Int) -> Unit,
-    onDismissRequest: () -> Unit
-) {
-
-    var selectedOption by remember {
-        mutableStateOf(defaultSelected)
-    }
-
-    Dialog(onDismissRequest = { onDismissRequest.invoke() }) {
-        Surface(
-            modifier = Modifier.width(300.dp),
-            shape = RoundedCornerShape(10.dp)
-        ) {
-            Column(modifier = Modifier.padding(10.dp)) {
-
-                Text(text = title)
-
-                Spacer(modifier = Modifier.height(10.dp))
-
-                LazyColumn {
-                    optionsList?.size?.let {
-                        items(it) { item ->
-                            SingleChoiceItem(text = optionsList[item], selected = false) {
-                                selectedOption = item
-                            }
-                        }
-                    }
-                }
-                Button(
-                    onClick = {
-                        onSubmitButtonClick.invoke(selectedOption)
-                        onDismissRequest.invoke()
-                    },
-                    shape = MaterialTheme.shapes.medium
-                ) {
-                    Text(text = submitButtonText)
-                }
-            }
-        }
-    }
-}
-
 
 

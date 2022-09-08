@@ -27,14 +27,15 @@ import com.google.gson.Gson
 import com.my.kizzy.R
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.SwitchBar
-import com.my.kizzy.ui.screen.rpc.custom.Menu.DeleteConfig
-import com.my.kizzy.ui.screen.rpc.custom.Menu.LoadConfig
-import com.my.kizzy.ui.screen.rpc.custom.Menu.SaveConfig
+import kotlinx.coroutines.launch
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomRPC(navController: NavController) {
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
         rememberTopAppBarState(),
         canScroll = { true })
@@ -107,6 +108,7 @@ fun CustomRPC(navController: NavController) {
     }
 
     Scaffold(
+        snackbarHost = { SnackbarHost(snackbarHostState) },
         modifier = Modifier
             .fillMaxSize()
             .nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -133,7 +135,8 @@ fun CustomRPC(navController: NavController) {
                             DropdownMenuItem(
                                 text = { Text(stringResource(id = R.string.load_config)) },
                                 onClick = {
-                                 showLoadDialog = !showLoadDialog
+                                    menuClicked = !menuClicked
+                                    showLoadDialog = !showLoadDialog
                                 },
                                 leadingIcon = {
                                     Icon(
@@ -145,7 +148,9 @@ fun CustomRPC(navController: NavController) {
 
                             DropdownMenuItem(
                                 text = { Text(stringResource(id = R.string.save_config)) },
-                                onClick = { showSaveDialog = !showSaveDialog
+                                onClick = {
+                                    menuClicked = !menuClicked
+                                    showSaveDialog = true
                                 },
                                 leadingIcon = {
                                     Icon(
@@ -157,7 +162,10 @@ fun CustomRPC(navController: NavController) {
 
                             DropdownMenuItem(
                                 text = { Text(stringResource(id = R.string.delete_configs)) },
-                                onClick = { showDeleteDialog = !showDeleteDialog },
+                                onClick = {
+                                    menuClicked = !menuClicked
+                                    showDeleteDialog = true
+                                },
                                 leadingIcon = {
                                     Icon(
                                         imageVector = Icons.Default.Delete,
@@ -170,23 +178,8 @@ fun CustomRPC(navController: NavController) {
                             DropdownMenuItem(
                                 text = { Text(stringResource(id = R.string.preview_rpc)) },
                                 onClick = {
-                                    PreviewRpc(
-                                        rpc = Rpc(
-                                            name = name,
-                                            details = details,
-                                            state = state,
-                                            startTime = toLong(startTimestamps),
-                                            StopTime = toLong(stopTimestamps),
-                                            status = status,
-                                            button1 = button1,
-                                            button2 = button2,
-                                            button1Url = button1Url,
-                                            button2Url = button2Url,
-                                            largeImg = largeImg,
-                                            smallImg = smallImg,
-                                            type = toInt(type)
-                                        )
-                                    )
+                                    menuClicked = !menuClicked
+                                    showPreview = true
                                 },
                                 leadingIcon = {
                                     Icon(
@@ -207,8 +200,12 @@ fun CustomRPC(navController: NavController) {
     )
     { padding ->
         Column(modifier = Modifier.padding(padding)) {
-            if (showLoadDialog){
-                LoadConfig(context = context, onConfigSelected = {
+            if (showLoadDialog) {
+                LoadConfig(
+                    onDismiss = {
+                        showLoadDialog = false
+                    }
+                ) {
                     name = it.name
                     details = it.details.toString()
                     state = it.state.toString()
@@ -222,15 +219,15 @@ fun CustomRPC(navController: NavController) {
                     largeImg = it.largeImg.toString()
                     smallImg = it.smallImg.toString()
                     type = it.type.toString()
-                })
-            } else if (showSaveDialog){
+                }
+            } else if (showSaveDialog) {
                 SaveConfig(
                     rpc = Rpc(
                         name = name,
                         details = details,
                         state = state,
-                        startTime = toLong(startTimestamps),
-                        StopTime = toLong(stopTimestamps),
+                        startTime = startTimestamps,
+                        StopTime = stopTimestamps,
                         status = status,
                         button1 = button1,
                         button2 = button2,
@@ -238,13 +235,44 @@ fun CustomRPC(navController: NavController) {
                         button2Url = button2Url,
                         largeImg = largeImg,
                         smallImg = smallImg,
-                        type = toInt(type)
-                    )
+                        type = type
+                    ),
+                    onDismiss = { showSaveDialog = false }
+                ) {
+                    scope.launch {
+                        snackbarHostState.showSnackbar(it)
+                    }
+                }
+            } else if (showDeleteDialog) {
+                DeleteConfig(onDismiss = {
+                    showDeleteDialog = false
+                }) {
+                    scope.launch {
+                        snackbarHostState.showSnackbar(it)
+                    }
+                }
+            } else if (showPreview) {
+                PreviewRpc(
+                    rpc = Rpc(
+                        name = name,
+                        details = details,
+                        state = state,
+                        startTime = startTimestamps,
+                        StopTime = stopTimestamps,
+                        status = status,
+                        button1 = button1,
+                        button2 = button2,
+                        button1Url = button1Url,
+                        button2Url = button2Url,
+                        largeImg = largeImg,
+                        smallImg = smallImg,
+                        type = type
+                    ),
+                    onDismiss = {
+                        showPreview = false
+                    }
                 )
-            } else if (showDeleteDialog){
-                DeleteConfig()
             }
-
 
             LazyColumn(
                 modifier = Modifier
@@ -264,8 +292,8 @@ fun CustomRPC(navController: NavController) {
                                         name = name,
                                         details = details,
                                         state = state,
-                                        startTime = toLong(startTimestamps),
-                                        StopTime = toLong(stopTimestamps),
+                                        startTime = startTimestamps,
+                                        StopTime = stopTimestamps,
                                         status = status,
                                         button1 = button1,
                                         button2 = button2,
@@ -273,7 +301,7 @@ fun CustomRPC(navController: NavController) {
                                         button2Url = button2Url,
                                         largeImg = largeImg,
                                         smallImg = smallImg,
-                                        type = toInt(type),
+                                        type = type,
                                     )
                                 )
                                 intent.putExtra("RPC", string)
@@ -533,22 +561,6 @@ fun timestampsPicker(context: Context, onTimeSet: (Long) -> Unit) {
     )
         .show()
 
-}
-
-fun toLong(s: String): Long? {
-    return try {
-        s.toLong()
-    } catch (e: NumberFormatException) {
-        null
-    }
-}
-
-fun toInt(s: String): Int? {
-    return try {
-        s.toInt()
-    } catch (e: NumberFormatException) {
-        null
-    }
 }
 
 

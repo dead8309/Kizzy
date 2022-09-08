@@ -4,8 +4,8 @@ data class Rpc(
     var name: String,
     var details:String?,
     var state: String?,
-    var startTime:Long?,
-    var StopTime: Long?,
+    var startTime:String?,
+    var StopTime: String?,
     var status:String?,
     var button1: String?,
     var button2:String?,
@@ -13,5 +13,5 @@ data class Rpc(
     var button2Url:String?,
     var largeImg:String?,
     var smallImg:String?,
-    var type: Int?
+    var type: String?
 )

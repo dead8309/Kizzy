@@ -37,3 +37,10 @@ val Blue1 = Color(0xFF9ACEFA)
 val Blue2 = Color(0xFFC1E3FF)
 val Purple1 = Color(0xFFCAA9FF)
 val Purple2 = Color(0xFFDBC7FD)
+
+//Discord Colors
+
+val DISCORD_DARK = Color(0xFF1e2124)
+val DISCORD_LIGHT_DARK = Color(0xFF282b30)
+val DISCORD_GREY = Color(0xFF36393e)
+val DISCORD_LIGHT_GREY = Color(0xFF6C6E70)
