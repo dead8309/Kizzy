@@ -19,6 +19,7 @@
     <string name="save_config">Save Config</string>
     <string name="delete_configs">Delete Config</string>
     <string name="preview_rpc">Preview Rpc</string>
+    <string name="select_a_config">Select a config</string>
 
 
 </resources>
