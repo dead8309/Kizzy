@@ -40,14 +40,14 @@
         </activity>
 
         <service
-            android:name=".ui.screen.rpc.apps.AppDetectionService"
+            android:name="com.my.kizzy.service.AppDetectionService"
             android:exported="false" />
         <service
-            android:name=".ui.screen.rpc.media.MediaRpcService"
+            android:name="com.my.kizzy.service.MediaRpcService"
             android:exported="false"
             android:foregroundServiceType="mediaPlayback" />
         <service
-            android:name=".ui.screen.rpc.media.NotificationListener"
+            android:name="com.my.kizzy.service.NotificationListener"
             android:exported="false"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" >
             <intent-filter>
@@ -55,7 +55,7 @@
             </intent-filter>
         </service>
         <service
-            android:name=".ui.screen.rpc.custom.CustomRpcService"
+            android:name="com.my.kizzy.service.CustomRpcService"
             android:exported="false" >
         </service>
 

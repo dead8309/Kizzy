@@ -1,4 +1,4 @@
-package com.my.kizzy.ui.screen.rpc.apps
+package com.my.kizzy.service
 
 import android.app.Service
 import android.content.Intent

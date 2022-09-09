@@ -1,10 +1,11 @@
-package com.my.kizzy.ui.screen.rpc.custom
+package com.my.kizzy.service
 
 import android.app.Service
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
 import com.google.gson.Gson
+import com.my.kizzy.ui.screen.custom.Rpc
 
 class CustomRpcService : Service() {
     lateinit var rpc: Rpc
@@ -18,7 +19,7 @@ class CustomRpcService : Service() {
         else
             intent?.getStringExtra("RPC")
 
-        rpc = Gson().fromJson(string,Rpc::class.java)
+        rpc = Gson().fromJson(string, Rpc::class.java)
         return super.onStartCommand(intent, flags, startId)
     }
 
