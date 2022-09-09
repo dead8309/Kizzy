@@ -1,6 +1,6 @@
 @file:Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
 
-package com.my.kizzy.ui.screen.rpc.custom
+package com.my.kizzy.ui.screen.custom
 
 import android.os.Environment
 import androidx.compose.foundation.layout.padding
@@ -63,9 +63,7 @@ fun LoadConfig(
 
                             ).also { data = it }
                             data?.let {
-                                it.stringToData()?.let { it1 ->
-                                    onConfigSelected(it1)
-                                }
+                                onConfigSelected(it.stringToData())
                             }
                         }
                     }
@@ -194,43 +192,44 @@ fun DeleteConfig(
 fun Rpc.dataToString(): String {
     val value: MutableMap<String, String> = HashMap()
     value["name"] = this.name
-    value["details"] = this.details.toString()
-    value["state"] = this.state.toString()
-    value["status"] = this.status.toString()
-    value["button1"] = this.button1.toString()
-    value["button2"] = this.button2.toString()
-    value["largeImg"] = this.largeImg.toString()
-    value["smallImg"] = this.smallImg.toString()
-    value["type"] = this.type.toString()
-    value["timeatampsStart"] = this.startTime.toString()
-    value["timeatampsStop"] = this.StopTime.toString()
-    value["button1link"] = this.button1Url.toString()
-    value["button2link"] = this.button2Url.toString()
+    value["details"] = this.details
+    value["state"] = this.state
+    value["status"] = this.status
+    value["button1"] = this.button1
+    value["button2"] = this.button2
+    value["largeImg"] = this.largeImg
+    value["smallImg"] = this.smallImg
+    value["type"] = this.type
+    value["timeatampsStart"] = this.startTime
+    value["timeatampsStop"] = this.StopTime
+    value["button1link"] = this.button1Url
+    value["button2link"] = this.button2Url
     return gson.toJson(value)
 }
 
-fun String.stringToData(): Rpc? {
-    val values = gson.fromJson<Map<String, String>>(
-        this,
-        object : TypeToken<HashMap<String?, String?>?>() {}.type
-    )
-    return values["name"]?.let {
-        Rpc(
-            it,
-            values["details"],
-            values["state"],
-            values["timeatampsStart"],
-            values["timeatampsStop"],
-            values["status"],
-            values["button1"],
-            values["button2"],
-            values["button1link"],
-            values["button2link"],
-            values["largeImg"],
-            values["smallImg"],
-            values["type"]
-        )
-    }
+fun String.stringToData(): Rpc {
+   try {
+       val values = gson.fromJson<Map<String, String>>(
+           this,
+           object : TypeToken<HashMap<String, String>>() {}.type
+       )
+       return Rpc(
+           values["name"] ?: "",
+           values["details"] ?: "",
+           values["state"] ?: "",
+           values["timeatampsStart"] ?: "",
+           values["timeatampsStop"] ?: "",
+           values["status"] ?: "",
+           values["button1"] ?: "",
+           values["button2"] ?: "",
+           values["button1link"] ?: "",
+           values["button2link"] ?: "",
+           values["largeImg"] ?: "",
+           values["smallImg"] ?: "",
+           values["type"] ?: "")
+   } catch (ex: Exception){
+       return Rpc("", "", "", "", "", "", "", "", "", "", "", "", "")
+   }
 }
 
 

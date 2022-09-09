@@ -1,4 +1,4 @@
-package com.my.kizzy.ui.screen.rpc.custom
+package com.my.kizzy.ui.screen.custom
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -19,12 +19,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.google.gson.Gson
 import com.my.kizzy.R
+import com.my.kizzy.service.CustomRpcService
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.SwitchBar
 import kotlinx.coroutines.launch
@@ -32,7 +30,7 @@ import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomRPC(navController: NavController) {
+fun CustomRPC(onBackPressed: () -> Unit) {
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
@@ -103,9 +101,6 @@ fun CustomRPC(navController: NavController) {
     var showDeleteDialog by remember {
         mutableStateOf(false)
     }
-    var showPreview by remember {
-        mutableStateOf(false)
-    }
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -120,7 +115,7 @@ fun CustomRPC(navController: NavController) {
                         style = MaterialTheme.typography.headlineLarge,
                     )
                 },
-                navigationIcon = { BackButton { navController.popBackStack() } },
+                navigationIcon = { BackButton { onBackPressed() } },
                 scrollBehavior = scrollBehavior,
                 actions = {
                     IconButton(onClick = { menuClicked = !menuClicked }) {
@@ -179,7 +174,24 @@ fun CustomRPC(navController: NavController) {
                                 text = { Text(stringResource(id = R.string.preview_rpc)) },
                                 onClick = {
                                     menuClicked = !menuClicked
-                                    showPreview = true
+                                    PreviewDialog.showPreview(
+                                        rpc = Rpc(
+                                            name = name,
+                                            details = details,
+                                            state = state,
+                                            startTime = startTimestamps,
+                                            StopTime = stopTimestamps,
+                                            status = status,
+                                            button1 = button1,
+                                            button2 = button2,
+                                            button1Url = button1Url,
+                                            button2Url = button2Url,
+                                            largeImg = largeImg,
+                                            smallImg = smallImg,
+                                            type = type
+                                        ),
+                                        context = context
+                                    )
                                 },
                                 leadingIcon = {
                                     Icon(
@@ -207,18 +219,18 @@ fun CustomRPC(navController: NavController) {
                     }
                 ) {
                     name = it.name
-                    details = it.details.toString()
-                    state = it.state.toString()
-                    startTimestamps = it.startTime.toString()
-                    stopTimestamps = it.StopTime.toString()
-                    status = it.status.toString()
-                    button1 = it.button1.toString()
-                    button2 = it.button2.toString()
-                    button1Url = it.button1Url.toString()
-                    button2Url = it.button2Url.toString()
-                    largeImg = it.largeImg.toString()
-                    smallImg = it.smallImg.toString()
-                    type = it.type.toString()
+                    details = it.details
+                    state = it.state
+                    startTimestamps = it.startTime
+                    stopTimestamps = it.StopTime
+                    status = it.status
+                    button1 = it.button1
+                    button2 = it.button2
+                    button1Url = it.button1Url
+                    button2Url = it.button2Url
+                    largeImg = it.largeImg
+                    smallImg = it.smallImg
+                    type = it.type
                 }
             } else if (showSaveDialog) {
                 SaveConfig(
@@ -251,27 +263,6 @@ fun CustomRPC(navController: NavController) {
                         snackbarHostState.showSnackbar(it)
                     }
                 }
-            } else if (showPreview) {
-                PreviewRpc(
-                    rpc = Rpc(
-                        name = name,
-                        details = details,
-                        state = state,
-                        startTime = startTimestamps,
-                        StopTime = stopTimestamps,
-                        status = status,
-                        button1 = button1,
-                        button2 = button2,
-                        button1Url = button1Url,
-                        button2Url = button2Url,
-                        largeImg = largeImg,
-                        smallImg = smallImg,
-                        type = type
-                    ),
-                    onDismiss = {
-                        showPreview = false
-                    }
-                )
             }
 
             LazyColumn(
@@ -561,12 +552,4 @@ fun timestampsPicker(context: Context, onTimeSet: (Long) -> Unit) {
     )
         .show()
 
-}
-
-
-@Preview
-@Composable
-fun Custom() {
-    val navController = rememberNavController()
-    CustomRPC(navController = navController)
 }

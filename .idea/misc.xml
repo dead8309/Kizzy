@@ -6,6 +6,9 @@
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/Kizzy/app/src/main/res/drawable/ic_apps.xml" value="0.187" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/Kizzy/app/src/main/res/drawable/ic_custom_rpc.xml" value="0.186" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/Kizzy/app/src/main/res/drawable/ic_media_rpc.xml" value="0.186" />
+        <entry key="..\:/Users/Administrator/StudioProjects/Kizzy-compose/app/src/main/res/drawable-v24/rpc_buttons.xml" value="0.211" />
+        <entry key="..\:/Users/Administrator/StudioProjects/Kizzy-compose/app/src/main/res/drawable-v24/rpc_holder_for_xml.xml" value="0.211" />
+        <entry key="..\:/Users/Administrator/StudioProjects/Kizzy-compose/app/src/main/res/drawable/error_avatar.xml" value="0.329" />
         <entry key="..\:/Users/Administrator/StudioProjects/Kizzy-compose/app/src/main/res/drawable/ic_apps.xml" value="0.1" />
         <entry key="..\:/Users/Administrator/StudioProjects/Kizzy-compose/app/src/main/res/drawable/ic_battery_optimisation" value="0.1" />
         <entry key="..\:/Users/Administrator/StudioProjects/Kizzy-compose/app/src/main/res/drawable/ic_battery_optimisation.xml" value="0.1" />
@@ -19,6 +22,7 @@
         <entry key="..\:/Users/Administrator/StudioProjects/Kizzy-compose/app/src/main/res/drawable/ic_small_midwave.xml" value="0.1" />
         <entry key="..\:/Users/Administrator/StudioProjects/Kizzy-compose/app/src/main/res/drawable/ic_youtube.xml" value="0.1" />
         <entry key="..\:/Users/Administrator/StudioProjects/Kizzy-compose/app/src/main/res/layout/layout.xml" value="0.1" />
+        <entry key="..\:/Users/Administrator/StudioProjects/Kizzy-compose/app/src/main/res/layout/rpc_preview.xml" value="0.2726449275362319" />
       </map>
     </option>
   </component>

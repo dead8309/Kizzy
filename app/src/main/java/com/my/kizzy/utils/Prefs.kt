@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken
 
 
 object Prefs {
+
     private const val APP_PREFERENCES = "kizzy_preferences"
     lateinit var preferences: SharedPreferences
 
@@ -66,10 +67,16 @@ object Prefs {
         set(ENABLED_APPS, Gson().toJson(enabled_packages))
     }
 
-
+    //User Preferences
+    const val USER_DATA ="user"
     const val TOKEN = "token"
-    const val LANGUAGE = "language"
     const val USER_NAME = "username"
+    const val USER_ID = "userID"
+    const val USER_AVATAR = "USERavatar"
+    const val USER_ABOUT_ME = "about_user"
+
+    const val LANGUAGE = "language"
+
     private const val ENABLED_APPS = "enabled_apps"
 
     //Media Rpc Preferences
