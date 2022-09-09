@@ -1,4 +1,4 @@
-package com.my.kizzy.ui.screen.rpc.apps
+package com.my.kizzy.ui.screen.apps
 
 
 import android.annotation.SuppressLint
@@ -19,7 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
+import com.my.kizzy.service.AppDetectionService
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.SwitchBar
 import com.my.kizzy.utils.AppUtils
@@ -29,7 +29,7 @@ import com.skydoves.landscapist.glide.GlideImage
 @SuppressLint("MutableCollectionMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppsRPC(navController: NavHostController) {
+fun AppsRPC(onBackPressed: () -> Unit) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
         rememberTopAppBarState(),
         canScroll = { true })
@@ -46,7 +46,7 @@ fun AppsRPC(navController: NavHostController) {
                         style = MaterialTheme.typography.headlineLarge,
                     )
                 },
-                navigationIcon = { BackButton{navController.popBackStack()} },
+                navigationIcon = { BackButton{ onBackPressed() } },
                 scrollBehavior = scrollBehavior
             )
         }
@@ -73,7 +73,7 @@ fun AppsRPC(navController: NavHostController) {
                 checked = serviceEnabled
                     ) {
                         serviceEnabled = !serviceEnabled
-                        ctx.startService(Intent(ctx,AppDetectionService::class.java))
+                        ctx.startService(Intent(ctx, AppDetectionService::class.java))
                     }
                 }
                 items(apps.size){i ->

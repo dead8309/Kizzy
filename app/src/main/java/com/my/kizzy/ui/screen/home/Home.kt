@@ -1,7 +1,6 @@
 package com.my.kizzy.ui.screen.home
 
 import android.content.Intent
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.net.Uri
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -30,10 +29,8 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.my.kizzy.ui.common.Routes
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.USER_NAME
@@ -265,16 +262,6 @@ fun RpcItem(
             )
         }
     }
-}
-
-@Preview(
-    showBackground = true,
-    uiMode = UI_MODE_NIGHT_YES
-)
-@Composable
-fun Prev() {
-    val navController = rememberNavController()
-    Home(navController = navController)
 }
 
 fun manipulateColor(color: Int, factor: Float): Int {

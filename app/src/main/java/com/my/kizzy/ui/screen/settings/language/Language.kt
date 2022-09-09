@@ -5,7 +5,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.PreferenceSingleChoiceItem
 import com.my.kizzy.utils.Prefs
@@ -14,7 +13,7 @@ import com.my.kizzy.utils.Prefs.LANGUAGE
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Language(navController: NavController) {
+fun Language(onBackPressed: () -> Unit) {
     var locale by remember {
         mutableStateOf(
             Prefs[LANGUAGE, "English"]
@@ -33,7 +32,7 @@ fun Language(navController: NavController) {
                 },
                 navigationIcon = {
                     BackButton {
-                        navController.popBackStack()
+                        onBackPressed()
                     }
                 }
             )

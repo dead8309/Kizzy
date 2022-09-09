@@ -9,16 +9,15 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.my.kizzy.ui.common.BackButton
-import com.my.kizzy.ui.common.Routes
 import com.my.kizzy.ui.screen.settings.SettingItem
 import me.rerere.md3compat.ThemeChooser
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Appearance(navController: NavController) {
+fun Appearance(onBackPressed: () -> Unit,
+navigateToLanguages: () -> Unit) {
     Scaffold(
         topBar = {
             LargeTopAppBar(
@@ -28,7 +27,7 @@ fun Appearance(navController: NavController) {
                         style = MaterialTheme.typography.headlineLarge,
                     )
                 },
-                navigationIcon = { BackButton { navController.popBackStack() } }
+                navigationIcon = { BackButton { onBackPressed() } }
             )
         }
     ) {
@@ -42,7 +41,7 @@ fun Appearance(navController: NavController) {
                 description = "English,Arabic,Chinese..",
                 icon = Icons.Outlined.Translate
             ) {
-                navController.navigate(Routes.LANGUAGES)
+                navigateToLanguages()
             }
         }
     }

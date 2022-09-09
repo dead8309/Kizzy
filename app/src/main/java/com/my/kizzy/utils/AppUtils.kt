@@ -4,9 +4,9 @@ package com.my.kizzy.utils
 
 import android.app.ActivityManager
 import android.content.Context
-import com.my.kizzy.ui.screen.rpc.apps.AppDetectionService
-import com.my.kizzy.ui.screen.rpc.custom.CustomRpcService
-import com.my.kizzy.ui.screen.rpc.media.MediaRpcService
+import com.my.kizzy.service.AppDetectionService
+import com.my.kizzy.service.CustomRpcService
+import com.my.kizzy.service.MediaRpcService
 
 object AppUtils {
 

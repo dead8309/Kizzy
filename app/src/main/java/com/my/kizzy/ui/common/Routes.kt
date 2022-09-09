@@ -11,6 +11,7 @@ class Routes (){
         const val LANGUAGES = "languages"
         const val STYLE_AND_APPEAREANCE = "style_and_appeareance"
         const val PROFILE = "profile"
+        const val LOGIN = "login_screen"
         const val RPC_SETTINGS = "rpc_settings"
     }
 }

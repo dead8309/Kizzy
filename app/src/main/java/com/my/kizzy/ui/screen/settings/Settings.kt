@@ -21,15 +21,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.PreferencesHint
-import com.my.kizzy.ui.common.Routes
 
 @SuppressLint("BatteryLife")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Settings(navController: NavHostController) {
+fun Settings(
+    navigateToProfile: () -> Unit,
+    navigateToStyleAndAppeareance: () -> Unit,
+    navigateToAbout: () -> Unit,
+    onBackPressed: () -> Unit
+) {
     val context = LocalContext.current
     val pm = context.getSystemService(Context.POWER_SERVICE) as PowerManager
     var showBatteryHint by remember { mutableStateOf(!pm.isIgnoringBatteryOptimizations(context.packageName)) }
@@ -39,7 +42,7 @@ fun Settings(navController: NavHostController) {
         ) {
             SmallTopAppBar(
                 title = {},
-                navigationIcon = { BackButton { navController.popBackStack() } },
+                navigationIcon = { BackButton { onBackPressed() } },
                 modifier = Modifier.padding(start = 8.dp)
             )
             Text(
@@ -69,10 +72,7 @@ fun Settings(navController: NavHostController) {
                         description = "Account info",
                         icon = Icons.Outlined.Person
                     ) {
-                        navController.navigate(Routes.PROFILE) {
-                            launchSingleTop = true
-
-                        }
+                        navigateToProfile()
                     }
                 }
                 item {
@@ -81,9 +81,7 @@ fun Settings(navController: NavHostController) {
                         description = "Theme,Dynamic Colors,Languages",
                         icon = Icons.Outlined.Palette
                     ) {
-                        navController.navigate(Routes.STYLE_AND_APPEAREANCE) {
-                            launchSingleTop = true
-                        }
+                       navigateToStyleAndAppeareance()
                     }
                 }
                 item {
@@ -92,9 +90,7 @@ fun Settings(navController: NavHostController) {
                         description = "Version,releases",
                         icon = Icons.Outlined.Info
                     ) {
-                        navController.navigate(Routes.ABOUT) {
-                            launchSingleTop = true
-                        }
+                        navigateToAbout()
                     }
                 }
             }
