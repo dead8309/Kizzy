@@ -20,6 +20,7 @@
     <string name="delete_configs">Delete Config</string>
     <string name="preview_rpc">Preview Rpc</string>
     <string name="select_a_config">Select a config</string>
+    <string name="login_with_discord">Login With Discord</string>
 
 
 </resources>

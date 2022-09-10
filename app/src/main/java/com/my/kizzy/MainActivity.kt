@@ -80,17 +80,10 @@ class MainActivity : ComponentActivity() {
                 animatedComposable(Routes.CUSTOM_RPC) { CustomRPC(onBackPressed = {navcontroller.popBackStack()} ) }
                 animatedComposable(Routes.MEDIA_RPC) { MediaRPC(onBackPressed = {navcontroller.popBackStack()} ) }
                 animatedComposable(Routes.PROFILE) {
-                    if (Prefs[Prefs.TOKEN, ""].isEmpty()) {
-                        navcontroller.navigate(Routes.LOGIN)
-                    } else {
                         Profile(onBackPressed = {
                             navcontroller.popBackStack()
                         })
-                    }
                 }
-                animatedComposable(Routes.LOGIN) { Login(onBackPressed = {
-                    navcontroller.popBackStack()
-                }) }
                 animatedComposable(Routes.RPC_SETTINGS) { RpcSettings(onBackPressed = {
                     navcontroller.popBackStack()
                 }) }

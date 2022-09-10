@@ -10,13 +10,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.my.kizzy.R
+import com.my.kizzy.ui.screen.profile.user.UserData
 import com.my.kizzy.utils.Prefs
-import com.my.kizzy.utils.Prefs.USER_AVATAR
 import com.my.kizzy.utils.Prefs.USER_DATA
-import com.my.kizzy.utils.Prefs.USER_ID
-import com.my.kizzy.utils.Prefs.USER_NAME
 
 
 object PreviewDialog {
@@ -84,21 +81,20 @@ object PreviewDialog {
          }
 
 
-         val user: HashMap<String, String> = Gson().fromJson(
-            Prefs[USER_DATA, "{}"],
-            object : TypeToken<HashMap<String?, String?>?>() {}.type
+         val user: UserData = Gson().fromJson(
+            Prefs[USER_DATA, "{}"],UserData::class.java
         )
         view.findViewById<TextView>(R.id.user_name).text =
-            when (user[USER_NAME]?.isNotEmpty()) {
-                true -> user[USER_NAME]
+            when (user.name.isNotEmpty()) {
+                true -> user.name
                 else -> "User"
             }
         view.findViewById<TextView>(R.id.user_hash).text =
-            user[USER_ID]?.let { user[USER_ID]?.substring(it.indexOf("#")) } ?: "#0000"
+            user.username.let { user.username.substring(it.indexOf("#")) }
 
         Glide
             .with(context)
-            .load(user[USER_AVATAR])
+            .load(user.avatar)
             .error(R.drawable.error_avatar).into(view.findViewById(R.id.user_profile))
 
         val builder =  AlertDialog.Builder(context)

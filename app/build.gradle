@@ -68,4 +68,5 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.9.1'
     implementation "com.github.skydoves:landscapist-glide:1.6.1"
     implementation 'com.blankj:utilcodex:1.31.0'
+    implementation 'org.java-websocket:Java-WebSocket:1.5.3'
 }

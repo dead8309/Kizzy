@@ -16,9 +16,6 @@ import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,9 +28,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.google.gson.Gson
 import com.my.kizzy.ui.common.Routes
+import com.my.kizzy.ui.screen.profile.user.UserData
 import com.my.kizzy.utils.Prefs
-import com.my.kizzy.utils.Prefs.USER_NAME
+import com.my.kizzy.utils.Prefs.USER_DATA
 import com.my.kizzy.utils.standardQuadFromTo
 import kotlin.math.roundToInt
 
@@ -42,15 +41,13 @@ import kotlin.math.roundToInt
 fun Home(
     navController: NavController
 ) {
-    val user by remember {
-        mutableStateOf(Prefs[USER_NAME,""])
-    }
+    val user: String = Gson().fromJson(Prefs[USER_DATA,"{}"],UserData::class.java).name
     Scaffold(
         topBar = {
             LargeTopAppBar(
                 title = {
                     Text(
-                        text = "Welcome, $user",
+                        text = "Welcome, ${user?:""}",
                         style = MaterialTheme.typography.headlineLarge,
                     )
                 },
