@@ -32,14 +32,14 @@ fun getHomeitems() = listOf(
     HomeItem(
         title = "Custom Rpc",
         icon = R.drawable.ic_rpc_placeholder,
-        iconColor = LightRedIcon,
+        iconColor = LightPurpleIcon,
         route = Routes.CUSTOM_RPC,
         ),
     HomeItem(
-        title = "Rpc Settings",
-        icon = R.drawable.ic_rpc_settings,
-        iconColor = LightPurpleIcon,
-        route = Routes.RPC_SETTINGS,
+        title = "Nintendo Rpc",
+        icon = R.drawable.ic_nintendo_switch,
+        iconColor = LightRedIcon,
+        route = Routes.NINTENDO_RPC,
     ),
     HomeItem(
         title = "Soon",

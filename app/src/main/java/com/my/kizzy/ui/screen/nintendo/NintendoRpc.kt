@@ -1,4 +1,4 @@
-package com.my.kizzy.ui.screen.settings
+package com.my.kizzy.ui.screen.nintendo
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,11 +8,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun RpcSettings(onBackPressed: () -> Unit) {
+fun NintendoRpc(onBackPressed: () -> Unit) {
     Box(modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     )
     {
-        Text(text = "Rpc Settings Page")
+        Text(text = "Soon be implemented")
     }
 }

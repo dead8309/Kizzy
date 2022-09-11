@@ -1,6 +1,5 @@
 package com.my.kizzy.ui.screen.profile
 
-import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -17,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -39,7 +37,7 @@ import kotlinx.coroutines.delay
 
 @Preview
 @Composable
-fun user() {
+fun UserPreview() {
     User()
 }
 
@@ -112,15 +110,6 @@ fun User() {
             .height(90.dp)
             .padding(20.dp, 4.dp)) {
 
-            val infiniteTransition = rememberInfiniteTransition()
-            val angle by infiniteTransition.animateFloat(
-                initialValue = -3F,
-                targetValue = 3F,
-                animationSpec = infiniteRepeatable(
-                    animation = tween(800, easing = LinearEasing)
-                )
-            )
-
             Box(modifier = Modifier
                 .size(70.dp)
                 .clip(RoundedCornerShape(15.dp))
@@ -132,9 +121,6 @@ fun User() {
                     modifier = Modifier
                         .size(48.dp)
                         .background(DarkBlueBg, RoundedCornerShape(15.dp))
-                        .graphicsLayer {
-                            rotationZ = angle
-                        }
                 )
             }
             Column {

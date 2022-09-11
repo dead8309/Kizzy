@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.my.kizzy.ui.common.BackButton
-import com.my.kizzy.ui.screen.settings.SettingItem
+import com.my.kizzy.ui.common.SettingItem
 import me.rerere.md3compat.ThemeChooser
 
 

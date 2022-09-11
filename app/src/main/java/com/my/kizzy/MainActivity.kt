@@ -18,15 +18,15 @@ import com.my.kizzy.ui.screen.apps.AppsRPC
 import com.my.kizzy.ui.screen.custom.CustomRPC
 import com.my.kizzy.ui.screen.home.Home
 import com.my.kizzy.ui.screen.media.MediaRPC
-import com.my.kizzy.ui.screen.profile.Login
+import com.my.kizzy.ui.screen.nintendo.NintendoRpc
 import com.my.kizzy.ui.screen.profile.Profile
-import com.my.kizzy.ui.screen.settings.RpcSettings
 import com.my.kizzy.ui.screen.settings.Settings
 import com.my.kizzy.ui.screen.settings.about.About
+import com.my.kizzy.ui.screen.settings.about.Credits
 import com.my.kizzy.ui.screen.settings.language.Language
 import com.my.kizzy.ui.screen.settings.style.Appearance
 import com.my.kizzy.ui.theme.AppTypography
-import com.my.kizzy.utils.Prefs
+import com.yariksoffice.lingver.Lingver
 import me.rerere.md3compat.Md3CompatTheme
 
 class MainActivity : ComponentActivity() {
@@ -38,6 +38,11 @@ class MainActivity : ComponentActivity() {
                 Kizzy()
             }
         }
+    }
+
+    fun changeLanguage(lang: String){
+        Lingver.getInstance().setLocale(this,lang)
+        recreate()
     }
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -76,35 +81,55 @@ class MainActivity : ComponentActivity() {
                         }
                     )
                 }
-                animatedComposable(Routes.APPS_DETECTION) { AppsRPC(onBackPressed = {navcontroller.popBackStack()} ) }
-                animatedComposable(Routes.CUSTOM_RPC) { CustomRPC(onBackPressed = {navcontroller.popBackStack()} ) }
-                animatedComposable(Routes.MEDIA_RPC) { MediaRPC(onBackPressed = {navcontroller.popBackStack()} ) }
+                animatedComposable(Routes.APPS_DETECTION) { AppsRPC(onBackPressed = { navcontroller.popBackStack() }) }
+                animatedComposable(Routes.CUSTOM_RPC) { CustomRPC(onBackPressed = { navcontroller.popBackStack() }) }
+                animatedComposable(Routes.MEDIA_RPC) { MediaRPC(onBackPressed = { navcontroller.popBackStack() }) }
                 animatedComposable(Routes.PROFILE) {
-                        Profile(onBackPressed = {
-                            navcontroller.popBackStack()
-                        })
+                    Profile(onBackPressed = {
+                        navcontroller.popBackStack()
+                    })
                 }
-                animatedComposable(Routes.RPC_SETTINGS) { RpcSettings(onBackPressed = {
-                    navcontroller.popBackStack()
-                }) }
-                animatedComposable(Routes.LANGUAGES) { Language(onBackPressed = {
-                    navcontroller.popBackStack()
-                }) }
-                animatedComposable(Routes.STYLE_AND_APPEAREANCE) { Appearance(onBackPressed = {
-                    navcontroller.popBackStack()
-                }, navigateToLanguages = {
-                    navcontroller.navigate(Routes.LANGUAGES)
-                }) }
-                animatedComposable(Routes.ABOUT) { About() }
-            }
+                animatedComposable(Routes.NINTENDO_RPC) {
+                    NintendoRpc(onBackPressed = {
+                        navcontroller.popBackStack()
+                    })
+                }
+                animatedComposable(Routes.LANGUAGES) {
+                    Language(onBackPressed = {
+                        navcontroller.popBackStack()
+                    })
+                }
+                animatedComposable(Routes.STYLE_AND_APPEAREANCE) {
+                    Appearance(onBackPressed = {
+                        navcontroller.popBackStack()
+                    }, navigateToLanguages = {
+                        navcontroller.navigate(Routes.LANGUAGES)
+                    })
+                }
+                animatedComposable(Routes.ABOUT) {
+                    About(
+                        onBackPressed = {
+                            navcontroller.popBackStack()
+                        },
+                        navigateToCredits = {
+                            navcontroller.navigate(Routes.CREDITS)
+                        }
+                    )
+                }
+                animatedComposable(Routes.CREDITS){
+                    Credits {
+                        navcontroller.popBackStack()
+                    }
+                }
         }
     }
+}
 
 
-    @Preview(showBackground = true)
-    @Composable
-    fun DefaultPreview() {
-        MaterialTheme {
-        }
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    MaterialTheme {
     }
+}
 }

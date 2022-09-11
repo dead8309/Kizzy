@@ -21,6 +21,17 @@
     <string name="preview_rpc">Preview Rpc</string>
     <string name="select_a_config">Select a config</string>
     <string name="login_with_discord">Login With Discord</string>
+    <string name="github_readme">README</string>
+    <string name="github_readme_desc">Check the Github repository</string>
+    <string name="github_latest_release">"Latest release "</string>
+    <string name="github_latest_release_desc">Look for new version and changelog</string>
+    <string name="github_issue">Github issue</string>
+    <string name="github_issue_desc">Submit an issue for bug report or feature request</string>
+    <string name="credits">Credits</string>
+    <string name="credits_desc">Credits to libraries used and contributors</string>
+    <string name="enable_artist_name">Enable Artist Name</string>
+    <string name="show_app_icon">Show App Icon</string>
+    <string name="enable_timestamps">Enable Timestamps</string>
 
 
 </resources>
