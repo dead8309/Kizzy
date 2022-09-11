@@ -20,6 +20,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.my.kizzy.service.AppDetectionService
+import com.my.kizzy.service.CustomRpcService
+import com.my.kizzy.service.MediaRpcService
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.SwitchBar
 import com.my.kizzy.utils.AppUtils
@@ -70,10 +72,18 @@ fun AppsRPC(onBackPressed: () -> Unit) {
                 item {
                     SwitchBar(
                 title = "Enable App Detection",
-                checked = serviceEnabled
+                checked = serviceEnabled,
                     ) {
                         serviceEnabled = !serviceEnabled
-                        ctx.startService(Intent(ctx, AppDetectionService::class.java))
+                        when(serviceEnabled){
+                            true ->  {
+                                ctx.stopService(Intent(ctx, MediaRpcService::class.java))
+                                ctx.stopService(Intent(ctx, CustomRpcService::class.java))
+                                ctx.startService(Intent(ctx, AppDetectionService::class.java))
+                            }
+                            false -> ctx.stopService(Intent(ctx, AppDetectionService::class.java))
+                        }
+
                     }
                 }
                 items(apps.size){i ->
@@ -91,7 +101,6 @@ fun AppsRPC(onBackPressed: () -> Unit) {
                                 app
                         }
                     }
-
                 }
             }
         }

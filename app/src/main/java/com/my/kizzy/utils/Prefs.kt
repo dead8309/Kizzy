@@ -73,10 +73,13 @@ object Prefs {
 
     const val LANGUAGE = "language"
 
-    private const val ENABLED_APPS = "enabled_apps"
+    const val ENABLED_APPS = "enabled_apps"
 
     //Media Rpc Preferences
     const val MEDIA_RPC_ARTIST_NAME = "media_rpc_artist_name"
     const val MEDIA_RPC_APP_ICON = "media_rpc_app_icon"
+    const val MEDIA_RPC_ENABLE_TIMESTAMPS = "enable_timestamps"
 
+    // Saved Image Asset ids
+    const val SAVED_IMAGES = "saved_images"
 }

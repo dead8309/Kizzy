@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import com.my.kizzy.MainActivity
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.PreferenceSingleChoiceItem
 import com.my.kizzy.utils.Prefs
@@ -19,7 +20,6 @@ fun Language(onBackPressed: () -> Unit) {
             Prefs[LANGUAGE, "English"]
         )
     }
-
 
     Scaffold(
         topBar = {
@@ -47,6 +47,7 @@ fun Language(onBackPressed: () -> Unit) {
                     ) {
                         locale = language.key
                         Prefs[LANGUAGE] = language.key
+                        MainActivity().changeLanguage(language.value)
                     }
                 }
             }
@@ -57,7 +58,7 @@ fun Language(onBackPressed: () -> Unit) {
 fun languages(): Map<String, String> =
     mapOf(
         Pair("English", "en"),
-        Pair("Arabic", "ar"),
+       /* Pair("Arabic", "ar"),
         Pair("Russian", "ba"),
         Pair("Spanish", "es"),
         Pair("French", "fr"),
@@ -80,5 +81,5 @@ fun languages(): Map<String, String> =
         Pair("Thailand", "th"),
         Pair("Laos", "lo"),
         Pair("Myanmar", "my"),
-        Pair("Tagalog (Philippines)", "phi")
+        Pair("Tagalog (Philippines)", "phi")*/
     )

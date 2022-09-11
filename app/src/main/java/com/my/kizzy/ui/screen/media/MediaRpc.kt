@@ -9,12 +9,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Apps
 import androidx.compose.material.icons.filled.Audiotrack
+import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import com.my.kizzy.R
 import com.my.kizzy.service.MediaRpcService
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.PreferenceSwitch
@@ -23,6 +25,7 @@ import com.my.kizzy.utils.AppUtils
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.MEDIA_RPC_APP_ICON
 import com.my.kizzy.utils.Prefs.MEDIA_RPC_ARTIST_NAME
+import com.my.kizzy.utils.Prefs.MEDIA_RPC_ENABLE_TIMESTAMPS
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -31,6 +34,7 @@ fun MediaRPC(onBackPressed: () -> Unit) {
     var mediarpcRunning by remember { mutableStateOf(AppUtils.mediaRpcRunning(context)) }
     var isArtistEnabled by remember { mutableStateOf(Prefs[MEDIA_RPC_ARTIST_NAME,false]) }
     var isAppIconEnabled by remember { mutableStateOf(Prefs[MEDIA_RPC_APP_ICON,false]) }
+    var isTimestampsEnabled by remember { mutableStateOf(Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS,false]) }
     var showAlertDialog by remember { mutableStateOf(hasNotificationAccess(context)) }
     
     Scaffold(
@@ -59,7 +63,7 @@ fun MediaRPC(onBackPressed: () -> Unit) {
             }
             
             PreferenceSwitch(
-                title = "Enable Artist Name",
+                title = stringResource(id = R.string.enable_artist_name),
             icon = Icons.Default.Audiotrack,
             isChecked = isArtistEnabled,
             ){
@@ -68,12 +72,20 @@ fun MediaRPC(onBackPressed: () -> Unit) {
             }
 
             PreferenceSwitch(
-                title = "Show App Icon",
+                title = stringResource(id = R.string.show_app_icon),
                 icon = Icons.Default.Apps,
                 isChecked = isAppIconEnabled,
             ){
                 isAppIconEnabled = !isAppIconEnabled
                 Prefs[MEDIA_RPC_APP_ICON] = isAppIconEnabled
+            }
+            PreferenceSwitch(
+                title = stringResource(id = R.string.enable_timestamps),
+                icon = Icons.Default.Timer,
+                isChecked = isTimestampsEnabled,
+            ){
+                isTimestampsEnabled = !isTimestampsEnabled
+                Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS] = isTimestampsEnabled
             }
 
             if(!showAlertDialog) {
