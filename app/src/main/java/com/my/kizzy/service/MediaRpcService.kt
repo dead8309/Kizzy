@@ -11,6 +11,7 @@ import android.os.IBinder
 import android.os.PowerManager
 import android.os.PowerManager.WakeLock
 import com.blankj.utilcode.util.AppUtils.getAppName
+import com.my.kizzy.R
 import com.my.kizzy.rpc.Constants
 import com.my.kizzy.rpc.ImageResolver
 import com.my.kizzy.rpc.KizzyRPC
@@ -22,8 +23,8 @@ import com.my.kizzy.utils.Prefs.TOKEN
 
 
 @Suppress("DEPRECATION")
-class MediaRpcService: Service() {
-    companion object{
+class MediaRpcService : Service() {
+    companion object {
         const val CHANNEL_ID = "MediaRPC"
         var App_Name = ""
         var TITLE = ""
@@ -42,7 +43,7 @@ class MediaRpcService: Service() {
     override fun onCreate() {
         super.onCreate()
         context = this
-        val token = Prefs[TOKEN,""]
+        val token = Prefs[TOKEN, ""]
         if (token.isEmpty()) stopSelf()
         val time = System.currentTimeMillis()
         val notificationManager = getSystemService(
@@ -50,14 +51,14 @@ class MediaRpcService: Service() {
         notificationManager.createNotificationChannel(NotificationChannel(CHANNEL_ID,
             "Background Service",
             NotificationManager.IMPORTANCE_LOW))
-        val builder = Notification.Builder(context, AppDetectionService.CHANNEL_ID)
-        builder.setSmallIcon(com.my.kizzy.R.drawable.ic_media_rpc)
+        val builder = Notification.Builder(context, CHANNEL_ID)
+        builder.setSmallIcon(R.drawable.ic_media_rpc)
         val intent = Intent(this, MediaRpcService::class.java)
         intent.action = ACTION_STOP_SERVICE
         val pendingIntent = PendingIntent.getService(this,
             0, intent, PendingIntent.FLAG_IMMUTABLE)
-        builder.addAction(com.my.kizzy.R.drawable.ic_media_rpc, "Exit", pendingIntent)
-        enable_time = Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS,false]
+        builder.addAction(R.drawable.ic_media_rpc, "Exit", pendingIntent)
+        enable_time = Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS, false]
         val powerManager = getSystemService(POWER_SERVICE) as PowerManager
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "kizzy:MediaRPC")
         wakeLock?.acquire()
@@ -73,8 +74,12 @@ class MediaRpcService: Service() {
                     if (sessions.size > 0) {
                         val mediaController = sessions[0]
                         val newTitle = mediaController.metadata?.getString(MediaMetadata.METADATA_KEY_TITLE)
-                        author = if (Prefs[MEDIA_RPC_ARTIST_NAME,false])getArtistOrAuthor(mediaController.metadata) else null
-                        if (Prefs[MEDIA_RPC_APP_ICON,false]) app_icon = ImageResolver().resolveImageOfAppIcon(mediaController.packageName,this)
+                        author = if (Prefs[MEDIA_RPC_ARTIST_NAME, false]) getArtistOrAuthor(mediaController.metadata)
+                        else null
+                        app_icon =
+                            if (Prefs[MEDIA_RPC_APP_ICON, false]) ImageResolver().resolveImageOfAppIcon(
+                                mediaController.packageName, this)
+                            else null
                         if (newTitle != null) {
                             if (newTitle != TITLE) {
                                 TITLE = newTitle
@@ -111,6 +116,7 @@ class MediaRpcService: Service() {
         }
         thread?.start()
     }
+
     private fun getArtistOrAuthor(metadata: MediaMetadata?): String? {
         return if (metadata!!.getString(MediaMetadata.METADATA_KEY_ARTIST) != null) "by " + metadata.getString(
             MediaMetadata.METADATA_KEY_ARTIST) else if (metadata.getString(MediaMetadata.METADATA_KEY_ARTIST) != null) "by " + metadata.getString(
@@ -121,7 +127,7 @@ class MediaRpcService: Service() {
         intent?.let {
             it.action?.let { ac ->
                 if (ac == ACTION_STOP_SERVICE)
-                stopSelf()
+                    stopSelf()
             }
         }
         return super.onStartCommand(intent, flags, startId)

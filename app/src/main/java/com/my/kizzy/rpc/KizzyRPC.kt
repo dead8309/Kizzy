@@ -90,11 +90,13 @@ class KizzyRPC(
      * @param large_image
      * @return
      */
-    fun setLargeImage(large_image: String): KizzyRPC {
-                if (large_image.startsWith("attachments"))
-                    this.large_image = "mp:$large_image"
-                else
-                    this.large_image = ImageResolver().resolveImageFromUrl(large_image)
+    fun setLargeImage(large_image: String?): KizzyRPC {
+        if (large_image != null) {
+            if (large_image.startsWith("attachments"))
+                this.large_image = "mp:$large_image"
+            else
+                this.large_image = ImageResolver().resolveImageFromUrl(large_image)
+        }
         return this
     }
 
@@ -150,7 +152,9 @@ class KizzyRPC(
      */
 
     fun setType(type: Int): KizzyRPC {
-        this.type = type
+        if (type in 0..5)
+            this.type = type
+        else this.type = 0
         return this
     }
 
@@ -169,8 +173,8 @@ class KizzyRPC(
      * @param button1_Text
      * @return
      */
-    fun setButton1(button1_Text: String): KizzyRPC {
-        buttons.add(button1_Text)
+    fun setButton1(button1_Text: String?): KizzyRPC {
+        button1_Text?.let { buttons.add(it) }
         return this
     }
 
@@ -179,8 +183,8 @@ class KizzyRPC(
      * @param button2_text
      * @return
      */
-    fun setButton2(button2_text: String): KizzyRPC {
-        buttons.add(button2_text)
+    fun setButton2(button2_text: String?): KizzyRPC {
+        button2_text?.let { buttons.add(it) }
         return this
     }
 
@@ -189,8 +193,8 @@ class KizzyRPC(
      * @param url
      * @return
      */
-    fun setButton1URL(url: String): KizzyRPC {
-        button_url.add(url)
+    fun setButton1URL(url: String?): KizzyRPC {
+        url?.let { button_url.add(it) }
         return this
     }
 
@@ -199,8 +203,8 @@ class KizzyRPC(
      * @param url
      * @return
      */
-    fun setButton2URL(url: String): KizzyRPC {
-        button_url.add(url)
+    fun setButton2URL(url: String?): KizzyRPC {
+        url?.let { button_url.add(it) }
         return this
     }
 

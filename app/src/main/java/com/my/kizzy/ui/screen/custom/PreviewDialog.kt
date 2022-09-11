@@ -61,14 +61,14 @@ object PreviewDialog {
                  view.findViewById<ImageView>(R.id.smallimg).visibility = View.GONE
              }
 
-             view.findViewById<TextView?>(R.id.activity_status).text = type.getType()
+             view.findViewById<TextView?>(R.id.activity_status).text = type.getType(name)
              view.findViewById<TextView?>(R.id.activity_name).text = name
              view.findViewById<TextView?>(R.id.activity_details).text = details
              view.findViewById<TextView?>(R.id.activity_state).text = state
 
              if (button1.isNotEmpty()) {
                  val button = view.findViewById<TextView?>(R.id.activity_button1)
-                 button.text = button2
+                 button.text = button1
              } else
                  view.findViewById<TextView?>(R.id.activity_button1).visibility = View.GONE
 
@@ -104,7 +104,7 @@ object PreviewDialog {
         dialog.show()
     }
 
-    private fun String.getType(): String {
+    private fun String.getType(name: String): String {
         val type:Int = try {
             if (this.isNotEmpty()) this.toDouble().toInt()
             else 0
@@ -112,11 +112,11 @@ object PreviewDialog {
             0
         }
         return when (type) {
-            1 -> "Streaming on $this"
-            2 -> "Listening $this"
-            3 -> "Watching $this"
+            1 -> "Streaming on $name"
+            2 -> "Listening $name"
+            3 -> "Watching $name"
             4 -> ""
-            5 -> "Competing in $this"
+            5 -> "Competing in $name"
             else -> "Playing a game"
         }
     }

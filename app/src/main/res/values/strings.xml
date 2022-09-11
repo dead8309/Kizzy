@@ -32,6 +32,9 @@
     <string name="enable_artist_name">Enable Artist Name</string>
     <string name="show_app_icon">Show App Icon</string>
     <string name="enable_timestamps">Enable Timestamps</string>
+    <string name="text_after_permission_denied">Storage access is important for this app to store configs in public directories. Please grant the permission.</string>
+    <string name="request_for_permission">Storage permission required for config features to work. Please grant the permission</string>
+    <string name="grant_permission">Grant Permission</string>
 
 
 </resources>

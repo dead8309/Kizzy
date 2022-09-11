@@ -5,7 +5,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import com.my.kizzy.MainActivity
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.PreferenceSingleChoiceItem
 import com.my.kizzy.utils.Prefs
@@ -47,7 +46,7 @@ fun Language(onBackPressed: () -> Unit) {
                     ) {
                         locale = language.key
                         Prefs[LANGUAGE] = language.key
-                        MainActivity().changeLanguage(language.value)
+                       // MainActivity().changeLanguage(language.value)
                     }
                 }
             }

@@ -17,6 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.my.kizzy.R
+import com.my.kizzy.service.AppDetectionService
+import com.my.kizzy.service.CustomRpcService
 import com.my.kizzy.service.MediaRpcService
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.PreferenceSwitch
@@ -59,7 +61,14 @@ fun MediaRPC(onBackPressed: () -> Unit) {
                 checked = mediarpcRunning
             ) {
                 mediarpcRunning = !mediarpcRunning
-                context.startService(Intent(context, MediaRpcService::class.java))
+                when(mediarpcRunning){
+                    true ->  {
+                        context.stopService(Intent(context, AppDetectionService::class.java))
+                        context.stopService(Intent(context, CustomRpcService::class.java))
+                        context.startService(Intent(context, MediaRpcService::class.java))
+                    }
+                    false -> context.stopService(Intent(context, MediaRpcService::class.java))
+                }
             }
             
             PreferenceSwitch(

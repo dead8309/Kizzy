@@ -20,28 +20,37 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.PermissionStatus
+import com.google.accompanist.permissions.rememberPermissionState
 import com.google.gson.Gson
 import com.my.kizzy.R
+import com.my.kizzy.service.AppDetectionService
 import com.my.kizzy.service.CustomRpcService
+import com.my.kizzy.service.MediaRpcService
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.SwitchBar
+import com.my.kizzy.utils.AppUtils
 import kotlinx.coroutines.launch
 import java.util.*
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
 @Composable
 fun CustomRPC(onBackPressed: () -> Unit) {
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
+
+    val storagePermissionstate = rememberPermissionState(
+        android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+    )
 
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
         rememberTopAppBarState(),
         canScroll = { true })
     val context = LocalContext.current
 
-    //AppUtils.customRpc
     var isCustomRpcEnabled by remember {
-        mutableStateOf(false)
+        mutableStateOf(AppUtils.customRpcRunning(context))
     }
 
     var name by remember {
@@ -126,6 +135,34 @@ fun CustomRPC(onBackPressed: () -> Unit) {
                         DropdownMenu(
                             expanded = menuClicked,
                             onDismissRequest = { menuClicked = !menuClicked }) {
+
+                            when (storagePermissionstate.status) {
+                                PermissionStatus.Granted -> {}
+                                is PermissionStatus.Denied -> {
+                                    val reqText = if ((storagePermissionstate.status as PermissionStatus.Denied).shouldShowRationale) {
+                                        stringResource(id = R.string.text_after_permission_denied)
+                                    } else {
+                                        stringResource(id = R.string.request_for_permission)
+                                    }
+                                    AlertDialog(onDismissRequest = {},
+                                        confirmButton = {
+                                            Button(onClick = { storagePermissionstate.launchPermissionRequest() }) {
+                                                Text(text = stringResource(id = R.string.grant_permission))
+                                            }
+                                        },
+                                        title = {
+                                            Text(text = "Permission Required")
+                                        },
+                                        icon = {
+                                            Icon(imageVector = Icons.Default.Folder
+                                                , contentDescription = "storage")
+                                        },
+                                        text = {
+                                            Text(text = reqText)
+                                        }
+                                    )
+                                }
+                            }
 
                             DropdownMenuItem(
                                 text = { Text(stringResource(id = R.string.load_config)) },
@@ -275,9 +312,11 @@ fun CustomRPC(onBackPressed: () -> Unit) {
                         checked = isCustomRpcEnabled
                     ) {
                         isCustomRpcEnabled = !isCustomRpcEnabled
-                        with(context) {
-                            if (isCustomRpcEnabled) {
-                                val intent = Intent(this, CustomRpcService::class.java)
+                        when(isCustomRpcEnabled){
+                            true ->  {
+                                context.stopService(Intent(context, AppDetectionService::class.java))
+                                context.stopService(Intent(context, MediaRpcService::class.java))
+                                val intent = Intent(context, CustomRpcService::class.java)
                                 val string = Gson().toJson(
                                     Rpc(
                                         name = name,
@@ -296,10 +335,9 @@ fun CustomRPC(onBackPressed: () -> Unit) {
                                     )
                                 )
                                 intent.putExtra("RPC", string)
-                                startService(intent)
-
-                            } else
-                                stopService(Intent(this, CustomRpcService::class.java))
+                                context.startService(intent)
+                            }
+                            false -> context.stopService(Intent(context, CustomRpcService::class.java))
                         }
                     }
                 }

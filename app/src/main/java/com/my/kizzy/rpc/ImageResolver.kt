@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.util.DisplayMetrics
 import com.google.gson.Gson
+import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
 import com.my.kizzy.BuildConfig
 import com.my.kizzy.utils.Prefs
@@ -18,7 +19,7 @@ import java.io.IOException
 import java.util.concurrent.CountDownLatch
 
 @Suppress("DEPRECATION")
-class ImageResolver() {
+class ImageResolver {
 
     /**
      * This function uploads Application image to a Discord channel and retrieve its snowflake ids
@@ -39,10 +40,47 @@ class ImageResolver() {
     /**
      * This function uploads external image from specified url to a Discord channel and retrieve its snowflake id
      * @return SnowFlake id of image or null
-     * @param large_image String
+     * @param large_image_url String
      */
-    fun resolveImageFromUrl(large_image: String): String? {
-        return null
+    fun resolveImageFromUrl(large_image_url: String): String? {
+        var result: String? = null
+        val client = OkHttpClient()
+        val request: Request = Request.Builder()
+            .url(BuildConfig.KIZZY_IMAGE_API + large_image_url)
+            .build()
+        val countDownLatch = CountDownLatch(1)
+        client.newCall(request)
+            .enqueue(
+                object : Callback {
+                    override fun onFailure(call: Call, e: IOException) {
+                        e.printStackTrace()
+                        result = "mp:attachments/948828217312178227/948840504542498826/Kizzy.png"
+                        countDownLatch.countDown()
+                    }
+
+                    @Throws(IOException::class)
+                    override fun onResponse(call: Call, response: Response) {
+                        if (!response.isSuccessful) return
+                        val responseBody: ResponseBody = response.body!!
+                        result = try {
+                            val map: HashMap<String, String> =
+                                Gson().fromJson(
+                                    responseBody.string(),
+                                    object :
+                                        TypeToken<HashMap<String?, String?>?>() {}.type
+                                )
+                            map["result"]
+                        } catch (e: JsonSyntaxException) {
+                            "mp:attachments/948828217312178227/948840504542498826/Kizzy.png"
+                        }
+                        countDownLatch.countDown()
+                    }
+                })
+        try {
+            countDownLatch.await()
+        } catch (ignored: InterruptedException) {
+        }
+        return result
     }
 
 
