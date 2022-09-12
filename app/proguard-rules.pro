@@ -28,3 +28,5 @@
   @com.google.gson.annotations.SerializedName <fields>;
 
 }
+-keep class com.my.kizzy.ui.screen.nintendo.* { <fields>; }
+
