@@ -10,10 +10,15 @@ A rich presence manager for managing discord's rich presence on `Android`
 ### Festures
 Check out [FAQs](https://kizxy.herokuapp.com/faq) | [Features](https://kizxy.herokuapp.com)
 
+### Screenshot 
 
-#### Credits
+
+### Credits
 ✨ [Read You](https://github.com/Ashinch/ReadYou) and [Seal](https://github.com/JunkFood02/Seal) for Ui Components
 
 ✨ [md3compat](https://github.com/re-ovo/md3compat) for Material You library
 
 ✨ [switchpresence](https://github.com/dilanx/switchpresence) for Nintendo Games data
+
+### Licence 
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
