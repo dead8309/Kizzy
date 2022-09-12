@@ -16,8 +16,8 @@ Check out [FAQs](https://kizxy.herokuapp.com/faq) | [Features](https://kizxy.her
 <img src="metadata/1.jpg" width="30%" />
 <img src="metadata/2.jpg" width="30%" />
 <img src="metadata/3.jpg" width="30%" />
-<img src="metadata/4.png" width="30%" />
-<img src="metadata/5.png" width="30%" />
+<img src="metadata/4.jpg" width="30%" />
+<img src="metadata/5.jpg" width="30%" />
 <img src="metadata/6.jpg" width="30%" />
 <img src="metadata/7.jpg" width="30%" />
 <img src="metadata/8.jpg" width="30%" />
