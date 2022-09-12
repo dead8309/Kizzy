@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.blankj.utilcode.util.AppUtils
 import com.my.kizzy.R
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.SettingItem
@@ -85,7 +86,7 @@ fun About(
             item { 
                 SettingItem(
                     title = "Version",
-                    description = "3.3",
+                    description = AppUtils.getAppVersionName(),
                     icon = Icons.Outlined.Info
                 ) {
                 }

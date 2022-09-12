@@ -25,12 +25,14 @@ const val readYou = "https://github.com/Ashinch/ReadYou"
 const val seal = "https://github.com/JunkFood02/Seal"
 const val materialIcon = "https://fonts.google.com/icons"
 const val materialColor = "https://github.com/re-ovo/md3compat"
+const val nintendoRepo = "https://github.com/dilanx/switchpresence"
 
 val creditsList = listOf(
     Credit("Read You", GPL_V3, readYou),
     Credit("Seal", GPL_V3, seal),
     Credit("Material Icons", APACHE_V2, materialIcon),
-    Credit("Material you", "", materialColor)
+    Credit("md3compat", "", materialColor),
+    Credit("Switch Presence","", nintendoRepo)
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -65,7 +67,7 @@ fun Credits(onBackPressed: () -> Unit) {
     ){
         LazyColumn(modifier = Modifier.padding(it)){
             item {
-                SettingTitle(text = "Ui Credits")
+                SettingTitle(text = "Design Credits")
                 }
             items(creditsList){item: Credit ->
                 CreditItem(title = item.title,

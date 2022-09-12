@@ -113,7 +113,12 @@ class KizzyRPC(
      * @return
      */
     fun setSmallImage(small_image: String?): KizzyRPC {
-        this.small_image = small_image
+        if (small_image != null) {
+            if (small_image.startsWith("attachments"))
+                this.small_image = "mp:$small_image"
+            else
+                this.small_image = ImageResolver().resolveImageFromUrl(small_image)
+        }
         return this
     }
 

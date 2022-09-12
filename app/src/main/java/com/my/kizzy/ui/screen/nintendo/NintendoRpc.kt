@@ -15,6 +15,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.gson.Gson
+import com.my.kizzy.R
 import com.my.kizzy.service.AppDetectionService
 import com.my.kizzy.service.CustomRpcService
 import com.my.kizzy.service.MediaRpcService
@@ -82,10 +83,10 @@ fun NintendoRpc(onBackPressed: () -> Unit) {
                     selected = game.title
                     val string = Gson().toJson(
                         Rpc(
-                            name = info.title,
-                            details = "",
+                            name = "Nintendo Switch",
+                            details = info.title,
                             state = "",
-                            startTime = "",
+                            startTime = System.currentTimeMillis().toString(),
                             StopTime = "",
                             status = "",
                             button1 = "",
@@ -93,7 +94,7 @@ fun NintendoRpc(onBackPressed: () -> Unit) {
                             button1Url = "",
                             button2Url = "",
                             largeImg = info.image,
-                            smallImg = "",
+                            smallImg = "attachments/948828217312178227/1018855932496719932/default.png",
                             type = "0",
                         )
                     )
@@ -126,6 +127,7 @@ fun GameItem(
                 modifier = Modifier
                     .size(size = 70.dp)
                     .padding(10.dp),
+                previewPlaceholder = R.drawable.ic_nintendo_switch
             )
             Column(
                 modifier = Modifier

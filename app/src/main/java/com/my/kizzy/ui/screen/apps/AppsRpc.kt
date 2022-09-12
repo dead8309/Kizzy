@@ -1,21 +1,30 @@
+@file:Suppress("DEPRECATION")
+
 package com.my.kizzy.ui.screen.apps
 
 
+
 import android.annotation.SuppressLint
+import android.app.AppOpsManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.graphics.drawable.Drawable
+import android.provider.Settings
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -28,6 +37,21 @@ import com.my.kizzy.utils.AppUtils
 import com.my.kizzy.utils.Prefs
 import com.skydoves.landscapist.glide.GlideImage
 
+
+fun hasUsageAccess(ctx: Context): Boolean{
+    return try {
+        val packageManager: PackageManager = ctx.packageManager
+        val applicationInfo = packageManager.getApplicationInfo(ctx.packageName, 0)
+        val appOpsManager = ctx.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+        val mode = appOpsManager.checkOpNoThrow(
+            AppOpsManager.OPSTR_GET_USAGE_STATS,
+            applicationInfo.uid,
+            applicationInfo.packageName)
+        mode == AppOpsManager.MODE_ALLOWED
+    } catch (e: PackageManager.NameNotFoundException) {
+        false
+    }
+}
 @SuppressLint("MutableCollectionMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,7 +59,8 @@ fun AppsRPC(onBackPressed: () -> Unit) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
         rememberTopAppBarState(),
         canScroll = { true })
-        
+    val ctx = LocalContext.current
+
     Scaffold(
     modifier = Modifier
         .fillMaxSize()
@@ -53,7 +78,32 @@ fun AppsRPC(onBackPressed: () -> Unit) {
             )
         }
     ){
-       val ctx = LocalContext.current
+        if(!hasUsageAccess(ctx)) {
+            with(MaterialTheme.colorScheme) {
+                AlertDialog(
+                    onDismissRequest = {},
+                    confirmButton = {
+                        TextButton(onClick = {
+                            ctx.startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
+                        }) {
+                            Text(text = stringResource(android.R.string.ok))
+                        }
+                    },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.Warning,
+                            contentDescription = null
+                        )
+                    },
+                    title = { Text("UsageAccess Required") },
+                    text = { Text(text = "Usage Access is needed for app to get the current running app") },
+                    containerColor = errorContainer,
+                    iconContentColor = error,
+                    titleContentColor = onErrorContainer,
+                    textContentColor = onErrorContainer,
+                )
+            }
+        }
         Column(modifier = Modifier
             .fillMaxSize()
             .padding(it)) {

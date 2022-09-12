@@ -6,11 +6,26 @@ import com.google.gson.reflect.TypeToken
 
 data class Games(
     val image: String,
-    val title: String
+    var title: String
 )
+val blacklisted = listOf("\"","#",".","'","-")
 
 fun getGamesData(context: Context): List<Games>{
     val jsonData = context.assets.open("games.json").bufferedReader().use { it.readText() }
     val gameTypeToken = object : TypeToken<List<Games>>() {}.type
-    return Gson().fromJson(jsonData, gameTypeToken)
+    val list: List<Games> = Gson().fromJson(jsonData, gameTypeToken)
+    list.forEach{
+       it.title = it.title.replace(blacklisted)
+    }
+    return list.sortedBy { it.title }
+}
+
+private fun String.replace(blacklisted: List<String>): String {
+    val result = this.trim()
+    blacklisted.forEach{
+        if (result.startsWith(it)){
+            result.replace(it,"")
+        }
+    }
+    return result
 }
