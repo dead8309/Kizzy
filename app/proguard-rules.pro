@@ -22,3 +22,11 @@
 -assumenosideeffects class kotlin.jvm.internal.Intrinsics {
     static void checkParameterIsNotNull(java.lang.Object, java.lang.String);
 }
+
+-keepclassmembers,allowobfuscation class * {
+
+  @com.google.gson.annotations.SerializedName <fields>;
+
+}
+-keep class com.my.kizzy.ui.screen.nintendo.* { <fields>; }
+
