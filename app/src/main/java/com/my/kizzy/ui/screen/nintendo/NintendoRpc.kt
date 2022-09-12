@@ -135,7 +135,7 @@ fun GameItem(
                     .padding(start = 10.dp)
             ) {
                 Text(
-                    text = games.title,
+                    text = games.title?:"",
                     maxLines = 1,
                     style = MaterialTheme.typography.titleLarge.copy(fontSize = 20.sp),
                     color = MaterialTheme.colorScheme.onSurface, overflow = TextOverflow.Ellipsis
