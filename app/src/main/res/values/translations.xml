@@ -4,7 +4,7 @@
     <!-- Language Names Here -->
     <string-array name="languages">
         <item>English</item>
-        <item>Dutch </item>
+        <item>Dutch</item>
     </string-array>
 
     <!-- Edit your name here according to translated language -->
@@ -13,7 +13,7 @@
 
 
 
-    <!-- Don't Edit this -->
+<!-- Only Edit this if you language contributiors tag is not present -->
     <string-array name="contributors">
         <item>@string/english_contributors</item>
         <item>@string/dutch_contributors</item>
