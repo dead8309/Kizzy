@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Language Names Here -->
+    <string-array name="languages">
+        <item>English</item>
+        <item>Turkish</item>
+    </string-array>
+
+    <!-- Edit your name here according to translated language -->
+    <string name="english_contributors">Vaibhav</string>
+    <string name="turkish_contributors">Kyoya</string>
+
+
+
+    <!-- Don't Edit this -->
+    	
+    <string-array name="contributors">
+        <item>@string/english_contributors</item>
+    </string-array>
+</resources>
