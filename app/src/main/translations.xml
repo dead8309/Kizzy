@@ -4,12 +4,10 @@
     <!-- Language Names Here -->
     <string-array name="languages">
         <item>English</item>
-        <item>Dutch </item>
     </string-array>
 
     <!-- Edit your name here according to translated language -->
-    <string name="English_contributors">Vaibhav</string>
-    <string name="Dutch_contributors">Thijsi123</string>
+    <string name="english_contributors">Vaibhav</string>
 
 
 
