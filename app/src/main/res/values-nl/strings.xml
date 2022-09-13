@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Kizzy</string>
+
+    <!-- Activities -->
+    <string name="activity_name">Naam Activieit</string>
+    <string name="activity_details">Activiteit Omschrijving</string>
+    <string name="activity_state">Activiteit Status</string>
+    <string name="activity_start_timestamps">Begin van Activiteit Tijdstempels</string>
+    <string name="activity_stop_timestamps">Einde van Begin Activiteit Tijdstempels</string>
+    <string name="activity_status_online_idle_dnd">Activiteit Status (online,inactief,niet storen)</string>
+    <string name="activity_button1_text">Knop 1 Text</string>
+    <string name="activity_button2_text">Knop 2 Text</string>
+    <string name="activity_button1_url">Knop 1 Url</string>
+    <string name="activity_button2_url">Knop 2 Url</string>
+    <string name="activity_large_image">Activiteit groot icoon</string>
+    <string name="activity_small_image">Activiteit klein icoon</string>
+    <string name="activity_type">Soort Activiteit</string>
+    <string name="load_config">Laad configuratie bestand</string>
+    <string name="save_config">Sla huidige configuratie op</string>
+    <string name="delete_configs">Verwijder configuraties</string>
+    <string name="preview_rpc">Voorbeeld Rpc</string>
+    <string name="select_a_config">Selecteer een configuratie</string>
+    <string name="login_with_discord">Login met Discord</string>
+    <string name="github_readme">LEESMIJ</string>
+    <string name="github_readme_desc">Bekijk de Github repository</string>
+    <string name="github_latest_release">"Github laatste release "</string>
+    <string name="github_latest_release_desc">Zoek naar een nieuwe versie en of de laatste changelog</string>
+    <string name="github_issue">Github probleem</string>
+    <string name="github_issue_desc">Laat hier je problemen en bugs weten voor oplossingen in nieuwe versies van de app</string>
+    <string name="credits">Credits</string>
+    <string name="credits_desc">Credits to libraries used and contributors</string>
+    <string name="enable_artist_name">Laat artiest naam zien</string>
+    <string name="show_app_icon">Laat app icoon zien</string>
+    <string name="enable_timestamps">Laat verstreken tijd zien</string>
+    <string name="text_after_permission_denied">Geef de app permissie om de opslag te gebruiken, het is erg belangrijk en word gebruikt om de configuraties op te slaan.</string>
+    <string name="request_for_permission">Opslag permissies is erg belangrijk voor configuratie opties, geef alstublieft opslag permissies.</string>
+    <string name="grant_permission">Geef Permissie</string>
+
+
+</resources>
