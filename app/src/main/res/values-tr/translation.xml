@@ -17,5 +17,6 @@
     	
     <string-array name="contributors">
         <item>@string/english_contributors</item>
+        <item>@string/turkish_contributors</item>
     </string-array>
 </resources>
