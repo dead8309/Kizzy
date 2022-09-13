@@ -8,13 +8,14 @@
     </string-array>
 
     <!-- Edit your name here according to translated language -->
-    <string name="English_contributors">Vaibhav</string>
-    <string name="Dutch_contributors">Thijsi123</string>
+    <string name="english_contributors">Vaibhav</string>
+    <string name="dutch_contributors">Thijsi123</string>
 
 
 
     <!-- Don't Edit this -->
     <string-array name="contributors">
         <item>@string/english_contributors</item>
+        <item>@string/dutch_contributors</item>
     </string-array>
 </resources>
