@@ -6,12 +6,14 @@
         <item>English</item>
         <item>Dutch</item>
         <item>Русский</item>
+        <item>Polish</item>
     </string-array>
 
     <!-- Edit your name here according to translated language -->
     <string name="english_contributors">Vaibhav</string>
     <string name="dutch_contributors">Thijsi123</string>
     <string name="russian_contributors">NightNutSky</string>
+    <string name="polish_contributors">BlackusPL</string>
 
 
 <!-- Only Edit this if you language contributiors tag is not present -->
@@ -19,5 +21,6 @@
         <item>@string/english_contributors</item>
         <item>@string/dutch_contributors</item>
         <item>@string/russian_contributors</item>
+        <item>@string/polish_contributors</item>
     </string-array>
 </resources>
