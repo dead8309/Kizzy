@@ -20,6 +20,11 @@ object Prefs {
         operation(editor)
         editor.apply()
     }
+    fun remove(key: String){
+        preferences.edit {
+            it.remove(key)
+        }
+    }
 
     operator fun set(key: String, value: Any?) =
         when (value) {
@@ -79,6 +84,8 @@ object Prefs {
     const val MEDIA_RPC_ARTIST_NAME = "media_rpc_artist_name"
     const val MEDIA_RPC_APP_ICON = "media_rpc_app_icon"
     const val MEDIA_RPC_ENABLE_TIMESTAMPS = "enable_timestamps"
+    const val RPC_USE_LOW_RES_ICON = "use_low_res_app_icons"
+    const val RPC_USE_CUSTOM_WEBHOOK = "use_custom_webhook"
 
     // Saved Image Asset ids
     const val SAVED_IMAGES = "saved_images"

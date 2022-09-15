@@ -95,7 +95,6 @@ class AppDetectionService : Service() {
                                     Notification.Builder(context, CHANNEL_ID)
                                         .setContentText(packageName)
                                         .setSmallIcon(R.drawable.ic_apps)
-                                        .setUsesChronometer(true)
                                         .setContentTitle("Service enabled")
                                         .addAction(R.drawable.ic_apps,"Exit",pendingIntent)
                                         .build()

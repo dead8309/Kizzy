@@ -5,10 +5,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.PreferenceSingleChoiceItem
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.LANGUAGE
+import com.yariksoffice.lingver.Lingver
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -16,10 +18,10 @@ import com.my.kizzy.utils.Prefs.LANGUAGE
 fun Language(onBackPressed: () -> Unit) {
     var locale by remember {
         mutableStateOf(
-            Prefs[LANGUAGE, "English"]
+            Prefs[LANGUAGE, "en"]
         )
     }
-
+    val context = LocalContext.current
     Scaffold(
         topBar = {
             LargeTopAppBar(
@@ -42,11 +44,11 @@ fun Language(onBackPressed: () -> Unit) {
                 item {
                     PreferenceSingleChoiceItem(
                         text = language.key + " (${language.value})",
-                        selected = language.key == locale
+                        selected = language.value == locale
                     ) {
-                        locale = language.key
-                        Prefs[LANGUAGE] = language.key
-                       // MainActivity().changeLanguage(language.value)
+                        locale = language.value
+                        Prefs[LANGUAGE] = locale
+                        Lingver.getInstance().setLocale(context,locale)
                     }
                 }
             }
@@ -57,8 +59,11 @@ fun Language(onBackPressed: () -> Unit) {
 fun languages(): Map<String, String> =
     mapOf(
         Pair("English", "en"),
-       /* Pair("Arabic", "ar"),
+        Pair("Turkish", "tr"),
+        Pair("Dutch","nl"),
         Pair("Russian", "ba"),
+        Pair("Polish", "pl"),
+       /* Pair("Arabic", "ar"),
         Pair("Spanish", "es"),
         Pair("French", "fr"),
         Pair("Japanese", "ja"),
@@ -66,9 +71,7 @@ fun languages(): Map<String, String> =
         Pair("Indonesian", "in"),
         Pair("Vietnamese", "vi"),
         Pair("Chinese", "zh"),
-        Pair("Turkish", "tr"),
         Pair("Portuguese", "pt"),
-        Pair("Polish", "pl"),
         Pair("Bangla", "bn"),
         Pair("Thai", "th"),
         Pair("Greek", "el"),

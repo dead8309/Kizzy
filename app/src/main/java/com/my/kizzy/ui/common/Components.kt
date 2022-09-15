@@ -159,7 +159,7 @@ onClick: () -> Unit,
             )
             Switch(
                 checked = checked,
-                onCheckedChange = {},
+                onCheckedChange = { onClick() },
                 thumbContent = icon
             )
         }
@@ -199,7 +199,7 @@ fun PreferenceSwitch(
             ) {
                 Text(
                     text = title,
-                    maxLines = 1,
+                    maxLines = 2,
                     style = MaterialTheme.typography.titleLarge.copy(fontSize = 20.sp),
                     color = MaterialTheme.colorScheme.onSurface,
                     overflow = TextOverflow.Ellipsis
@@ -208,7 +208,7 @@ fun PreferenceSwitch(
                     Text(
                         text = description,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        maxLines = 2,
+                        maxLines = 5,
                         style = MaterialTheme.typography.bodyMedium,
                     )
             }
@@ -264,7 +264,7 @@ fun SettingItem(
                 Text(
                     text = description,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 1,
+                    maxLines = 5,
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }

@@ -10,6 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.my.kizzy.ui.common.Routes
@@ -18,7 +19,8 @@ import com.my.kizzy.ui.screen.apps.AppsRPC
 import com.my.kizzy.ui.screen.custom.CustomRPC
 import com.my.kizzy.ui.screen.home.Home
 import com.my.kizzy.ui.screen.media.MediaRPC
-import com.my.kizzy.ui.screen.nintendo.NintendoRpc
+import com.my.kizzy.ui.screen.nintendo.NintendoScreen
+import com.my.kizzy.ui.screen.nintendo.NintendoViewModel
 import com.my.kizzy.ui.screen.profile.Profile
 import com.my.kizzy.ui.screen.settings.Settings
 import com.my.kizzy.ui.screen.settings.about.About
@@ -26,7 +28,6 @@ import com.my.kizzy.ui.screen.settings.about.Credits
 import com.my.kizzy.ui.screen.settings.language.Language
 import com.my.kizzy.ui.screen.settings.style.Appearance
 import com.my.kizzy.ui.theme.AppTypography
-import com.yariksoffice.lingver.Lingver
 import me.rerere.md3compat.Md3CompatTheme
 
 class MainActivity : ComponentActivity() {
@@ -38,11 +39,6 @@ class MainActivity : ComponentActivity() {
                 Kizzy()
             }
         }
-    }
-
-    fun changeLanguage(lang: String){
-        Lingver.getInstance().setLocale(this,lang)
-        recreate()
     }
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -90,9 +86,11 @@ class MainActivity : ComponentActivity() {
                     })
                 }
                 animatedComposable(Routes.NINTENDO_RPC) {
-                    NintendoRpc(onBackPressed = {
+                    val viewModel = viewModel<NintendoViewModel>()
+                    NintendoScreen(onBackPressed = {
                         navcontroller.popBackStack()
-                    })
+                    }, viewModel = viewModel
+                    )
                 }
                 animatedComposable(Routes.LANGUAGES) {
                     Language(onBackPressed = {
@@ -116,20 +114,20 @@ class MainActivity : ComponentActivity() {
                         }
                     )
                 }
-                animatedComposable(Routes.CREDITS){
+                animatedComposable(Routes.CREDITS) {
                     Credits {
                         navcontroller.popBackStack()
                     }
                 }
+            }
         }
     }
-}
 
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    MaterialTheme {
+    @Preview(showBackground = true)
+    @Composable
+    fun DefaultPreview() {
+        MaterialTheme {
+        }
     }
-}
 }
