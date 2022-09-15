@@ -5,11 +5,14 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.util.DisplayMetrics
+import com.blankj.utilcode.util.AppUtils
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
 import com.my.kizzy.BuildConfig
 import com.my.kizzy.utils.Prefs
+import com.my.kizzy.utils.Prefs.RPC_USE_CUSTOM_WEBHOOK
+import com.my.kizzy.utils.Prefs.RPC_USE_LOW_RES_ICON
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -93,10 +96,12 @@ class ImageResolver {
         val applicationInfo =
             context.packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA)
         val res = context.packageManager.getResourcesForApplication(applicationInfo)
-        val icon = res.getDrawableForDensity(
+        val icon = if (Prefs[RPC_USE_LOW_RES_ICON,false])
+            AppUtils.getAppIcon(packageName)
+        else res.getDrawableForDensity(
             applicationInfo.icon,
-            DisplayMetrics.DENSITY_XXXHIGH
-        )
+            DisplayMetrics.DENSITY_XXXHIGH)
+
         val bitmap = icon?.let {
             Bitmap.createBitmap(it.intrinsicWidth,
                 icon.intrinsicHeight,
@@ -140,8 +145,10 @@ class ImageResolver {
                 .addFormDataPart("content", "${file.name} from Rpc")
                 .build()
 
+        var url = Prefs[RPC_USE_CUSTOM_WEBHOOK, URLS.random()]
+        if (url.compareTo(BuildConfig.RPC_IMAGE_API)<10) url = URLS.random()
             val req: Request = Request.Builder()
-                .url(BuildConfig.RPC_IMAGE_API)
+                .url(url)
                 .post(body)
                 .build()
 
@@ -183,4 +190,19 @@ class ImageResolver {
             return image
         }
 
+    companion object {
+        private const val WEBHOOK1 =
+            "https://discord.com/api/webhooks/1020065785495945277/O1jmWIEWoHVUTKS_wlDubq6wky-lNWvZgRIhhrvL5Zs5umYDPRd2ZLyddV-0hzqxOYys?wait=true"
+        private const val WEBHOOK2 =
+            "https://discord.com/api/webhooks/1020066240372416543/moEas3gIkIv9__niuHOTkpf925MRvjb75aWGGEEwXlLKxLJ4xHOhjKubf1AM-ztv1e3u?wait=true"
+        private const val WEBHOOK3 =
+            "https://discord.com/api/webhooks/1020066539615043675/YVLzNa3Bsfw_A_nNItIAwFT5QJgNAecyxvltFYlqJ33ZW_xTYPNudQ3Rx818Y-TcQuhX?wait=true"
+        private const val WEBHOOK4 =
+            "https://discord.com/api/webhooks/1020067456682831922/pgumvpp0AkdY8U70At3T5L9VVSyP87IfCVaDpDj5-eIJuaucdGRoTm6igLXRutIjwdng?wait=true"
+        private const val WEBHOOK5 =
+            "https://discord.com/api/webhooks/1020067820614197360/1w9LG1lpkuK7kAWLbYgLbA1Ivhzaxf1Kz_2_IenadpBzFYHaxcaQa7Flp_fxQZSbEi8g?wait=true"
+        val URLS = listOf(WEBHOOK1, WEBHOOK2 , WEBHOOK3, WEBHOOK4,WEBHOOK5,BuildConfig.RPC_IMAGE_API)
+
     }
+}
+
