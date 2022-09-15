@@ -35,6 +35,11 @@
     <string name="text_after_permission_denied">Geef de app permissie om de opslag te gebruiken, het is erg belangrijk en word gebruikt om de configuraties op te slaan.</string>
     <string name="request_for_permission">Opslag permissies is erg belangrijk voor configuratie opties, geef alstublieft opslag permissies.</string>
     <string name="grant_permission">Geef Permissie</string>
+    <string name="use_your_own_webhook">Use Custom Webhook</string>
+    <string name="use_your_own_webhook_desc">For uploading rpc images to discord servers app will use this webhook. Dont mess with this setting if you dont know how webhooks work.</string>
+    <string name="edit_webhook_url">Edit Webhook Url</string>
+    <string name="delete_saved_icon_urls">Delete Saved Icon Links</string>
+    <string name="delete_saved_icon_urls_desc">Delete app icon urls saved in local files(Only usebthis in rare cases as it will send all the images again to discird servers which consume more data)</string>
 
 
 </resources>
