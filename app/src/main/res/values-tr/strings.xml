@@ -23,7 +23,7 @@
     <string name="login_with_discord">Discord ile Giriş Yap</string>
     <string name="github_readme">BENİOKU</string>
     <string name="github_readme_desc">Github deposunu kontrol edin</string>
-    <string name="github_latest_release">"En son yayınlanan sürüm "</string>
+    <string name="github_latest_release">En son yayınlanan sürüm</string>
     <string name="github_latest_release_desc">Yeni sürüme ve değişim kaydına bakın</string>
     <string name="github_issue">Github konusu</string>
     <string name="github_issue_desc">Hata raporu veya özellik önerisi için bir Github konusu açın</string>
@@ -36,8 +36,8 @@
     <string name="request_for_permission">Depolama izni yapılandırma özelliğinin çalışması için gereklidir. Lütfen izin verin.</string>
     <string name="grant_permission">İzin Ver</string>
     <string name="use_your_own_webhook">Özel Webhook Kullan</string>
-    <string name="use_your_own_webhook_desc">Discord sunucularına resim yüklemek için uygulama bu webhook'u kullansın. Webhook'ların nasıl çalıştığını bilmiyorsanız ellemeyin</string>
-    <string name="edit_webhook_url">Webhook URL'sini düzenle</string>
+    <string name="use_your_own_webhook_desc">Discord sunucularına resim yüklemek için uygulama bu webhook\'u kullansın. Webhook\'ların nasıl çalıştığını bilmiyorsanız ellemeyin</string>
+    <string name="edit_webhook_url">Webhook URL\'sini düzenle</string>
     <string name="delete_saved_icon_urls">Kaydedilmiş Simge Bağlantılarını Sil</string>
     <string name="delete_saved_icon_urls_desc">Yerel dosyalarda kaydedilen simge bağlantılarını silin(Daha fazla veri harcar. Discord sunucularına yeniden tüm resimleri göndereceğinden bu seçeneği yalnızca nadir durumlarda kullanın.)</string>
 
