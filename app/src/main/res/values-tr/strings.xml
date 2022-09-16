@@ -23,23 +23,23 @@
     <string name="login_with_discord">Discord ile Giriş Yap</string>
     <string name="github_readme">BENİOKU</string>
     <string name="github_readme_desc">Github deposunu kontrol edin</string>
-    <string name="github_latest_release">"En son yayınlanan sürüm "</string>
+    <string name="github_latest_release">En son yayınlanan sürüm</string>
     <string name="github_latest_release_desc">Yeni sürüme ve değişim kaydına bakın</string>
     <string name="github_issue">Github konusu</string>
     <string name="github_issue_desc">Hata raporu veya özellik önerisi için bir Github konusu açın</string>
     <string name="credits">Katkıda Bulunanlar</string>
-    <string name="credits_desc">Katkıda bulunan kullanılan kitaplıklar</string>
+    <string name="credits_desc">Kullanılan kitaplıklar ve Katkıda bulunan çevirmenler</string>
     <string name="enable_artist_name">Sanatçı İsmini Etkinleştir</string>
     <string name="show_app_icon">Uygulama Simgesini Göster</string>
     <string name="enable_timestamps">Zaman Bilgisini Etkinleştir</string>
     <string name="text_after_permission_denied">Depolama erişimi bu uygulama için herkese açık dizinlerde yapılandırma kaydetmek için önemlidir. Lütfen izin verin.</string>
     <string name="request_for_permission">Depolama izni yapılandırma özelliğinin çalışması için gereklidir. Lütfen izin verin.</string>
     <string name="grant_permission">İzin Ver</string>
-    <string name="use_your_own_webhook">Use Custom Webhook</string>
-    <string name="use_your_own_webhook_desc">For uploading rpc images to discord servers app will use this webhook. Dont mess with this setting if you dont know how webhooks work.</string>
-    <string name="edit_webhook_url">Edit Webhook Url</string>
-    <string name="delete_saved_icon_urls">Delete Saved Icon Links</string>
-    <string name="delete_saved_icon_urls_desc">Delete app icon urls saved in local files(Only usebthis in rare cases as it will send all the images again to discird servers which consume more data)</string>
+    <string name="use_your_own_webhook">Özel Webhook Kullan</string>
+    <string name="use_your_own_webhook_desc">Discord sunucularına resim yüklemek için uygulama bu webhook\'u kullansın. Webhook\'ların nasıl çalıştığını bilmiyorsanız ellemeyin</string>
+    <string name="edit_webhook_url">Webhook URL\'sini düzenle</string>
+    <string name="delete_saved_icon_urls">Kaydedilmiş Simge Bağlantılarını Sil</string>
+    <string name="delete_saved_icon_urls_desc">Yerel dosyalarda kaydedilen simge bağlantılarını silin(Daha fazla veri harcar. Discord sunucularına yeniden tüm resimleri göndereceğinden bu seçeneği yalnızca nadir durumlarda kullanın.)</string>
 
 
 </resources>
