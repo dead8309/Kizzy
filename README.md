@@ -7,8 +7,7 @@ A rich presence manager for managing discord's rich presence on `Android`
 ![Android Studio](https://img.shields.io/badge/Android_Studio-3DDC84?style=for-the-badge&logo=android-studio&logoColor=white)
 [![](https://dcbadge.vercel.app/api/server/vUPc7zzpV5)](https://discord.gg/vUPc7zzpV5)
 
-### Festures
-Check out [FAQs](https://kizxy.herokuapp.com/faq) | [Features](https://kizxy.herokuapp.com)
+### Check out Docs at [GitBook](https://kizzy.gitbook.io/kizzy-docs/) 
 
 ### Screenshot
 <div>
