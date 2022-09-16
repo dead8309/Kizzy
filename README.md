@@ -29,7 +29,7 @@ A rich presence manager for managing discord's rich presence on `Android`
 
 ✨ [md3compat](https://github.com/re-ovo/md3compat) for Material You library
 
-✨ [switchpresence](https://github.com/dilanx/switchpresence) for Nintendo Games data
+✨ [Rich-Presence-U](https://github.com/ninstar/Rich-Presence-U) for Nintendo and Wii U games data
 
 ### Licence 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
