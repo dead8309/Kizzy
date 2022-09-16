@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Kizzy</string>
+
+    <!-- Activities -->
+    <string name="activity_name">Nome da atividade</string>
+    <string name="activity_details">Detalhes da atividade</string>
+    <string name="activity_state">Estado da atividade</string>
+    <string name="activity_start_timestamps">Começar tempo de atividade</string>
+    <string name="activity_stop_timestamps">Parar tempo de atividade</string>
+    <string name="activity_status_online_idle_dnd">Definir status(online,idle,dnd)</string>
+    <string name="activity_button1_text">Botão de texto 1</string>
+    <string name="activity_button2_text">Botão de texto 2</string>
+    <string name="activity_button1_url">Url do Botão 1</string>
+    <string name="activity_button2_url">Url do Botão 2</string>
+    <string name="activity_large_image">Grande imagem da atividade</string>
+    <string name="activity_small_image">Pequena imagem da atividade</string>
+    <string name="activity_type">Tipo de atividade</string>
+    <string name="load_config">Carregar configuração</string>
+    <string name="save_config">Salvar configuração</string>
+    <string name="delete_configs">Deletar configuração</string>
+    <string name="preview_rpc">Prévia Rpc</string>
+    <string name="select_a_config">Selecionar configuração</string>
+    <string name="login_with_discord">Logue com o discord</string>
+    <string name="github_readme">LEIA-ME</string>
+    <string name="github_readme_desc">Verifique o repositório do Github</string>
+    <string name="github_latest_release">"Último Lançamento "</string>
+    <string name="github_latest_release_desc">Procurando por uma nova versão e registro de alteração</string>
+    <string name="github_issue">Problema Github</string>
+    <string name="github_issue_desc">Envie um problema para relatório de bug ou uma sugestão </string>
+    <string name="credits">Créditos</string>
+    <string name="credits_desc">Créditos às bibliotecas utilizadas e os colaboradores</string>
+    <string name="enable_artist_name">Ativar Nome do Artista</string>
+    <string name="show_app_icon">Mostrar Ícone do Aplicativo</string>
+    <string name="enable_timestamps">Ativar Tempo de Atividade</string>
+    <string name="text_after_permission_denied">O acesso à memória é importante para este aplicativo armazenar configurações em diretórios públicos. Por favor, conceda permissão.</string>
+    <string name="request_for_permission">Permissão de armazenamento é necessária para que os recursos de configuração funcionem. Por favor, conceda a permissão.</string>
+    <string name="grant_permission">Conceder Permissão</string>
+
+
+</resources>
