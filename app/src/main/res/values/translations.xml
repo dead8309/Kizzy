@@ -8,6 +8,7 @@
         <item>Dutch</item>
         <item>Русский</item>
         <item>Polish</item>
+        <item>Português</item>
     </string-array>
 
     <!-- Edit your name here according to translated language -->
@@ -16,6 +17,7 @@
     <string name="dutch_contributors">Thijsi123</string>
     <string name="russian_contributors">NightNutSky</string>
     <string name="polish_contributors">BlackusPL,Radosh231</string>
+    <string name="portuguese_contributors">YamatoXz</string>
 
 
 <!-- Only Edit this if you language contributiors tag is not present -->
@@ -25,5 +27,6 @@
         <item>@string/dutch_contributors</item>
         <item>@string/russian_contributors</item>
         <item>@string/polish_contributors</item>
+        <item>@string/portuguese_contributors</item>
     </string-array>
 </resources>
