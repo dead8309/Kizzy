@@ -40,9 +40,9 @@
     <string name="edit_webhook_url">Webhook URL\'sini düzenle</string>
     <string name="delete_saved_icon_urls">Kaydedilmiş Simge Bağlantılarını Sil</string>
     <string name="delete_saved_icon_urls_desc">Yerel dosyalarda kaydedilen simge bağlantılarını silin(Daha fazla veri harcar. Discord sunucularına yeniden tüm resimleri göndereceğinden bu seçeneği yalnızca nadir durumlarda kullanın.)</string>
-    <string name="app_crashed">App Crashed</string>
-    <string name="share_crash_logs_desc">Please send the Logs in Discord channel with the following stacktrace :</string>
-    <string name="share_crash_logs">SHARE LOGS</string>
+    <string name="app_crashed">Uygulama Çöktü</string>
+    <string name="share_crash_logs_desc">Lütfen aşağıdaki çökme kaydını, yığın izleme ile birlikte Discord kanalına gönderin :</string>
+    <string name="share_crash_logs">ÇÖKME KAYDINI PAYLAŞ</string>
 
 
 </resources>
