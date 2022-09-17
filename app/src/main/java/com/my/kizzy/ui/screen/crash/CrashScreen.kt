@@ -1,5 +1,6 @@
 package com.my.kizzy.ui.screen.crash
 
+import android.content.Intent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,18 +13,25 @@ import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.core.app.ShareCompat
+import androidx.core.content.FileProvider
 import com.blankj.utilcode.util.ClipboardUtils
+import com.blankj.utilcode.util.FileIOUtils
+import com.blankj.utilcode.util.FileUtils
+import com.my.kizzy.BuildConfig
 import com.my.kizzy.R
+import java.io.File
 import kotlin.system.exitProcess
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CrashScreen(trace: String?) {
-    val uriHandler = LocalUriHandler.current
+    val ctx = LocalContext.current
     Scaffold(
         topBar = {
             SmallTopAppBar(
@@ -50,12 +58,21 @@ fun CrashScreen(trace: String?) {
             ExtendedFloatingActionButton(
                 onClick = {
                     ClipboardUtils.copyText("Kizzy CrashLog", trace)
-                    val url = "https://discord.com/channels/948712005223735336/948712005731229748"
-                    uriHandler.openUri(url)
-                },
-                containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                ) {
+                    val file = File(ctx.filesDir.toString()+"/"+ "Kizzy_Log.txt")
+                    if(FileUtils.isFileExists(file))
+                    FileUtils.delete(file)
+                    FileIOUtils.writeFileFromString(file,trace)
+                    val uri = FileProvider.getUriForFile(ctx,"${BuildConfig.APPLICATION_ID}.provider",file)
+                    val intent =
+                        ShareCompat.IntentBuilder(ctx)
+                            .setType("text/plain")
+                            .setStream(uri)
+                            .intent
+                            .setAction(Intent.ACTION_SEND)
+                            .setDataAndType(uri, "text/*")
+                            .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    ctx.startActivity(Intent.createChooser(intent, "Share File With"))
+                }) {
                 Icon(
                     imageVector = Icons.Default.Share,
                     contentDescription = "Share Logs",
