@@ -39,6 +39,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".CrashHandler"
+            android:exported="false"/>
 
         <service
             android:name="com.my.kizzy.service.AppDetectionService"

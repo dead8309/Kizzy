@@ -40,6 +40,9 @@
     <string name="edit_webhook_url">Edit Webhook Url</string>
     <string name="delete_saved_icon_urls">Delete Saved Icon Links</string>
     <string name="delete_saved_icon_urls_desc">Delete app icon urls saved in local files(Only usebthis in rare cases as it will send all the images again to discird servers which consume more data)</string>
+    <string name="app_crashed">App Crashed</string>
+    <string name="share_crash_logs_desc">Please send the Logs in Discord channel with the following stacktrace :</string>
+    <string name="share_crash_logs">SHARE LOGS</string>
 
 
 </resources>

@@ -40,6 +40,9 @@
     <string name="edit_webhook_url">Изменить URL-адрес на веб-хук.</string>
     <string name="delete_saved_icon_urls">Удалить сохранённые ссылки на иконки</string>
     <string name="delete_saved_icon_urls_desc">Удалить URL-адреса иконок приложений, сохранённые в локальных файлах (используйте это только в редких случаях, так как все изображения будут снова отправлены на сервера Discord, которые потребляют большее количество данных.</string>
+    <string name="app_crashed">App Crashed</string>
+    <string name="share_crash_logs_desc">Please send the Logs in Discord channel with the following stacktrace :</string>
+    <string name="share_crash_logs">SHARE LOGS</string>
 
 
 </resources>

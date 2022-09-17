@@ -35,13 +35,13 @@
     <string name="text_after_permission_denied">O acesso à memória é importante para este aplicativo armazenar configurações em diretórios públicos. Por favor, conceda permissão.</string>
     <string name="request_for_permission">Permissão de armazenamento é necessária para que os recursos de configuração funcionem. Por favor, conceda a permissão.</string>
     <string name="grant_permission">Conceder Permissão</string>
-    <string name="use_low_res_icon" translatable="false">Use imagens com resolução baixa</string>
-    <string name="use_low_res_icon_desc" translatable="false">Use um ícone de aplicativo de resolução mais baixa para exibir no rpc (ligue isto se o rpc está crashando). Esta configuração também será aplicado ao Apps Rpc</string>
     <string name="use_your_own_webhook">Use Um Custom Webhook</string>
     <string name="use_your_own_webhook_desc">Para fazer upload de imagens rpc para servidores do discord, o aplicativo usará este webhook. Não mexa com essa configuração se você não souber como os webhooks funcionam.</string>
     <string name="edit_webhook_url">Edite Webhook Url</string>
     <string name="delete_saved_icon_urls">Delete ícones de link salvados</string>
     <string name="delete_saved_icon_urls_desc">Excluir URLs de ícones de aplicativos salvos em arquivos locais (use isso apenas em casos raros, pois enviará todas as imagens novamente para os servidores do discord que consumirão mais dados)</string>
-
+    <string name="app_crashed">App Crashed</string>
+    <string name="share_crash_logs_desc">Please send the Logs in Discord channel with the following stacktrace :</string>
+    <string name="share_crash_logs">SHARE LOGS</string>
 
 </resources>

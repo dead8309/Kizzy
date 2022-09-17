@@ -89,4 +89,5 @@ dependencies {
     implementation "com.github.YarikSOffice:lingver:1.3.0"
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
     implementation 'com.google.accompanist:accompanist-permissions:0.26.2-beta'
+    implementation 'com.github.TutorialsAndroid:crashx:v6.0.19'
 }

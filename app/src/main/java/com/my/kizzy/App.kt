@@ -1,6 +1,7 @@
 package com.my.kizzy
 
 import android.app.Application
+import com.developer.crashx.config.CrashConfig
 import com.my.kizzy.ui.screen.nintendo.Games
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.LANGUAGE
@@ -15,5 +16,8 @@ class App: Application() {
         Prefs.init(this)
         Games.init(this)
         Lingver.init(this,Prefs[LANGUAGE,"en"])
+        CrashConfig.Builder.create()
+            .errorActivity(CrashHandler::class.java)
+            .apply()
     }
 }

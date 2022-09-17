@@ -25,14 +25,14 @@ const val readYou = "https://github.com/Ashinch/ReadYou"
 const val seal = "https://github.com/JunkFood02/Seal"
 const val materialIcon = "https://fonts.google.com/icons"
 const val materialColor = "https://github.com/re-ovo/md3compat"
-const val nintendoRepo = "https://github.com/dilanx/switchpresence"
+const val nintendoRepo = "https://github.com/ninstar/Rich-Presence-U"
 
 val creditsList = listOf(
     Credit("Read You", GPL_V3, readYou),
     Credit("Seal", GPL_V3, seal),
     Credit("Material Icons", APACHE_V2, materialIcon),
     Credit("md3compat", "", materialColor),
-    Credit("Switch Presence","", nintendoRepo)
+    Credit("Rich-Presence-U", GPL_V3, nintendoRepo)
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
