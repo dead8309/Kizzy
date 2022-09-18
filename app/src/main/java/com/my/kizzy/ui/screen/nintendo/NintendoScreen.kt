@@ -16,8 +16,8 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.gson.Gson
@@ -28,6 +28,7 @@ import com.my.kizzy.service.MediaRpcService
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.SwitchBar
 import com.my.kizzy.ui.screen.custom.Rpc
+import com.my.kizzy.utils.AppUtils
 import com.skydoves.landscapist.glide.GlideImage
 
 
@@ -48,7 +49,7 @@ fun NintendoScreen(
 
     val context = LocalContext.current
     var isSwitchRpcRunning by remember {
-        mutableStateOf(/*AppUtils.customRpcRunning(context = context)*/false)
+        mutableStateOf(AppUtils.customRpcRunning(context = context))
     }
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
@@ -75,7 +76,7 @@ fun NintendoScreen(
             .fillMaxSize()) {
 
             item {
-                SwitchBar(title = "Enable Switch Rpc", checked = isSwitchRpcRunning) {
+                SwitchBar(title = stringResource(id = R.string.enable_nintendoRpc), checked = isSwitchRpcRunning) {
                     isSwitchRpcRunning = !isSwitchRpcRunning
                     when (isSwitchRpcRunning) {
                         true -> {
@@ -112,7 +113,7 @@ fun NintendoScreen(
                     selected = game.title
                     val string = Gson().toJson(
                         Rpc(
-                            name = if (info.label == "wii") "Wii" else "Nintendo Switch",
+                            name = if (info.label == "wii") "Wii U" else "Nintendo Switch",
                             details = info.title,
                             state = "",
                             startTime = System.currentTimeMillis().toString(),
@@ -140,7 +141,6 @@ fun NintendoScreen(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SingleChoiceGameItem(
     games: GameItem,
@@ -192,16 +192,3 @@ fun SingleChoiceGameItem(
             )
         }
     }
-
-@Preview
-@Composable
-fun item() {
-    SingleChoiceGameItem(games = GameItem(
-        "wii",
-        "",
-        "Mario Odyssey"
-    ),
-        selected = false,
-        onClick = {})
-}
-

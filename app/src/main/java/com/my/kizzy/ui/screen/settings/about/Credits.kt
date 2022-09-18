@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringArrayResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.my.kizzy.R
 import com.my.kizzy.ui.common.BackButton
@@ -56,7 +57,7 @@ fun Credits(onBackPressed: () -> Unit) {
             LargeTopAppBar(
                 title = {
                     Text(
-                        text = "Credits",
+                        text = stringResource(id = R.string.credits),
                         style = MaterialTheme.typography.headlineLarge,
                     )
                 },
@@ -67,7 +68,7 @@ fun Credits(onBackPressed: () -> Unit) {
     ){
         LazyColumn(modifier = Modifier.padding(it)){
             item {
-                SettingTitle(text = "Design Credits")
+                SettingTitle(text = stringResource(id = R.string.design_credits))
                 }
             items(creditsList){item: Credit ->
                 CreditItem(title = item.title,
@@ -76,7 +77,7 @@ fun Credits(onBackPressed: () -> Unit) {
                 }
             }
             item {
-                SettingTitle(text = "Translation Credits")
+                SettingTitle(text = stringResource(id = R.string.translation_credits))
             }
            items(languages.size){ lang ->
                CreditItem(

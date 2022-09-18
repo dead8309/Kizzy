@@ -62,7 +62,7 @@ fun MediaRPC(onBackPressed: () -> Unit) {
 
         Column(modifier = Modifier.padding(it)) {
             SwitchBar(
-                title = "Enable Media Rpc",
+                title = stringResource(id = R.string.enable_mediaRpc),
                 checked = mediarpcRunning
             ) {
                 mediarpcRunning = !mediarpcRunning

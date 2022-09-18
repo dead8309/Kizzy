@@ -6,6 +6,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import com.my.kizzy.R
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.PreferenceSingleChoiceItem
 import com.my.kizzy.utils.Prefs
@@ -27,7 +29,7 @@ fun Language(onBackPressed: () -> Unit) {
             LargeTopAppBar(
                 title = {
                     Text(
-                        text = "Language",
+                        text = stringResource(id = R.string.language),
                         style = MaterialTheme.typography.headlineLarge,
                     )
                 },

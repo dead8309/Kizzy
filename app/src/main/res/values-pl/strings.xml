@@ -35,6 +35,8 @@
     <string name="text_after_permission_denied">Dostęp do pamięci jest potrzebny, aby aplikacja mogła przechowywać konfiguracje w publicznych katalogach. Proszę udzielić uprawnienia.</string>
     <string name="request_for_permission">Do działania funkcji konfiguracji wymagany jest dostęp do pamięci. Proszę udzielić uprawnienia</string>
     <string name="grant_permission">Nadaj Uprawnienie</string>
+    <string name="use_low_res_icon">Use Low Resolution Images</string>
+    <string name="use_low_res_icon_desc">Use a lower resolution app icon for displaying on rpc (turn this on if the rpc is crashing). This setting will also be applied to Apps Rpc.</string>
     <string name="use_your_own_webhook">Użyj Własnego Webhooka</string>
     <string name="use_your_own_webhook_desc">Aplikacja użyje tego webhooka do wysyłania obrazów rpc na serwery Discord. Nie tykaj, jeśli nie wiesz jak działają webhooki.</string>
     <string name="edit_webhook_url">Edytuj URL Webhooka</string>
@@ -43,6 +45,28 @@
     <string name="app_crashed">App Crashed</string>
     <string name="share_crash_logs_desc">Please send the Logs in Discord channel with the following stacktrace :</string>
     <string name="share_crash_logs">SHARE LOGS</string>
+    <string name="welcome">Welcome</string>
+    <string name="features">Features</string>
+    <string name="battery_optimisation">Battery Optimisation</string>
+    <string name="battery_optimisation_desc">Ignore battery optimization for this app to work better in background</string>
+    <string name="account">Account</string>
+    <string name="account_info">Account info</string>
+    <string name="display">Display</string>
+    <string name="display_desc">Theme,Dynamic Colors,Languages</string>
+    <string name="about_desc">Version,releases,credits</string>
+    <string name="about">About</string>
+    <string name="settings">Settings</string>
+    <string name="theme">Theme</string>
+    <string name="language">Language</string>
+    <string name="design_credits">Design Credits</string>
+    <string name="translation_credits">Translation Credits</string>
+    <string name="enable_appsRpc">Enable App Detection</string>
+    <string name="usage_access">Usage Access Required</string>
+    <string name="usage_access_desc">Usage Access is needed for app to get the current running app</string>
+    <string name="enable_mediaRpc">Enable Media Rpc</string>
+    <string name="permission_required">Permission Required</string>
+    <string name="enable_customRpc">Enable Custom Rpc</string>
+    <string name="enable_nintendoRpc">Enable Switch Rpc</string>
 
 
 </resources>

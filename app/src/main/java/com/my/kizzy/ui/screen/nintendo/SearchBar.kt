@@ -28,10 +28,12 @@ fun SearchBar(
     onSearchClicked: () -> Unit
 ) {
     OutlinedTextField(
-        modifier = Modifier.background(
-            MaterialTheme.colorScheme.surface,
-            MaterialTheme.shapes.small,
-        ).padding(10.dp)
+        modifier = Modifier
+            .background(
+                MaterialTheme.colorScheme.surface,
+                MaterialTheme.shapes.small,
+            )
+            .padding(10.dp)
             .fillMaxWidth(),
         shape = RoundedCornerShape(50.dp),
         value = text,

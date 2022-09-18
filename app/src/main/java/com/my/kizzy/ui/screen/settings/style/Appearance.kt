@@ -8,7 +8,9 @@ import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.my.kizzy.R
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.SettingItem
 import me.rerere.md3compat.ThemeChooser
@@ -23,7 +25,7 @@ navigateToLanguages: () -> Unit) {
             LargeTopAppBar(
                 title = {
                     Text(
-                        text = "Theme",
+                        text = stringResource(id = R.string.theme),
                         style = MaterialTheme.typography.headlineLarge,
                     )
                 },
@@ -37,8 +39,8 @@ navigateToLanguages: () -> Unit) {
         ) {
             ThemeChooser()
             SettingItem(
-                title = "Language",
-                description = "English,Arabic,Chinese..",
+                title = stringResource(id = R.string.language),
+                description = "English,Turkish,Dutch..",
                 icon = Icons.Outlined.Translate
             ) {
                 navigateToLanguages()

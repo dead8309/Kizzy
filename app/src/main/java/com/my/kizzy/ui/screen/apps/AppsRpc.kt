@@ -28,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.my.kizzy.R
 import com.my.kizzy.service.AppDetectionService
 import com.my.kizzy.service.CustomRpcService
 import com.my.kizzy.service.MediaRpcService
@@ -95,8 +96,8 @@ fun AppsRPC(onBackPressed: () -> Unit) {
                             contentDescription = null
                         )
                     },
-                    title = { Text("UsageAccess Required") },
-                    text = { Text(text = "Usage Access is needed for app to get the current running app") },
+                    title = { Text(stringResource(id = R.string.usage_access)) },
+                    text = { Text(text = stringResource(id = R.string.usage_access_desc)) },
                     containerColor = errorContainer,
                     iconContentColor = error,
                     titleContentColor = onErrorContainer,
@@ -121,7 +122,7 @@ fun AppsRPC(onBackPressed: () -> Unit) {
             LazyColumn{
                 item {
                     SwitchBar(
-                title = "Enable App Detection",
+                title = stringResource(id = R.string.enable_appsRpc),
                 checked = serviceEnabled,
                     ) {
                         serviceEnabled = !serviceEnabled

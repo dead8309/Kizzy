@@ -26,9 +26,11 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.google.gson.Gson
+import com.my.kizzy.R
 import com.my.kizzy.ui.common.Routes
 import com.my.kizzy.ui.screen.profile.user.UserData
 import com.my.kizzy.utils.Prefs
@@ -47,7 +49,7 @@ fun Home(
             LargeTopAppBar(
                 title = {
                     Text(
-                        text = "Welcome, ${user?:""}",
+                        text =  stringResource(id = R.string.welcome)+", ${user?:""}",
                         style = MaterialTheme.typography.headlineLarge,
                     )
                 },
@@ -92,7 +94,7 @@ fun Home(
                 )
             )
             Text(
-                text = "Features",
+                text = stringResource(id = R.string.features),
                 style = MaterialTheme.typography.headlineMedium,
                 modifier = Modifier.padding(start = 15.dp)
             )

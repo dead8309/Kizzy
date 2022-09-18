@@ -151,8 +151,8 @@ fun CustomRPC(onBackPressed: () -> Unit) {
                                             }
                                         },
                                         title = {
-                                            Text(text = "Permission Required")
-                                        },
+                                            Text(text = stringResource(id = R.string.permission_required))
+                                                },
                                         icon = {
                                             Icon(imageVector = Icons.Default.Folder
                                                 , contentDescription = "storage")
@@ -308,7 +308,7 @@ fun CustomRPC(onBackPressed: () -> Unit) {
             ) {
                 item {
                     SwitchBar(
-                        title = "Enable Custom Rpc",
+                        title = stringResource(id = R.string.enable_customRpc ),
                         checked = isCustomRpcEnabled
                     ) {
                         isCustomRpcEnabled = !isCustomRpcEnabled

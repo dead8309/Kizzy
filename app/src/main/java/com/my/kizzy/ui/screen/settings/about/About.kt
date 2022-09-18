@@ -16,9 +16,9 @@ import com.my.kizzy.R
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.SettingItem
 
-const val github_Release = "https://github.com/dead8309/Kizzy-compose/releases"
-const val github_Repository = "https://github.com/dead8309/Kizzy-compose"
-const val github_Issues = "https://github.com/dead8309/Kizzy-compose/issues/new"
+const val github_Release = "https://github.com/dead8309/Kizzy/releases"
+const val github_Repository = "https://github.com/dead8309/Kizzy"
+const val github_Issues = "https://github.com/dead8309/Kizzy/issues/new"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,7 +37,7 @@ fun About(
             LargeTopAppBar(
                 title = {
                     Text(
-                        text = "About",
+                        text = stringResource(id = R.string.about),
                         style = MaterialTheme.typography.headlineLarge,
                     )
                 },
