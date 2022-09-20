@@ -1,15 +1,14 @@
 plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
-    compileSdk 33
-    buildToolsVersion "33.0.0"
+    compileSdk _compileSdkVersion
 
     signingConfigs {
         release {
-            storeFile file ("Kizzy.keystore")
+            storeFile file("Kizzy.keystore")
             storePassword RELEASE_STORE_PASSWORD
             keyAlias RELEASE_KEY_ALIAS
             keyPassword RELEASE_KEY_PASSWORD
@@ -18,11 +17,11 @@ android {
         }
     }
     defaultConfig {
-        applicationId "com.my.kizzy"
-        minSdk 27
-        targetSdk 33
-        versionCode 3
-        versionName "3.3"
+        applicationId _applicationId
+        minSdk _minSdk
+        targetSdk _targetSdk
+        versionCode _versionCode
+        versionName _versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -32,8 +31,8 @@ android {
 
     buildTypes {
         release {
-signingConfig signingConfigs.release
-shrinkResources true
+            signingConfig signingConfigs.release
+            shrinkResources true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -53,7 +52,7 @@ shrinkResources true
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.3.0'
+        kotlinCompilerExtensionVersion compose_version
     }
     packagingOptions {
         resources {
@@ -64,31 +63,31 @@ shrinkResources true
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.compose.material3:material3:1.0.0-beta01'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
-    implementation 'androidx.activity:activity-compose:1.5.1'
-    implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'com.google.android.material:material:1.6.1'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    implementation "androidx.compose.ui:ui:$compose_version"
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
-    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'com.github.re-ovo:md3compat:1.0.11'
-    implementation("androidx.navigation:navigation-compose:2.5.1")
-    implementation "androidx.compose.material:material-icons-extended:$compose_version"
-    implementation("com.google.accompanist:accompanist-navigation-animation:0.25.1")
-    implementation 'com.google.code.gson:gson:2.9.1'
-    implementation "com.github.skydoves:landscapist-glide:1.6.1"
-    implementation 'com.blankj:utilcodex:1.31.0'
-    implementation 'org.java-websocket:Java-WebSocket:1.5.3'
-    implementation "com.github.YarikSOffice:lingver:1.3.0"
-    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
-    implementation 'com.google.accompanist:accompanist-permissions:0.26.2-beta'
-    implementation 'com.github.TutorialsAndroid:crashx:v6.0.19'
+    implementation(coreKtx)
+    implementation(material3)
+    implementation(lifecycleRuntimeKtx)
+    implementation(composeActivity)
+    implementation(cardView)
+    implementation(constraintLayout)
+    implementation(androidxMaterial)
+    testImplementation(junit)
+    androidTestImplementation(junitExt)
+    androidTestImplementation(junitEspressoCore)
+    implementation(composeUi)
+    androidTestImplementation(junit4)
+    debugImplementation(uiTooling)
+    debugImplementation(testManifest)
+    implementation(composeToolingPreview)
+    implementation(md3Compat)
+    implementation(composeNavigation)
+    implementation(materialIconsExtended)
+    implementation(accompanistAnimation)
+    implementation(googleGson)
+    implementation(glide)
+    implementation(blankjUtil)
+    implementation(javaWebsocket)
+    implementation(lingver)
+    implementation(okhttp)
+    implementation(accompanistPermission)
+    implementation(crashX)
 }
