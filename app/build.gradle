@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    compileSdk _compileSdkVersion
+    compileSdk 33
 
     signingConfigs {
         release {
@@ -17,11 +17,11 @@ android {
         }
     }
     defaultConfig {
-        applicationId _applicationId
-        minSdk _minSdk
-        targetSdk _targetSdk
-        versionCode _versionCode
-        versionName _versionName
+        applicationId "com.my.kizzy"
+        minSdk 27
+        targetSdk 33
+        versionCode 3
+        versionName "3.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
