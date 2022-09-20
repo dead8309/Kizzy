@@ -12,19 +12,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.theme.DISCORD_DARK
 import com.my.kizzy.ui.theme.DISCORD_LIGHT_DARK
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.TOKEN
-
-@Preview
-@Composable
-fun Process() {
-    Profile {
-    }
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

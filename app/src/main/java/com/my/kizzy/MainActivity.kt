@@ -26,6 +26,7 @@ import com.my.kizzy.ui.screen.settings.Settings
 import com.my.kizzy.ui.screen.settings.about.About
 import com.my.kizzy.ui.screen.settings.about.Credits
 import com.my.kizzy.ui.screen.settings.language.Language
+import com.my.kizzy.ui.screen.settings.rpc_settings.RpcSettings
 import com.my.kizzy.ui.screen.settings.style.Appearance
 import com.my.kizzy.ui.theme.AppTypography
 import me.rerere.md3compat.Md3CompatTheme
@@ -74,6 +75,11 @@ class MainActivity : ComponentActivity() {
                             navcontroller.navigate(Routes.STYLE_AND_APPEAREANCE) {
                                 launchSingleTop = true
                             }
+                        },
+                        navigateToRpcSettings = {
+                            navcontroller.navigate(Routes.RPC_SETTINGS){
+                                launchSingleTop = true
+                            }
                         }
                     )
                 }
@@ -103,6 +109,11 @@ class MainActivity : ComponentActivity() {
                     }, navigateToLanguages = {
                         navcontroller.navigate(Routes.LANGUAGES)
                     })
+                }
+                animatedComposable(Routes.RPC_SETTINGS){
+                    RpcSettings {
+                        navcontroller.popBackStack()
+                    }
                 }
                 animatedComposable(Routes.ABOUT) {
                     About(

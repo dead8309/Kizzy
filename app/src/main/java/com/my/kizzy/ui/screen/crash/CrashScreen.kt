@@ -19,7 +19,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.app.ShareCompat
 import androidx.core.content.FileProvider
-import com.blankj.utilcode.util.ClipboardUtils
 import com.blankj.utilcode.util.FileIOUtils
 import com.blankj.utilcode.util.FileUtils
 import com.my.kizzy.BuildConfig
@@ -57,10 +56,10 @@ fun CrashScreen(trace: String?) {
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 onClick = {
-                    ClipboardUtils.copyText("Kizzy CrashLog", trace)
                     val file = File(ctx.filesDir.toString()+"/"+ "Kizzy_Log.txt")
-                    if(FileUtils.isFileExists(file))
-                    FileUtils.delete(file)
+                    if(FileUtils.isFileExists(file)){
+                        FileUtils.delete(file)
+                    }
                     FileIOUtils.writeFileFromString(file,trace)
                     val uri = FileProvider.getUriForFile(ctx,"${BuildConfig.APPLICATION_ID}.provider",file)
                     val intent =

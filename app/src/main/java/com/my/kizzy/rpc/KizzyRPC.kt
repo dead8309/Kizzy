@@ -341,7 +341,7 @@ class KizzyRPC(
                         try {
                             Thread.sleep(200)
                             reconnect()
-                        } catch (e: InterruptedException) {
+                        } catch (_: InterruptedException) {
                         }
                     }
                     newTh.start()
@@ -409,7 +409,7 @@ class KizzyRPC(
                 webSocketClient!!.send(
                     "{\"op\":1, \"d\":" + (if (seq == 0) "null" else seq.toString()) + "}"
                 )
-            } catch (e: InterruptedException) {
+            } catch (_: InterruptedException) {
             }
         }
     }

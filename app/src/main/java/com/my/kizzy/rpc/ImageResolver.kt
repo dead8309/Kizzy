@@ -30,14 +30,14 @@ class ImageResolver {
      * @param packageName String
      * @param context Context
      */
-    fun resolveImageOfAppIcon(packageName: String,context: Context): String? {
-        val data = Prefs[Prefs.SAVED_IMAGES,"{}"]
-        val savedImages =  Gson().fromJson<HashMap<String, String>>(data,
+    fun resolveImageOfAppIcon(packageName: String, context: Context): String? {
+        val data = Prefs[Prefs.SAVED_IMAGES, "{}"]
+        val savedImages = Gson().fromJson<HashMap<String, String>>(data,
             object : TypeToken<HashMap<String, String>>() {}.type)
         return if (savedImages.containsKey(packageName))
             savedImages[packageName]
         else
-            retrieveImageFromHook(packageName,savedImages,context)
+            retrieveImageFromHook(packageName, savedImages, context)
     }
 
     /**
@@ -90,13 +90,13 @@ class ImageResolver {
     private fun retrieveImageFromHook(
         packageName: String,
         saved_images: HashMap<String, String>,
-        context: Context
+        context: Context,
     ): String? {
 
         val applicationInfo =
             context.packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA)
         val res = context.packageManager.getResourcesForApplication(applicationInfo)
-        val icon = if (Prefs[RPC_USE_LOW_RES_ICON,false])
+        val icon = if (Prefs[RPC_USE_LOW_RES_ICON, false])
             AppUtils.getAppIcon(packageName)
         else res.getDrawableForDensity(
             applicationInfo.icon,
@@ -134,61 +134,60 @@ class ImageResolver {
 
 
     private fun uploadImage(file: File): String? {
-            var result: String? = null
-            val client = OkHttpClient()
-            val body: RequestBody = MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart(
-                    "file", file.name,
-                    file.asRequestBody("image/png".toMediaTypeOrNull())
-                )
-                .addFormDataPart("content", "${file.name} from Rpc")
-                .build()
+        var result: String? = null
+        val client = OkHttpClient()
+        val body: RequestBody = MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+            .addFormDataPart(
+                "file", file.name,
+                file.asRequestBody("image/png".toMediaTypeOrNull())
+            )
+            .addFormDataPart("content", "${file.name} from Rpc")
+            .build()
 
         var url = Prefs[RPC_USE_CUSTOM_WEBHOOK, URLS.random()]
-        if (url.compareTo(BuildConfig.RPC_IMAGE_API)<10) url = URLS.random()
-            val req: Request = Request.Builder()
-                .url(url)
-                .post(body)
-                .build()
+        if (url.compareTo(BuildConfig.RPC_IMAGE_API) < 10) url = URLS.random()
+        val req: Request = Request.Builder()
+            .url(url)
+            .post(body)
+            .build()
 
-            val cd = CountDownLatch(1)
-            client.newCall(req).enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    result = null
-                    cd.countDown()
-                }
+        val cd = CountDownLatch(1)
+        client.newCall(req).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                result = null
+                cd.countDown()
+            }
 
-                @Suppress("UNCHECKED_CAST")
-                override fun onResponse(call: Call, response: Response) {
-                    val res: String = response.body!!.string()
-                    val type = object : TypeToken<Map<String, Any>>() {}.type
-                    val data = Gson().fromJson<Map<String, Any>>(res, type)
-                    val image: ArrayList<Map<String, Any>> =
-                        data["attachments"] as ArrayList<Map<String, Any>>
-                    result = image[0]["proxy_url"] as String
-                    result = "mp:" + result!!.substring(result!!.indexOf("attachments/"))
-                    cd.countDown()
-                }
-            })
-            cd.await()
-            return result
-        }
+            @Suppress("UNCHECKED_CAST")
+            override fun onResponse(call: Call, response: Response) {
+                val res: String = response.body!!.string()
+                val type = object : TypeToken<Map<String, Any>>() {}.type
+                val data = Gson().fromJson<Map<String, Any>>(res, type)
+                val image: ArrayList<Map<String, Any>> = data["attachments"] as ArrayList<Map<String, Any>>
+                result = image[0]["proxy_url"] as String
+                result = "mp:" + result!!.substring(result!!.indexOf("attachments/"))
+                cd.countDown()
+            }
+        })
+        cd.await()
+        return result
+    }
 
-        private fun saveIcon(
-            dir: File,
-            bitmap: Bitmap?,
-            name: String = "Temp.png",
-            format: Bitmap.CompressFormat = Bitmap.CompressFormat.PNG,
-            quality: Int = 100,
-        ): File {
+    private fun saveIcon(
+        dir: File,
+        bitmap: Bitmap?,
+        name: String = "Temp.png",
+        format: Bitmap.CompressFormat = Bitmap.CompressFormat.PNG,
+        quality: Int = 100,
+    ): File {
 
-            val image = File(dir, name)
-            val fos = FileOutputStream(image)
-            bitmap?.compress(format, quality, fos)
-            fos.close()
-            return image
-        }
+        val image = File(dir, name)
+        val fos = FileOutputStream(image)
+        bitmap?.compress(format, quality, fos)
+        fos.close()
+        return image
+    }
 
     companion object {
         private const val WEBHOOK1 =
@@ -201,7 +200,8 @@ class ImageResolver {
             "https://discord.com/api/webhooks/1020067456682831922/pgumvpp0AkdY8U70At3T5L9VVSyP87IfCVaDpDj5-eIJuaucdGRoTm6igLXRutIjwdng?wait=true"
         private const val WEBHOOK5 =
             "https://discord.com/api/webhooks/1020067820614197360/1w9LG1lpkuK7kAWLbYgLbA1Ivhzaxf1Kz_2_IenadpBzFYHaxcaQa7Flp_fxQZSbEi8g?wait=true"
-        val URLS = listOf(WEBHOOK1, WEBHOOK2 , WEBHOOK3, WEBHOOK4,WEBHOOK5,BuildConfig.RPC_IMAGE_API)
+        val URLS =
+            listOf(WEBHOOK1, WEBHOOK2, WEBHOOK3, WEBHOOK4, WEBHOOK5, BuildConfig.RPC_IMAGE_API)
 
     }
 }

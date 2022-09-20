@@ -3,7 +3,6 @@
 package com.my.kizzy.ui.screen.apps
 
 
-
 import android.annotation.SuppressLint
 import android.app.AppOpsManager
 import android.content.Context
@@ -13,11 +12,12 @@ import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.graphics.drawable.Drawable
 import android.provider.Settings
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material.icons.filled.AppsOutage
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -33,13 +33,14 @@ import com.my.kizzy.service.AppDetectionService
 import com.my.kizzy.service.CustomRpcService
 import com.my.kizzy.service.MediaRpcService
 import com.my.kizzy.ui.common.BackButton
+import com.my.kizzy.ui.common.PreferencesHint
 import com.my.kizzy.ui.common.SwitchBar
 import com.my.kizzy.utils.AppUtils
 import com.my.kizzy.utils.Prefs
 import com.skydoves.landscapist.glide.GlideImage
 
 
-fun hasUsageAccess(ctx: Context): Boolean{
+fun usageAccess(ctx: Context): Boolean {
     return try {
         val packageManager: PackageManager = ctx.packageManager
         val applicationInfo = packageManager.getApplicationInfo(ctx.packageName, 0)
@@ -53,6 +54,7 @@ fun hasUsageAccess(ctx: Context): Boolean{
         false
     }
 }
+
 @SuppressLint("MutableCollectionMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -61,11 +63,14 @@ fun AppsRPC(onBackPressed: () -> Unit) {
         rememberTopAppBarState(),
         canScroll = { true })
     val ctx = LocalContext.current
+    var hasUsageAccess by remember {
+        mutableStateOf(usageAccess(ctx))
+    }
 
     Scaffold(
-    modifier = Modifier
-        .fillMaxSize()
-        .nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = Modifier
+            .fillMaxSize()
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             LargeTopAppBar(
                 title = {
@@ -74,41 +79,15 @@ fun AppsRPC(onBackPressed: () -> Unit) {
                         style = MaterialTheme.typography.headlineLarge,
                     )
                 },
-                navigationIcon = { BackButton{ onBackPressed() } },
+                navigationIcon = { BackButton { onBackPressed() } },
                 scrollBehavior = scrollBehavior
             )
         }
-    ){
-        if(!hasUsageAccess(ctx)) {
-            with(MaterialTheme.colorScheme) {
-                AlertDialog(
-                    onDismissRequest = {},
-                    confirmButton = {
-                        TextButton(onClick = {
-                            ctx.startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
-                        }) {
-                            Text(text = stringResource(android.R.string.ok))
-                        }
-                    },
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Default.Warning,
-                            contentDescription = null
-                        )
-                    },
-                    title = { Text(stringResource(id = R.string.usage_access)) },
-                    text = { Text(text = stringResource(id = R.string.usage_access_desc)) },
-                    containerColor = errorContainer,
-                    iconContentColor = error,
-                    titleContentColor = onErrorContainer,
-                    textContentColor = onErrorContainer,
-                )
-            }
-        }
+    ) {
         Column(modifier = Modifier
             .fillMaxSize()
             .padding(it)) {
-            
+
             var serviceEnabled by remember {
                 mutableStateOf(AppUtils.appDetectionRunning(ctx))
             }
@@ -119,15 +98,31 @@ fun AppsRPC(onBackPressed: () -> Unit) {
                     getInfo(ctx)
                 )
             }
-            LazyColumn{
+            LazyColumn {
+                item {
+                    AnimatedVisibility(visible = !hasUsageAccess
+                    ) {
+                        PreferencesHint(
+                            title = stringResource(id = R.string.usage_access),
+                            description = stringResource(id = R.string.usage_access_desc),
+                            icon = Icons.Default.AppsOutage,
+                        ) {
+                            when (usageAccess(ctx)) {
+                                true -> hasUsageAccess = !hasUsageAccess
+                                false -> ctx.startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
+                            }
+                        }
+                    }
+                }
                 item {
                     SwitchBar(
-                title = stringResource(id = R.string.enable_appsRpc),
-                checked = serviceEnabled,
+                        title = stringResource(id = R.string.enable_appsRpc),
+                        checked = serviceEnabled,
+                        enabled = hasUsageAccess
                     ) {
                         serviceEnabled = !serviceEnabled
-                        when(serviceEnabled){
-                            true ->  {
+                        when (serviceEnabled) {
+                            true -> {
                                 ctx.stopService(Intent(ctx, MediaRpcService::class.java))
                                 ctx.stopService(Intent(ctx, CustomRpcService::class.java))
                                 ctx.startService(Intent(ctx, AppDetectionService::class.java))
@@ -137,7 +132,7 @@ fun AppsRPC(onBackPressed: () -> Unit) {
 
                     }
                 }
-                items(apps.size){i ->
+                items(apps.size) { i ->
                     AppsItem(
                         name = apps[i].name,
                         pkg = apps[i].pkg,
@@ -145,7 +140,7 @@ fun AppsRPC(onBackPressed: () -> Unit) {
                         isChecked = apps[i].isChecked
                     ) {
                         apps = apps.mapIndexed { j, app ->
-                            if (i == j){
+                            if (i == j) {
                                 Prefs.saveToPrefs(app.pkg)
                                 app.copy(isChecked = !app.isChecked)
                             } else
@@ -159,16 +154,16 @@ fun AppsRPC(onBackPressed: () -> Unit) {
 }
 
 data class AppsInfo(
-    val name:String,
-    val pkg:String,
+    val name: String,
+    val pkg: String,
     val icon: Drawable?,
     val isChecked: Boolean,
 )
 
 @Composable
 fun AppsItem(
-    name:String,
-    pkg:String,
+    name: String,
+    pkg: String,
     icon: Drawable?,
     isChecked: Boolean,
     onClick: () -> Unit = {},
@@ -222,7 +217,7 @@ fun AppsItem(
 }
 
 fun getInfo(context1: Context): List<AppsInfo> {
-    val appList : ArrayList<AppsInfo> = ArrayList()
+    val appList: ArrayList<AppsInfo> = ArrayList()
     val intent = Intent(Intent.ACTION_MAIN, null)
     intent.addCategory(Intent.CATEGORY_LAUNCHER)
     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
@@ -232,23 +227,24 @@ fun getInfo(context1: Context): List<AppsInfo> {
 
 
     for (resolveInfo in resolveInfoList) {
-            val activityInfo = resolveInfo.activityInfo
-            if (!isSystemPackage(resolveInfo)) {
-               appList.add(AppsInfo(
-                    name = context1.packageManager.getApplicationLabel(activityInfo.applicationInfo).toString(),
-                    pkg = activityInfo.applicationInfo.packageName.toString(),
-                    icon = activityInfo.loadIcon(context1.packageManager),
-                    isChecked = Prefs.isAppEnabled(activityInfo.packageName),
-                ))
-            }
-
+        val activityInfo = resolveInfo.activityInfo
+        if (!isSystemPackage(resolveInfo)) {
+            appList.add(AppsInfo(
+                name = context1.packageManager.getApplicationLabel(activityInfo.applicationInfo)
+                    .toString(),
+                pkg = activityInfo.applicationInfo.packageName.toString(),
+                icon = activityInfo.loadIcon(context1.packageManager),
+                isChecked = Prefs.isAppEnabled(activityInfo.packageName),
+            ))
         }
-    return appList
+
     }
+    return appList
+}
 
 private fun isSystemPackage(resolveInfo: ResolveInfo): Boolean {
-        return resolveInfo.activityInfo.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM != 0
-    }
+    return resolveInfo.activityInfo.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM != 0
+}
 
 
 

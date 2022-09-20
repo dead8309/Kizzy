@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.EnergySavingsLeaf
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.SettingsSuggest
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -33,6 +34,7 @@ fun Settings(
     navigateToProfile: () -> Unit,
     navigateToStyleAndAppeareance: () -> Unit,
     navigateToAbout: () -> Unit,
+    navigateToRpcSettings: () -> Unit,
     onBackPressed: () -> Unit
 ) {
     val context = LocalContext.current
@@ -93,6 +95,15 @@ fun Settings(
                         icon = Icons.Outlined.Info
                     ) {
                         navigateToAbout()
+                    }
+                }
+                item {
+                    SettingItem(
+                        title = stringResource(id = R.string.rpc_settings),
+                        description = stringResource(id = R.string.rpc_settings_desc),
+                        icon = Icons.Outlined.SettingsSuggest
+                    ) {
+                        navigateToRpcSettings()
                     }
                 }
             }

@@ -31,7 +31,7 @@ fun BackButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
 fun PreferencesHint(
     title: String = "Title ".repeat(2),
     description: String? = "Description text ".repeat(3),
-    icon: ImageVector,
+    icon: ImageVector?,
     onClick: () -> Unit = {},
 ) {
 
@@ -45,7 +45,7 @@ fun PreferencesHint(
             .padding(horizontal = 12.dp, vertical = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        icon.let {
+        icon?.let {
             Icon(
                 imageVector = icon,
                 contentDescription = title,
@@ -121,7 +121,8 @@ fun PreferenceSingleChoiceItem(
 fun SwitchBar(
 title: String,
 checked: Boolean,
-onClick: () -> Unit,
+enabled: Boolean = true,
+onClick: () -> Unit
 ) {
     
     val icon: (@Composable () -> Unit)? =
@@ -144,7 +145,7 @@ onClick: () -> Unit,
             .clip(MaterialTheme.shapes.extraLarge)
             .background(MaterialTheme.colorScheme.secondaryContainer)
             .clickable {
-                onClick()
+                if (enabled) onClick()
             }
             .padding(horizontal = 12.dp, vertical = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -159,8 +160,9 @@ onClick: () -> Unit,
             )
             Switch(
                 checked = checked,
-                onCheckedChange = { onClick() },
-                thumbContent = icon
+                onCheckedChange = { if (enabled) onClick() },
+                thumbContent = icon,
+                enabled = enabled
             )
         }
     }

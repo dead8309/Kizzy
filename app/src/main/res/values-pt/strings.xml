@@ -67,5 +67,7 @@
     <string name="permission_required">Permission Required</string>
     <string name="enable_customRpc">Enable Custom Rpc</string>
     <string name="enable_nintendoRpc">Enable Switch Rpc</string>
+    <string name="rpc_settings">Rpc Settings</string>
+    <string name="rpc_settings_desc">Advance presence settings for media and apps RPC</string>
 
 </resources>
