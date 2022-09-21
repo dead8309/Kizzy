@@ -53,7 +53,7 @@
     <string name="account_info">Информация об аккаунте</string>
     <string name="display">Дисплей</string>
     <string name="display_desc">Тема, Динамические цвета, Языки</string>
-    <string name="about_desc">Версия, релизы, кредиты</string>
+    <string name="about_desc">Версия, Релизы, Кредиты</string>
     <string name="about">О приложении</string>
     <string name="settings">Настройки</string>
     <string name="theme">Тема</string>
