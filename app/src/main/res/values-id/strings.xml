@@ -1,0 +1,74 @@
+<resources>
+    <string name="app_name">Kizzy</string>
+
+    <!-- Activities -->
+    <string name="activity_name">Nama Aktivitas</string>
+    <string name="activity_details">Rincian Aktivitas</string>
+    <string name="activity_state">State Aktivitas</string>
+    <string name="activity_start_timestamps">Waktu Mulai</string>
+    <string name="activity_stop_timestamps">Waktu Berhenti</string>
+    <string name="activity_status_online_idle_dnd">Status Aktivitas(online,idle,dnd)</string>
+    <string name="activity_button1_text">Teks Tombol 1</string>
+    <string name="activity_button2_text">Teks Tombol 2</string>
+    <string name="activity_button1_url">URL Tombol 1</string>
+    <string name="activity_button2_url">URL Tombol 2</string>
+    <string name="activity_large_image">Gambar Besar Aktivitas</string>
+    <string name="activity_small_image">Gambar Kecil Aktivitas</string>
+    <string name="activity_type">Tipe Aktivitas</string>
+    <string name="load_config">Muat dari File</string>
+    <string name="save_config">Simpan Konfigurasi</string>
+    <string name="delete_configs">Hapus Konfigurasi</string>
+    <string name="preview_rpc">Pratinjau RPC</string>
+    <string name="select_a_config">Pilih Konfigurasi</string>
+    <string name="login_with_discord">Login Dengan Discord</string>
+    <string name="github_readme">README</string>
+    <string name="github_readme_desc">Periksa Repository GitHub</string>
+    <string name="github_latest_release">"Versi Terbaru "</string>
+    <string name="github_latest_release_desc">Lihat versi baru dan changelog</string>
+    <string name="github_issue">Issue GitHub</string>
+    <string name="github_issue_desc">Kirimkan masalah tentang laporan bug atau permintaan fitur</string>
+    <string name="credits">Kredit</string>
+    <string name="credits_desc">Kredit untuk libraries yang digunakan dan Kontributor</string>
+    <string name="enable_artist_name">Nyalakan Nama Artis</string>
+    <string name="show_app_icon">Tampilkan Ikon Aplikasi</string>
+    <string name="enable_timestamps">Nyalakan Stempel Waktu</string>
+    <string name="text_after_permission_denied">Akses penyimpanan penting bagi aplikasi ini untuk menyimpan konfigurasi di folder publik.</string>
+    <string name="request_for_permission">Izin penyimpanan diperlukan agar fitur konfigurasi berfungsi.</string>
+    <string name="grant_permission">Izinkan</string>
+    <string name="use_low_res_icon">Gunakan Gambar Resolusi rendah</string>
+    <string name="use_low_res_icon_desc">Gunakan gambar resolusi rendah untuk menampilkan rpc (nyalakan ini jika rpc kamu crash). Settingan ini juga berlaku untuk Apps RPC</string>
+    <string name="use_your_own_webhook">Gunakan Webhook Khusus</string>
+    <string name="use_your_own_webhook_desc">Untuk mengunggah foto rpc ke server discord yang akan digunakan oleh aplikasi. Jangan ubah settingan ini jika tidak tahu bagaimana ini bekerja</string>
+    <string name="edit_webhook_url">Ubah URL Webhook</string>
+    <string name="delete_saved_icon_urls">Hapus link icon yang tersimpan</string>
+    <string name="delete_saved_icon_urls_desc">Hapus URL Icon yang tersimpan di Perangkat(Gunakan ini jika Kasus Langka Terjadi, ini akan mengirim ulang semua ikon aplikasi ke server discord yang akan menggunakan banyak data)</string>
+    <string name="app_crashed">Aplikasi Crashed</string>
+    <string name="share_crash_logs_desc">Silahkan kirimkan stacktrace berikut di channel discord :</string>
+    <string name="share_crash_logs">BAGIKAN LOGS</string>
+    <string name="welcome">Selamat Datang</string>
+    <string name="features">Fitur</string>
+    <string name="battery_optimisation">Optimasi Baterai</string>
+    <string name="battery_optimisation_desc">Abaikan Pengoptimalan baterai untuk aplikasi ini agar aplikasi ini bekerja lebih baik</string>
+    <string name="account">Akun</string>
+    <string name="account_info">Tentang Akun</string>
+    <string name="display">Tampilan</string>
+    <string name="display_desc">Tema,Warna Dinamis,Bahasa</string>
+    <string name="about_desc">Versi,rilis,kredits</string>
+    <string name="about">Tentang</string>
+    <string name="settings">Pengaturan</string>
+    <string name="theme">Tema</string>
+    <string name="language">Bahasa</string>
+    <string name="design_credits">Kredit Desain</string>
+    <string name="translation_credits">Kredit Terjemahan</string>
+    <string name="enable_appsRpc">Nyalakan Deteksi Aplikasi</string>
+    <string name="usage_access">Diperlukan Akses Penggunaan</string>
+    <string name="usage_access_desc">Akses Penggunaan Diperlukan agar aplikasi dapat melihat Aplikasi yang sedang berjalan</string>
+    <string name="enable_mediaRpc">Nyalakan Media RPC</string>
+    <string name="permission_required">Izin Diperlukan</string>
+    <string name="enable_customRpc">Nyalakan RPC kustom</string>
+    <string name="enable_nintendoRpc">Nyalakan RPC Switch</string>
+    <string name="rpc_settings">Setelan RPC</string>
+    <string name="rpc_settings_desc">Lanjutan untuk media dan aplikasi rpc</string>
+
+
+</resources>
