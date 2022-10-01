@@ -1,4 +1,8 @@
 # Kizzy
+<p align="center">
+<img src="https://user-images.githubusercontent.com/68665948/193395906-94e669b9-41a9-4e17-b7b6-a723fce14e2a.png" width="60%" align="center"/>
+</p>
+
 A rich presence manager for managing discord's rich presence on `Android`
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
