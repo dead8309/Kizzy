@@ -12,7 +12,7 @@ A rich presence manager for managing discord's rich presence on `Android`
 ![Kotlin](https://img.shields.io/badge/kotlin-%230095D5.svg?logo=kotlin&logoColor=white)
 ![Android](https://img.shields.io/badge/Android-3DDC84?logo=android&logoColor=white)
 ![Android Studio](https://img.shields.io/badge/Android_Studio-3DDC84?logo=android-studio&logoColor=white)
-![](https://dcbadge.vercel.app/api/server/vUPc7zzpV5)(https://discord.gg/vUPc7zzpV5)
+[![](https://dcbadge.vercel.app/api/server/vUPc7zzpV5)](https://discord.gg/vUPc7zzpV5)
 
 ### Check out Docs at [GitBook](https://kizzy.gitbook.io/kizzy-docs/) 
 
