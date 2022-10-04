@@ -254,7 +254,7 @@ fun RpcItem(
                 modifier = Modifier.align(Alignment.TopStart)
             )
             Icon(
-                tint = item.iconColor,
+                tint = MaterialTheme.colorScheme.onSecondaryContainer,
                 painter = painterResource(id = item.icon),
                 contentDescription = item.title,
                 modifier = Modifier.align(Alignment.BottomStart)
