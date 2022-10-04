@@ -77,11 +77,11 @@ fun User() {
                 contentDescription = null,
                 modifier = Modifier
                     .padding(16.dp, 16.dp, 16.dp, 6.dp)
-                    .clip(CircleShape)
                     .size(110.dp)
                     .border(width = 8.dp,
                         color = DISCORD_DARK,
                         shape = CircleShape)
+                    .clip(CircleShape)
             )
         }
         CardText(

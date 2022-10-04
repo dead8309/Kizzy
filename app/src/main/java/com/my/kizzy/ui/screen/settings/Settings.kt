@@ -90,15 +90,6 @@ fun Settings(
                 }
                 item {
                     SettingItem(
-                        title = stringResource(id = R.string.about),
-                        description = stringResource(id = R.string.about_desc),
-                        icon = Icons.Outlined.Info
-                    ) {
-                        navigateToAbout()
-                    }
-                }
-                item {
-                    SettingItem(
                         title = stringResource(id = R.string.rpc_settings),
                         description = stringResource(id = R.string.rpc_settings_desc),
                         icon = Icons.Outlined.SettingsSuggest
@@ -106,6 +97,16 @@ fun Settings(
                         navigateToRpcSettings()
                     }
                 }
+                item {
+                    SettingItem(
+                        title = stringResource(id = R.string.about),
+                        description = stringResource(id = R.string.about_desc),
+                        icon = Icons.Outlined.Info
+                    ) {
+                        navigateToAbout()
+                    }
+                }
+
             }
         }
     }
