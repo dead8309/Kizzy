@@ -46,13 +46,13 @@ import kotlin.math.roundToInt
 fun Home(
     navController: NavController
 ) {
-    val user: UserData? = Gson().fromJson(Prefs[USER_DATA,"{}"],UserData::class.java)
+    val user: UserData? = Gson().fromJson(Prefs[USER_DATA,""])
     Scaffold(
         topBar = {
             LargeTopAppBar(
                 title = {
                     Text(
-                        text =  stringResource(id = R.string.welcome)+", ${user?.name}",
+                        text =  stringResource(id = R.string.welcome)+", ${user?.name?:""}",
                         style = MaterialTheme.typography.headlineLarge,
                     )
                 },
@@ -71,9 +71,9 @@ fun Home(
                         if (user != null) {
                             GlideImage(
                                 imageModel = user.avatar,
-                                modifier = Modifier.size(48.dp)
+                                modifier = Modifier.size(52.dp)
                                     .border(
-                                        4.dp,
+                                        2.dp,
                                         MaterialTheme.colorScheme.secondaryContainer,
                                         CircleShape
                                     )
@@ -117,6 +117,13 @@ fun Home(
             RpcCards(getHomeitems(), navController)
         }
     }
+}
+
+private fun Gson.fromJson(value: String): UserData? {
+   return when {
+       value.isNotEmpty() -> this.fromJson(value,UserData::class.java)
+       else -> null
+   }
 }
 
 @Composable
