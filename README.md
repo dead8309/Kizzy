@@ -18,6 +18,8 @@
 
 <img src="https://img.shields.io/badge/Android_Studio-5b5ef7?logo=android-studio&logoColor=white&style=flat-square">
 
+<img src="https://dcbadge.vercel.app/api/shield/888890990956511263?style=flat-square&compact=true">
+
 <a href="https://discord.gg/vUPc7zzpV5">
 <img src="https://dcbadge.vercel.app/api/server/vUPc7zzpV5">
 </a>
@@ -31,7 +33,6 @@
 <img src="https://user-images.githubusercontent.com/68665948/193395906-94e669b9-41a9-4e17-b7b6-a723fce14e2a.png" width=60%/>
 </p>
 </div>
-
 
 ## Screenshots
 <div>
