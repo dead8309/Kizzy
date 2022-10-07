@@ -1,5 +1,5 @@
 <div align="center">
-    <img width="50%" src="https://images.weserv.nl/?url=raw.githubusercontent.com/dead8309/Kizzy/dead8309-patch-1/metadata/icon.png?v=4&h=300&w=300&fit=cover&mask=circle&maxage=7d">
+    <img width="50%" src="https://images.weserv.nl/?url=raw.githubusercontent.com/dead8309/Kizzy/master/metadata/icon.png?v=4&h=300&w=300&fit=cover&mask=circle&maxage=7d">
 </div>
 <br>
 
