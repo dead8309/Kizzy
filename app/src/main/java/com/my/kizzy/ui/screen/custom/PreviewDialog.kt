@@ -20,7 +20,7 @@ object PreviewDialog {
 
      fun showPreview(
         context: Context,
-        rpc: Rpc
+        rpc: IntentRpcData
     ) {
         val view = LayoutInflater.from(context).inflate(R.layout.rpc_preview, null)
 

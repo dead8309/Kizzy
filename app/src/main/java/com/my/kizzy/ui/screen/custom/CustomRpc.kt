@@ -212,7 +212,7 @@ fun CustomRPC(onBackPressed: () -> Unit) {
                                 onClick = {
                                     menuClicked = !menuClicked
                                     PreviewDialog.showPreview(
-                                        rpc = Rpc(
+                                        rpc = IntentRpcData(
                                             name = name,
                                             details = details,
                                             state = state,
@@ -271,7 +271,7 @@ fun CustomRPC(onBackPressed: () -> Unit) {
                 }
             } else if (showSaveDialog) {
                 SaveConfig(
-                    rpc = Rpc(
+                    rpc = IntentRpcData(
                         name = name,
                         details = details,
                         state = state,
@@ -318,7 +318,7 @@ fun CustomRPC(onBackPressed: () -> Unit) {
                                 context.stopService(Intent(context, MediaRpcService::class.java))
                                 val intent = Intent(context, CustomRpcService::class.java)
                                 val string = Gson().toJson(
-                                    Rpc(
+                                    IntentRpcData(
                                         name = name,
                                         details = details,
                                         state = state,

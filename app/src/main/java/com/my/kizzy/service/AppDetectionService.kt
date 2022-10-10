@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.my.kizzy.service
 
 import android.app.*
@@ -13,6 +15,7 @@ import com.google.gson.reflect.TypeToken
 import com.my.kizzy.R
 import com.my.kizzy.rpc.Constants
 import com.my.kizzy.rpc.KizzyRPC
+import com.my.kizzy.rpc.RpcImage
 import com.my.kizzy.utils.Prefs
 import java.util.*
 
@@ -41,7 +44,7 @@ class AppDetectionService : Service() {
             notifset = false
             kizzyRPC = KizzyRPC(token = Prefs[Prefs.TOKEN,""])
             val apps = Prefs[Prefs.ENABLED_APPS, "[]"]
-            val enabled_packages: ArrayList<String> = Gson().fromJson(
+            val enabledPackages: ArrayList<String> = Gson().fromJson(
                 apps,
                 object : TypeToken<ArrayList<String>?>() {}.type
             )
@@ -80,13 +83,13 @@ class AppDetectionService : Service() {
                             val packageName = treeMap[treeMap.lastKey()]!!.packageName
                             Objects.requireNonNull(packageName)
                             Log.i("current app", packageName)
-                            if (enabled_packages.contains(packageName)) {
+                            if (enabledPackages.contains(packageName)) {
                                 if (!kizzyRPC!!.isRpcRunning()) {
                                     kizzyRPC!!.apply {
                                         setName(AppUtils.getAppName(packageName))
                                         setStartTimestamps(System.currentTimeMillis())
                                         setStatus(Constants.DND)
-                                        setLargeImage(packageName, this@AppDetectionService)
+                                        setLargeImage(RpcImage.ApplicationIcon(packageName, this@AppDetectionService))
                                         build()
                                     }
                                 }

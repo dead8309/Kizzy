@@ -13,13 +13,14 @@ import android.os.PowerManager.WakeLock
 import com.blankj.utilcode.util.AppUtils.getAppName
 import com.my.kizzy.R
 import com.my.kizzy.rpc.Constants
-import com.my.kizzy.rpc.ImageResolver
 import com.my.kizzy.rpc.KizzyRPC
+import com.my.kizzy.rpc.RpcImage
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.MEDIA_RPC_APP_ICON
 import com.my.kizzy.utils.Prefs.MEDIA_RPC_ARTIST_NAME
 import com.my.kizzy.utils.Prefs.MEDIA_RPC_ENABLE_TIMESTAMPS
 import com.my.kizzy.utils.Prefs.TOKEN
+import java.io.File
 
 
 @Suppress("DEPRECATION")
@@ -30,7 +31,8 @@ class MediaRpcService : Service() {
         var TITLE = ""
         var enable_time: Boolean = false
         var author: String? = null
-        var app_icon: String? = null
+        var app_icon: RpcImage? = null
+        var smallIcon: RpcImage? = null
         const val ACTION_STOP_SERVICE = "STOP_RPC"
     }
 
@@ -65,21 +67,24 @@ class MediaRpcService : Service() {
         thread = Thread {
             while (thread?.isInterrupted == false) {
                 try {
-                    val mediaSessionManager =
-                        this.getSystemService(MEDIA_SESSION_SERVICE) as MediaSessionManager
-                    val component =
-                        ComponentName(this, NotificationListener::class.java)
-                    val sessions =
-                        mediaSessionManager.getActiveSessions(component)
+                    val mediaSessionManager = this.getSystemService(MEDIA_SESSION_SERVICE) as MediaSessionManager
+                    val component = ComponentName(this, NotificationListener::class.java)
+                    val sessions = mediaSessionManager.getActiveSessions(component)
                     if (sessions.size > 0) {
                         val mediaController = sessions[0]
-                        val newTitle = mediaController.metadata?.getString(MediaMetadata.METADATA_KEY_TITLE)
-                        author = if (Prefs[MEDIA_RPC_ARTIST_NAME, false]) getArtistOrAuthor(mediaController.metadata)
-                        else null
-                        app_icon =
-                            if (Prefs[MEDIA_RPC_APP_ICON, false]) ImageResolver().resolveImageOfAppIcon(
-                                mediaController.packageName, this)
-                            else null
+                        val metadata = mediaController.metadata
+                        val newTitle = metadata?.getString(MediaMetadata.METADATA_KEY_TITLE)
+                        author = if (Prefs[MEDIA_RPC_ARTIST_NAME, false]) getArtistOrAuthor(metadata)
+                                 else null
+                        app_icon = if (Prefs[MEDIA_RPC_APP_ICON, false])
+                                RpcImage.ApplicationIcon(mediaController.packageName, this)
+                                   else null
+                        val bitmap = metadata?.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART)
+                        if (bitmap != null){
+                            smallIcon = app_icon
+                            app_icon = RpcImage.BitmapImage(File(this.filesDir.toString() + File.separator + "art"),bitmap)
+                        }
+                        else smallIcon = null
                         if (newTitle != null) {
                             if (newTitle != TITLE) {
                                 TITLE = newTitle
@@ -90,6 +95,7 @@ class MediaRpcService : Service() {
                         App_Name = ""
                         TITLE = ""
                         author = ""
+                        smallIcon = null
                     }
                     builder.setContentText(TITLE.ifEmpty { "Browsing Home Page.." })
                     startForeground(8838, builder.build())
@@ -99,6 +105,7 @@ class MediaRpcService : Service() {
                             details = TITLE.ifEmpty { "Browsing Home Page.." },
                             state = author,
                             large_image = app_icon,
+                            small_image = smallIcon,
                             enableTimestamps = enable_time,
                             time = time
                         )

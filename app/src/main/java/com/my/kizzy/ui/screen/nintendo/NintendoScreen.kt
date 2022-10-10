@@ -27,7 +27,7 @@ import com.my.kizzy.service.CustomRpcService
 import com.my.kizzy.service.MediaRpcService
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.SwitchBar
-import com.my.kizzy.ui.screen.custom.Rpc
+import com.my.kizzy.ui.screen.custom.IntentRpcData
 import com.my.kizzy.utils.AppUtils
 import com.skydoves.landscapist.glide.GlideImage
 
@@ -112,7 +112,7 @@ fun NintendoScreen(
                 ) { info ->
                     selected = game.title
                     val string = Gson().toJson(
-                        Rpc(
+                        IntentRpcData(
                             name = if (info.label == "wii") "Wii U" else "Nintendo Switch",
                             details = info.title,
                             state = "",

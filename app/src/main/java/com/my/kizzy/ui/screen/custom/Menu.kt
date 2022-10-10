@@ -31,7 +31,7 @@ private val FILE_FILTER = FilenameFilter { _: File?, f: String ->
 @Composable
 fun LoadConfig(
     onDismiss: () -> Unit,
-    onConfigSelected: (Rpc) -> Unit
+    onConfigSelected: (IntentRpcData) -> Unit
 ) {
     val dir = File(
         Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
@@ -76,7 +76,7 @@ fun LoadConfig(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SaveConfig(
-    rpc: Rpc,
+    rpc: IntentRpcData,
     onDismiss: () -> Unit,
     onSaved: (String) -> Unit
 ) {
@@ -189,7 +189,7 @@ fun DeleteConfig(
 }
 
 
-fun Rpc.dataToString(): String {
+fun IntentRpcData.dataToString(): String {
     val value: MutableMap<String, String> = HashMap()
     value["name"] = this.name
     value["details"] = this.details
@@ -207,13 +207,13 @@ fun Rpc.dataToString(): String {
     return gson.toJson(value)
 }
 
-fun String.stringToData(): Rpc {
+fun String.stringToData(): IntentRpcData {
    try {
        val values = gson.fromJson<Map<String, String>>(
            this,
            object : TypeToken<HashMap<String, String>>() {}.type
        )
-       return Rpc(
+       return IntentRpcData(
            values["name"] ?: "",
            values["details"] ?: "",
            values["state"] ?: "",
@@ -228,7 +228,7 @@ fun String.stringToData(): Rpc {
            values["smallImg"] ?: "",
            values["type"] ?: "")
    } catch (ex: Exception){
-       return Rpc("", "", "", "", "", "", "", "", "", "", "", "", "")
+       return IntentRpcData("", "", "", "", "", "", "", "", "", "", "", "", "")
    }
 }
 
