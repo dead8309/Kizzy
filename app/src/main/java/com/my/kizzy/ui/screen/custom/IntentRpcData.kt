@@ -1,6 +1,6 @@
 package com.my.kizzy.ui.screen.custom
 
-data class Rpc(
+data class IntentRpcData(
     var name: String,
     var details:String,
     var state: String,

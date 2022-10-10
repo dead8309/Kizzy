@@ -1,12 +1,13 @@
 package com.my.kizzy.rpc
 
-import android.content.Context
 import android.util.ArrayMap
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import com.my.kizzy.rpc.Constants.APPLICATION
+import com.my.kizzy.rpc.Constants.LARGE_IMAGE
+import com.my.kizzy.rpc.Constants.SMALL_IMAGE
 import org.java_websocket.client.WebSocketClient
 import org.java_websocket.handshake.ServerHandshake
 import java.net.URI
@@ -16,26 +17,26 @@ import javax.net.ssl.SSLParameters
 class KizzyRPC(
     var token: String,
 ) {
-    private var activity_name: String? = null
+    private var activityName: String? = null
     private var details: String? = null
     private var state: String? = null
-    private var large_image: String? = null
-    private var small_image: String? = null
+    private var largeImage: RpcImage? = null
+    private var smallImage: RpcImage? = null
     private var status:String? = null
-    private var start_timestamps: Long? = null
-    private var stop_timestamps: Long? = null
+    private var startTimestamps: Long? = null
+    private var stopTimestamps: Long? = null
     private var type:Int = 0
     var rpc = ArrayMap<String, Any>()
     var webSocketClient: WebSocketClient? = null
     var gson: Gson = GsonBuilder().setPrettyPrinting().serializeNulls().create()
     var heartbeatRunnable: Runnable
     var heartbeatThr: Thread? = null
-    var heartbeat_interval = 0
+    var heartbeatInterval = 0
     var seq = 0
-    private var session_id: String? = null
-    private var reconnect_session = false
+    private var sessionId: String? = null
+    private var reconnectSession = false
     private var buttons = ArrayList<String>()
-    private var button_url = ArrayList<String>()
+    private var buttonUrl = ArrayList<String>()
 
 
     fun closeRPC() {
@@ -45,7 +46,7 @@ class KizzyRPC(
         if (webSocketClient != null) webSocketClient!!.close(1000)
     }
 
-     fun isRpcRunning(): Boolean{
+    fun isRpcRunning(): Boolean{
         return webSocketClient?.isOpen == true
     }
 
@@ -56,7 +57,7 @@ class KizzyRPC(
      * @return
      */
     fun setName(activity_name: String?): KizzyRPC {
-        this.activity_name = activity_name
+        this.activityName = activity_name
         return this
     }
 
@@ -90,21 +91,10 @@ class KizzyRPC(
      * @param large_image
      * @return
      */
-    fun setLargeImage(large_image: String?): KizzyRPC {
-        if (large_image != null) {
-            if (large_image.startsWith("attachments"))
-                this.large_image = "mp:$large_image"
-            else
-                this.large_image = ImageResolver().resolveImageFromUrl(large_image)
-        }
+    fun setLargeImage(large_image: RpcImage?): KizzyRPC {
+        this.largeImage = large_image
         return this
     }
-
-    fun setLargeImage(large_image: String,context: Context): KizzyRPC {
-        this.large_image = ImageResolver().resolveImageOfAppIcon(large_image,context)
-        return this
-    }
-
 
     /**
      * Small image on Rpc
@@ -112,13 +102,8 @@ class KizzyRPC(
      * @param small_image
      * @return
      */
-    fun setSmallImage(small_image: String?): KizzyRPC {
-        if (small_image != null) {
-            if (small_image.startsWith("attachments"))
-                this.small_image = "mp:$small_image"
-            else
-                this.small_image = ImageResolver().resolveImageFromUrl(small_image)
-        }
+    fun setSmallImage(small_image: RpcImage?): KizzyRPC {
+        this.smallImage = small_image
         return this
     }
 
@@ -129,7 +114,7 @@ class KizzyRPC(
      * @return
      */
     fun setStartTimestamps(start_timestamps: Long?): KizzyRPC {
-        this.start_timestamps = start_timestamps
+        this.startTimestamps = start_timestamps
         return this
     }
 
@@ -140,7 +125,7 @@ class KizzyRPC(
      * @return
      */
     fun setStopTimestamps(stop_timestamps: Long?): KizzyRPC {
-        this.stop_timestamps = stop_timestamps
+        this.stopTimestamps = stop_timestamps
         return this
     }
 
@@ -199,7 +184,7 @@ class KizzyRPC(
      * @return
      */
     fun setButton1URL(url: String?): KizzyRPC {
-        url?.let { button_url.add(it) }
+        url?.let { buttonUrl.add(it) }
         return this
     }
 
@@ -209,35 +194,35 @@ class KizzyRPC(
      * @return
      */
     fun setButton2URL(url: String?): KizzyRPC {
-        url?.let { button_url.add(it) }
+        url?.let { buttonUrl.add(it) }
         return this
     }
 
     fun build() {
         val presence = ArrayMap<String, Any?>()
         val activity = ArrayMap<String, Any?>()
-        activity[Constants.NAME] = activity_name
+        activity[Constants.NAME] = activityName
         activity[Constants.DETAILS] = details
         activity[Constants.STATE] = state
         activity[Constants.TYPE] = type
         val timestamps = ArrayMap<String, Any?>()
-        timestamps[Constants.START_TIMESTAMPS] = start_timestamps
-        timestamps[Constants.STOP_TIMESTAMPS] = stop_timestamps
+        timestamps[Constants.START_TIMESTAMPS] = startTimestamps
+        timestamps[Constants.STOP_TIMESTAMPS] = stopTimestamps
         activity[Constants.TIMESTAMPS] = timestamps
         val assets = ArrayMap<String, Any?>()
-        assets[Constants.LARGE_IMAGE] = large_image
-        assets[Constants.SMALL_IMAGE] = small_image
+        assets[LARGE_IMAGE] = largeImage.resolveImage()
+        assets[SMALL_IMAGE] = smallImage.resolveImage()
         activity[Constants.ASSETS] = assets
         if (buttons.size > 0) {
             activity[APPLICATION] = Constants.APPLICATION_ID
             activity[Constants.BUTTONS] = buttons
             val metadata = ArrayMap<String, Any>()
-            metadata[Constants.BUTTON_LINK] = button_url
+            metadata[Constants.BUTTON_LINK] = buttonUrl
             activity[Constants.METADATA] = metadata
         }
         presence[Constants.ACTIVITIES] = arrayOf<Any>(activity)
         presence[Constants.AFK] = true
-        presence[Constants.SINCE] = start_timestamps
+        presence[Constants.SINCE] = startTimestamps
         presence[Constants.STATUS] = status
         rpc["op"] = 3
         rpc["d"] = presence
@@ -284,25 +269,25 @@ class KizzyRPC(
                 }
                 when ((map["op"] as Double?)!!.toInt()) {
                     0 -> if (map["t"] as String? == "READY") {
-                        session_id = (map["d"] as Map<*, *>?)!!["session_id"].toString()
+                        sessionId = (map["d"] as Map<*, *>?)!!["session_id"].toString()
                         Log.e("Connected", "")
                         webSocketClient!!.send(gson.toJson(rpc))
                         return
                     }
-                    10 -> if (!reconnect_session) {
+                    10 -> if (!reconnectSession) {
                         val data = map["d"] as Map<*, *>?
-                        heartbeat_interval = (data!!["heartbeat_interval"] as Double?)!!.toInt()
+                        heartbeatInterval = (data!!["heartbeat_interval"] as Double?)!!.toInt()
                         heartbeatThr = Thread(heartbeatRunnable)
                         heartbeatThr!!.start()
                         sendIdentify()
                     } else {
                         Log.e("Sending Reconnect", "")
                         val data = map["d"] as Map<*, *>?
-                        heartbeat_interval = (data!!["heartbeat_interval"] as Double?)!!.toInt()
+                        heartbeatInterval = (data!!["heartbeat_interval"] as Double?)!!.toInt()
                         heartbeatThr = Thread(heartbeatRunnable)
                         heartbeatThr!!.start()
-                        reconnect_session = false
-                        webSocketClient!!.send("{\"op\": 6,\"d\":{\"token\":\"$token\",\"session_id\":\"$session_id\",\"seq\":$seq}}")
+                        reconnectSession = false
+                        webSocketClient!!.send("{\"op\": 6,\"d\":{\"token\":\"$token\",\"session_id\":\"$sessionId\",\"seq\":$seq}}")
                     }
                     1 -> {
                         if (!Thread.interrupted()) {
@@ -320,7 +305,7 @@ class KizzyRPC(
                         heartbeatThr!!.start()
                     }
                     7 -> {
-                        reconnect_session = true
+                        reconnectSession = true
                         webSocketClient!!.close(4000)
                     }
                     9 -> if (!heartbeatThr!!.isInterrupted) {
@@ -334,7 +319,7 @@ class KizzyRPC(
 
             override fun onClose(code: Int, reason: String, remote: Boolean) {
                 if (code == 4000) {
-                    reconnect_session = true
+                    reconnectSession = true
                     heartbeatThr!!.interrupt()
                     Log.e("", "Closed Socket")
                     val newTh = Thread {
@@ -369,7 +354,8 @@ class KizzyRPC(
         name: String,
         details: String?,
         state: String?,
-        large_image: String?,
+        large_image: RpcImage?,
+        small_image: RpcImage?,
         enableTimestamps: Boolean,
         time: Long
     ) {
@@ -385,12 +371,14 @@ class KizzyRPC(
             timestamps["start"] = time
             activity["timestamps"] = timestamps
         }
+        val assets = ArrayMap<String, String>()
         large_image?.let {
-            val assets = ArrayMap<String, String>()
-            assets[Constants.LARGE_IMAGE] = large_image
-            activity[Constants.ASSETS] = assets
+            assets[LARGE_IMAGE] = large_image.resolveImage()
         }
-
+        small_image?.let {
+            assets[SMALL_IMAGE] = small_image.resolveImage()
+        }
+        activity[Constants.ASSETS] = assets
         presence["activities"] = arrayOf<Any>(activity)
         presence["afk"] = true
         presence["since"] = time
@@ -404,13 +392,23 @@ class KizzyRPC(
     init {
         heartbeatRunnable = Runnable {
             try {
-                if (heartbeat_interval < 10000) throw RuntimeException("invalid")
-                Thread.sleep(heartbeat_interval.toLong())
+                if (heartbeatInterval < 10000) throw RuntimeException("invalid")
+                Thread.sleep(heartbeatInterval.toLong())
                 webSocketClient!!.send(
                     "{\"op\":1, \"d\":" + (if (seq == 0) "null" else seq.toString()) + "}"
                 )
             } catch (_: InterruptedException) {
             }
         }
+    }
+}
+
+private fun RpcImage?.resolveImage(): String? {
+    return when(this){
+        is RpcImage.ApplicationIcon -> ImageResolver().resolveImageOfAppIcon(this.packageName,this.context)
+        is RpcImage.DiscordImage -> "mp:${this.image}"
+        is RpcImage.ExternalImage -> ImageResolver().resolveImageFromUrl(this.image)
+        is RpcImage.BitmapImage -> ImageResolver().uploadImage(ImageResolver().saveIcon(this.file,this.bitmap))
+        else -> null
     }
 }

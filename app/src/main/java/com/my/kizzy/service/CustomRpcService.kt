@@ -11,11 +11,12 @@ import com.google.gson.Gson
 import com.my.kizzy.R
 import com.my.kizzy.rpc.Constants
 import com.my.kizzy.rpc.KizzyRPC
-import com.my.kizzy.ui.screen.custom.Rpc
+import com.my.kizzy.rpc.RpcImage
+import com.my.kizzy.ui.screen.custom.IntentRpcData
 import com.my.kizzy.utils.Prefs
 
 class CustomRpcService : Service() {
-    private lateinit var rpc: Rpc
+    private lateinit var rpcData: IntentRpcData
     private var wakeLock: WakeLock? = null
     private lateinit var kizzyRPC: KizzyRPC
 
@@ -31,7 +32,7 @@ class CustomRpcService : Service() {
             else
                 intent?.getStringExtra("RPC")
 
-            rpc = Gson().fromJson(string, Rpc::class.java)
+            rpcData = Gson().fromJson(string, IntentRpcData::class.java)
             val token = Prefs[Prefs.TOKEN,""]
             if (token.isEmpty()) stopSelf()
             val channel = NotificationChannel(
@@ -48,7 +49,7 @@ class CustomRpcService : Service() {
                 0,stopIntent, PendingIntent.FLAG_IMMUTABLE)
             val builder = Notification.Builder(this, CHANNEL_ID)
             builder.setContentTitle("$CHANNEL_NAME is running")
-            builder.setContentText(rpc.name)
+            builder.setContentText(rpcData.name)
             builder.setSmallIcon(R.drawable.ic_rpc_placeholder)
             builder.addAction(R.drawable.ic_rpc_placeholder, "Exit", pendingIntent)
             val powerManager = getSystemService(POWER_SERVICE) as PowerManager
@@ -57,20 +58,22 @@ class CustomRpcService : Service() {
             startForeground(7744, builder.build())
             Thread{
                     kizzyRPC = KizzyRPC(token = token)
-                    kizzyRPC.setName(rpc.name.ifEmpty { null })
-                        .setDetails(rpc.details.ifEmpty { null })
-                        .setState(rpc.state.ifEmpty { null })
-                        .setStatus(rpc.status.ifEmpty { Constants.ONLINE })
-                        .setType(rpc.type.toIntOrNull()?:0)
-                        .setStartTimestamps(rpc.startTime.toLongOrNull())
-                        .setStopTimestamps(rpc.StopTime.toLongOrNull())
-                        .setButton1(rpc.button1.ifEmpty { null })
-                        .setButton1URL(rpc.button1Url.ifEmpty { null })
-                        .setButton2(rpc.button2.ifEmpty { null })
-                        .setButton2URL(rpc.button2Url.ifEmpty { null })
-                        .setLargeImage(rpc.largeImg.ifEmpty { null })
-                        .setSmallImage(rpc.smallImg.ifEmpty { null })
-                        .build()
+                    kizzyRPC.apply {
+                        setName(rpcData.name.ifEmpty { null })
+                            setDetails(rpcData.details.ifEmpty { null })
+                            setState(rpcData.state.ifEmpty { null })
+                            setStatus(rpcData.status.ifEmpty { Constants.ONLINE })
+                            setType(rpcData.type.toIntOrNull() ?: 0)
+                            setStartTimestamps(rpcData.startTime.toLongOrNull())
+                            setStopTimestamps(rpcData.StopTime.toLongOrNull())
+                            setButton1(rpcData.button1.ifEmpty { null })
+                            setButton1URL(rpcData.button1Url.ifEmpty { null })
+                            setButton2(rpcData.button2.ifEmpty { null })
+                            setButton2URL(rpcData.button2Url.ifEmpty { null })
+                            setLargeImage(if (rpcData.largeImg.isEmpty()) null else rpcData.largeImg.toRpcImage)
+                            setSmallImage(if (rpcData.smallImg.isEmpty()) null else rpcData.smallImg.toRpcImage)
+                            build()
+                    }
                 }.start()
         }
         return super.onStartCommand(intent, flags, startId)
@@ -80,7 +83,7 @@ class CustomRpcService : Service() {
         try {
             if (kizzyRPC.isRpcRunning())
                 kizzyRPC.closeRPC()
-        } catch (ex: UninitializedPropertyAccessException){}
+        } catch (_: UninitializedPropertyAccessException){}
         wakeLock?.let {
             if (it.isHeld) it.release()
         }
@@ -100,3 +103,12 @@ class CustomRpcService : Service() {
     }
 
 }
+
+
+private val String.toRpcImage: RpcImage
+    get() {
+        return if (this.startsWith("attachments"))
+            RpcImage.DiscordImage(this)
+        else
+            RpcImage.ExternalImage(this)
+    }

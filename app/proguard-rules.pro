@@ -29,4 +29,4 @@
 
 }
 -keep class com.my.kizzy.ui.screen.nintendo.* { <fields>; }
-
+-keep class com.my.kizzy.rpc.* { <fields>; }

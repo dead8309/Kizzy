@@ -4,11 +4,13 @@ import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
@@ -36,6 +38,7 @@ import com.my.kizzy.ui.screen.profile.user.UserData
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.USER_DATA
 import com.my.kizzy.utils.standardQuadFromTo
+import com.skydoves.landscapist.glide.GlideImage
 import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -43,13 +46,13 @@ import kotlin.math.roundToInt
 fun Home(
     navController: NavController
 ) {
-    val user: String = Gson().fromJson(Prefs[USER_DATA,"{}"],UserData::class.java).name
+    val user: UserData? = Gson().fromJson(Prefs[USER_DATA,""])
     Scaffold(
         topBar = {
             LargeTopAppBar(
                 title = {
                     Text(
-                        text =  stringResource(id = R.string.welcome)+", ${user?:""}",
+                        text =  stringResource(id = R.string.welcome)+", ${user?.name?:""}",
                         style = MaterialTheme.typography.headlineLarge,
                     )
                 },
@@ -65,10 +68,23 @@ fun Home(
                 },
                 actions = {
                     IconButton(onClick = { navController.navigate(Routes.PROFILE) }) {
-                        Icon(
-                            imageVector = Icons.Outlined.Person,
-                            contentDescription = Icons.Default.Person.name
-                        )
+                        if (user != null) {
+                            GlideImage(
+                                imageModel = user.avatar,
+                                modifier = Modifier.size(52.dp)
+                                    .border(
+                                        2.dp,
+                                        MaterialTheme.colorScheme.secondaryContainer,
+                                        CircleShape
+                                    )
+                                    .clip(CircleShape),
+                                previewPlaceholder = R.drawable.error_avatar)
+                        } else {
+                            Icon(
+                                imageVector = Icons.Outlined.Person,
+                                contentDescription = Icons.Default.Person.name
+                            )
+                        }
                     }
                 }
             )
@@ -101,6 +117,13 @@ fun Home(
             RpcCards(getHomeitems(), navController)
         }
     }
+}
+
+private fun Gson.fromJson(value: String): UserData? {
+   return when {
+       value.isNotEmpty() -> this.fromJson(value,UserData::class.java)
+       else -> null
+   }
 }
 
 @Composable
@@ -254,7 +277,7 @@ fun RpcItem(
                 modifier = Modifier.align(Alignment.TopStart)
             )
             Icon(
-                tint = item.iconColor,
+                tint = MaterialTheme.colorScheme.onSecondaryContainer,
                 painter = painterResource(id = item.icon),
                 contentDescription = item.title,
                 modifier = Modifier.align(Alignment.BottomStart)
