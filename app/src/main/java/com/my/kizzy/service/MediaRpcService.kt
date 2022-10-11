@@ -86,7 +86,7 @@ class MediaRpcService : Service() {
                                    else null
                                 if (bitmap != null){
                                    smallIcon = app_icon
-                                   app_icon = RpcImage.BitmapImage(File(this.filesDir.toString() + File.separator + "art"),bitmap,mediaController.packageName)
+                                   app_icon = RpcImage.BitmapImage(File(this.filesDir.toString() + File.separator + "art"),bitmap,mediaController.packageName,TITLE)
                                   } else smallIcon = null
                             }
                         }
