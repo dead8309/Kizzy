@@ -74,16 +74,16 @@ class MediaRpcService : Service() {
                         val mediaController = sessions[0]
                         val metadata = mediaController.metadata
                         val newTitle = metadata?.getString(MediaMetadata.METADATA_KEY_TITLE)
-                        author = if (Prefs[MEDIA_RPC_ARTIST_NAME, false]) getArtistOrAuthor(metadata)
-                                 else null
-                        app_icon = if (Prefs[MEDIA_RPC_APP_ICON, false])
-                                RpcImage.ApplicationIcon(mediaController.packageName, this)
-                                   else null
                         val bitmap = metadata?.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART)
                         if (newTitle != null) {
                             if (newTitle != TITLE) {
                                 TITLE = newTitle
                                 App_Name = getAppName(mediaController.packageName)
+                                author = if (Prefs[MEDIA_RPC_ARTIST_NAME, false]) getArtistOrAuthor(metadata)
+                                 else null
+                                app_icon = if (Prefs[MEDIA_RPC_APP_ICON, false])
+                                RpcImage.ApplicationIcon(mediaController.packageName, this)
+                                   else null
                                 if (bitmap != null){
                                    smallIcon = app_icon
                                    app_icon = RpcImage.BitmapImage(File(this.filesDir.toString() + File.separator + "art"),bitmap)
