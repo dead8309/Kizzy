@@ -70,6 +70,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                     icon = Icons.Default.DeleteForever
                 ) {
                     Prefs.remove(Prefs.SAVED_IMAGES)
+                    Prefs.remove(Prefs.SAVED_ARTWORK)
                     Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -79,7 +80,9 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 onDismissRequest = { dismiss = !dismiss },
                 confirmButton = {
                     TextButton(onClick = {
-                        Prefs[Prefs.RPC_USE_CUSTOM_WEBHOOK] = "$useCustomWebhook?wait=true"
+                        if(useCustomWebhook.startsWith("https://discord.com/api/webhooks"))
+                           Prefs[Prefs.RPC_USE_CUSTOM_WEBHOOK] = "$useCustomWebhook?wait=true"
+                        else Prefs.remove(Prefs.RPC_USE_CUSTOM_WEBHOOK)
                     }) {
                         Text(text = "Save")
                     }
