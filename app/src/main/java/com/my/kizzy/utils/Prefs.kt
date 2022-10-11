@@ -89,4 +89,6 @@ object Prefs {
 
     // Saved Image Asset ids
     const val SAVED_IMAGES = "saved_images"
+    // Saved ArtWork
+    const val SAVED_ARTWORK = "saved_artwork"
 }
