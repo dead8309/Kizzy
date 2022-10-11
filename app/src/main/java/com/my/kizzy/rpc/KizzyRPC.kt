@@ -13,6 +13,7 @@ import org.java_websocket.handshake.ServerHandshake
 import java.net.URI
 import java.net.URISyntaxException
 import javax.net.ssl.SSLParameters
+import com.my.kizzy.utils.Prefs
 
 class KizzyRPC(
     var token: String,
@@ -413,7 +414,7 @@ private fun RpcImage?.resolveImage(): String? {
     }
 }
 
-private fun getAssets(val rpcImage: RpcImage.BitmapImage): String? {
+private fun getAssets(rpcImage: RpcImage.BitmapImage): String? {
      val data = Prefs[Prefs.SAVED_ARTWORK, "{}"]
      val schema = "${rpcImage.packageName}:${rpcImage.title}"
      val savedImages = Gson().fromJson<HashMap<String, String>>(data,
