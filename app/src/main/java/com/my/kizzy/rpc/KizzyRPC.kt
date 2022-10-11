@@ -422,9 +422,11 @@ private fun getAssets(rpcImage: RpcImage.BitmapImage): String? {
      if (savedImages.containsKey(schema))
            return savedImages[schema]
      else {
-           val result = ImageResolver().uploadImage(ImageResolver().saveIcon(rpcImage.file,rpcImage.bitmap))
-           savedImages[schema] = result
+           val result: String? = ImageResolver().uploadImage(ImageResolver().saveIcon(rpcImage.file,rpcImage.bitmap))
+           result?.let {
+           savedImages[schema] = it
            Prefs[Prefs.SAVED_ARTWORK] = Gson().toJson(savedImages)
+           }
            return result
      }
 }
