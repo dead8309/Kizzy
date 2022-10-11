@@ -80,15 +80,14 @@ class MediaRpcService : Service() {
                                 RpcImage.ApplicationIcon(mediaController.packageName, this)
                                    else null
                         val bitmap = metadata?.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART)
-                        if (bitmap != null){
-                            smallIcon = app_icon
-                            app_icon = RpcImage.BitmapImage(File(this.filesDir.toString() + File.separator + "art"),bitmap)
-                        }
-                        else smallIcon = null
                         if (newTitle != null) {
                             if (newTitle != TITLE) {
                                 TITLE = newTitle
                                 App_Name = getAppName(mediaController.packageName)
+                                if (bitmap != null){
+                                   smallIcon = app_icon
+                                   app_icon = RpcImage.BitmapImage(File(this.filesDir.toString() + File.separator + "art"),bitmap)
+                                  } else smallIcon = null
                             }
                         }
                     } else {
