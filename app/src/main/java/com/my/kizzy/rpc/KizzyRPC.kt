@@ -413,7 +413,7 @@ private fun RpcImage?.resolveImage(): String? {
     }
 }
 
-private getAssets(val rpcImage: RpcImage): String?{
+private getAssets(val rpcImage: RpcImage.BitmapImage): String? {
      val data = Prefs[Prefs.SAVED_ARTWORK, "{}"]
      val schema = "${rpcImage.packageName}:${rpcImage.title}"
      val savedImages = Gson().fromJson<HashMap<String, String>>(data,
@@ -422,8 +422,8 @@ private getAssets(val rpcImage: RpcImage): String?{
            return savedImages[schema]
      else {
            val result = ImageResolver().uploadImage(ImageResolver().saveIcon(rpcImage.file,rpcImage.bitmap))
-           saved_images[schema] = result
-           Prefs[Prefs.SAVED_ARTWORK] = Gson().toJson(saved_images)
+           savedImages[schema] = result
+           Prefs[Prefs.SAVED_ARTWORK] = Gson().toJson(savedImages)
            return result
      }
 }
