@@ -141,8 +141,9 @@ class ImageResolver {
             .addFormDataPart("content", "${file.name} from Rpc")
             .build()
 
-        var url = Prefs[RPC_USE_CUSTOM_WEBHOOK, URLS.random()]
-        if (url.compareTo(BuildConfig.RPC_IMAGE_API) < 10) url = URLS.random()
+        var url = Prefs[RPC_USE_CUSTOM_WEBHOOK, ""]
+        if (!url.startsWith("https://discord.com/api/webhooks"))
+            url = URLS.random()
         val req: Request = Request.Builder()
             .url(url)
             .post(body)
