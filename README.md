@@ -34,6 +34,14 @@
 </p>
 </div>
 
+## Download
+<a href="https://github.com/dead8309/releases/latest">
+<img src="https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white"
+     alt="Download from GitHub"
+     height="60">
+</a>
+
+
 ## Screenshots
 <div>
 <img src="metadata/0.jpg" width="30%" />
@@ -70,10 +78,6 @@
 Read the Setup Guide [at Gitbook](https://kizzy.gitbook.io/kizzy-docs/setup/setting-up-the-app)
 or watch the tutorial video
 [![IMAGE_ALT](https://img.youtube.com/vi/kjPDMHgsOcU/0.jpg)](https://www.youtube.com/embed/kjPDMHgsOcU)
-
-
-## Download
-Get the APK from the GitHub [release section](https://github.com/dead8309/Kizzy/releases/latest).
 
 
 ## Documentation
