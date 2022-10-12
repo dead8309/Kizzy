@@ -35,7 +35,7 @@
 </div>
 
 ## Download
-<a href="https://github.com/dead8309/releases/latest">
+<a href="https://github.com/dead8309/Kizzy/releases/latest">
 <img src="https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white"
      alt="Download from GitHub"
      height="60">
