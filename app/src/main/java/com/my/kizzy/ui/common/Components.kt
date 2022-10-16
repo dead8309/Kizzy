@@ -153,6 +153,7 @@ onClick: () -> Unit
         ) {
         with(MaterialTheme) {
             Text(
+                modifier = Modifier.weight(4f),
                 text = title,
                 maxLines = 1,
                 style = typography.titleLarge.copy(fontSize = 20.sp),
@@ -160,6 +161,7 @@ onClick: () -> Unit
                 overflow = TextOverflow.Ellipsis
             )
             Switch(
+                modifier = Modifier.weight(1f),
                 checked = checked,
                 onCheckedChange = { if (enabled) onClick() },
                 thumbContent = icon,
