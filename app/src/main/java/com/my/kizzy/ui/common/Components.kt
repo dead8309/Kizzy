@@ -154,7 +154,7 @@ onClick: () -> Unit
         with(MaterialTheme) {
             Text(
                 text = title,
-                maxLines = 1,
+                maxLines = 2,
                 style = typography.titleLarge.copy(fontSize = 20.sp),
                 color = colorScheme.onSecondaryContainer
             )
