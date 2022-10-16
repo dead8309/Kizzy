@@ -149,7 +149,7 @@ onClick: () -> Unit
             }
             .padding(horizontal = 12.dp, vertical = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceAround
         ) {
         with(MaterialTheme) {
             Text(
