@@ -154,9 +154,10 @@ onClick: () -> Unit
         with(MaterialTheme) {
             Text(
                 text = title,
-                maxLines = 2,
+                maxLines = 1,
                 style = typography.titleLarge.copy(fontSize = 20.sp),
-                color = colorScheme.onSecondaryContainer
+                color = colorScheme.onSecondaryContainer,
+                overflow = TextOverflow.Ellipsis
             )
             Switch(
                 checked = checked,
