@@ -40,7 +40,9 @@
      alt="Download from GitHub"
      height="60">
 </a>
-
+<a href="https://apt.izzysoft.de/fdroid/index/apk/com.my.kizzy">
+<img src="https://codeberg.org/IzzyOnDroid/repo/raw/commit/6b8ffbd7746747238cb48f6076764eaf4e390316/assets/IzzyOnDroid.png">
+</a>
 
 ## Screenshots
 <div>
