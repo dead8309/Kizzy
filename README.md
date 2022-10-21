@@ -97,10 +97,9 @@ git clone https://github.com/dead8309/Kizzy.git
 - Import the project
 - Click on Build and Run
 
-## Important
-This app uses the Discord Gateway connection so this might not be safe. Use this at your own risk.
+> **Warning**
+> This app uses the Discord Gateway connection so this might not be safe. Use this at your own risk.
 However people have been using custom rich presence for past 4-5 years and there's is still no case of account getting terminated.
-
 
 ## Translate
 See [Contribute for Translation](https://github.com/dead8309/Kizzy/issues/2#issue-1370365856)
