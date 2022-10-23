@@ -77,7 +77,7 @@ object Prefs {
     const val TOKEN = "token"
 
     const val LANGUAGE = "language"
-
+    const val THEME = "theme"
     const val ENABLED_APPS = "enabled_apps"
 
     //Media Rpc Preferences

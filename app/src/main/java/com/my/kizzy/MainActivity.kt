@@ -5,10 +5,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -29,14 +30,19 @@ import com.my.kizzy.ui.screen.settings.language.Language
 import com.my.kizzy.ui.screen.settings.rpc_settings.RpcSettings
 import com.my.kizzy.ui.screen.settings.style.Appearance
 import com.my.kizzy.ui.theme.AppTypography
+import com.my.kizzy.utils.Log.vlog
+import com.my.kizzy.utils.Prefs
+import com.my.kizzy.utils.Prefs.THEME
 import me.rerere.md3compat.Md3CompatTheme
 
 class MainActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Md3CompatTheme(typography = AppTypography) {
+            Md3CompatTheme(
+                typography = AppTypography,
+                darkTheme = Prefs[THEME, isSystemInDarkTheme()]
+            ) {
                 Kizzy()
             }
         }
@@ -46,6 +52,7 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterial3Api::class)
     @Composable
     fun Kizzy() {
+
         Scaffold()
         {
             val navcontroller = rememberAnimatedNavController()
@@ -108,6 +115,9 @@ class MainActivity : ComponentActivity() {
                         navcontroller.popBackStack()
                     }, navigateToLanguages = {
                         navcontroller.navigate(Routes.LANGUAGES)
+                    }, onThemeModeChanged = {
+                        Prefs[THEME] = it
+                        recreate()
                     })
                 }
                 animatedComposable(Routes.RPC_SETTINGS){

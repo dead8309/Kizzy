@@ -69,6 +69,9 @@
     <string name="enable_nintendoRpc">Switch RPC\'sini Etkinleştir</string>
     <string name="rpc_settings">RPC Ayarları</string>
     <string name="rpc_settings_desc">Medya ve Uygulama RPC\'si için gelişmiş presence ayarları</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="privacy_policy_desc">Check the Privacy Policy</string>
 
 
 </resources>

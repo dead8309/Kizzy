@@ -4,6 +4,7 @@ package com.my.kizzy.utils
 
 import android.app.ActivityManager
 import android.content.Context
+import com.android.girish.vlog.Vlog
 import com.my.kizzy.service.AppDetectionService
 import com.my.kizzy.service.CustomRpcService
 import com.my.kizzy.service.MediaRpcService
@@ -38,5 +39,11 @@ object AppUtils {
             }
             return false
         }
+}
 
+object Log{
+    lateinit var vlog: Vlog
+    fun init(context: Context){
+        vlog = Vlog.getInstance(context)
     }
+}

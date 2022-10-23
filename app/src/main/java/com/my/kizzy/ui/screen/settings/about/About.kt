@@ -11,14 +11,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.blankj.utilcode.util.AppUtils
+import com.my.kizzy.BuildConfig
 import com.my.kizzy.R
 import com.my.kizzy.ui.common.BackButton
+import com.my.kizzy.ui.common.PreferencesHint
 import com.my.kizzy.ui.common.SettingItem
 
-const val github_Release = "https://github.com/dead8309/Kizzy/releases"
+
+
 const val github_Repository = "https://github.com/dead8309/Kizzy"
-const val github_Issues = "https://github.com/dead8309/Kizzy/issues/new"
+const val github_Release = "$github_Repository/releases"
+const val github_Issues = "$github_Repository/issues/new"
+const val github_privacy_policy = "$github_Repository/blob//master/TERMS_OF_SERVICE.md"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -47,6 +51,15 @@ fun About(
     ) {
         LazyColumn(modifier = Modifier.padding(it)){
 
+            item {
+                PreferencesHint(
+                    title = stringResource(id = R.string.privacy_policy),
+                    description = stringResource(id = R.string.privacy_policy_desc),
+                    icon = Icons.Outlined.PrivacyTip
+                ) {
+                    uriHandler.openUri(github_privacy_policy)
+                }
+            }
             item {
                 SettingItem(
                     title = stringResource(id = R.string.github_readme),
@@ -86,7 +99,7 @@ fun About(
             item { 
                 SettingItem(
                     title = "Version",
-                    description = AppUtils.getAppVersionName(),
+                    description = BuildConfig.VERSION_NAME,
                     icon = Icons.Outlined.Info
                 ) {
                 }

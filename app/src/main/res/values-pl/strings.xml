@@ -69,5 +69,8 @@
     <string name="enable_nintendoRpc">Włącz Rpc Switcha</string>
     <string name="rpc_settings">Ustawienia Rpc</string>
     <string name="rpc_settings_desc">Zaawansowane ustawienia RPC mediów i aplikacji</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="privacy_policy_desc">Check the Privacy Policy</string>
 
 </resources>

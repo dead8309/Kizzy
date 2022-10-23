@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DeleteForever
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.HighQuality
-import androidx.compose.material.icons.filled.Webhook
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -25,8 +23,8 @@ import com.my.kizzy.utils.Prefs
 fun RpcSettings(onBackPressed: () -> Boolean) {
     val context = LocalContext.current
     var isLowResIconsEnabled by remember { mutableStateOf(Prefs[Prefs.RPC_USE_LOW_RES_ICON, false]) }
-    var useCustomWebhook by remember { mutableStateOf(Prefs[Prefs.RPC_USE_CUSTOM_WEBHOOK, ""]) }
-    var dismiss by remember { mutableStateOf(false) }
+//    var useCustomWebhook by remember { mutableStateOf(Prefs[Prefs.RPC_USE_CUSTOM_WEBHOOK, ""]) }
+//    var dismiss by remember { mutableStateOf(false) }
     Scaffold(
         modifier = Modifier
             .fillMaxSize(),
@@ -54,6 +52,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                     Prefs[Prefs.RPC_USE_LOW_RES_ICON] = isLowResIconsEnabled
                 }
             }
+            /*
             item {
                 SettingItem(
                     title = stringResource(id = R.string.use_your_own_webhook),
@@ -62,7 +61,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 ) {
                     dismiss = !dismiss
                 }
-            }
+            }*/
             item {
                 SettingItem(
                     title = stringResource(id = R.string.delete_saved_icon_urls),
@@ -75,7 +74,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 }
             }
         }
-        if (dismiss) {
+        /*if (dismiss) {
             AlertDialog(
                 onDismissRequest = { dismiss = !dismiss },
                 confirmButton = {
@@ -83,6 +82,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                         if(useCustomWebhook.startsWith("https://discord.com/api/webhooks"))
                            Prefs[Prefs.RPC_USE_CUSTOM_WEBHOOK] = "$useCustomWebhook?wait=true"
                         else Prefs.remove(Prefs.RPC_USE_CUSTOM_WEBHOOK)
+                        dismiss = false
                     }) {
                         Text(text = "Save")
                     }
@@ -103,6 +103,6 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                     )
                 }
             )
-        }
+        }*/
     }
 }

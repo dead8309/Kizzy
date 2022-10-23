@@ -115,7 +115,9 @@ class MediaRpcService : Service() {
                 }
             }
         }
-        kizzyRPC = KizzyRPC(token).apply {
+        kizzyRPC = KizzyRPC(token, onRpcClosed = {
+            stopSelf()
+        }).apply {
             setName("")
             setStatus(Constants.DND)
             build()

@@ -3,7 +3,6 @@ package com.my.kizzy.service
 import android.annotation.SuppressLint
 import android.app.*
 import android.content.Intent
-import android.os.Build
 import android.os.IBinder
 import android.os.PowerManager
 import android.os.PowerManager.WakeLock
@@ -16,7 +15,7 @@ import com.my.kizzy.ui.screen.custom.IntentRpcData
 import com.my.kizzy.utils.Prefs
 
 class CustomRpcService : Service() {
-    private lateinit var rpcData: IntentRpcData
+    private var rpcData: IntentRpcData? = null
     private var wakeLock: WakeLock? = null
     private lateinit var kizzyRPC: KizzyRPC
 
@@ -26,13 +25,12 @@ class CustomRpcService : Service() {
         if (intent?.action.equals(ACTION_STOP_SERVICE))
             stopSelf()
         else {
-            val string =
-                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.TIRAMISU)
-                    intent?.getStringExtra("RPC")
-            else
-                intent?.getStringExtra("RPC")
+            val string = intent?.getStringExtra("RPC")
+            string?.let {
+                rpcData = Gson().fromJson(it, IntentRpcData::class.java)
+            }
 
-            rpcData = Gson().fromJson(string, IntentRpcData::class.java)
+
             val token = Prefs[Prefs.TOKEN,""]
             if (token.isEmpty()) stopSelf()
             val channel = NotificationChannel(
@@ -49,7 +47,7 @@ class CustomRpcService : Service() {
                 0,stopIntent, PendingIntent.FLAG_IMMUTABLE)
             val builder = Notification.Builder(this, CHANNEL_ID)
             builder.setContentTitle("$CHANNEL_NAME is running")
-            builder.setContentText(rpcData.name)
+            builder.setContentText(rpcData?.name ?: "")
             builder.setSmallIcon(R.drawable.ic_rpc_placeholder)
             builder.addAction(R.drawable.ic_rpc_placeholder, "Exit", pendingIntent)
             val powerManager = getSystemService(POWER_SERVICE) as PowerManager
@@ -57,22 +55,26 @@ class CustomRpcService : Service() {
             wakeLock?.acquire()
             startForeground(7744, builder.build())
             Thread{
-                    kizzyRPC = KizzyRPC(token = token)
+                    kizzyRPC = KizzyRPC(token = token){
+                        stopSelf()
+                    }
                     kizzyRPC.apply {
-                        setName(rpcData.name.ifEmpty { null })
-                            setDetails(rpcData.details.ifEmpty { null })
-                            setState(rpcData.state.ifEmpty { null })
-                            setStatus(rpcData.status.ifEmpty { Constants.ONLINE })
-                            setType(rpcData.type.toIntOrNull() ?: 0)
-                            setStartTimestamps(rpcData.startTime.toLongOrNull())
-                            setStopTimestamps(rpcData.StopTime.toLongOrNull())
-                            setButton1(rpcData.button1.ifEmpty { null })
-                            setButton1URL(rpcData.button1Url.ifEmpty { null })
-                            setButton2(rpcData.button2.ifEmpty { null })
-                            setButton2URL(rpcData.button2Url.ifEmpty { null })
-                            setLargeImage(if (rpcData.largeImg.isEmpty()) null else rpcData.largeImg.toRpcImage)
-                            setSmallImage(if (rpcData.smallImg.isEmpty()) null else rpcData.smallImg.toRpcImage)
+                        rpcData?.let {
+                            setName(it.name.ifEmpty { null })
+                            setDetails(it.details.ifEmpty { null })
+                            setState(it.state.ifEmpty { null })
+                            setStatus(it.status.ifEmpty { Constants.ONLINE })
+                            setType(it.type.toIntOrNull() ?: 0)
+                            setStartTimestamps(it.startTime.toLongOrNull())
+                            setStopTimestamps(it.StopTime.toLongOrNull())
+                            setButton1(it.button1.ifEmpty { null })
+                            setButton1URL(it.button1Url.ifEmpty { null })
+                            setButton2(it.button2.ifEmpty { null })
+                            setButton2URL(it.button2Url.ifEmpty { null })
+                            setLargeImage(if (it.largeImg.isEmpty()) null else it.largeImg.toRpcImage)
+                            setSmallImage(if (it.smallImg.isEmpty()) null else it.smallImg.toRpcImage)
                             build()
+                        }
                     }
                 }.start()
         }

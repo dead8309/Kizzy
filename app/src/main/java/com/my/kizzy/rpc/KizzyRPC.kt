@@ -1,22 +1,22 @@
 package com.my.kizzy.rpc
 
 import android.util.ArrayMap
-import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import com.my.kizzy.rpc.Constants.APPLICATION
 import com.my.kizzy.rpc.Constants.LARGE_IMAGE
 import com.my.kizzy.rpc.Constants.SMALL_IMAGE
+import com.my.kizzy.utils.Log.vlog
+import com.my.kizzy.utils.Prefs
 import org.java_websocket.client.WebSocketClient
 import org.java_websocket.handshake.ServerHandshake
 import java.net.URI
 import java.net.URISyntaxException
-import javax.net.ssl.SSLParameters
-import com.my.kizzy.utils.Prefs
 
 class KizzyRPC(
     var token: String,
+    val onRpcClosed: () -> Unit
 ) {
     private var activityName: String? = null
     private var details: String? = null
@@ -45,6 +45,7 @@ class KizzyRPC(
             if (!heartbeatThr!!.isInterrupted) heartbeatThr!!.interrupt()
         }
         if (webSocketClient != null) webSocketClient!!.close(1000)
+        onRpcClosed()
     }
 
     fun isRpcRunning(): Boolean{
@@ -149,7 +150,7 @@ class KizzyRPC(
         return this
     }
 
-    /* Status type for profile online,idle,dnd
+    /** Status type for profile online,idle,dnd
     *
     * @param status
     * @return
@@ -232,14 +233,15 @@ class KizzyRPC(
 
     fun sendIdentify() {
         val prop = ArrayMap<String, Any>()
-        prop["\$os"] = "windows"
-        prop["\$browser"] = "Chrome"
-        prop["\$device"] = "disco"
+        prop["os"] = "Windows"
+        prop["browser"] = "Discord Client"
+        prop["device"] = "disco"
         val data = ArrayMap<String, Any>()
         data["token"] = token
         data["properties"] = prop
         data["compress"] = false
-        data["intents"] = 0
+        data["capabilities"] = 65
+        data["largeThreshold"] = 100
         val identify = ArrayMap<String, Any>()
         identify["op"] = 2
         identify["d"] = data
@@ -247,7 +249,7 @@ class KizzyRPC(
     }
 
     private fun createWebsocketClient() {
-        Log.i("Connecting", "")
+        vlog.i(TAG ,"Connecting")
         val uri: URI = try {
             URI("wss://gateway.discord.gg/?encoding=json&v=10")
         } catch (e: URISyntaxException) {
@@ -255,100 +257,8 @@ class KizzyRPC(
             return
         }
         val headerMap = ArrayMap<String, String>()
-        webSocketClient = object : WebSocketClient(uri, headerMap) {
-            override fun onOpen(s: ServerHandshake) {
-                Log.e("Connection opened", "")
-            }
-
-            override fun onMessage(message: String) {
-                val map = gson.fromJson<ArrayMap<String, Any>>(
-                    message, object : TypeToken<ArrayMap<String?, Any?>?>() {}.type
-                )
-                val o = map["s"]
-                if (o != null) {
-                    seq = (o as Double).toInt()
-                }
-                when ((map["op"] as Double?)!!.toInt()) {
-                    0 -> if (map["t"] as String? == "READY") {
-                        sessionId = (map["d"] as Map<*, *>?)!!["session_id"].toString()
-                        Log.e("Connected", "")
-                        webSocketClient!!.send(gson.toJson(rpc))
-                        return
-                    }
-                    10 -> if (!reconnectSession) {
-                        val data = map["d"] as Map<*, *>?
-                        heartbeatInterval = (data!!["heartbeat_interval"] as Double?)!!.toInt()
-                        heartbeatThr = Thread(heartbeatRunnable)
-                        heartbeatThr!!.start()
-                        sendIdentify()
-                    } else {
-                        Log.e("Sending Reconnect", "")
-                        val data = map["d"] as Map<*, *>?
-                        heartbeatInterval = (data!!["heartbeat_interval"] as Double?)!!.toInt()
-                        heartbeatThr = Thread(heartbeatRunnable)
-                        heartbeatThr!!.start()
-                        reconnectSession = false
-                        webSocketClient!!.send("{\"op\": 6,\"d\":{\"token\":\"$token\",\"session_id\":\"$sessionId\",\"seq\":$seq}}")
-                    }
-                    1 -> {
-                        if (!Thread.interrupted()) {
-                            heartbeatThr!!.interrupt()
-                        }
-                        webSocketClient!!.send(
-                            "{\"op\":1, \"d\":" + (if (seq == 0) "null" else seq.toString()) + "}"
-                        )
-                    }
-                    11 -> {
-                        if (!Thread.interrupted()) {
-                            heartbeatThr!!.interrupt()
-                        }
-                        heartbeatThr = Thread(heartbeatRunnable)
-                        heartbeatThr!!.start()
-                    }
-                    7 -> {
-                        reconnectSession = true
-                        webSocketClient!!.close(4000)
-                    }
-                    9 -> if (!heartbeatThr!!.isInterrupted) {
-                        heartbeatThr!!.interrupt()
-                        heartbeatThr = Thread(heartbeatRunnable)
-                        heartbeatThr!!.start()
-                        sendIdentify()
-                    }
-                }
-            }
-
-            override fun onClose(code: Int, reason: String, remote: Boolean) {
-                if (code == 4000) {
-                    reconnectSession = true
-                    heartbeatThr!!.interrupt()
-                    Log.e("", "Closed Socket")
-                    val newTh = Thread {
-                        try {
-                            Thread.sleep(200)
-                            reconnect()
-                        } catch (_: InterruptedException) {
-                        }
-                    }
-                    newTh.start()
-                } else throw RuntimeException("Invalid")
-            }
-
-            override fun onError(e: Exception) {
-                if (e.message != "Interrupt") {
-                    closeRPC()
-                }
-            }
-
-            override fun onSetSSLParameters(p: SSLParameters) {
-                try {
-                    super.onSetSSLParameters(p)
-                } catch (th: Throwable) {
-                    th.printStackTrace()
-                }
-            }
-        }
-        (webSocketClient as WebSocketClient).connect()
+        webSocketClient = Websocket(uri,headerMap)
+        (webSocketClient as Websocket).connect()
     }
 
     fun updateRPC(
@@ -402,6 +312,103 @@ class KizzyRPC(
             }
         }
     }
+
+    companion object{
+        const val TAG = "Websocket"
+    }
+
+    inner class Websocket(uri: URI,map: ArrayMap<String,String>): WebSocketClient(uri,map) {
+        private var gatewayResume = ""
+        override fun onOpen(handshakedata: ServerHandshake?) {
+            vlog.d(TAG, "onOpen() called with: handshake-data = $handshakedata")
+        }
+
+        override fun onMessage(message: String) {
+            vlog.d(TAG, "onMessage() called with: message = $message")
+            val map = gson.fromJson<ArrayMap<String, Any>>(
+                message, object : TypeToken<ArrayMap<String?, Any?>?>() {}.type
+            )
+            val o = map["s"]
+            if (o != null) {
+                seq = (o as Double).toInt()
+            }
+            when ((map["op"] as Double?)!!.toInt()) {
+                0 -> if (map["t"] as String? == "READY") {
+                    sessionId = (map["d"] as Map<*, *>?)!!["session_id"].toString()
+                    gatewayResume = (map["d"] as Map<*, *>?)!!["resume_gateway_url"].toString()
+                    vlog.d(TAG,gatewayResume)
+                    vlog.d(TAG,"Connected")
+                    send(gson.toJson(rpc))
+                    return
+                }
+                10 -> if (!reconnectSession) {
+                    val data = map["d"] as Map<*, *>?
+                    heartbeatInterval = (data!!["heartbeat_interval"] as Double?)!!.toInt()
+                    heartbeatThr = Thread(heartbeatRunnable)
+                    heartbeatThr!!.start()
+                    sendIdentify()
+                } else {
+                    vlog.e(TAG,"Sending Reconnect")
+                    val data = map["d"] as Map<*, *>?
+                    heartbeatInterval = (data!!["heartbeat_interval"] as Double?)!!.toInt()
+                    heartbeatThr = Thread(heartbeatRunnable)
+                    heartbeatThr!!.start()
+                    reconnectSession = false
+                    webSocketClient!!.send("{\"op\": 6,\"d\":{\"token\":\"$token\",\"session_id\":\"$sessionId\",\"seq\":$seq}}")
+                }
+                1 -> {
+                    if (!Thread.interrupted()) {
+                        heartbeatThr!!.interrupt()
+                    }
+                    webSocketClient!!.send(
+                        "{\"op\":1, \"d\":" + (if (seq == 0) "null" else seq.toString()) + "}"
+                    )
+                }
+                11 -> {
+                    if (!Thread.interrupted()) {
+                        heartbeatThr!!.interrupt()
+                    }
+                    heartbeatThr = Thread(heartbeatRunnable)
+                    heartbeatThr!!.start()
+                }
+                7 -> {
+                    reconnectSession = true
+                    webSocketClient!!.close(4000)
+                }
+                9 -> if (!heartbeatThr!!.isInterrupted) {
+                    heartbeatThr!!.interrupt()
+                    heartbeatThr = Thread(heartbeatRunnable)
+                    heartbeatThr!!.start()
+                    sendIdentify()
+                }
+            }
+        }
+
+        override fun onClose(code: Int, reason: String, remote: Boolean) {
+            vlog.d(TAG, "onClose() called with: code = $code, reason = $reason, remote = $remote")
+            if (code == 4000) {
+                reconnectSession = true
+                heartbeatThr!!.interrupt()
+                vlog.e("", "Closed Socket")
+                val newTh = Thread {
+                    try {
+                        Thread.sleep(200)
+                        webSocketClient = Websocket(URI(gatewayResume),ArrayMap<String, String>())
+                        (webSocketClient as Websocket).connect()
+                    } catch (_: InterruptedException) {
+                    }
+                }
+                newTh.start()
+            } else throw RuntimeException("Invalid")
+        }
+
+        override fun onError(e: Exception) {
+            vlog.e(TAG, "onError() called with: e = $e")
+            if (e.message != "Interrupt") {
+                closeRPC()
+            }
+        }
+    }
 }
 
 private fun RpcImage?.resolveImage(): String? {
@@ -419,14 +426,14 @@ private fun getAssets(rpcImage: RpcImage.BitmapImage): String? {
      val schema = "${rpcImage.packageName}:${rpcImage.title}"
      val savedImages = Gson().fromJson<HashMap<String, String>>(data,
             object : TypeToken<HashMap<String, String>>() {}.type)
-     if (savedImages.containsKey(schema))
-           return savedImages[schema]
-     else {
-           val result: String? = ImageResolver().uploadImage(ImageResolver().saveIcon(rpcImage.file,rpcImage.bitmap))
-           result?.let {
-           savedImages[schema] = it
-           Prefs[Prefs.SAVED_ARTWORK] = Gson().toJson(savedImages)
-           }
-           return result
-     }
+    return if (savedImages.containsKey(schema))
+        savedImages[schema]
+    else {
+        val result: String? = ImageResolver().uploadImage(ImageResolver().saveIcon(rpcImage.file,rpcImage.bitmap))
+        result?.let {
+            savedImages[schema] = it
+            Prefs[Prefs.SAVED_ARTWORK] = Gson().toJson(savedImages)
+        }
+        result
+    }
 }

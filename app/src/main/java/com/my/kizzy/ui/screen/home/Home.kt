@@ -71,7 +71,8 @@ fun Home(
                         if (user != null) {
                             GlideImage(
                                 imageModel = user.avatar,
-                                modifier = Modifier.size(52.dp)
+                                modifier = Modifier
+                                    .size(52.dp)
                                     .border(
                                         2.dp,
                                         MaterialTheme.colorScheme.secondaryContainer,

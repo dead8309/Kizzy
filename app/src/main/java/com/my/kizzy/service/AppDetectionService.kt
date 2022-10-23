@@ -42,7 +42,9 @@ class AppDetectionService : Service() {
             context = this
             running = true
             notifset = false
-            kizzyRPC = KizzyRPC(token = Prefs[Prefs.TOKEN,""])
+            kizzyRPC = KizzyRPC(token = Prefs[Prefs.TOKEN,""]){
+                stopSelf()
+            }
             val apps = Prefs[Prefs.ENABLED_APPS, "[]"]
             val enabledPackages: ArrayList<String> = Gson().fromJson(
                 apps,

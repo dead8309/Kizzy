@@ -12,20 +12,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.EnergySavingsLeaf
-import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.icons.outlined.Palette
-import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material.icons.outlined.SettingsSuggest
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.my.kizzy.BuildConfig
 import com.my.kizzy.R
 import com.my.kizzy.ui.common.BackButton
+import com.my.kizzy.ui.common.PreferenceSwitch
 import com.my.kizzy.ui.common.PreferencesHint
 import com.my.kizzy.ui.common.SettingItem
+import com.my.kizzy.utils.Log
 
 @SuppressLint("BatteryLife")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -40,6 +40,9 @@ fun Settings(
     val context = LocalContext.current
     val pm = context.getSystemService(Context.POWER_SERVICE) as PowerManager
     var showBatteryHint by remember { mutableStateOf(!pm.isIgnoringBatteryOptimizations(context.packageName)) }
+    var vlogEnabled by remember {
+        mutableStateOf(Log.vlog.isEnabled())
+    }
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
@@ -106,7 +109,25 @@ fun Settings(
                         navigateToAbout()
                     }
                 }
+                if (BuildConfig.DEBUG){
+                    item {
+                        PreferenceSwitch(
+                            title = "Show Logs",
+                            icon = if (vlogEnabled) Icons.Outlined.Code
+                            else Icons.Outlined.CodeOff,
+                            isChecked = vlogEnabled
+                        ){
+                            vlogEnabled = if (!vlogEnabled){
+                                Log.vlog.start()
+                                !vlogEnabled
+                            } else{
+                                Log.vlog.stop()
+                                !vlogEnabled
+                            }
 
+                        }
+                    }
+                }
             }
         }
     }
