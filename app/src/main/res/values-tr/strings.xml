@@ -60,7 +60,7 @@
     <string name="language">Dil</string>
     <string name="design_credits">Tasarıma Katkıda Bulunanlar</string>
     <string name="translation_credits">Çeviriye Katkıda Bulunanlar</string>
-    <string name="enable_appsRpc">Uygulama Algılamayı Etkinleştir</string>
+    <string name="enable_appsRpc">Uyg. Algılamayı Etkinleştir</string>
     <string name="usage_access">Kullanım Erişimi Gerekli</string>
     <string name="usage_access_desc">Kullanım Erişimi uygulama için mevcut çalışan uygulama hakkında bilgi edinmek için gereklidir</string>
     <string name="enable_mediaRpc">Medya RPC\'sini Etkinleştir</string>
@@ -69,9 +69,9 @@
     <string name="enable_nintendoRpc">Switch RPC\'sini Etkinleştir</string>
     <string name="rpc_settings">RPC Ayarları</string>
     <string name="rpc_settings_desc">Medya ve Uygulama RPC\'si için gelişmiş presence ayarları</string>
-    <string name="dark_theme">Dark Theme</string>
-    <string name="privacy_policy">Privacy Policy</string>
-    <string name="privacy_policy_desc">Check the Privacy Policy</string>
+    <string name="dark_theme">Koyu Tema</string>
+    <string name="privacy_policy">Gizlilik Politikası</string>
+    <string name="privacy_policy_desc">Gizlilik Politikasına göz at</string>
 
 
 </resources>
