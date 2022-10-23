@@ -86,7 +86,7 @@ class AppDetectionService : Service() {
                             Objects.requireNonNull(packageName)
                             Log.i("current app", packageName)
                             if (enabledPackages.contains(packageName)) {
-                                if (kizzyRPC!!.isRpcRunning()) {
+                                if (!kizzyRPC!!.isRpcRunning()) {
                                     kizzyRPC!!.apply {
                                         setName(AppUtils.getAppName(packageName))
                                         setStartTimestamps(System.currentTimeMillis())
