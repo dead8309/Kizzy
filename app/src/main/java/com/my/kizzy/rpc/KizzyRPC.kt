@@ -13,6 +13,7 @@ import org.java_websocket.client.WebSocketClient
 import org.java_websocket.handshake.ServerHandshake
 import java.net.URI
 import java.net.URISyntaxException
+import javax.net.ssl.SSLParameters
 
 class KizzyRPC(
     var token: String,
@@ -406,6 +407,13 @@ class KizzyRPC(
             vlog.e(TAG, "onError() called with: e = $e")
             if (e.message != "Interrupt") {
                 closeRPC()
+            }
+        }
+        override fun onSetSSLParameters(p: SSLParameters) {
+            try {
+                super.onSetSSLParameters(p)
+            } catch (th: Throwable) {
+                th.printStackTrace()
             }
         }
     }

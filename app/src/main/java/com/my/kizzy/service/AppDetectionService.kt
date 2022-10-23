@@ -43,7 +43,7 @@ class AppDetectionService : Service() {
             running = true
             notifset = false
             kizzyRPC = KizzyRPC(token = Prefs[Prefs.TOKEN,""]){
-                stopSelf()
+                //stopSelf()
             }
             val apps = Prefs[Prefs.ENABLED_APPS, "[]"]
             val enabledPackages: ArrayList<String> = Gson().fromJson(
@@ -86,7 +86,7 @@ class AppDetectionService : Service() {
                             Objects.requireNonNull(packageName)
                             Log.i("current app", packageName)
                             if (enabledPackages.contains(packageName)) {
-                                if (!kizzyRPC!!.isRpcRunning()) {
+                                if (kizzyRPC!!.isRpcRunning()) {
                                     kizzyRPC!!.apply {
                                         setName(AppUtils.getAppName(packageName))
                                         setStartTimestamps(System.currentTimeMillis())
