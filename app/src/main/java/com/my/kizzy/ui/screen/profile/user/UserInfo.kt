@@ -16,7 +16,7 @@ data class UserData(
     val avatar: String,
     val about: String,
 )
-lateinit var webSocketClient: WebSocketClient
+private lateinit var webSocketClient: WebSocketClient
 
 fun getUserInfo(token: String,onInfoSaved: () -> Unit){
     val uri: URI = try {

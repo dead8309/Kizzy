@@ -21,7 +21,7 @@ android {
         minSdk 27
         targetSdk 33
         versionCode 3
-        versionName "3.6"
+        versionName "3.7"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -38,8 +38,7 @@ android {
         }
     }
     buildTypes.each {
-        it.buildConfigField "String", "RPC_IMAGE_API", WEBHOOK
-        it.buildConfigField "String", "KIZZY_IMAGE_API", KIZZY_GOOGLE_IMAGE_API
+        it.buildConfigField "String", "BASE_URL", BASE_URL
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -90,4 +89,6 @@ dependencies {
     implementation(okhttp)
     implementation(accompanistPermission)
     implementation(crashX)
+    debugImplementation(debugVLog)
+    releaseImplementation(releaseVLog)
 }

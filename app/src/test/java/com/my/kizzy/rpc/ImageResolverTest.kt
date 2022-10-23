@@ -1,5 +1,6 @@
 package com.my.kizzy.rpc
 
+import com.google.gson.Gson
 import com.my.kizzy.BuildConfig
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -20,25 +21,30 @@ class ImageResolverTest {
         val body: RequestBody = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
             .addFormDataPart(
-                "file", file.name,
+                "temp", file.name,
                 file.asRequestBody("image/png".toMediaTypeOrNull())
             )
-            .addFormDataPart("content", "${file.name} from Rpc")
+            .build()
+        val request: Request = Request.Builder()
+            .url("${BuildConfig.BASE_URL}/image?url=https://media.discordapp.net/attachments/1030247070717714483/1030248582558777404/Temp.png")
             .build()
 
 
         val req: Request = Request.Builder()
-            .url(BuildConfig.RPC_IMAGE_API)
+            .url(BuildConfig.BASE_URL+"/upload")
             .post(body)
             .build()
 
         val cd = CountDownLatch(1)
-        client.newCall(req).enqueue(object : Callback {
+        client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 cd.countDown()
             }
 
             override fun onResponse(call: Call, response: Response) {
+                println(
+                    Gson().fromJson(response.body?.string(),Result::class.java)
+                )
                 assert(response.isSuccessful)
                 cd.countDown()
             }
