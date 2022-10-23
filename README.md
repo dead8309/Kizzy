@@ -112,5 +112,7 @@ See [Contribute for Translation](https://github.com/dead8309/Kizzy/issues/2#issu
 
 ✨ [Rich-Presence-U](https://github.com/ninstar/Rich-Presence-U) for Nintendo and Wii U games data
 
+✨ [Vlog](https://github.com/girish3/Vlog) for logging library
+
 ### Licence 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)

@@ -89,6 +89,6 @@ dependencies {
     implementation(okhttp)
     implementation(accompanistPermission)
     implementation(crashX)
-    debugImplementation(debugVLog)
-    releaseImplementation(releaseVLog)
+    debugImplementation project(":logger")
+    releaseImplementation project(":logger-no-op")
 }

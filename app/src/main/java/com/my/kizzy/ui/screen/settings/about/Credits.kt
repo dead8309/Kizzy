@@ -21,19 +21,22 @@ data class Credit(val title: String = "", val license: String = "", val url: Str
 
 const val GPL_V3 = "GNU General Public License v3.0"
 const val APACHE_V2 = "Apache License, Version 2.0"
+const val MIT = "MIT License"
 
 const val readYou = "https://github.com/Ashinch/ReadYou"
 const val seal = "https://github.com/JunkFood02/Seal"
 const val materialIcon = "https://fonts.google.com/icons"
 const val materialColor = "https://github.com/re-ovo/md3compat"
 const val nintendoRepo = "https://github.com/ninstar/Rich-Presence-U"
+const val Vlog = "https://github.com/girish3/Vlog"
 
 val creditsList = listOf(
     Credit("Read You", GPL_V3, readYou),
     Credit("Seal", GPL_V3, seal),
     Credit("Material Icons", APACHE_V2, materialIcon),
     Credit("md3compat", "", materialColor),
-    Credit("Rich-Presence-U", GPL_V3, nintendoRepo)
+    Credit("Rich-Presence-U", GPL_V3, nintendoRepo),
+    Credit("Vlog-Logging Library", MIT, Vlog)
 )
 
 @OptIn(ExperimentalMaterial3Api::class)

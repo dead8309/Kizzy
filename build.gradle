@@ -18,7 +18,6 @@ buildscript {
         websocketVersion = "1.5.3"
         okhttpVersion = "4.9.3"
         accompanistPermissionVersion = "0.26.2-beta"
-        vLogVersion = "v0.3"
     }
 
     ext {
@@ -56,9 +55,6 @@ buildscript {
         lingver = "com.github.YarikSOffice:lingver:1.3.0"
         okhttp =  "com.squareup.okhttp3:okhttp:${okhttpVersion}"
         crashX = 'com.github.TutorialsAndroid:crashx:v6.0.19'
-        debugVLog = "com.github.girish3.Vlog:library:${vLogVersion}"
-        releaseVLog = "com.github.girish3.Vlog:library-no-op:${vLogVersion}"
-
     }
 }
 plugins {

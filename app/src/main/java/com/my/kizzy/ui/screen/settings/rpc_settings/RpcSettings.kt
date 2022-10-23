@@ -7,15 +7,19 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DeleteForever
 import androidx.compose.material.icons.filled.HighQuality
+import androidx.compose.material.icons.outlined.Code
+import androidx.compose.material.icons.outlined.CodeOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import com.my.kizzy.BuildConfig
 import com.my.kizzy.R
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.PreferenceSwitch
 import com.my.kizzy.ui.common.SettingItem
+import com.my.kizzy.utils.Log
 import com.my.kizzy.utils.Prefs
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -25,6 +29,9 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
     var isLowResIconsEnabled by remember { mutableStateOf(Prefs[Prefs.RPC_USE_LOW_RES_ICON, false]) }
 //    var useCustomWebhook by remember { mutableStateOf(Prefs[Prefs.RPC_USE_CUSTOM_WEBHOOK, ""]) }
 //    var dismiss by remember { mutableStateOf(false) }
+    var vlogEnabled by remember {
+        mutableStateOf(Log.vlog.isEnabled())
+    }
     Scaffold(
         modifier = Modifier
             .fillMaxSize(),
@@ -39,8 +46,8 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 navigationIcon = { BackButton { onBackPressed() } }
             )
         }
-    ){
-        LazyColumn(modifier = Modifier.padding(it)){
+    ) {
+        LazyColumn(modifier = Modifier.padding(it)) {
             item {
                 PreferenceSwitch(
                     title = stringResource(id = R.string.use_low_res_icon),
@@ -73,8 +80,26 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                     Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
                 }
             }
-        }
-        /*if (dismiss) {
+            if (BuildConfig.DEBUG) {
+                item {
+                    PreferenceSwitch(
+                        title = "Show Logs",
+                        icon = if (vlogEnabled) Icons.Outlined.Code
+                        else Icons.Outlined.CodeOff,
+                        isChecked = vlogEnabled
+                    ) {
+                        vlogEnabled = if (!vlogEnabled) {
+                            Log.vlog.start()
+                            !vlogEnabled
+                        } else {
+                            Log.vlog.stop()
+                            !vlogEnabled
+                        }
+
+                    }
+                }
+            }
+            /*if (dismiss) {
             AlertDialog(
                 onDismissRequest = { dismiss = !dismiss },
                 confirmButton = {
@@ -104,5 +129,6 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 }
             )
         }*/
+        }
     }
 }

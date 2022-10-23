@@ -246,11 +246,11 @@ class KizzyRPC(
         val identify = ArrayMap<String, Any>()
         identify["op"] = 2
         identify["d"] = data
+        vlog.d(TAG, "sendIdentify() called")
         webSocketClient!!.send(gson.toJson(identify))
     }
 
     private fun createWebsocketClient() {
-        vlog.i(TAG ,"Connecting")
         val uri: URI = try {
             URI("wss://gateway.discord.gg/?encoding=json&v=10")
         } catch (e: URISyntaxException) {
@@ -319,13 +319,18 @@ class KizzyRPC(
     }
 
     inner class Websocket(uri: URI,map: ArrayMap<String,String>): WebSocketClient(uri,map) {
+        override fun connect() {
+            vlog.d(TAG, "connect() called")
+            super.connect()
+        }
+
         private var gatewayResume = ""
         override fun onOpen(handshakedata: ServerHandshake?) {
-            vlog.d(TAG, "onOpen() called with: handshake-data = $handshakedata")
+            vlog.i(TAG, "onOpen() called with: handshake-data = $handshakedata")
         }
 
         override fun onMessage(message: String) {
-            vlog.d(TAG, "onMessage() called with: message = $message")
+            vlog.i(TAG, "onMessage() called with: message = $message")
             val map = gson.fromJson<ArrayMap<String, Any>>(
                 message, object : TypeToken<ArrayMap<String?, Any?>?>() {}.type
             )
@@ -338,7 +343,7 @@ class KizzyRPC(
                     sessionId = (map["d"] as Map<*, *>?)!!["session_id"].toString()
                     gatewayResume = (map["d"] as Map<*, *>?)!!["resume_gateway_url"].toString()
                     vlog.d(TAG,gatewayResume)
-                    vlog.d(TAG,"Connected")
+                    vlog.i(TAG,"Connected")
                     send(gson.toJson(rpc))
                     return
                 }
@@ -349,7 +354,7 @@ class KizzyRPC(
                     heartbeatThr!!.start()
                     sendIdentify()
                 } else {
-                    vlog.e(TAG,"Sending Reconnect")
+                    vlog.d(TAG,"Sending Reconnect")
                     val data = map["d"] as Map<*, *>?
                     heartbeatInterval = (data!!["heartbeat_interval"] as Double?)!!.toInt()
                     heartbeatThr = Thread(heartbeatRunnable)
@@ -374,9 +379,11 @@ class KizzyRPC(
                 }
                 7 -> {
                     reconnectSession = true
+                    vlog.e(TAG, "Closing and Reconnecting Session")
                     webSocketClient!!.close(4000)
                 }
                 9 -> if (!heartbeatThr!!.isInterrupted) {
+                    vlog.d(TAG, "Reconnect Failed")
                     heartbeatThr!!.interrupt()
                     heartbeatThr = Thread(heartbeatRunnable)
                     heartbeatThr!!.start()
@@ -390,7 +397,7 @@ class KizzyRPC(
             if (code == 4000) {
                 reconnectSession = true
                 heartbeatThr!!.interrupt()
-                vlog.e("", "Closed Socket")
+                vlog.e(TAG, "Closed Socket")
                 val newTh = Thread {
                     try {
                         Thread.sleep(200)
