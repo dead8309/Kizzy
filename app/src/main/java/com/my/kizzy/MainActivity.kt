@@ -29,8 +29,9 @@ import com.my.kizzy.ui.screen.settings.about.Credits
 import com.my.kizzy.ui.screen.settings.language.Language
 import com.my.kizzy.ui.screen.settings.rpc_settings.RpcSettings
 import com.my.kizzy.ui.screen.settings.style.Appearance
+import com.my.kizzy.ui.screen.xbox.XboxScreen
+import com.my.kizzy.ui.screen.xbox.XboxViewModel
 import com.my.kizzy.ui.theme.AppTypography
-import com.my.kizzy.utils.Log.vlog
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.THEME
 import me.rerere.md3compat.Md3CompatTheme
@@ -101,6 +102,13 @@ class MainActivity : ComponentActivity() {
                 animatedComposable(Routes.NINTENDO_RPC) {
                     val viewModel = viewModel<NintendoViewModel>()
                     NintendoScreen(onBackPressed = {
+                        navcontroller.popBackStack()
+                    }, viewModel = viewModel
+                    )
+                }
+                animatedComposable(Routes.XBOX_RPC) {
+                    val viewModel = viewModel<XboxViewModel>()
+                    XboxScreen(onBackPressed = {
                         navcontroller.popBackStack()
                     }, viewModel = viewModel
                     )

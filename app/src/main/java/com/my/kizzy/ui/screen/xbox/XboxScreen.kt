@@ -1,4 +1,4 @@
-package com.my.kizzy.ui.screen.nintendo
+package com.my.kizzy.ui.screen.xbox
 
 import android.content.Intent
 import androidx.compose.foundation.background
@@ -28,16 +28,17 @@ import com.my.kizzy.service.MediaRpcService
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.SwitchBar
 import com.my.kizzy.ui.screen.custom.IntentRpcData
+import com.my.kizzy.ui.screen.nintendo.SearchBar
 import com.my.kizzy.utils.AppUtils
-import com.my.kizzy.utils.GameItem
+import com.my.kizzy.utils.Xbox
 import com.skydoves.landscapist.glide.GlideImage
 
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
-fun NintendoScreen(
+fun XboxScreen(
     onBackPressed: () -> Unit,
-    viewModel: NintendoViewModel,
+    viewModel: XboxViewModel,
 ) {
     val state = viewModel.state
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
@@ -63,7 +64,7 @@ fun NintendoScreen(
             LargeTopAppBar(
                 title = {
                     Text(
-                        text = "Nintendo Rpc",
+                        text = "Xbox Rpc",
                         style = MaterialTheme.typography.headlineLarge,
                     )
                 },
@@ -106,28 +107,26 @@ fun NintendoScreen(
                     }
                 )
             }
-            items(state.games) { game ->
+            items(state.games){ game ->
                 SingleChoiceGameItem(
                     games = game,
-                    selected = game.title == selected
+                    selected = game.titlename == selected
                 ) { info ->
-                    selected = game.title
+                    selected = game.titlename
                     val string = Gson().toJson(
                         IntentRpcData(
-                            name = if (info.label == "wii") "Wii U" else "Nintendo Switch",
-                            details = info.title,
+                            name = "Xbox",
+                            details = info.titlename,
                             state = "",
                             startTime = System.currentTimeMillis().toString(),
                             StopTime = "",
-                            status = "",
+                            status = "dnd",
                             button1 = "",
                             button2 = "",
                             button1Url = "",
                             button2Url = "",
-                            largeImg = info.link,
-                            smallImg = if (info.label == "nintendo")
-                                "attachments/948828217312178227/1018855932496719932/default.png"
-                            else "attachments/948828217312178227/1020010414576255017/default.png",
+                            largeImg = info.titleicon,
+                            smallImg = "https://media.discordapp.net/attachments/1002314985453658256/1034547968822485083/Daco_2123072.png",
                             type = "0",
                         )
                     )
@@ -144,9 +143,9 @@ fun NintendoScreen(
 
 @Composable
 fun SingleChoiceGameItem(
-    games: GameItem,
+    games: Xbox,
     selected: Boolean,
-    onClick: (game: GameItem) -> Unit,
+    onClick: (game: Xbox) -> Unit,
 ) {
 
         Row(modifier = Modifier
@@ -163,10 +162,10 @@ fun SingleChoiceGameItem(
             },
             horizontalArrangement = Arrangement.SpaceEvenly) {
             GlideImage(
-                imageModel = games.link,
+                imageModel = games.titleicon,
                 modifier = Modifier
                     .size(90.dp),
-                previewPlaceholder = R.drawable.ic_nintendo_switch
+                previewPlaceholder = R.drawable.ic_xbox
             )
             Column(
                 modifier = Modifier
@@ -174,7 +173,7 @@ fun SingleChoiceGameItem(
                     .padding(5.dp)
             ) {
                 Text(
-                    text = games.title,
+                    text = games.titlename,
                     maxLines = 1,
                     style = MaterialTheme.typography.titleLarge.copy(fontSize = 20.sp),
                     color = if (selected) MaterialTheme.colorScheme.onPrimaryContainer
@@ -182,14 +181,5 @@ fun SingleChoiceGameItem(
                     overflow = TextOverflow.Ellipsis
                 )
             }
-            GlideImage(
-                imageModel = if (games.label == "nintendo")
-                    "https://media.discordapp.net/attachments/948828217312178227/1018855932496719932/default.png"
-                else
-                    "https://media.discordapp.net/attachments/948828217312178227/1020010414576255017/default.png",
-                modifier = Modifier
-                    .size(40.dp),
-                previewPlaceholder = R.drawable.ic_nintendo_switch
-            )
         }
     }

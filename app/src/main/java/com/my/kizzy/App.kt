@@ -2,7 +2,7 @@ package com.my.kizzy
 
 import android.app.Application
 import com.developer.crashx.config.CrashConfig
-import com.my.kizzy.ui.screen.nintendo.Games
+import com.my.kizzy.utils.Games
 import com.my.kizzy.utils.Log
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.LANGUAGE

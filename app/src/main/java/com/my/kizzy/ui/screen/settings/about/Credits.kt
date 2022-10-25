@@ -29,6 +29,7 @@ const val materialIcon = "https://fonts.google.com/icons"
 const val materialColor = "https://github.com/re-ovo/md3compat"
 const val nintendoRepo = "https://github.com/ninstar/Rich-Presence-U"
 const val Vlog = "https://github.com/girish3/Vlog"
+const val XboxRpc = "https://github.com/MrCoolAndroid/Xbox-Rich-Presence-Discord"
 
 val creditsList = listOf(
     Credit("Read You", GPL_V3, readYou),
@@ -36,7 +37,8 @@ val creditsList = listOf(
     Credit("Material Icons", APACHE_V2, materialIcon),
     Credit("md3compat", "", materialColor),
     Credit("Rich-Presence-U", GPL_V3, nintendoRepo),
-    Credit("Vlog-Logging Library", MIT, Vlog)
+    Credit("Vlog-Logging Library", MIT, Vlog),
+    Credit("Xbox-Rich-Presence-Discord", MIT, XboxRpc)
 )
 
 @OptIn(ExperimentalMaterial3Api::class)

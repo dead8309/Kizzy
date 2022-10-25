@@ -114,5 +114,7 @@ See [Contribute for Translation](https://github.com/dead8309/Kizzy/issues/2#issu
 
 ✨ [Vlog](https://github.com/girish3/Vlog) for logging library
 
+✨ [Xbox-Rich-Presence-Discord](https://github.com/MrCoolAndroid/Xbox-Rich-Presence-Discord) for Xbox games data
+
 ### Licence 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
