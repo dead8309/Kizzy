@@ -7,8 +7,10 @@ import com.my.kizzy.utils.Log
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.LANGUAGE
 import com.yariksoffice.lingver.Lingver
+import dagger.hilt.android.HiltAndroidApp
 import me.rerere.compose_setting.preference.initComposeSetting
 
+@HiltAndroidApp
 class App: Application() {
 
     override fun onCreate() {

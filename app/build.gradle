@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -91,4 +93,10 @@ dependencies {
     implementation(crashX)
     debugImplementation project(":logger")
     releaseImplementation project(":logger-no-op")
+    implementation(Hilt)
+    kapt(HiltCompiler)
+    implementation(retrofit)
+    implementation(retrofitGsonConverter)
+    implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
 }

@@ -1,24 +1,27 @@
 package com.my.kizzy.rpc
 
 import android.util.ArrayMap
+import com.android.girish.vlog.Vlog
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import com.my.kizzy.repository.KizzyRepository
 import com.my.kizzy.rpc.Constants.APPLICATION
 import com.my.kizzy.rpc.Constants.LARGE_IMAGE
 import com.my.kizzy.rpc.Constants.SMALL_IMAGE
-import com.my.kizzy.utils.Log.vlog
-import com.my.kizzy.utils.Prefs
 import org.java_websocket.client.WebSocketClient
 import org.java_websocket.handshake.ServerHandshake
 import java.net.URI
 import java.net.URISyntaxException
+import javax.inject.Inject
 import javax.net.ssl.SSLParameters
 
-class KizzyRPC(
-    var token: String,
-    val onRpcClosed: () -> Unit
+class KizzyRPC @Inject constructor(
+    private val token: String,
+    private val kizzyRepository: KizzyRepository,
+    private val vlog: Vlog
 ) {
+
     private var activityName: String? = null
     private var details: String? = null
     private var state: String? = null
@@ -46,13 +49,19 @@ class KizzyRPC(
             if (!heartbeatThr!!.isInterrupted) heartbeatThr!!.interrupt()
         }
         if (webSocketClient != null) webSocketClient!!.close(1000)
-        onRpcClosed()
     }
 
     fun isRpcRunning(): Boolean{
         return webSocketClient?.isOpen == true
     }
 
+    /**
+     * #Todo add a better token checking function
+     * @return true if token is valid else false
+     */
+    fun isUserTokenValid(): Boolean{
+        return token.isNotEmpty()
+    }
     /**
      * Activity Name of Rpc
      *
@@ -201,7 +210,7 @@ class KizzyRPC(
         return this
     }
 
-    fun build() {
+    suspend fun build() {
         val presence = ArrayMap<String, Any?>()
         val activity = ArrayMap<String, Any?>()
         activity[Constants.NAME] = activityName
@@ -213,8 +222,8 @@ class KizzyRPC(
         timestamps[Constants.STOP_TIMESTAMPS] = stopTimestamps
         activity[Constants.TIMESTAMPS] = timestamps
         val assets = ArrayMap<String, Any?>()
-        assets[LARGE_IMAGE] = largeImage.resolveImage()
-        assets[SMALL_IMAGE] = smallImage.resolveImage()
+        assets[LARGE_IMAGE] = largeImage?.resolveImage(kizzyRepository)
+        assets[SMALL_IMAGE] = smallImage?.resolveImage(kizzyRepository)
         activity[Constants.ASSETS] = assets
         if (buttons.size > 0) {
             activity[APPLICATION] = Constants.APPLICATION_ID
@@ -262,7 +271,7 @@ class KizzyRPC(
         (webSocketClient as Websocket).connect()
     }
 
-    fun updateRPC(
+    suspend fun updateRPC(
         name: String,
         details: String?,
         state: String?,
@@ -285,10 +294,10 @@ class KizzyRPC(
         }
         val assets = ArrayMap<String, String>()
         large_image?.let {
-            assets[LARGE_IMAGE] = large_image.resolveImage()
+            assets[LARGE_IMAGE] = large_image.resolveImage(kizzyRepository)
         }
         small_image?.let {
-            assets[SMALL_IMAGE] = small_image.resolveImage()
+            assets[SMALL_IMAGE] = small_image.resolveImage(kizzyRepository)
         }
         activity[Constants.ASSETS] = assets
         presence["activities"] = arrayOf<Any>(activity)
@@ -423,32 +432,5 @@ class KizzyRPC(
                 th.printStackTrace()
             }
         }
-    }
-}
-
-private fun RpcImage?.resolveImage(): String? {
-    return when(this){
-        is RpcImage.ApplicationIcon -> ImageResolver().resolveImageOfAppIcon(this.packageName,this.context)
-        is RpcImage.DiscordImage -> "mp:${this.image}"
-        is RpcImage.ExternalImage -> ImageResolver().resolveImageFromUrl(this.image)
-        is RpcImage.BitmapImage -> getAssets(this)
-        else -> null
-    }
-}
-
-private fun getAssets(rpcImage: RpcImage.BitmapImage): String? {
-     val data = Prefs[Prefs.SAVED_ARTWORK, "{}"]
-     val schema = "${rpcImage.packageName}:${rpcImage.title}"
-     val savedImages = Gson().fromJson<HashMap<String, String>>(data,
-            object : TypeToken<HashMap<String, String>>() {}.type)
-    return if (savedImages.containsKey(schema))
-        savedImages[schema]
-    else {
-        val result: String? = ImageResolver().uploadImage(ImageResolver().saveIcon(rpcImage.file,rpcImage.bitmap))
-        result?.let {
-            savedImages[schema] = it
-            Prefs[Prefs.SAVED_ARTWORK] = Gson().toJson(savedImages)
-        }
-        result
     }
 }

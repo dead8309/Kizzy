@@ -34,8 +34,10 @@ import com.my.kizzy.ui.screen.xbox.XboxViewModel
 import com.my.kizzy.ui.theme.AppTypography
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.THEME
+import dagger.hilt.android.AndroidEntryPoint
 import me.rerere.md3compat.Md3CompatTheme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

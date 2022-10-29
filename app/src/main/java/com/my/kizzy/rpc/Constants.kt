@@ -20,8 +20,8 @@ object Constants {
     const val STATUS = "status"
     const val METADATA = "metadata"
     const val BUTTON_LINK = "button_urls"
-
     const val ONLINE = "online"
     const val IDLE = "idle"
     const val DND = "dnd"
+    const val errorAsset = "mp:attachments/948828217312178227/948840504542498826/Kizzy.png"
 }

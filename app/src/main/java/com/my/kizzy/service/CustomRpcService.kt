@@ -10,14 +10,27 @@ import com.google.gson.Gson
 import com.my.kizzy.R
 import com.my.kizzy.rpc.Constants
 import com.my.kizzy.rpc.KizzyRPC
-import com.my.kizzy.rpc.RpcImage
 import com.my.kizzy.ui.screen.custom.IntentRpcData
-import com.my.kizzy.utils.Prefs
+import com.my.kizzy.utils.Log
+import com.my.kizzy.utils.toRpcImage
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class CustomRpcService : Service() {
     private var rpcData: IntentRpcData? = null
     private var wakeLock: WakeLock? = null
-    private lateinit var kizzyRPC: KizzyRPC
+
+    @Inject
+    lateinit var kizzyRPC: KizzyRPC
+
+    @Inject
+    lateinit var scope: CoroutineScope
+
+    private val vlog = Log.vlog
 
     @SuppressLint("WakelockTimeout")
     @Suppress("DEPRECATION")
@@ -29,10 +42,10 @@ class CustomRpcService : Service() {
             string?.let {
                 rpcData = Gson().fromJson(it, IntentRpcData::class.java)
             }
+            vlog.d(CHANNEL_NAME,kizzyRPC.isUserTokenValid().toString())
+            if (!kizzyRPC.isUserTokenValid())
+                stopSelf()
 
-
-            val token = Prefs[Prefs.TOKEN,""]
-            if (token.isEmpty()) stopSelf()
             val channel = NotificationChannel(
                 CHANNEL_ID,
                 CHANNEL_NAME,
@@ -54,11 +67,9 @@ class CustomRpcService : Service() {
             wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WAKELOCK)
             wakeLock?.acquire()
             startForeground(7744, builder.build())
-            Thread{
-                    kizzyRPC = KizzyRPC(token = token){
-                        stopSelf()
-                    }
-                    kizzyRPC.apply {
+            scope.launch {
+              kizzyRPC.apply {
+                    vlog.d(CHANNEL_NAME,"inside rpc block")
                         rpcData?.let {
                             setName(it.name.ifEmpty { null })
                             setDetails(it.details.ifEmpty { null })
@@ -71,17 +82,18 @@ class CustomRpcService : Service() {
                             setButton1URL(it.button1Url.ifEmpty { null })
                             setButton2(it.button2.ifEmpty { null })
                             setButton2URL(it.button2Url.ifEmpty { null })
-                            setLargeImage(if (it.largeImg.isEmpty()) null else it.largeImg.toRpcImage)
-                            setSmallImage(if (it.smallImg.isEmpty()) null else it.smallImg.toRpcImage)
+                            setLargeImage(if (it.largeImg.isEmpty()) null else it.largeImg.toRpcImage())
+                            setSmallImage(if (it.smallImg.isEmpty()) null else it.smallImg.toRpcImage())
                             build()
                         }
                     }
-                }.start()
+                }
         }
         return super.onStartCommand(intent, flags, startId)
     }
 
     override fun onDestroy() {
+        scope.cancel()
         try {
             if (kizzyRPC.isRpcRunning())
                 kizzyRPC.closeRPC()
@@ -105,12 +117,3 @@ class CustomRpcService : Service() {
     }
 
 }
-
-
-private val String.toRpcImage: RpcImage
-    get() {
-        return if (this.startsWith("attachments"))
-            RpcImage.DiscordImage(this)
-        else
-            RpcImage.ExternalImage(this)
-    }

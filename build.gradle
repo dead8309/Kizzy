@@ -18,6 +18,8 @@ buildscript {
         websocketVersion = "1.5.3"
         okhttpVersion = "4.9.3"
         accompanistPermissionVersion = "0.26.2-beta"
+        retrofitVersion = "2.9.0"
+        hiltVersion = "2.44"
     }
 
     ext {
@@ -32,6 +34,8 @@ buildscript {
         junitExt = "androidx.test.ext:junit:1.1.3"
         junitEspressoCore = "androidx.test.espresso:espresso-core:3.4.0"
         composeActivity = "androidx.activity:activity-compose:${activityComposeVersion}"
+        Hilt = "com.google.dagger:hilt-android:${hiltVersion}"
+        HiltCompiler = "com.google.dagger:hilt-android-compiler:${hiltVersion}"
 
         //Compose
         composeUi = "androidx.compose.ui:ui:${compose_version}"
@@ -55,6 +59,11 @@ buildscript {
         lingver = "com.github.YarikSOffice:lingver:1.3.0"
         okhttp =  "com.squareup.okhttp3:okhttp:${okhttpVersion}"
         crashX = 'com.github.TutorialsAndroid:crashx:v6.0.19'
+        retrofit = "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+        retrofitGsonConverter = "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
+    }
+    dependencies {
+        classpath("com.google.dagger:hilt-android-gradle-plugin:2.44")
     }
 }
 plugins {

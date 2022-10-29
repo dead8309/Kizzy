@@ -17,20 +17,21 @@ import com.my.kizzy.rpc.Constants
 import com.my.kizzy.rpc.KizzyRPC
 import com.my.kizzy.rpc.RpcImage
 import com.my.kizzy.utils.Prefs
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
 import java.util.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class AppDetectionService : Service() {
-    companion object{
-        const val ACTION_STOP_SERVICE = "Stop RPC"
-        const val CHANNEL_ID = "background"
-        const val CHANNEL_NAME = "App Detection Notification"
-    }
-
-    private var thread: Thread? = null
     private var notifset = false
-    private var running = false
     private var context: Context? = null
-    private var kizzyRPC: KizzyRPC? = null
+
+    @Inject
+    lateinit var kizzyRPC: KizzyRPC
+
+    @Inject
+    lateinit var scope: CoroutineScope
 
     override fun onBind(intent: Intent): IBinder? {
         return null
@@ -40,11 +41,7 @@ class AppDetectionService : Service() {
         if (intent?.action.equals(ACTION_STOP_SERVICE)) stopSelf()
         else {
             context = this
-            running = true
             notifset = false
-            kizzyRPC = KizzyRPC(token = Prefs[Prefs.TOKEN,""]){
-                //stopSelf()
-            }
             val apps = Prefs[Prefs.ENABLED_APPS, "[]"]
             val enabledPackages: ArrayList<String> = Gson().fromJson(
                 apps,
@@ -63,10 +60,10 @@ class AppDetectionService : Service() {
             val pendingIntent: PendingIntent = PendingIntent.getService(this,
                 0,stopIntent,PendingIntent.FLAG_IMMUTABLE)
 
-            thread = Thread {
-                while (running) {
+            scope.launch {
+                while (isActive) {
                     val usageStatsManager =
-                        (this).getSystemService(USAGE_STATS_SERVICE) as UsageStatsManager
+                        (this@AppDetectionService).getSystemService(USAGE_STATS_SERVICE) as UsageStatsManager
                     val currentTimeMillis = System.currentTimeMillis()
                     val queryUsageStats = usageStatsManager.queryUsageStats(
                         UsageStatsManager.INTERVAL_DAILY,
@@ -86,8 +83,8 @@ class AppDetectionService : Service() {
                             Objects.requireNonNull(packageName)
                             Log.i("current app", packageName)
                             if (enabledPackages.contains(packageName)) {
-                                if (!kizzyRPC!!.isRpcRunning()) {
-                                    kizzyRPC!!.apply {
+                                if (!kizzyRPC.isRpcRunning()) {
+                                    kizzyRPC.apply {
                                         setName(AppUtils.getAppName(packageName))
                                         setStartTimestamps(System.currentTimeMillis())
                                         setStatus(Constants.DND)
@@ -106,8 +103,8 @@ class AppDetectionService : Service() {
                                 )
                                 notifset = true
                             } else {
-                                if (kizzyRPC!!.isRpcRunning()) {
-                                    kizzyRPC?.closeRPC()
+                                if (kizzyRPC.isRpcRunning()) {
+                                    kizzyRPC.closeRPC()
                                 }
                                 notifset = false
                             }
@@ -123,24 +120,22 @@ class AppDetectionService : Service() {
                                 .build()
                         )
                     }
-                    try {
-                        Thread.sleep(5000)
-                    } catch (e: InterruptedException) {
-                        e.printStackTrace()
-                    }
+                    delay(5000)
                 }
             }
-            thread?.start()
         }
         return super.onStartCommand(intent, flags, startId)
     }
 
     override fun onDestroy() {
-       thread?.interrupt()
-        running = false
-        kizzyRPC?.let {
-                if (it.isRpcRunning()) it.closeRPC()
-        }
+       scope.cancel()
+        kizzyRPC.closeRPC()
         super.onDestroy()
+    }
+
+    companion object{
+        const val ACTION_STOP_SERVICE = "Stop RPC"
+        const val CHANNEL_ID = "background"
+        const val CHANNEL_NAME = "App Detection Notification"
     }
 }
