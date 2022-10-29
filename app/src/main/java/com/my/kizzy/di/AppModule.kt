@@ -21,21 +21,19 @@ import com.my.kizzy.repository.KizzyRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ServiceComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ServiceComponent::class)
 object AppModule {
 
-    @Singleton
     @Provides
     fun providesVlogInstance(
         @ApplicationContext context: Context
@@ -43,7 +41,6 @@ object AppModule {
         return Vlog.getInstance(context)
     }
 
-    @Singleton
     @Provides
     fun providesOkHttpClient(
         vlog: Vlog
@@ -56,7 +53,6 @@ object AppModule {
         return builder.build()
     }
 
-    @Singleton
     @Provides
     fun providesRetrofit(
         okHttpClient: OkHttpClient
@@ -68,18 +64,15 @@ object AppModule {
             .build()
     }
 
-    @Singleton
     @Provides
     fun providesApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
 
-    @Singleton
     @Provides
     fun providesKizzyRepository(
         apiService: ApiService,
     ): KizzyRepository{
         return KizzyRepositoryImpl(apiService)
     }
-
 }

@@ -6,12 +6,12 @@ import android.content.Intent
 import android.os.IBinder
 import android.os.PowerManager
 import android.os.PowerManager.WakeLock
+import com.android.girish.vlog.Vlog
 import com.google.gson.Gson
 import com.my.kizzy.R
 import com.my.kizzy.rpc.Constants
 import com.my.kizzy.rpc.KizzyRPC
 import com.my.kizzy.ui.screen.custom.IntentRpcData
-import com.my.kizzy.utils.Log
 import com.my.kizzy.utils.toRpcImage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -30,7 +30,8 @@ class CustomRpcService : Service() {
     @Inject
     lateinit var scope: CoroutineScope
 
-    private val vlog = Log.vlog
+    @Inject
+    lateinit var vlog: Vlog
 
     @SuppressLint("WakelockTimeout")
     @Suppress("DEPRECATION")

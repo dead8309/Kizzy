@@ -3,7 +3,6 @@ package com.my.kizzy.service
 import android.annotation.SuppressLint
 import android.app.*
 import android.content.ComponentName
-import android.content.Context
 import android.content.Intent
 import android.media.MediaMetadata
 import android.media.session.MediaSessionManager
@@ -31,15 +30,12 @@ class MediaRpcService : Service() {
     @Inject
     lateinit var scope: CoroutineScope
 
-    var context: Context? = null
-    private var thread: Thread? = null
     private var wakeLock: WakeLock? = null
 
     @Suppress("DEPRECATION")
     @SuppressLint("WakelockTimeout")
     override fun onCreate() {
         super.onCreate()
-        context = this
         val token = Prefs[TOKEN, ""]
         if (token.isEmpty()) stopSelf()
         val time = System.currentTimeMillis()
@@ -48,7 +44,7 @@ class MediaRpcService : Service() {
         notificationManager.createNotificationChannel(NotificationChannel(CHANNEL_ID,
             "Background Service",
             NotificationManager.IMPORTANCE_LOW))
-        val builder = Notification.Builder(context, CHANNEL_ID)
+        val builder = Notification.Builder(this, CHANNEL_ID)
         builder.setSmallIcon(R.drawable.ic_media_rpc)
         val intent = Intent(this, MediaRpcService::class.java)
         intent.action = ACTION_STOP_SERVICE
@@ -59,6 +55,8 @@ class MediaRpcService : Service() {
         val powerManager = getSystemService(POWER_SERVICE) as PowerManager
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "kizzy:MediaRPC")
         wakeLock?.acquire()
+        var appIcon: RpcImage? = null
+        var smallIcon: RpcImage? = null
         scope.launch {
             while (isActive) {
                 try {
@@ -76,12 +74,12 @@ class MediaRpcService : Service() {
                                 App_Name = AppUtils.getAppName(mediaController.packageName)
                                 author = if (Prefs[Prefs.MEDIA_RPC_ARTIST_NAME, false]) getArtistOrAuthor(metadata)
                                 else null
-                                app_icon = if (Prefs[Prefs.MEDIA_RPC_APP_ICON, false])
+                                appIcon = if (Prefs[Prefs.MEDIA_RPC_APP_ICON, false])
                                     RpcImage.ApplicationIcon(mediaController.packageName, this@MediaRpcService)
                                 else null
                                 if (bitmap != null){
-                                    smallIcon = app_icon
-                                    app_icon = RpcImage.BitmapImage(
+                                    smallIcon = appIcon
+                                    appIcon = RpcImage.BitmapImage(
                                         this@MediaRpcService,
                                         bitmap,
                                         mediaController.packageName,
@@ -104,7 +102,7 @@ class MediaRpcService : Service() {
                                 name = App_Name.ifEmpty { "YouTube" },
                                 details = TITLE.ifEmpty { "Browsing Home Page.." },
                                 state = author,
-                                large_image = app_icon,
+                                large_image = appIcon,
                                 small_image = smallIcon,
                                 enableTimestamps = enable_time,
                                 time = time
@@ -143,9 +141,6 @@ class MediaRpcService : Service() {
         scope.cancel()
         if (kizzyRPC.isRpcRunning())
             kizzyRPC.closeRPC()
-        thread?.let {
-            if (!it.isInterrupted) it.interrupt()
-        }
         wakeLock?.let {
             if (it.isHeld) it.release()
         }
@@ -162,8 +157,6 @@ class MediaRpcService : Service() {
         var TITLE = ""
         var enable_time: Boolean = false
         var author: String? = null
-        var app_icon: RpcImage? = null
-        var smallIcon: RpcImage? = null
         const val ACTION_STOP_SERVICE = "STOP_RPC"
     }
 }

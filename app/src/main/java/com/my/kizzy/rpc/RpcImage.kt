@@ -38,7 +38,7 @@ sealed class RpcImage {
         }
     }
 
-    class ApplicationIcon(val packageName: String, val context: Context) : RpcImage() {
+    class ApplicationIcon(private val packageName: String, private val context: Context) : RpcImage() {
         val data = Prefs[Prefs.SAVED_IMAGES, "{}"]
         private val savedImages: HashMap<String, String> = Gson().fromJson(data,
             object : TypeToken<HashMap<String, String>>() {}.type)
@@ -67,7 +67,7 @@ sealed class RpcImage {
     }
 
     class BitmapImage(
-        val context: Context,
+        private val context: Context,
         private val bitmap: Bitmap?,
         val packageName: String,
         val title: String,

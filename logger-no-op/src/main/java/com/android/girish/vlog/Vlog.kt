@@ -29,6 +29,7 @@ import android.content.Context
 /**
  * No-op implementation.
  */
+@Suppress("unused", "UNUSED_PARAMETER")
 class Vlog private constructor(val mApplicationContext: Context) {
 
     fun start() {}
