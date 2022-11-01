@@ -66,12 +66,12 @@
     <string name="enable_mediaRpc">Включить мультимедийную активность</string>
     <string name="permission_required">Требуется разрешение</string>
     <string name="enable_customRpc">Включить пользовательскую активность</string>
-    <string name="enable_nintendoRpc">Включить Switch активность</string>
     <string name="rpc_settings">Настройки активности</string>
     <string name="rpc_settings_desc">Расширенные настройки активности для мультимедиа и приложений</string>
     <string name="dark_theme">Dark Theme</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="privacy_policy_desc">Check the Privacy Policy</string>
+    <string name="enable_console_rpc">Enable Console Rpc</string>
 
 
 </resources>
