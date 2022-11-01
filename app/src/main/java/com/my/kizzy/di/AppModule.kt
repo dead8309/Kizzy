@@ -16,13 +16,13 @@ import android.content.Context
 import com.android.girish.vlog.Vlog
 import com.my.kizzy.BuildConfig
 import com.my.kizzy.data.remote.ApiService
-import com.my.kizzy.repository.KizzyRepository
-import com.my.kizzy.repository.KizzyRepositoryImpl
+import com.my.kizzy.data.repository.KizzyRepositoryImpl
+import com.my.kizzy.domain.repository.KizzyRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ServiceComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -31,7 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 @Module
-@InstallIn(ServiceComponent::class)
+@InstallIn(SingletonComponent::class)
 object AppModule {
 
     @Provides

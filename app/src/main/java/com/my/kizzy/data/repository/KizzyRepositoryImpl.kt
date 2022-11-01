@@ -10,9 +10,11 @@
  *
  */
 
-package com.my.kizzy.repository
+package com.my.kizzy.data.repository
 
 import com.my.kizzy.data.remote.ApiService
+import com.my.kizzy.data.remote.GamesResponse
+import com.my.kizzy.domain.repository.KizzyRepository
 import com.my.kizzy.utils.toImageAsset
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -35,5 +37,9 @@ class KizzyRepositoryImpl @Inject constructor(
             file.name, reqBody
         )
         return api.uploadImage(part).toImageAsset()
+    }
+
+    override suspend fun getGames(): List<GamesResponse> {
+        return api.getGames()
     }
 }

@@ -9,8 +9,9 @@
  *
  *
  */
-package com.my.kizzy.repository
+package com.my.kizzy.domain.repository
 
+import com.my.kizzy.data.remote.GamesResponse
 import java.io.File
 
 interface KizzyRepository {
@@ -18,4 +19,6 @@ interface KizzyRepository {
     suspend fun getImage(url: String): String?
 
     suspend fun uploadImage(file: File): String?
+
+    suspend fun getGames(): List<GamesResponse>
 }

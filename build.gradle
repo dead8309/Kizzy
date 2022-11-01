@@ -58,6 +58,7 @@ buildscript {
         javaWebsocket = "org.java-websocket:Java-WebSocket:${websocketVersion}"
         lingver = "com.github.YarikSOffice:lingver:1.3.0"
         okhttp =  "com.squareup.okhttp3:okhttp:${okhttpVersion}"
+        okhttpInterceptor =  "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
         crashX = 'com.github.TutorialsAndroid:crashx:v6.0.19'
         retrofit = "com.squareup.retrofit2:retrofit:${retrofitVersion}"
         retrofitGsonConverter = "com.squareup.retrofit2:converter-gson:${retrofitVersion}"

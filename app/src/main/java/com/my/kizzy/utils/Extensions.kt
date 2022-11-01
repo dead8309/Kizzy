@@ -19,7 +19,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.util.DisplayMetrics
 import com.blankj.utilcode.util.AppUtils
-import com.my.kizzy.model.ApiResponse
+import com.my.kizzy.data.remote.ApiResponse
 import com.my.kizzy.rpc.RpcImage
 import retrofit2.Response
 import java.io.File
@@ -46,10 +46,12 @@ fun Bitmap?.toFile(context: Context,path: String): File {
     return image
 }
 
+@Suppress("DEPRECATION")
 fun Context.getAppInfo(packageName: String): ApplicationInfo{
     return this.packageManager.getApplicationInfo(packageName,PackageManager.GET_META_DATA)
 }
 
+@Suppress("DEPRECATION")
 fun ApplicationInfo.toBitmap(context: Context): Bitmap?{
     val res = context.packageManager.getResourcesForApplication(this)
     val icon = if (Prefs[Prefs.RPC_USE_LOW_RES_ICON, false])

@@ -97,6 +97,5 @@ dependencies {
     kapt(HiltCompiler)
     implementation(retrofit)
     implementation(retrofitGsonConverter)
-    implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
+    implementation(okhttpInterceptor)
 }

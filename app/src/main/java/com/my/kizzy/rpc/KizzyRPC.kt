@@ -5,7 +5,7 @@ import com.android.girish.vlog.Vlog
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import com.my.kizzy.repository.KizzyRepository
+import com.my.kizzy.domain.repository.KizzyRepository
 import com.my.kizzy.rpc.Constants.APPLICATION
 import com.my.kizzy.rpc.Constants.LARGE_IMAGE
 import com.my.kizzy.rpc.Constants.SMALL_IMAGE

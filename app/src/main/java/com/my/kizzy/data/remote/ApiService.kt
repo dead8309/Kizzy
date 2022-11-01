@@ -11,7 +11,6 @@
  */
 package com.my.kizzy.data.remote
 
-import com.my.kizzy.model.ApiResponse
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -23,4 +22,7 @@ interface ApiService {
     @Multipart
     @POST("upload")
     suspend fun uploadImage(@Part image: MultipartBody.Part): Response<ApiResponse>
+
+    @GET("games")
+    suspend fun getGames(): List<GamesResponse>
 }

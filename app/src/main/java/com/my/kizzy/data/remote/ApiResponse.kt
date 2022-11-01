@@ -1,4 +1,4 @@
-package com.my.kizzy.model
+package com.my.kizzy.data.remote
 import com.google.gson.annotations.SerializedName
 
 
