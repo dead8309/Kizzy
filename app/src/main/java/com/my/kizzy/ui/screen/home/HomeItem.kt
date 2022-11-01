@@ -29,7 +29,7 @@ fun getHomeitems() = listOf(
     HomeItem(
         title = "Console Rpc",
         icon = R.drawable.ic_console_games,
-        route = Routes.XBOX_RPC,
+        route = Routes.CONSOLE_RPC,
     ),
     HomeItem(
         title = "Soon",

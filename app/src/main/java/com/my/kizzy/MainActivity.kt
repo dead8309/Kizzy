@@ -99,7 +99,7 @@ class MainActivity : ComponentActivity() {
                         navcontroller.popBackStack()
                     })
                 }
-                animatedComposable(Routes.XBOX_RPC) {
+                animatedComposable(Routes.CONSOLE_RPC) {
                     val viewModel: GamesViewModel by viewModels()
                     GamesScreen(onBackPressed = {
                         navcontroller.popBackStack()
