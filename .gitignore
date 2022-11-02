@@ -14,3 +14,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+/gradle.properties
+/app/Kizzy.keystore

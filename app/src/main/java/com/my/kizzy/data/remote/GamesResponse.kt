@@ -39,7 +39,6 @@ fun GamesResponse.toGame() : Game {
             else -> Constants.XBOX_LINK
         },
         large_image = link,
-        game_title = title,
-        id = label
+        game_title = title
     )
 }
