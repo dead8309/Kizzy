@@ -108,7 +108,7 @@ However people have been using custom rich presence for past 4-5 years and there
 See [Contribute for Translation](https://github.com/dead8309/Kizzy/issues/2#issue-1370365856)
 
 
-### Credits
+## Credits
 ✨ [Read You](https://github.com/Ashinch/ReadYou) and [Seal](https://github.com/JunkFood02/Seal) for Ui Components
 
 ✨ [md3compat](https://github.com/re-ovo/md3compat) for Material You library
@@ -119,7 +119,7 @@ See [Contribute for Translation](https://github.com/dead8309/Kizzy/issues/2#issu
 
 ✨ [Xbox-Rich-Presence-Discord](https://github.com/MrCoolAndroid/Xbox-Rich-Presence-Discord) for Xbox games data
 
-### Licence 
+## Licence 
 **Kizzy** is an open source project under the GNU GPL 3.0 Open Source License ①, which allows you to use, reference, and modify the source code of **Kizzy** for free, but does not allow the modified and derived code to be distributed and sold as closed-source commercial software. For details, please see the full GNU GPL 3.0 Open Source License ②.
 
 See [Terms Of Service](https://github.com/dead8309/Kizzy/blob/2bd547217688d91e5ee12a294faed477e9d4fa08/TERMS_OF_SERVICE.md) for more info
