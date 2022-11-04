@@ -71,7 +71,7 @@
     <string name="dark_theme">Koyu Tema</string>
     <string name="privacy_policy">Gizlilik Politikası</string>
     <string name="privacy_policy_desc">Gizlilik Politikasına göz at</string>
-    <string name="enable_console_rpc">Enable Console Rpc</string>
+    <string name="enable_console_rpc">Konsol RPC\'sini Etkinleştir</string>
 
 
 </resources>
