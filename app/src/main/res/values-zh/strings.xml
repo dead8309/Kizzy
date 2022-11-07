@@ -23,7 +23,7 @@
     <string name="login_with_discord">用Discord登入</string>
     <string name="github_readme">README</string>
     <string name="github_readme_desc">檢查 Github repository</string>
-    <string name="github_latest_release">"最新版本 "</string>
+    <string name="github_latest_release">最新版本</string>
     <string name="github_latest_release_desc">檢查新版本和更新日誌</string>
     <string name="github_issue">Github 問題</string>
     <string name="github_issue_desc">報告找到的問題與功能請求</string>
