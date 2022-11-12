@@ -31,11 +31,13 @@ fun GamesResponse.toGame() : Game {
         platform = when (label) {
             "nintendo" -> Constants.NINTENDO
             "wii" -> Constants.WII_U
+            "nintendo-3ds" -> Constants.NINTENDO_3DS
             else -> Constants.XBOX
         },
         small_image = when (label) {
             "nintendo" -> Constants.NINTENDO_LINK
             "wii" -> Constants.WII_U_LINK
+            "nintendo-3ds" -> Constants.N3DS_LINK
             else -> Constants.XBOX_LINK
         },
         large_image = link,

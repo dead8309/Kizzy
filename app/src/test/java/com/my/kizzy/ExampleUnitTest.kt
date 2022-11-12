@@ -1,6 +1,9 @@
 package com.my.kizzy
 
+import androidx.collection.ArrayMap
+import com.google.gson.Gson
 import com.my.kizzy.data.remote.ApiService
+import com.my.kizzy.rpc.Constants
 import kotlinx.coroutines.runBlocking
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -43,5 +46,42 @@ class ExampleUnitTest {
         if (response.isSuccessful)
             println(response.body())
     }
+    @Test
+    fun testJson(){
+        val rpc = ArrayMap<String, Any>()
+        val buttons = ArrayList<String>()
+        val buttonUrl = ArrayList<String>()
+        buttons.add("Button1")
+        buttons.add("Button2")
+        buttonUrl.add("Button1 Url")
+        buttonUrl.add("Button2 Url")
+        val presence = ArrayMap<String, Any?>()
+        val activity = ArrayMap<String, Any?>()
+        activity[Constants.NAME] = "activityName"
+        activity[Constants.DETAILS] = "details"
+        activity[Constants.STATE] = "state"
+        activity[Constants.TYPE] = 0
+        val timestamps = ArrayMap<String, Long?>()
+        timestamps[Constants.START_TIMESTAMPS] = 4999889888L
+        timestamps[Constants.STOP_TIMESTAMPS] = 49998898988888L
+        activity[Constants.TIMESTAMPS] = timestamps
+        val assets = ArrayMap<String, String?>()
+        assets[Constants.LARGE_IMAGE] = "largeImage?.resolveImage(kizzyRepository)"
+        assets[Constants.SMALL_IMAGE] = "smallImage?.resolveImage(kizzyRepository)"
+        activity[Constants.ASSETS] = assets
 
+            activity[Constants.APPLICATION] = Constants.APPLICATION_ID
+            activity[Constants.BUTTONS] = buttons
+            val metadata = ArrayMap<String, Any>()
+            metadata[Constants.BUTTON_LINK] = buttonUrl
+            activity[Constants.METADATA] = metadata
+
+        presence[Constants.ACTIVITIES] = arrayOf<Any>(activity)
+        presence[Constants.AFK] = true
+        presence[Constants.SINCE] = 4999889888L
+        presence[Constants.STATUS] = "status"
+        rpc["op"] = 3
+        rpc["d"] = presence
+        println(Gson().toJson(rpc))
+    }
 }
