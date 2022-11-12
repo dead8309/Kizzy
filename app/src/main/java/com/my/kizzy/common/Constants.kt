@@ -24,6 +24,6 @@ object Constants {
     const val NINTENDO_3DS = "Nintendo-3DS"
     const val WII_U = "Wii-U"
     const val XBOX = "Xbox"
-
-
+    const val NITRO_ICON = "https://cdn.discordapp.com/attachments/948828217312178227/1041053075567284295/nitro.png"
+    const val USER_BANNER = "https://discord.com/assets/97ac61a0b98fd6f01b4de370c9ccdb56.png"
 }
