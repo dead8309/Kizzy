@@ -3,6 +3,7 @@ package com.my.kizzy.ui.screen.profile.user
 import android.util.ArrayMap
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.my.kizzy.utils.Log
 import com.my.kizzy.utils.Prefs
 import org.java_websocket.client.WebSocketClient
 import org.java_websocket.handshake.ServerHandshake
@@ -15,6 +16,7 @@ data class UserData(
     val username: String,
     val avatar: String,
     val about: String,
+    val nitro: Boolean = false
 )
 private lateinit var webSocketClient: WebSocketClient
 
@@ -42,7 +44,8 @@ fun getUserInfo(token: String,onInfoSaved: () -> Unit){
                         name = data!!["username"].toString(),
                         username = data["username"].toString() + "#" + data["discriminator"],
                         avatar = "https://cdn.discordapp.com/avatars/${data["id"]}/${data["avatar"]}.png",
-                        about = data["bio"].toString() + ""
+                        about = data["bio"].toString() + "",
+                        nitro = data["premium_type"] in 1..3
                     )
 
                     Prefs[Prefs.USER_DATA] = Gson().toJson(userData)

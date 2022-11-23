@@ -1,5 +1,6 @@
 package com.my.kizzy.ui.screen.profile
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -14,6 +15,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.res.imageResource
@@ -26,9 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.gson.Gson
 import com.my.kizzy.R
+import com.my.kizzy.common.Constants
 import com.my.kizzy.ui.screen.profile.user.UserData
-import com.my.kizzy.ui.theme.DISCORD_DARK
-import com.my.kizzy.ui.theme.DISCORD_GREY
 import com.my.kizzy.ui.theme.DarkBlueBg
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.USER_DATA
@@ -38,11 +39,24 @@ import kotlinx.coroutines.delay
 @Preview
 @Composable
 fun UserPreview() {
-    User()
+    User(
+        user = UserData(
+            "yzziK",
+            "yzziK#3050",
+            "https://cdn.discordapp.com/avatars/888890990956511263/ac51941419eea3895b6006d7a5125031.webp",
+            "",
+            true
+        )
+    )
 }
 
 @Composable
-fun User() {
+fun User(
+    user: UserData = Gson().fromJson(Prefs[USER_DATA, "{}"],UserData::class.java),
+    borderColors: List<Color> = listOf(Color(0xFFa3a1ed),Color(0xFFA77798)),
+    backgroundColors: List<Color> = listOf(Color(0xFFC2C0FA), Color(0xFFFADAF0)),
+    name: String = "User Profile"
+) {
     var elapsed by remember {
         mutableStateOf(0)
     }
@@ -55,90 +69,94 @@ fun User() {
         }
     }
     Card(
-        elevation = CardDefaults.cardElevation(12.dp),
         modifier = Modifier
             .padding(30.dp)
-            .fillMaxWidth(),
-        shape = RoundedCornerShape(20.dp),
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(8.dp))
+            .background(
+                brush = Brush.verticalGradient(colors = backgroundColors)
+            ),
+        shape = RoundedCornerShape(8.dp),
+        border = BorderStroke(
+            4.dp, Brush.verticalGradient(colors = borderColors)),
         colors = CardDefaults.cardColors(
-            containerColor = DISCORD_DARK,
-        ),
+            containerColor = Color.Transparent,
+        )
     ) {
-        val user = Gson().fromJson(Prefs[USER_DATA, "{}"],UserData::class.java)
         Box {
-            Spacer(modifier = Modifier
+            GlideImage(modifier = Modifier
                 .fillMaxWidth()
-                .height(65.dp)
-                .background(DISCORD_GREY))
+                .height(120.dp),
+            imageModel = Constants.USER_BANNER,
+            previewPlaceholder = R.drawable.ic_profile_banner)
+
             GlideImage(
                 imageModel = user.avatar,
                 placeHolder = ImageBitmap.imageResource(id = R.drawable.error_avatar),
                 error = ImageBitmap.imageResource(id = R.drawable.error_avatar),
                 contentDescription = null,
                 modifier = Modifier
-                    .padding(16.dp, 16.dp, 16.dp, 6.dp)
+                    .padding(16.dp, 64.dp, 16.dp, 6.dp)
                     .size(110.dp)
-                    .border(width = 8.dp,
-                        color = DISCORD_DARK,
-                        shape = CircleShape)
-                    .clip(CircleShape)
+                    .border(
+                        width = 8.dp,
+                        color = borderColors.first(),
+                        shape = CircleShape
+                    )
+                    .clip(CircleShape),
+                previewPlaceholder = R.drawable.error_avatar
             )
-        }
-        CardText(
-            text = user.username,
-            style = MaterialTheme.typography.titleLarge,
-        )
-        Spacer(modifier = Modifier
-            .fillMaxWidth()
-            .padding(19.dp, 0.dp, 19.dp, 5.dp)
-            .height(1.5.dp)
-            .background(DISCORD_GREY)
-        )
-        CardText(
-            text = "ABOUT ME",
-            style = MaterialTheme.typography.titleSmall
-        )
-        CardText(text = user.about,
-            style = MaterialTheme.typography.bodyMedium,
-            bold = false)
-        CardText(
-            text = "USING KIZZY RICH PRESENCE",
-            style = MaterialTheme.typography.titleSmall
-        )
-        Row(Modifier
-            .fillMaxWidth()
-            .height(90.dp)
-            .padding(20.dp, 4.dp)) {
-
-            Box(modifier = Modifier
-                .size(70.dp)
-                .clip(RoundedCornerShape(15.dp))
-                .background(DarkBlueBg),
-                contentAlignment = Alignment.Center) {
-                Image(
-                    painter = painterResource(id = R.drawable.editing_rpc_pencil),
-                    contentDescription = "rpc_pencil",
+            if (user.nitro) {
+                Column(
                     modifier = Modifier
-                        .size(48.dp)
-                        .background(DarkBlueBg, RoundedCornerShape(15.dp))
-                )
+                        .align(Alignment.BottomEnd)
+                        .padding(15.dp, 8.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(Color.White)
+                ) {
+                    GlideImage(
+                        imageModel = Constants.NITRO_ICON,
+                        previewPlaceholder = R.drawable.editing_rpc_pencil,
+                        modifier = Modifier
+                            .size(40.dp)
+                            .padding(7.dp)
+                    )
+                }
             }
-            Column {
-                CardText(
-                    text = "User Profile",
-                    style = MaterialTheme.typography.titleSmall
-                        .copy(
-                            fontFamily = FontFamily.Monospace,
-                            fontSize = 16.sp)
-                )
-                CardText(
-                    text = "00:$elapsed",
-                    style = MaterialTheme.typography.titleSmall
-                        .copy(
-                            fontFamily = FontFamily.Monospace,
-                            fontSize = 16.sp)
-                )
-            }
+        }
+        Column(
+            Modifier
+                .padding(15.dp, 5.dp, 15.dp, 15.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .background(Color.White)
+        ) {
+
+            CardText(
+                text = user.username,
+                style = MaterialTheme.typography.titleLarge,
+            )
+            Spacer(modifier = Modifier
+                .fillMaxWidth()
+                .padding(19.dp, 0.dp, 19.dp, 5.dp)
+                .height(1.5.dp)
+                .background(Color(0xFFC2C0FA))
+            )
+            CardText(
+                text = "ABOUT ME",
+                style = MaterialTheme.typography.titleSmall
+            )
+            CardText(text = user.about,
+                style = MaterialTheme.typography.bodyMedium,
+                bold = false)
+
+            CardText(
+                text = "USING KIZZY RICH PRESENCE",
+                style = MaterialTheme.typography.titleSmall
+            )
+            RpcRow(
+                elapsed = elapsed,
+                name = name
+            )
         }
     }
 }
@@ -155,6 +173,49 @@ fun CardText(
         style = if (!bold) style
         else style.copy(fontWeight = FontWeight.ExtraBold),
         modifier = Modifier.padding(20.dp, 4.dp),
-        color = Color.White.copy(alpha = 0.8f)
+        color = Color.Black.copy(alpha = 0.9f)
     )
+}
+
+@Composable
+fun RpcRow(
+    elapsed: Int,
+    name: String
+) {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .height(90.dp)
+            .padding(20.dp, 4.dp)) {
+
+        Box(modifier = Modifier
+            .size(70.dp)
+            .clip(RoundedCornerShape(15.dp))
+            .background(DarkBlueBg),
+            contentAlignment = Alignment.Center) {
+            Image(
+                painter = painterResource(id = R.drawable.editing_rpc_pencil),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(48.dp)
+                    .background(DarkBlueBg, RoundedCornerShape(15.dp))
+            )
+        }
+        Column {
+            CardText(
+                text = name,
+                style = MaterialTheme.typography.titleSmall
+                    .copy(
+                        fontFamily = FontFamily.Monospace,
+                        fontSize = 16.sp)
+            )
+            CardText(
+                text = "00:$elapsed",
+                style = MaterialTheme.typography.titleSmall
+                    .copy(
+                        fontFamily = FontFamily.Monospace,
+                        fontSize = 16.sp)
+            )
+        }
+    }
 }

@@ -6,9 +6,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import com.my.kizzy.domain.repository.KizzyRepository
-import com.my.kizzy.rpc.Constants.APPLICATION
-import com.my.kizzy.rpc.Constants.LARGE_IMAGE
-import com.my.kizzy.rpc.Constants.SMALL_IMAGE
+import com.my.kizzy.rpc.model.*
 import org.java_websocket.client.WebSocketClient
 import org.java_websocket.handshake.ServerHandshake
 import java.net.URI
@@ -21,19 +19,18 @@ class KizzyRPC @Inject constructor(
     private val kizzyRepository: KizzyRepository,
     private val vlog: Vlog
 ) {
-
+    lateinit var rpc: RichPresence
     private var activityName: String? = null
     private var details: String? = null
     private var state: String? = null
     private var largeImage: RpcImage? = null
     private var smallImage: RpcImage? = null
-    private var status:String? = null
+    private var status: String? = null
     private var startTimestamps: Long? = null
     private var stopTimestamps: Long? = null
-    private var type:Int = 0
-    var rpc = ArrayMap<String, Any>()
+    private var type: Int = 0
     var webSocketClient: WebSocketClient? = null
-    var gson: Gson = GsonBuilder().setPrettyPrinting().serializeNulls().create()
+    var gson: Gson = GsonBuilder().setPrettyPrinting().create()
     var heartbeatRunnable: Runnable
     var heartbeatThr: Thread? = null
     var heartbeatInterval = 0
@@ -51,7 +48,7 @@ class KizzyRPC @Inject constructor(
         if (webSocketClient != null) webSocketClient!!.close(1000)
     }
 
-    fun isRpcRunning(): Boolean{
+    fun isRpcRunning(): Boolean {
         return webSocketClient?.isOpen == true
     }
 
@@ -59,9 +56,10 @@ class KizzyRPC @Inject constructor(
      * #Todo add a better token checking function
      * @return true if token is valid else false
      */
-    fun isUserTokenValid(): Boolean{
+    fun isUserTokenValid(): Boolean {
         return token.isNotEmpty()
     }
+
     /**
      * Activity Name of Rpc
      *
@@ -161,10 +159,10 @@ class KizzyRPC @Inject constructor(
     }
 
     /** Status type for profile online,idle,dnd
-    *
-    * @param status
-    * @return
-    */
+     *
+     * @param status
+     * @return
+     */
     fun setStatus(status: String?): KizzyRPC {
         this.status = status
         return this
@@ -211,52 +209,54 @@ class KizzyRPC @Inject constructor(
     }
 
     suspend fun build() {
-        val presence = ArrayMap<String, Any?>()
-        val activity = ArrayMap<String, Any?>()
-        activity[Constants.NAME] = activityName
-        activity[Constants.DETAILS] = details
-        activity[Constants.STATE] = state
-        activity[Constants.TYPE] = type
-        val timestamps = ArrayMap<String, Any?>()
-        timestamps[Constants.START_TIMESTAMPS] = startTimestamps
-        timestamps[Constants.STOP_TIMESTAMPS] = stopTimestamps
-        activity[Constants.TIMESTAMPS] = timestamps
-        val assets = ArrayMap<String, Any?>()
-        assets[LARGE_IMAGE] = largeImage?.resolveImage(kizzyRepository)
-        assets[SMALL_IMAGE] = smallImage?.resolveImage(kizzyRepository)
-        activity[Constants.ASSETS] = assets
-        if (buttons.size > 0) {
-            activity[APPLICATION] = Constants.APPLICATION_ID
-            activity[Constants.BUTTONS] = buttons
-            val metadata = ArrayMap<String, Any>()
-            metadata[Constants.BUTTON_LINK] = buttonUrl
-            activity[Constants.METADATA] = metadata
-        }
-        presence[Constants.ACTIVITIES] = arrayOf<Any>(activity)
-        presence[Constants.AFK] = true
-        presence[Constants.SINCE] = startTimestamps
-        presence[Constants.STATUS] = status
-        rpc["op"] = 3
-        rpc["d"] = presence
+        rpc = RichPresence(
+            op = 3,
+            d = RichPresenceData(
+                activities = listOf(
+                    Activity(
+                        name = activityName,
+                        state = state,
+                        details = details,
+                        type = type,
+                        timestamps = if (startTimestamps != null || stopTimestamps != null) Timestamps(
+                            start = startTimestamps,
+                            end = stopTimestamps
+                        ) else null,
+                        assets = if (largeImage != null || smallImage != null) Assets(
+                            largeImage = largeImage?.resolveImage(kizzyRepository),
+                            smallImage = smallImage?.resolveImage(kizzyRepository)
+                        ) else null,
+                        buttons = if (buttons.size > 0) buttons else null,
+                        metadata = if (buttonUrl.size > 0) Metadata(buttonUrls = buttonUrl) else null,
+                        applicationId = if (buttons.size > 0) Constants.APPLICATION_ID else null
+                    )
+                ),
+                afk = true,
+                since = if (startTimestamps != null) startTimestamps else System.currentTimeMillis(),
+                status = status
+            )
+        )
         createWebsocketClient()
     }
 
     fun sendIdentify() {
-        val prop = ArrayMap<String, Any>()
-        prop["os"] = "Windows"
-        prop["browser"] = "Discord Client"
-        prop["device"] = "disco"
-        val data = ArrayMap<String, Any>()
-        data["token"] = token
-        data["properties"] = prop
-        data["compress"] = false
-        data["capabilities"] = 65
-        data["largeThreshold"] = 100
-        val identify = ArrayMap<String, Any>()
-        identify["op"] = 2
-        identify["d"] = data
         vlog.d(TAG, "sendIdentify() called")
-        webSocketClient!!.send(gson.toJson(identify))
+        webSocketClient!!.send(
+            Identify(
+                op = 2,
+                d = Data(
+                    capabilities = 65,
+                    compress = false,
+                    largeThreshold = 100,
+                    properties = Properties(
+                        browser = "Discord Client",
+                        device = "disco",
+                        os = "Windows"
+                    ),
+                    token = token
+                )
+            )
+        )
     }
 
     private fun createWebsocketClient() {
@@ -267,7 +267,7 @@ class KizzyRPC @Inject constructor(
             return
         }
         val headerMap = ArrayMap<String, String>()
-        webSocketClient = Websocket(uri,headerMap)
+        webSocketClient = Websocket(uri, headerMap)
         (webSocketClient as Websocket).connect()
     }
 
@@ -281,33 +281,32 @@ class KizzyRPC @Inject constructor(
         time: Long
     ) {
         if (!isRpcRunning()) return
-        val presence = ArrayMap<String, Any>()
-        val activity = ArrayMap<String, Any>()
-        activity["name"] = name
-        activity["details"] = details
-        activity["state"] = state
-        activity["type"] = 0
-        if (enableTimestamps) {
-            val timestamps = ArrayMap<String, Any>()
-            timestamps["start"] = time
-            activity["timestamps"] = timestamps
-        }
-        val assets = ArrayMap<String, String>()
-        large_image?.let {
-            assets[LARGE_IMAGE] = large_image.resolveImage(kizzyRepository)
-        }
-        small_image?.let {
-            assets[SMALL_IMAGE] = small_image.resolveImage(kizzyRepository)
-        }
-        activity[Constants.ASSETS] = assets
-        presence["activities"] = arrayOf<Any>(activity)
-        presence["afk"] = true
-        presence["since"] = time
-        presence["status"] = "dnd"
-        val arr = ArrayMap<String, Any>()
-        arr["op"] = 3
-        arr["d"] = presence
-        webSocketClient?.send(gson.toJson(arr))
+        webSocketClient!!.send(
+            RichPresence(
+                op = 3,
+                d = RichPresenceData(
+                    activities = listOf(
+                        Activity(
+                            name = name,
+                            details = details,
+                            state = state,
+                            type = 0,
+                            timestamps = if (enableTimestamps) Timestamps(start = time) else null,
+                            assets =
+                            if (large_image != null || small_image != null)
+                                Assets(
+                                largeImage = large_image?.resolveImage(kizzyRepository),
+                                smallImage = small_image?.resolveImage(kizzyRepository)
+                                )
+                            else null
+                        )
+                    ),
+                    afk = true,
+                    since = time,
+                    status = Constants.DND
+                )
+            )
+        )
     }
 
     init {
@@ -315,25 +314,36 @@ class KizzyRPC @Inject constructor(
             try {
                 if (heartbeatInterval < 10000) throw RuntimeException("invalid")
                 Thread.sleep(heartbeatInterval.toLong())
-                webSocketClient!!.send(
-                    "{\"op\":1, \"d\":" + (if (seq == 0) "null" else seq.toString()) + "}"
+                webSocketClient.send(
+                    HeartBeat(
+                        op = 1,
+                        d = if (seq == 0) "null" else seq.toString()
+                    )
                 )
             } catch (_: InterruptedException) {
             }
         }
     }
 
-    companion object{
+    companion object {
         const val TAG = "Websocket"
     }
 
-    inner class Websocket(uri: URI,map: ArrayMap<String,String>): WebSocketClient(uri,map) {
+    inner class Websocket(uri: URI, map: ArrayMap<String, String>) : WebSocketClient(uri, map) {
+        private var gatewayResume = ""
+
+        override fun send(text: String?) {
+            if (text != null) {
+                vlog.d(TAG,text)
+            }
+            super.send(text)
+        }
+
         override fun connect() {
             vlog.d(TAG, "connect() called")
             super.connect()
         }
 
-        private var gatewayResume = ""
         override fun onOpen(handshakedata: ServerHandshake?) {
             vlog.i(TAG, "onOpen() called with: handshake-data = $handshakedata")
         }
@@ -351,9 +361,9 @@ class KizzyRPC @Inject constructor(
                 0 -> if (map["t"] as String? == "READY") {
                     sessionId = (map["d"] as Map<*, *>?)!!["session_id"].toString()
                     gatewayResume = (map["d"] as Map<*, *>?)!!["resume_gateway_url"].toString()
-                    vlog.d(TAG,gatewayResume)
-                    vlog.i(TAG,"Connected")
-                    send(gson.toJson(rpc))
+                    vlog.d(TAG, gatewayResume)
+                    vlog.i(TAG, "Connected")
+                    send(rpc)
                     return
                 }
                 10 -> if (!reconnectSession) {
@@ -363,20 +373,32 @@ class KizzyRPC @Inject constructor(
                     heartbeatThr!!.start()
                     sendIdentify()
                 } else {
-                    vlog.d(TAG,"Sending Reconnect")
+                    vlog.d(TAG, "Sending Resume")
                     val data = map["d"] as Map<*, *>?
                     heartbeatInterval = (data!!["heartbeat_interval"] as Double?)!!.toInt()
                     heartbeatThr = Thread(heartbeatRunnable)
                     heartbeatThr!!.start()
                     reconnectSession = false
-                    webSocketClient!!.send("{\"op\": 6,\"d\":{\"token\":\"$token\",\"session_id\":\"$sessionId\",\"seq\":$seq}}")
+                    send(
+                        Resume(
+                            op = 6,
+                            d = D(
+                                token = token,
+                                sessionId = sessionId,
+                                seq = seq
+                            )
+                        )
+                    )
                 }
                 1 -> {
                     if (!Thread.interrupted()) {
                         heartbeatThr!!.interrupt()
                     }
-                    webSocketClient!!.send(
-                        "{\"op\":1, \"d\":" + (if (seq == 0) "null" else seq.toString()) + "}"
+                    send(
+                        HeartBeat(
+                            op = 1,
+                            d = if (seq == 0) "null" else seq.toString()
+                        )
                     )
                 }
                 11 -> {
@@ -410,7 +432,7 @@ class KizzyRPC @Inject constructor(
                 val newTh = Thread {
                     try {
                         Thread.sleep(200)
-                        webSocketClient = Websocket(URI(gatewayResume),ArrayMap<String, String>())
+                        webSocketClient = Websocket(URI(gatewayResume), ArrayMap<String, String>())
                         (webSocketClient as Websocket).connect()
                     } catch (_: InterruptedException) {
                     }
@@ -425,12 +447,20 @@ class KizzyRPC @Inject constructor(
                 closeRPC()
             }
         }
+
         override fun onSetSSLParameters(p: SSLParameters) {
             try {
                 super.onSetSSLParameters(p)
             } catch (th: Throwable) {
                 th.printStackTrace()
             }
+        }
+    }
+
+    private fun WebSocketClient?.send(src: Any) {
+        this?.let {
+            if (it.isOpen)
+                it.send(gson.toJson(src))
         }
     }
 }
