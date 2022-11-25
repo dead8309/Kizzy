@@ -14,7 +14,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 import com.my.kizzy.BuildConfig
 import com.my.kizzy.ui.common.BackButton
-import com.my.kizzy.ui.screen.profile.user.UserData
 import com.my.kizzy.ui.theme.DISCORD_DARK
 import com.my.kizzy.ui.theme.DISCORD_LIGHT_DARK
 import com.my.kizzy.utils.Prefs
@@ -25,6 +24,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun Profile(
     onBackPressed: () -> Unit,
+    viewModel: ProfileViewModel
 ) {
     var switchScreen by remember {
         mutableStateOf(false)
@@ -54,11 +54,11 @@ fun Profile(
             .background(DISCORD_LIGHT_DARK),
             contentAlignment = Alignment.Center) {
             if (Prefs[TOKEN, ""].isEmpty()) {
-                Login(onCompleted = {
+                LoginScreen(onCompleted = {
                     switchScreen = true
                 })
             } else {
-                User()
+                UserScreen(viewModel = viewModel)
                 Logout(
                     modifier = Modifier
                         .align(Alignment.BottomEnd)
@@ -88,7 +88,7 @@ fun Profile(
                 }
             }
             if (switchScreen) {
-                User()
+                UserScreen(viewModel = viewModel)
             }
         }
     }

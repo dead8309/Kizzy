@@ -11,7 +11,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.my.kizzy.R
-import com.my.kizzy.ui.screen.profile.user.UserData
+import com.my.kizzy.data.remote.User
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.USER_DATA
 
@@ -81,20 +81,19 @@ object PreviewDialog {
          }
 
 
-         val user: UserData = Gson().fromJson(
-            Prefs[USER_DATA, "{}"],UserData::class.java
+         val user: User = Gson().fromJson(
+            Prefs[USER_DATA, "{}"], User::class.java
         )
         view.findViewById<TextView>(R.id.user_name).text =
-            when (user.name.isNotEmpty()) {
-                true -> user.name
+            when (!user.username.isNullOrEmpty()) {
+                true -> user.username
                 else -> "User"
             }
-        view.findViewById<TextView>(R.id.user_hash).text =
-            user.username.let { user.username.substring(it.indexOf("#")) }
+        view.findViewById<TextView>(R.id.user_hash).text = user.discriminator
 
         Glide
             .with(context)
-            .load(user.avatar)
+            .load("https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png")
             .error(R.drawable.error_avatar).into(view.findViewById(R.id.user_profile))
 
         val builder =  AlertDialog.Builder(context)

@@ -29,7 +29,7 @@ const val JS_SNIPPET =
 
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
-fun Login(
+fun LoginScreen(
     onCompleted: () -> Unit,
 ) {
         var showWebView by remember {
@@ -107,8 +107,8 @@ fun Login(
 
 @Preview
 @Composable
-fun LoginScreen() {
-    Login {
+fun LoginTest() {
+    LoginScreen {
 
     }
 }

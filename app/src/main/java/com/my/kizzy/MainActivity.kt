@@ -23,6 +23,8 @@ import com.my.kizzy.ui.screen.custom.CustomRPC
 import com.my.kizzy.ui.screen.home.Home
 import com.my.kizzy.ui.screen.media.MediaRPC
 import com.my.kizzy.ui.screen.profile.Profile
+import com.my.kizzy.ui.screen.profile.ProfileViewModel
+import com.my.kizzy.ui.screen.profile.UserScreen
 import com.my.kizzy.ui.screen.settings.Settings
 import com.my.kizzy.ui.screen.settings.about.About
 import com.my.kizzy.ui.screen.settings.about.Credits
@@ -32,6 +34,8 @@ import com.my.kizzy.ui.screen.settings.style.Appearance
 import com.my.kizzy.ui.theme.AppTypography
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.THEME
+import com.my.kizzy.utils.Prefs.TOKEN
+import com.my.kizzy.utils.Prefs.USER_ID
 import dagger.hilt.android.AndroidEntryPoint
 import me.rerere.md3compat.Md3CompatTheme
 
@@ -95,9 +99,10 @@ class MainActivity : ComponentActivity() {
                 animatedComposable(Routes.CUSTOM_RPC) { CustomRPC(onBackPressed = { navcontroller.popBackStack() }) }
                 animatedComposable(Routes.MEDIA_RPC) { MediaRPC(onBackPressed = { navcontroller.popBackStack() }) }
                 animatedComposable(Routes.PROFILE) {
+                    val viewModel: ProfileViewModel by viewModels()
                     Profile(onBackPressed = {
                         navcontroller.popBackStack()
-                    })
+                    },viewModel)
                 }
                 animatedComposable(Routes.CONSOLE_RPC) {
                     val viewModel: GamesViewModel by viewModels()

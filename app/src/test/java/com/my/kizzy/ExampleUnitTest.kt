@@ -2,6 +2,7 @@ package com.my.kizzy
 
 import androidx.collection.ArrayMap
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.my.kizzy.data.remote.ApiService
 import com.my.kizzy.rpc.Constants
 import kotlinx.coroutines.runBlocking
@@ -34,54 +35,26 @@ class ExampleUnitTest {
 
     @Test
     fun testApi() = runBlocking {
-        val file = File("C:\\Users\\Administrator\\StudioProjects\\Kizzy\\app\\src\\main\\res\\drawable\\error_avatar.png")
-       val reqBody = file.asRequestBody("image/*".toMediaTypeOrNull())
+        val map = HashMap<String,String>()
+        val dir = File("C:\\Users\\Administrator\\Downloads\\svg\\png")
+
+        val files = dir.list()?.asList()
+        files?.forEach{
+            val file = File(dir,it)
+        val reqBody = file.asRequestBody("image/*".toMediaTypeOrNull())
         val part = MultipartBody.Part.createFormData(
             "temp",
             file.name,
             reqBody
         )
 
-       val response = apiService.uploadImage(part)
+        val response = apiService.uploadImage(part)
         if (response.isSuccessful)
-            println(response.body())
+            response.body()?.let {
+                    it1 -> map.put(it, "https://media.discordapp.net/${it1.id.replace("mp:","")}")
+            }
     }
-    @Test
-    fun testJson(){
-        val rpc = ArrayMap<String, Any>()
-        val buttons = ArrayList<String>()
-        val buttonUrl = ArrayList<String>()
-        buttons.add("Button1")
-        buttons.add("Button2")
-        buttonUrl.add("Button1 Url")
-        buttonUrl.add("Button2 Url")
-        val presence = ArrayMap<String, Any?>()
-        val activity = ArrayMap<String, Any?>()
-        activity[Constants.NAME] = "activityName"
-        activity[Constants.DETAILS] = "details"
-        activity[Constants.STATE] = "state"
-        activity[Constants.TYPE] = 0
-        val timestamps = ArrayMap<String, Long?>()
-        timestamps[Constants.START_TIMESTAMPS] = 4999889888L
-        timestamps[Constants.STOP_TIMESTAMPS] = 49998898988888L
-        activity[Constants.TIMESTAMPS] = timestamps
-        val assets = ArrayMap<String, String?>()
-        assets[Constants.LARGE_IMAGE] = "largeImage?.resolveImage(kizzyRepository)"
-        assets[Constants.SMALL_IMAGE] = "smallImage?.resolveImage(kizzyRepository)"
-        activity[Constants.ASSETS] = assets
-
-            activity[Constants.APPLICATION] = Constants.APPLICATION_ID
-            activity[Constants.BUTTONS] = buttons
-            val metadata = ArrayMap<String, Any>()
-            metadata[Constants.BUTTON_LINK] = buttonUrl
-            activity[Constants.METADATA] = metadata
-
-        presence[Constants.ACTIVITIES] = arrayOf<Any>(activity)
-        presence[Constants.AFK] = true
-        presence[Constants.SINCE] = 4999889888L
-        presence[Constants.STATUS] = "status"
-        rpc["op"] = 3
-        rpc["d"] = presence
-        println(Gson().toJson(rpc))
+        val gson = GsonBuilder().setPrettyPrinting().create()
+        println(gson.toJson(map))
     }
 }
