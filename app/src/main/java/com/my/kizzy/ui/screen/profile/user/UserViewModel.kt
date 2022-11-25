@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.ui.screen.profile
+package com.my.kizzy.ui.screen.profile.user
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -29,28 +29,32 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(
+class UserViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase
 ): ViewModel() {
 
-    private val _state = mutableStateOf(ProfileState())
-    val state: State<ProfileState> = _state
+    private val _state = mutableStateOf(UserState())
+    val state: State<UserState> = _state
 
-    fun getUser(){
+    init {
+        getUser()
+    }
+     private fun getUser(){
         getUserUseCase(Prefs[USER_ID,""]).onEach { result ->
             when(result){
                 is Resource.Success -> {
-                    _state.value = ProfileState(user = result.data)
+                    _state.value = UserState(user = result.data)
                     Prefs[USER_DATA] = Gson().toJson(result.data)
                 }
                 is Resource.Error -> {
-                    _state.value = ProfileState(
-                        error = result.message?: "An unexpected error occurred"
+                    val user = Gson().fromJson(Prefs[USER_DATA,"{}"], User::class.java)
+                    _state.value = UserState(
+                        error = result.message?: "An unexpected error occurred",
+                        user = user
                     )
                 }
                 is Resource.Loading -> {
-                    val user = Gson().fromJson(Prefs[USER_DATA,"{}"], User::class.java)
-                    _state.value = ProfileState(user = user)
+                    _state.value = UserState(loading = true)
                 }
             }
         }.launchIn(viewModelScope)

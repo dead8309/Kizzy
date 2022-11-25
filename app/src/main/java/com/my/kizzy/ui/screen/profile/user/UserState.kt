@@ -2,7 +2,7 @@
  *
  *  ******************************************************************
  *  *  * Copyright (C) 2022
- *  *  * ProfileState.kt is part of Kizzy
+ *  *  * UserState.kt is part of Kizzy
  *  *  *  and can not be copied and/or distributed without the express
  *  *  * permission of yzziK(Vaibhav)
  *  *  *****************************************************************
@@ -10,11 +10,12 @@
  *
  */
 
-package com.my.kizzy.ui.screen.profile
+package com.my.kizzy.ui.screen.profile.user
 
 import com.my.kizzy.data.remote.User
 
-data class ProfileState(
+data class UserState(
 val user: User? = null,
-val error: String = ""
+val error: String = "",
+val loading: Boolean = false
 )

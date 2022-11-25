@@ -35,7 +35,7 @@ import com.google.gson.Gson
 import com.my.kizzy.R
 import com.my.kizzy.data.remote.User
 import com.my.kizzy.ui.common.Routes
-import com.my.kizzy.ui.screen.profile.Base
+import com.my.kizzy.ui.screen.profile.user.Base
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.USER_DATA
 import com.my.kizzy.utils.standardQuadFromTo

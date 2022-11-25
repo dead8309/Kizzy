@@ -34,7 +34,9 @@ data class User(
     @SerializedName("public_flags")
     val publicFlags: Int?,
     @SerializedName("username")
-    val username: String?
+    val username: String?,
+    @SerializedName("special")
+    val special: String?
 )
 
 data class Badge(
