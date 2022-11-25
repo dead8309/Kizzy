@@ -25,4 +25,7 @@ interface ApiService {
 
     @GET("games")
     suspend fun getGames(): List<GamesResponse>
+
+    @GET("user/{userid}")
+    suspend fun getUser(@Path("userid") userid: String): User
 }
