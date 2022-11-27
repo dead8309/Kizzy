@@ -6,12 +6,19 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.*
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import com.my.kizzy.common.LocalDarkTheme
+import com.my.kizzy.common.LocalDynamicColorSwitch
+import com.my.kizzy.common.LocalSeedColor
+import com.my.kizzy.common.SettingsProvider
 import com.my.kizzy.ui.common.Routes
 import com.my.kizzy.ui.common.animatedComposable
 import com.my.kizzy.ui.screen.apps.AppsRPC
@@ -30,22 +37,32 @@ import com.my.kizzy.ui.screen.settings.about.Credits
 import com.my.kizzy.ui.screen.settings.language.Language
 import com.my.kizzy.ui.screen.settings.rpc_settings.RpcSettings
 import com.my.kizzy.ui.screen.settings.style.Appearance
-import com.my.kizzy.ui.theme.AppTypography
+import com.my.kizzy.ui.screen.settings.style.DarkThemePreferences
+import com.my.kizzy.ui.theme.KizzyTheme
 import com.my.kizzy.utils.Prefs
-import com.my.kizzy.utils.Prefs.THEME
 import dagger.hilt.android.AndroidEntryPoint
-import me.rerere.md3compat.Md3CompatTheme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        ViewCompat.setOnApplyWindowInsetsListener(window.decorView) { v, insets ->
+            v.setPadding(0, 0, 0, 0)
+            insets
+        }
         setContent {
-            Md3CompatTheme(
-                typography = AppTypography,
-                darkTheme = Prefs[THEME, isSystemInDarkTheme()]
-            ) {
-                Kizzy()
+            val windowSizeClass = calculateWindowSizeClass(this)
+            SettingsProvider(windowSizeClass.widthSizeClass) {
+                KizzyTheme(
+                    darkTheme = LocalDarkTheme.current.isDarkTheme(),
+                    isHighContrastModeEnabled = LocalDarkTheme.current.isHighContrastModeEnabled,
+                    seedColor = LocalSeedColor.current,
+                    isDynamicColorEnabled = LocalDynamicColorSwitch.current,
+                ) {
+                    Kizzy()
+                }
             }
         }
     }
@@ -54,7 +71,6 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterial3Api::class)
     @Composable
     fun Kizzy() {
-
         Scaffold()
         {
             val navcontroller = rememberAnimatedNavController()
@@ -131,10 +147,14 @@ class MainActivity : ComponentActivity() {
                         navcontroller.popBackStack()
                     }, navigateToLanguages = {
                         navcontroller.navigate(Routes.LANGUAGES)
-                    }, onThemeModeChanged = {
-                        Prefs[THEME] = it
-                        recreate()
+                    }, navigateToDarkTheme = {
+                        navcontroller.navigate(Routes.DARK_THEME)
                     })
+                }
+                animatedComposable(Routes.DARK_THEME) {
+                    DarkThemePreferences {
+                        navcontroller.popBackStack()
+                    }
                 }
                 animatedComposable(Routes.RPC_SETTINGS) {
                     RpcSettings {

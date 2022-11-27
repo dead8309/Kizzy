@@ -66,7 +66,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
     }) { paddingValues ->
         LazyColumn(modifier = Modifier.padding(paddingValues)) {
             item{
-                SettingTitle(text = "General")
+                PreferenceSubtitle(text = "General")
             }
             item {
                 SettingItem(
@@ -100,7 +100,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 }
             }
             item {
-                SettingTitle(text = "Advanced")
+                PreferenceSubtitle(text = stringResource(id = R.string.advance_settings))
             }
             item {
                 PreferenceSwitch(

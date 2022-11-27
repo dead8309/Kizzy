@@ -1,8 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
+    id("kotlin-kapt")
 }
 
 android {
@@ -64,8 +64,10 @@ android {
 }
 
 dependencies {
+    implementation(MMKV)
     implementation(coreKtx)
     implementation(material3)
+    implementation(windowSizeClass)
     implementation(lifecycleRuntimeKtx)
     implementation(composeActivity)
     testImplementation(junit)
@@ -76,20 +78,25 @@ dependencies {
     debugImplementation(uiTooling)
     debugImplementation(testManifest)
     implementation(composeToolingPreview)
-    implementation(md3Compat)
+    ///implementation(md3Compat)
+    implementation(androidxMaterial)
     implementation(composeNavigation)
     implementation(materialIconsExtended)
-    implementation(accompanistAnimation)
     implementation(googleGson)
     implementation(glide)
     implementation(blankjUtil)
     implementation(javaWebsocket)
     implementation(lingver)
     implementation(okhttp)
+
     implementation(accompanistPermission)
+    implementation(accompanistSystemUiController)
+    implementation(accompanistAnimation)
+
     implementation(crashX)
     debugImplementation project(":logger")
     releaseImplementation project(":logger-no-op")
+    implementation project(":color")
     implementation(Hilt)
     kapt(HiltCompiler)
     implementation(retrofit)

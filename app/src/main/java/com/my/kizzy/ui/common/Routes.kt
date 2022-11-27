@@ -14,5 +14,6 @@ class Routes() {
         const val LANGUAGES = "languages"
         const val STYLE_AND_APPEAREANCE = "style_and_appeareance"
         const val RPC_SETTINGS = "rpc_settings"
+        const val DARK_THEME ="dark_theme_screen"
     }
 }

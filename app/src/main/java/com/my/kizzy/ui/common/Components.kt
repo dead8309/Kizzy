@@ -279,7 +279,7 @@ fun SettingItem(
 
 
 @Composable
-fun SettingTitle(
+fun PreferenceSubtitle(
     modifier: Modifier = Modifier,
     text: String,
     color: Color = MaterialTheme.colorScheme.primary,

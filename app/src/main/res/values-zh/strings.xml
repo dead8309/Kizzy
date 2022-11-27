@@ -72,6 +72,13 @@
     <string name="rpc_settings_button_configs">Button configuration for Media and AppDetection Rpc</string>
     <string name="use_custom_buttons">Use Custom Buttons</string>
     <string name="use_custom_buttons_desc">Use Predefined buttons to show on Media and AppDetection rpc</string>
+    <string name="follow_system">Follow System</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
+    <string name="advance_settings">Advanced Settings</string>
+    <string name="amoled">Amoled Theme</string>
+    <string name="dynamic_color">Dynamic color</string>
+    <string name="dynamic_color_desc">Apply colors from wallpapers</string>
 
 
 </resources>
