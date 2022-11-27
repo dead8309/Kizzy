@@ -37,9 +37,6 @@
     <string name="grant_permission">Nadaj Uprawnienie</string>
     <string name="use_low_res_icon">Użyj Obrazów Niskiej Rozdzielczości</string>
     <string name="use_low_res_icon_desc">Użyj niskiej rozdzielczości ikony aplikacji wyświetlanej w rpc (włącz to jeśli rpc ulega awarii). To ustawienie zostanie zastosowane również do Rpc Aplikacji.</string>
-    <string name="use_your_own_webhook">Użyj Własnego Webhooka</string>
-    <string name="use_your_own_webhook_desc">Aplikacja użyje tego webhooka do wysyłania obrazów rpc na serwery Discord. Nie tykaj, jeśli nie wiesz jak działają webhooki.</string>
-    <string name="edit_webhook_url">Edytuj URL Webhooka</string>
     <string name="delete_saved_icon_urls">Usuń Zapisane Linki Ikon</string>
     <string name="delete_saved_icon_urls_desc">Usuń URL-e ikon aplikacji zapisanych w lokalnych plikach (Do użycia tylko w szczególnych wypadkach, gdyż wyśle to wszystkie obrazy znów na serwery Discord co zużyje więcej danych)</string>
     <string name="app_crashed">Aplikacja Uległa Awarii</string>
@@ -72,5 +69,8 @@
     <string name="privacy_policy">Polityka Prywatności</string>
     <string name="privacy_policy_desc">Sprawdź Polityke Prywatności</string>
     <string name="enable_console_rpc">Włącz Rpc Konsoli</string>
+    <string name="rpc_settings_button_configs">Button configuration for Media and AppDetection Rpc</string>
+    <string name="use_custom_buttons">Use Custom Buttons</string>
+    <string name="use_custom_buttons_desc">Use Predefined buttons to show on Media and AppDetection rpc</string>
 
 </resources>

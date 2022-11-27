@@ -13,9 +13,10 @@ import com.blankj.utilcode.util.AppUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.my.kizzy.R
-import com.my.kizzy.rpc.Constants
+import com.my.kizzy.common.Constants
 import com.my.kizzy.rpc.KizzyRPC
 import com.my.kizzy.rpc.RpcImage
+import com.my.kizzy.ui.screen.settings.rpc_settings.RpcButtons
 import com.my.kizzy.utils.Prefs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
@@ -59,7 +60,8 @@ class AppDetectionService : Service() {
             stopIntent.action = ACTION_STOP_SERVICE
             val pendingIntent: PendingIntent = PendingIntent.getService(this,
                 0,stopIntent,PendingIntent.FLAG_IMMUTABLE)
-
+            val rpcButtonsString = Prefs[Prefs.RPC_BUTTONS_DATA,"{}"]
+            val rpcButtons = Gson().fromJson(rpcButtonsString,RpcButtons::class.java)
             scope.launch {
                 while (isActive) {
                     val usageStatsManager =
@@ -89,6 +91,14 @@ class AppDetectionService : Service() {
                                         setStartTimestamps(System.currentTimeMillis())
                                         setStatus(Constants.DND)
                                         setLargeImage(RpcImage.ApplicationIcon(packageName, this@AppDetectionService))
+                                        if (Prefs[Prefs.USE_RPC_BUTTONS,false]){
+                                            with(rpcButtons){
+                                                setButton1(button1.takeIf { it.isNotEmpty() })
+                                                setButton1URL(button1Url.takeIf { it.isNotEmpty() })
+                                                setButton2(button2.takeIf { it.isNotEmpty() })
+                                                setButton2URL(button2Url.takeIf { it.isNotEmpty() })
+                                            }
+                                        }
                                         build()
                                     }
                                 }

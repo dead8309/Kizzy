@@ -37,9 +37,6 @@
     <string name="grant_permission">Дать разрешение</string>
     <string name="use_low_res_icon">Использовать низкокачественные изображения</string>
     <string name="use_low_res_icon_desc">Использовать значок приложения с более низким разрешением для отображения в активности. Этот параметр также будет применяться к Активности приложений.</string>
-    <string name="use_your_own_webhook">Использовать польз. веб-хук</string>
-    <string name="use_your_own_webhook_desc">Для загрузки изображений активности на сервера Discord, приложение будет использовать этот веб-хук. Не связывайтесь с этой настройкой, если вы не знаете, как работают веб-хуки.</string>
-    <string name="edit_webhook_url">Изменить URL-адрес на веб-хук.</string>
     <string name="delete_saved_icon_urls">Удалить сохр. ссылки иконок</string>
     <string name="delete_saved_icon_urls_desc">Удалить URL-адреса иконок приложений, сохранённые в локальных файлах. Используйте это только в редких случаях.</string>
     <string name="app_crashed">Приложение вылетело</string>
@@ -72,6 +69,9 @@
     <string name="privacy_policy">Политика конфиденциальности</string>
     <string name="privacy_policy_desc">Ознакомиться с Политикой конфиденциальности</string>
     <string name="enable_console_rpc">Включить консольную активность</string>
+    <string name="rpc_settings_button_configs">Button configuration for Media and AppDetection Rpc</string>
+    <string name="use_custom_buttons">Use Custom Buttons</string>
+    <string name="use_custom_buttons_desc">Use Predefined buttons to show on Media and AppDetection rpc</string>
 
 
 </resources>

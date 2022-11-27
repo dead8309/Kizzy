@@ -37,9 +37,6 @@
     <string name="grant_permission">Izinkan</string>
     <string name="use_low_res_icon">Gunakan Gambar Resolusi rendah</string>
     <string name="use_low_res_icon_desc">Gunakan gambar resolusi rendah untuk menampilkan rpc (nyalakan ini jika rpc kamu crash). Settingan ini juga berlaku untuk Apps RPC</string>
-    <string name="use_your_own_webhook">Gunakan Webhook Khusus</string>
-    <string name="use_your_own_webhook_desc">Untuk mengunggah foto rpc ke server discord yang akan digunakan oleh aplikasi. Jangan ubah settingan ini jika tidak tahu bagaimana ini bekerja</string>
-    <string name="edit_webhook_url">Ubah URL Webhook</string>
     <string name="delete_saved_icon_urls">Hapus link icon yang tersimpan</string>
     <string name="delete_saved_icon_urls_desc">Hapus URL Icon yang tersimpan di Perangkat(Gunakan ini jika Kasus Langka Terjadi, ini akan mengirim ulang semua ikon aplikasi ke server discord yang akan menggunakan banyak data)</string>
     <string name="app_crashed">Aplikasi Crashed</string>
@@ -72,6 +69,9 @@
     <string name="privacy_policy">Kebijakan Pribadi</string>
     <string name="privacy_policy_desc">Periksa Kebijakan Pribadi</string>
     <string name="enable_console_rpc">Nyalakan RPC Konsol</string>
+    <string name="rpc_settings_button_configs">Button configuration for Media and AppDetection Rpc</string>
+    <string name="use_custom_buttons">Use Custom Buttons</string>
+    <string name="use_custom_buttons_desc">Use Predefined buttons to show on Media and AppDetection rpc</string>
 
 
 </resources>

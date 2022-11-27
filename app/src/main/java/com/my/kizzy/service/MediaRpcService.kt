@@ -10,10 +10,12 @@ import android.os.IBinder
 import android.os.PowerManager
 import android.os.PowerManager.WakeLock
 import com.blankj.utilcode.util.AppUtils
+import com.google.gson.Gson
 import com.my.kizzy.R
-import com.my.kizzy.rpc.Constants
+import com.my.kizzy.common.Constants
 import com.my.kizzy.rpc.KizzyRPC
 import com.my.kizzy.rpc.RpcImage
+import com.my.kizzy.ui.screen.settings.rpc_settings.RpcButtons
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.MEDIA_RPC_ENABLE_TIMESTAMPS
 import com.my.kizzy.utils.Prefs.TOKEN
@@ -60,6 +62,8 @@ class MediaRpcService : Service() {
         scope.launch {
             while (isActive) {
                 try {
+                    val rpcButtonsString = Prefs[Prefs.RPC_BUTTONS_DATA,"{}"]
+                    val rpcButtons = Gson().fromJson(rpcButtonsString, RpcButtons::class.java)
                     val mediaSessionManager = this@MediaRpcService.getSystemService(MEDIA_SESSION_SERVICE) as MediaSessionManager
                     val component = ComponentName(this@MediaRpcService, NotificationListener::class.java)
                     val sessions = mediaSessionManager.getActiveSessions(component)
@@ -112,6 +116,14 @@ class MediaRpcService : Service() {
                                 setName(App_Name.ifEmpty { "YouTube" })
                                 setDetails(TITLE.ifEmpty { "Browsing Home Page.." })
                                 setStatus(Constants.DND)
+                                if (Prefs[Prefs.USE_RPC_BUTTONS,false]) {
+                                    with(rpcButtons) {
+                                        setButton1(button1.takeIf { it.isNotEmpty() })
+                                        setButton1URL(button1Url.takeIf { it.isNotEmpty() })
+                                        setButton2(button2.takeIf { it.isNotEmpty() })
+                                        setButton2URL(button2Url.takeIf { it.isNotEmpty() })
+                                    }
+                                }
                                 build()
                             }
                         }

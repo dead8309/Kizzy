@@ -9,7 +9,7 @@ import android.os.PowerManager.WakeLock
 import com.android.girish.vlog.Vlog
 import com.google.gson.Gson
 import com.my.kizzy.R
-import com.my.kizzy.rpc.Constants
+import com.my.kizzy.common.Constants
 import com.my.kizzy.rpc.KizzyRPC
 import com.my.kizzy.ui.screen.custom.IntentRpcData
 import com.my.kizzy.utils.toRpcImage

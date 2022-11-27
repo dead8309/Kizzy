@@ -5,6 +5,7 @@ import com.android.girish.vlog.Vlog
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import com.my.kizzy.common.Constants
 import com.my.kizzy.domain.repository.KizzyRepository
 import com.my.kizzy.rpc.model.*
 import org.java_websocket.client.WebSocketClient
@@ -298,7 +299,10 @@ class KizzyRPC @Inject constructor(
                                 largeImage = large_image?.resolveImage(kizzyRepository),
                                 smallImage = small_image?.resolveImage(kizzyRepository)
                                 )
-                            else null
+                            else null,
+                            buttons = if (buttons.size > 0) buttons else null,
+                            metadata = if (buttonUrl.size > 0) Metadata(buttonUrls = buttonUrl) else null,
+                            applicationId = if (buttons.size > 0) Constants.APPLICATION_ID else null
                         )
                     ),
                     afk = true,

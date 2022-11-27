@@ -37,9 +37,6 @@
     <string name="grant_permission">Grant Permission</string>
     <string name="use_low_res_icon">Use Low Resolution Images</string>
     <string name="use_low_res_icon_desc">Use a lower resolution app icon for displaying on rpc (turn this on if the rpc is crashing). This setting will also be applied to Apps Rpc.</string>
-    <string name="use_your_own_webhook">Use Custom Webhook</string>
-    <string name="use_your_own_webhook_desc">For uploading rpc images to discord servers app will use this webhook. Dont mess with this setting if you dont know how webhooks work.</string>
-    <string name="edit_webhook_url">Edit Webhook Url</string>
     <string name="delete_saved_icon_urls">Delete Saved Icon Links</string>
     <string name="delete_saved_icon_urls_desc">Delete app icon urls saved in local files(Only use this in rare cases as it will send all the images again to discord servers which will consume more data)</string>
     <string name="app_crashed">App Crashed</string>
@@ -72,6 +69,9 @@
     <string name="privacy_policy">Privacy Policy</string>
     <string name="privacy_policy_desc">Check the Privacy Policy</string>
     <string name="enable_console_rpc">Enable Console Rpc</string>
+    <string name="rpc_settings_button_configs">Button configuration for Media and AppDetection Rpc</string>
+    <string name="use_custom_buttons">Use Custom Buttons</string>
+    <string name="use_custom_buttons_desc">Use Predefined buttons to show on Media and AppDetection rpc</string>
 
 
 </resources>
