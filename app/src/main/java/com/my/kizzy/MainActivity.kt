@@ -18,6 +18,7 @@ import com.my.kizzy.ui.screen.apps.AppsRPC
 import com.my.kizzy.ui.screen.console_games.GamesScreen
 import com.my.kizzy.ui.screen.console_games.GamesViewModel
 import com.my.kizzy.ui.screen.custom.CustomRPC
+import com.my.kizzy.ui.screen.custom.CustomScreenViewModel
 import com.my.kizzy.ui.screen.home.Home
 import com.my.kizzy.ui.screen.media.MediaRPC
 import com.my.kizzy.ui.screen.profile.login.LoginScreen
@@ -92,7 +93,10 @@ class MainActivity : ComponentActivity() {
                     )
                 }
                 animatedComposable(Routes.APPS_DETECTION) { AppsRPC(onBackPressed = { navcontroller.popBackStack() }) }
-                animatedComposable(Routes.CUSTOM_RPC) { CustomRPC(onBackPressed = { navcontroller.popBackStack() }) }
+                animatedComposable(Routes.CUSTOM_RPC) {
+                    val viewModel: CustomScreenViewModel by viewModels()
+                    CustomRPC(onBackPressed = { navcontroller.popBackStack() },viewModel)
+                }
                 animatedComposable(Routes.MEDIA_RPC) { MediaRPC(onBackPressed = { navcontroller.popBackStack() }) }
                 animatedComposable(Routes.PROFILE) {
                     var loggedIn by remember {

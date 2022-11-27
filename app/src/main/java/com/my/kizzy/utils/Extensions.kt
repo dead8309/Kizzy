@@ -12,11 +12,14 @@
 
 package com.my.kizzy.utils
 
+import android.content.ContentResolver
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.net.Uri
+import android.provider.OpenableColumns
 import android.util.DisplayMetrics
 import com.blankj.utilcode.util.AppUtils
 import com.my.kizzy.data.remote.ApiResponse
@@ -36,8 +39,13 @@ fun Response<ApiResponse>.toImageAsset(): String?{
     }
 }
 
-fun Bitmap?.toFile(context: Context,path: String): File {
-    val dir = File(context.filesDir.toString() + File.separator + path)
+/**
+ * Converts Bitmap to file
+ * @param context Context
+ * @param outputPathFolder Folder name for storing the png file eg (images, media, custom)
+ */
+fun Bitmap?.toFile(context: Context,outputPathFolder: String): File {
+    val dir = File(context.filesDir.toString() + File.separator + outputPathFolder)
     dir.mkdirs()
     val image = File(dir, "Temp.png")
     FileOutputStream(image).use {
@@ -83,3 +91,15 @@ fun String.toRpcImage(): RpcImage{
         else
             RpcImage.ExternalImage(this)
 }
+
+fun Context.getFileName(uri: Uri): String? = when(uri.scheme) {
+    ContentResolver.SCHEME_CONTENT -> getContentFileName(uri)
+    else -> uri.path?.let(::File)?.name
+}
+
+private fun Context.getContentFileName(uri: Uri): String? = runCatching {
+    contentResolver.query(uri, null, null, null, null)?.use { cursor ->
+        cursor.moveToFirst()
+        return@use cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME).let(cursor::getString)
+    }
+}.getOrNull()
