@@ -3,12 +3,18 @@ package com.my.kizzy.ui.screen.settings.style
 /**
  * source: https://github.com/JunkFood02/Seal
  */
+
+import android.graphics.Color.parseColor
+import android.util.Log
+import androidx.compose.animation.*
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
@@ -26,24 +32,24 @@ import com.my.kizzy.R
 import com.my.kizzy.common.LocalDarkTheme
 import com.my.kizzy.common.LocalDynamicColorSwitch
 import com.my.kizzy.common.LocalSeedColor
-import com.my.kizzy.ui.common.BackButton
-import com.my.kizzy.ui.common.PreferenceSwitch
-import com.my.kizzy.ui.common.SettingItem
+import com.my.kizzy.ui.common.*
+import com.my.kizzy.ui.svg.PALETTE
 import com.my.kizzy.ui.theme.ColorScheme.DEFAULT_SEED_COLOR
+import com.my.kizzy.ui.theme.onLight
+import com.my.kizzy.utils.Log.vlog
 import com.my.kizzy.utils.Prefs
+import com.my.kizzy.utils.Prefs.CUSTOM_THEME_COLOR
 import material.io.color.hct.Hct
 import material.io.color.palettes.CorePalette
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Appearance(
-    onBackPressed: () -> Unit,
-    navigateToLanguages: () -> Unit,
-    navigateToDarkTheme: () -> Unit
+    onBackPressed: () -> Unit, navigateToLanguages: () -> Unit, navigateToDarkTheme: () -> Unit
 ) {
-    var useCustomColor by remember {
-        mutableStateOf(false)
-    }
+    var showCustomColorDialog by remember { mutableStateOf(false) }
+    var savedHex by remember { mutableStateOf(Prefs[CUSTOM_THEME_COLOR, ""]) }
+
     Scaffold(topBar = {
         LargeTopAppBar(title = {
             Text(
@@ -51,15 +57,39 @@ fun Appearance(
                 style = MaterialTheme.typography.headlineLarge
             )
         }, navigationIcon = {
-            BackButton() {
+            BackButton {
                 onBackPressed()
             }
         })
-    }, content = {
+    }) {
         Column(
-            Modifier.padding(it)
+            Modifier.padding(it),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
+            vlog.e(TAG, LocalSeedColor.current.toString())
             Column {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 24.dp)
+                        .aspectRatio(1.38f)
+                        .clip(RoundedCornerShape(24.dp))
+                        .background(
+                            MaterialTheme.colorScheme.inverseOnSurface
+                                    onLight MaterialTheme.colorScheme.surface.copy(0.7f)
+                        )
+                        .clickable { },
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    DynamicSVGImage(
+                        modifier = Modifier.padding(50.dp),
+                        contentDescription = "palette",
+                        svgString = PALETTE
+                    )
+                }
+                Spacer(modifier = Modifier.height(24.dp))
+
                 Row(
                     modifier = Modifier
                         .horizontalScroll(rememberScrollState())
@@ -79,12 +109,28 @@ fun Appearance(
                     )
                     ColorButton(color = Color.Cyan)
                     ColorButton(color = Color.Red)
-                    ColorButton(color = Color.Yellow)
+                    //Custom
+                    ColorButton(customColorEnabled = true,
+                        customColor = savedHex,
+                        showDialog = showCustomColorDialog,
+                        onClick = {
+                            showCustomColorDialog = true
+                        },
+                        onDismiss = {
+                            showCustomColorDialog = false
+                        },
+                        color = savedHex.color,
+                        onConfirm = { hexString ->
+                            savedHex = hexString
+                            Prefs.switchDynamicColor(enabled = false)
+                            Prefs[CUSTOM_THEME_COLOR] = hexString
+                            Prefs.modifyThemeSeedColor(savedHex.color.toArgb())
+                            showCustomColorDialog = false
+                        })
                 }
             }
             if (DynamicColors.isDynamicColorAvailable()) {
-                PreferenceSwitch(
-                    title = stringResource(id = R.string.dynamic_color),
+                PreferenceSwitch(title = stringResource(id = R.string.dynamic_color),
                     description = stringResource(
                         id = R.string.dynamic_color_desc
                     ),
@@ -107,26 +153,56 @@ fun Appearance(
                 description = "English,Turkish,Dutch.."
             ) { navigateToLanguages() }
         }
-    })
+    }
 }
 
-
-
-
+const val TAG = "Appearance"
 @Composable
-fun ColorButton(modifier: Modifier = Modifier, color: Color = Color.Green) {
+fun ColorButton(
+    modifier: Modifier = Modifier,
+    color: Color = Color.Green,
+    onClick: () -> Unit = {},
+    showDialog: Boolean = false,
+    customColorEnabled: Boolean = false,
+    customColor: String = "",
+    onDismiss: () -> Unit = {},
+    onConfirm: (String) -> Unit = {}
+) {
     val corePalette = CorePalette.of(color.toArgb())
     val seedColor = corePalette.a2.tone(60)
+    Log.d(
+        TAG, "ColorButton() called with: color = ${color.toArgb()}, seed color = $seedColor"
+    )
+
+    var customColorValue by remember { mutableStateOf(customColor) }
+
+    TextFieldDialog(visible = showDialog,
+        title = stringResource(R.string.primary_color),
+        icon = Icons.Outlined.Palette,
+        value = customColorValue,
+        placeholder = stringResource(R.string.primary_color_hint),
+        onValueChange = {
+            customColorValue = it
+        },
+        onDismissRequest = {
+            onDismiss()
+        },
+        onConfirm = {
+            onConfirm(it)
+        })
 
     ColorButtonImpl(
         modifier = modifier,
-        corePalette = corePalette,
+        isSelected = !LocalDynamicColorSwitch.current && LocalSeedColor.current == seedColor,
         color = color,
-        isDarkTheme = LocalDarkTheme.current.isDarkTheme(),
-        isSelected = !LocalDynamicColorSwitch.current && LocalSeedColor.current == seedColor
+        corePalette = corePalette,
+        isDarkTheme = LocalDarkTheme.current.isDarkTheme()
     ) {
-        Prefs.switchDynamicColor(enabled = false)
-        Prefs.modifyThemeSeedColor(seedColor)
+        if (customColorEnabled) onClick()
+        else {
+            Prefs.switchDynamicColor(enabled = false)
+            Prefs.modifyThemeSeedColor(seedColor)
+        }
     }
 }
 
@@ -141,7 +217,6 @@ fun ColorButtonImpl(
     onClick: () -> Unit = {}
 ) {
     val lightColor = corePalette.a2.tone(80)
-    val seedColor = corePalette.a2.tone(60)
     val darkColor = corePalette.a2.tone(60)
     val showColor = if (isDarkTheme) darkColor else lightColor
     val state = animateDpAsState(targetValue = if (isSelected) 48.dp else 36.dp)
@@ -172,3 +247,10 @@ fun ColorButtonImpl(
         }
     }
 }
+
+val String.color
+    get() = try {
+        Color(parseColor(this))
+    } catch (ex: Exception) {
+        Color.Transparent
+    }

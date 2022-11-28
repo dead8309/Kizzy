@@ -79,6 +79,11 @@
     <string name="amoled">Amoled Theme</string>
     <string name="dynamic_color">Dynamic color</string>
     <string name="dynamic_color_desc">Apply colors from wallpapers</string>
+    <string name="only_android_8_1_plus">Only android8.1+ is supported</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="primary_color">Primary Color</string>
+    <string name="primary_color_hint">Like #666666 or 666666</string>
 
 
 </resources>

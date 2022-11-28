@@ -98,6 +98,7 @@ object Prefs {
     const val HIGH_CONTRAST = "high_contrast"
     const val DYNAMIC_COLOR = "dynamic_color"
     const val THEME_COLOR = "theme_color"
+    const val CUSTOM_THEME_COLOR = "custom_theme_color"
 
     data class AppSettings(
         val darkTheme: DarkThemePreference = DarkThemePreference(),
