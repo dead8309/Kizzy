@@ -16,3 +16,4 @@
 local.properties
 /gradle.properties
 /app/Kizzy.keystore
+/app/debug/
