@@ -75,6 +75,9 @@ object Prefs {
     //User Preferences
     const val USER_DATA ="user" //Json Data Referencing User_Data class
     const val TOKEN = "token"
+    const val USER_ID = "user-id"
+    const val USER_BIO = "user-bio"
+    const val USER_NITRO = "user-nitro"
 
     const val LANGUAGE = "language"
     const val THEME = "theme"

@@ -5,6 +5,7 @@ import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import androidx.annotation.StringRes
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -25,12 +26,14 @@ import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.gson.Gson
 import com.my.kizzy.R
+import com.my.kizzy.data.remote.User
 import com.my.kizzy.service.AppDetectionService
 import com.my.kizzy.service.CustomRpcService
 import com.my.kizzy.service.MediaRpcService
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.SwitchBar
 import com.my.kizzy.utils.AppUtils
+import com.my.kizzy.utils.Prefs
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -108,6 +111,9 @@ fun CustomRPC(onBackPressed: () -> Unit) {
         mutableStateOf(false)
     }
     var showDeleteDialog by remember {
+        mutableStateOf(false)
+    }
+    var showPreviewDialog by remember {
         mutableStateOf(false)
     }
 
@@ -211,24 +217,7 @@ fun CustomRPC(onBackPressed: () -> Unit) {
                                 text = { Text(stringResource(id = R.string.preview_rpc)) },
                                 onClick = {
                                     menuClicked = !menuClicked
-                                    PreviewDialog.showPreview(
-                                        rpc = IntentRpcData(
-                                            name = name,
-                                            details = details,
-                                            state = state,
-                                            startTime = startTimestamps,
-                                            StopTime = stopTimestamps,
-                                            status = status,
-                                            button1 = button1,
-                                            button2 = button2,
-                                            button1Url = button1Url,
-                                            button2Url = button2Url,
-                                            largeImg = largeImg,
-                                            smallImg = smallImg,
-                                            type = type
-                                        ),
-                                        context = context
-                                    )
+                                    showPreviewDialog = true
                                 },
                                 leadingIcon = {
                                     Icon(
@@ -249,6 +238,22 @@ fun CustomRPC(onBackPressed: () -> Unit) {
     )
     { padding ->
         Column(modifier = Modifier.padding(padding)) {
+            val rpc = IntentRpcData(
+                name = name,
+                details = details,
+                state = state,
+                startTime = startTimestamps,
+                StopTime = stopTimestamps,
+                status = status,
+                button1 = button1,
+                button2 = button2,
+                button1Url = button1Url,
+                button2Url = button2Url,
+                largeImg = largeImg,
+                smallImg = smallImg,
+                type = type
+            )
+
             if (showLoadDialog) {
                 LoadConfig(
                     onDismiss = {
@@ -271,21 +276,7 @@ fun CustomRPC(onBackPressed: () -> Unit) {
                 }
             } else if (showSaveDialog) {
                 SaveConfig(
-                    rpc = IntentRpcData(
-                        name = name,
-                        details = details,
-                        state = state,
-                        startTime = startTimestamps,
-                        StopTime = stopTimestamps,
-                        status = status,
-                        button1 = button1,
-                        button2 = button2,
-                        button1Url = button1Url,
-                        button2Url = button2Url,
-                        largeImg = largeImg,
-                        smallImg = smallImg,
-                        type = type
-                    ),
+                    rpc = rpc,
                     onDismiss = { showSaveDialog = false }
                 ) {
                     scope.launch {
@@ -300,6 +291,12 @@ fun CustomRPC(onBackPressed: () -> Unit) {
                         snackbarHostState.showSnackbar(it)
                     }
                 }
+            } else if(showPreviewDialog){
+                val json = Prefs[Prefs.USER_DATA, "{}"]
+                val user = Gson().fromJson(json,User::class.java)
+                PreviewDialog(user = user,rpc, onDismiss = {
+                    showPreviewDialog = false
+                } )
             }
 
             LazyColumn(
@@ -432,6 +429,16 @@ fun CustomRPC(onBackPressed: () -> Unit) {
                         button1 = it
                     }
                 }
+                item {
+                    AnimatedVisibility(visible = button1.isNotBlank()) {
+                        RpcField(
+                            value = button1Url,
+                            label = R.string.activity_button1_url
+                        ) {
+                            button1Url = it
+                        }
+                    }
+                }
 
                 item {
                     RpcField(
@@ -443,20 +450,13 @@ fun CustomRPC(onBackPressed: () -> Unit) {
                 }
 
                 item {
-                    RpcField(
-                        value = button1Url,
-                        label = R.string.activity_button1_url
-                    ) {
-                        button1Url = it
-                    }
-                }
-
-                item {
-                    RpcField(
-                        value = button2Url,
-                        label = R.string.activity_button2_url
-                    ) {
-                        button2Url = it
+                    AnimatedVisibility(visible = button2.isNotBlank()) {
+                        RpcField(
+                            value = button2Url,
+                            label = R.string.activity_button2_url
+                        ) {
+                            button2Url = it
+                        }
                     }
                 }
 

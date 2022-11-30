@@ -8,10 +8,8 @@ import androidx.activity.viewModels
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
-import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.my.kizzy.ui.common.Routes
@@ -22,7 +20,9 @@ import com.my.kizzy.ui.screen.console_games.GamesViewModel
 import com.my.kizzy.ui.screen.custom.CustomRPC
 import com.my.kizzy.ui.screen.home.Home
 import com.my.kizzy.ui.screen.media.MediaRPC
-import com.my.kizzy.ui.screen.profile.Profile
+import com.my.kizzy.ui.screen.profile.login.LoginScreen
+import com.my.kizzy.ui.screen.profile.user.UserScreen
+import com.my.kizzy.ui.screen.profile.user.UserViewModel
 import com.my.kizzy.ui.screen.settings.Settings
 import com.my.kizzy.ui.screen.settings.about.About
 import com.my.kizzy.ui.screen.settings.about.Credits
@@ -85,7 +85,7 @@ class MainActivity : ComponentActivity() {
                             }
                         },
                         navigateToRpcSettings = {
-                            navcontroller.navigate(Routes.RPC_SETTINGS){
+                            navcontroller.navigate(Routes.RPC_SETTINGS) {
                                 launchSingleTop = true
                             }
                         }
@@ -95,15 +95,27 @@ class MainActivity : ComponentActivity() {
                 animatedComposable(Routes.CUSTOM_RPC) { CustomRPC(onBackPressed = { navcontroller.popBackStack() }) }
                 animatedComposable(Routes.MEDIA_RPC) { MediaRPC(onBackPressed = { navcontroller.popBackStack() }) }
                 animatedComposable(Routes.PROFILE) {
-                    Profile(onBackPressed = {
-                        navcontroller.popBackStack()
-                    })
+                    var loggedIn by remember {
+                        mutableStateOf(Prefs[Prefs.TOKEN, ""].isNotEmpty())
+                    }
+                    if (loggedIn) {
+                        val viewModel: UserViewModel by viewModels()
+                        UserScreen(viewModel = viewModel) {
+                            navcontroller.popBackStack()
+                        }
+                    } else {
+                        LoginScreen(onBackPressed = {
+                            navcontroller.popBackStack()
+                        }, onCompleted = {
+                            loggedIn = true
+                        })
+                    }
                 }
                 animatedComposable(Routes.CONSOLE_RPC) {
                     val viewModel: GamesViewModel by viewModels()
                     GamesScreen(onBackPressed = {
                         navcontroller.popBackStack()
-                    },viewModel)
+                    }, viewModel)
                 }
                 animatedComposable(Routes.LANGUAGES) {
                     Language(onBackPressed = {
@@ -120,7 +132,7 @@ class MainActivity : ComponentActivity() {
                         recreate()
                     })
                 }
-                animatedComposable(Routes.RPC_SETTINGS){
+                animatedComposable(Routes.RPC_SETTINGS) {
                     RpcSettings {
                         navcontroller.popBackStack()
                     }
@@ -143,12 +155,5 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-
-
-    @Preview(showBackground = true)
-    @Composable
-    fun DefaultPreview() {
-        MaterialTheme {
-        }
-    }
 }
+
