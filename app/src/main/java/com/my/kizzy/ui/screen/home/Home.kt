@@ -33,8 +33,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.google.gson.Gson
 import com.my.kizzy.R
+import com.my.kizzy.data.remote.User
 import com.my.kizzy.ui.common.Routes
-import com.my.kizzy.ui.screen.profile.user.UserData
+import com.my.kizzy.ui.screen.profile.user.Base
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.USER_DATA
 import com.my.kizzy.utils.standardQuadFromTo
@@ -46,13 +47,13 @@ import kotlin.math.roundToInt
 fun Home(
     navController: NavController
 ) {
-    val user: UserData? = Gson().fromJson(Prefs[USER_DATA,""])
+    val user: User? = Gson().fromJson(Prefs[USER_DATA,""])
     Scaffold(
         topBar = {
             LargeTopAppBar(
                 title = {
                     Text(
-                        text =  stringResource(id = R.string.welcome)+", ${user?.name?:""}",
+                        text =  stringResource(id = R.string.welcome)+", ${user?.username?:""}",
                         style = MaterialTheme.typography.headlineLarge,
                     )
                 },
@@ -69,8 +70,14 @@ fun Home(
                 actions = {
                     IconButton(onClick = { navController.navigate(Routes.PROFILE) }) {
                         if (user != null) {
+                            val avatar = user.avatar?.let {
+                                if (it.startsWith("a_"))
+                                    "$Base/avatars/${user.id}/${it}.gif"
+                                else
+                                    "$Base/avatars/${user.id}/${it}.png"
+                            }
                             GlideImage(
-                                imageModel = user.avatar,
+                                imageModel = avatar,
                                 modifier = Modifier
                                     .size(52.dp)
                                     .border(
@@ -120,9 +127,9 @@ fun Home(
     }
 }
 
-private fun Gson.fromJson(value: String): UserData? {
+private fun Gson.fromJson(value: String): User? {
    return when {
-       value.isNotEmpty() -> this.fromJson(value,UserData::class.java)
+       value.isNotEmpty() -> this.fromJson(value,User::class.java)
        else -> null
    }
 }

@@ -11,7 +11,7 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 //Dark Theme
-val DarkBlueBg = Color(0xFF103E63)
+val DarkBlueBg = Color(0xFF3C45A5)
 
 
 //Discord Colors

@@ -109,7 +109,8 @@ class MediaRpcService : Service() {
                             )
                         } else {
                             kizzyRPC.apply {
-                                setName("")
+                                setName(App_Name.ifEmpty { "YouTube" })
+                                setDetails(TITLE.ifEmpty { "Browsing Home Page.." })
                                 setStatus(Constants.DND)
                                 build()
                             }

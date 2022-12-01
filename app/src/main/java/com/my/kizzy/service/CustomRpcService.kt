@@ -70,9 +70,9 @@ class CustomRpcService : Service() {
             startForeground(7744, builder.build())
             scope.launch {
               kizzyRPC.apply {
-                    vlog.d(CHANNEL_NAME,"inside rpc block")
+                    vlog.d(CHANNEL_NAME,"Inside rpc block @CustomRpcService::class.java")
                         rpcData?.let {
-                            setName(it.name.ifEmpty { null })
+                            setName(it.name.ifEmpty { "" })
                             setDetails(it.details.ifEmpty { null })
                             setState(it.state.ifEmpty { null })
                             setStatus(it.status.ifEmpty { Constants.ONLINE })

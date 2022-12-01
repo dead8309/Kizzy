@@ -1,0 +1,77 @@
+<resources>
+    <string name="app_name">Kizzy</string>
+
+    <!-- Activities -->
+    <string name="activity_name">活動名字</string>
+    <string name="activity_details">活動詳情</string>
+    <string name="activity_state">活動狀態</string>
+    <string name="activity_start_timestamps">開始時間</string>
+    <string name="activity_stop_timestamps">停止時間</string>
+    <string name="activity_status_online_idle_dnd">活動狀態(在線,休息中,請勿打擾)</string>
+    <string name="activity_button1_text">活動按鈕1的字</string>
+    <string name="activity_button2_text">活動按鈕2的字</string>
+    <string name="activity_button1_url">按鈕1連結</string>
+    <string name="activity_button2_url">按鈕2連結</string>
+    <string name="activity_large_image">活動大圖示</string>
+    <string name="activity_small_image">活動小圖示</string>
+    <string name="activity_type">活動類型</string>
+    <string name="load_config">從檔案中載入</string>
+    <string name="save_config">儲存配置</string>
+    <string name="delete_configs">刪除配置</string>
+    <string name="preview_rpc">預覽 Rpc</string>
+    <string name="select_a_config">選擇配置</string>
+    <string name="login_with_discord">用Discord登入</string>
+    <string name="github_readme">README</string>
+    <string name="github_readme_desc">檢查 Github repository</string>
+    <string name="github_latest_release">最新版本</string>
+    <string name="github_latest_release_desc">檢查新版本和更新日誌</string>
+    <string name="github_issue">Github 問題</string>
+    <string name="github_issue_desc">報告找到的問題與功能請求</string>
+    <string name="credits">捐款</string>
+    <string name="credits_desc">捐款給使用的資料庫和奉獻者</string>
+    <string name="enable_artist_name">啟用顯示作家名字</string>
+    <string name="show_app_icon">顯示程式名字</string>
+    <string name="enable_timestamps">啟用時間</string>
+    <string name="text_after_permission_denied">你必須授權儲存權限以儲存配置</string>
+    <string name="request_for_permission">你必須授權儲存權限以啟用配置功能</string>
+    <string name="grant_permission">授權權限</string>
+    <string name="use_low_res_icon">使用低畫質圖示</string>
+    <string name="use_low_res_icon_desc">顯示低畫質圖示在 rpc 上(如果rpc停止運作請啟用這個)。 這項功能也會應用到程式rpc上</string>
+    <string name="use_your_own_webhook">使用自訂 Webhook</string>
+    <string name="use_your_own_webhook_desc">上載rpc到Discord 將會使用 webhook。 如果你不知道webhook如何運作請不要修改此設定。</string>
+    <string name="edit_webhook_url">修改 Webhook 連結</string>
+    <string name="delete_saved_icon_urls">刪除已儲存圖示的連結</string>
+    <string name="delete_saved_icon_urls_desc">刪除儲存在本地檔案的程式圖示(僅在極少數情況下使用它，因為它會將所有圖像再次發送到Discord伺服器，這將消耗更多數據)</string>
+    <string name="app_crashed">程式已停止運作</string>
+    <string name="share_crash_logs_desc">請使用以下堆棧跟踪在 Discord 頻道中發送日誌 :</string>
+    <string name="share_crash_logs">分享日誌</string>
+    <string name="welcome">歡迎</string>
+    <string name="features">功能</string>
+    <string name="battery_optimisation">電量最佳化</string>
+    <string name="battery_optimisation_desc">關閉此程式的電量最佳化以在背景正常運作</string>
+    <string name="account">帳號</string>
+    <string name="account_info">帳號詳情</string>
+    <string name="display">顯示</string>
+    <string name="display_desc">主題,動態顏色,語言</string>
+    <string name="about_desc">版本號,版本,捐款</string>
+    <string name="about">關於</string>
+    <string name="settings">設定</string>
+    <string name="theme">主題</string>
+    <string name="language">語言</string>
+    <string name="design_credits">捐款給設計者</string>
+    <string name="translation_credits">捐款給翻譯奉獻者</string>
+    <string name="enable_appsRpc">啟用程式偵測</string>
+    <string name="usage_access">請開啟使用情況權限</string>
+    <string name="usage_access_desc">請開啟使用情況權限已取得目前正在運行的程式</string>
+    <string name="enable_mediaRpc">啟用媒體 Rpc</string>
+    <string name="permission_required">需要權限</string>
+    <string name="enable_customRpc">啟用自訂 Rpc</string>
+    <string name="rpc_settings">Rpc 設定</string>
+    <string name="rpc_settings_desc">媒體和程式的進階活動設定</string>
+    <string name="dark_theme">黑暗模式</string>
+    <string name="privacy_policy">隱私政策</string>
+    <string name="privacy_policy_desc">閱讀隱私政策</string>
+    <string name="enable_console_rpc">啟用 Console Rpc</string>
+
+
+</resources>

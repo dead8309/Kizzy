@@ -1,6 +1,10 @@
 package com.my.kizzy
 
+import androidx.collection.ArrayMap
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.my.kizzy.data.remote.ApiService
+import com.my.kizzy.rpc.Constants
 import kotlinx.coroutines.runBlocking
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -31,17 +35,26 @@ class ExampleUnitTest {
 
     @Test
     fun testApi() = runBlocking {
-        val file = File("C:\\Users\\Administrator\\StudioProjects\\Kizzy\\app\\src\\main\\res\\drawable\\error_avatar.png")
-       val reqBody = file.asRequestBody("image/*".toMediaTypeOrNull())
+        val map = HashMap<String,String>()
+        val dir = File("C:\\Users\\Administrator\\Downloads\\svg\\png")
+
+        val files = dir.list()?.asList()
+        files?.forEach{
+            val file = File(dir,it)
+        val reqBody = file.asRequestBody("image/*".toMediaTypeOrNull())
         val part = MultipartBody.Part.createFormData(
             "temp",
             file.name,
             reqBody
         )
 
-       val response = apiService.uploadImage(part)
+        val response = apiService.uploadImage(part)
         if (response.isSuccessful)
-            println(response.body())
+            response.body()?.let {
+                    it1 -> map.put(it, "https://media.discordapp.net/${it1.id.replace("mp:","")}")
+            }
     }
-
+        val gson = GsonBuilder().setPrettyPrinting().create()
+        println(gson.toJson(map))
+    }
 }

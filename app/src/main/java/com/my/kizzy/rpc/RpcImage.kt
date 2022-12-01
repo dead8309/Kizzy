@@ -69,7 +69,7 @@ sealed class RpcImage {
     class BitmapImage(
         private val context: Context,
         private val bitmap: Bitmap?,
-        val packageName: String,
+        private val packageName: String,
         val title: String,
     ) : RpcImage() {
         override suspend fun resolveImage(repository: KizzyRepository): String? {
