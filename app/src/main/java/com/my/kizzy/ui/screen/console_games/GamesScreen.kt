@@ -40,11 +40,14 @@ import com.my.kizzy.domain.model.Game
 import com.my.kizzy.service.AppDetectionService
 import com.my.kizzy.service.CustomRpcService
 import com.my.kizzy.service.MediaRpcService
+import com.my.kizzy.ui.common.AnimatedShimmer
 import com.my.kizzy.ui.common.BackButton
+import com.my.kizzy.ui.common.ShimmerGameItems
 import com.my.kizzy.ui.common.SwitchBar
-import com.my.kizzy.ui.screen.custom.IntentRpcData
+import com.my.kizzy.ui.screen.custom.RpcIntent
 import com.my.kizzy.ui.screen.nintendo.SearchBar
 import com.my.kizzy.utils.AppUtils
+import com.my.kizzy.utils.Prefs
 import com.skydoves.landscapist.glide.GlideImage
 
 
@@ -65,7 +68,7 @@ fun GamesScreen(
 
     val context = LocalContext.current
     var isConsoleRpcRunning by remember {
-        mutableStateOf(AppUtils.customRpcRunning(context = context))
+        mutableStateOf(AppUtils.customRpcRunning())
     }
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
@@ -103,6 +106,7 @@ fun GamesScreen(
                             when (isConsoleRpcRunning) {
                                 true -> {
                                     if (intent.hasExtra("RPC")) {
+                                        Prefs[Prefs.LAST_RUN_CONSOLE_RPC] = intent.getStringExtra("RPC")
                                         context.stopService(
                                             Intent(
                                                 context,
@@ -136,17 +140,11 @@ fun GamesScreen(
                         ) { info ->
                             selected = game.game_title
                             val string = Gson().toJson(
-                                IntentRpcData(
+                                RpcIntent(
                                     name = info.platform,
                                     details = info.game_title,
-                                    state = "",
-                                    startTime = System.currentTimeMillis().toString(),
-                                    StopTime = "",
+                                    timeatampsStart = System.currentTimeMillis().toString(),
                                     status = "dnd",
-                                    button1 = "",
-                                    button2 = "",
-                                    button1Url = "",
-                                    button2Url = "",
                                     largeImg = info.large_image?:"",
                                     smallImg = info.small_image,
                                     type = "0",
@@ -180,7 +178,14 @@ fun GamesScreen(
                }
             }
             if(state.isLoading) {
-                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                Column(
+                    Modifier
+                        .padding(padding)
+                        .fillMaxSize()) {
+                    AnimatedShimmer {
+                        ShimmerGameItems(brush = it)
+                    }
+                }
             }
         }
     }
