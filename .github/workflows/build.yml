@@ -9,7 +9,7 @@ on:
     branches: [ "main" ]
     paths-ignore:
       - 'metadata/**'
-  workflow_dispatch: { }
+  workflow_dispatch:
 
 jobs:
   build:
