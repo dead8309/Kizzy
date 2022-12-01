@@ -22,7 +22,9 @@ import android.net.Uri
 import android.provider.OpenableColumns
 import android.util.DisplayMetrics
 import com.blankj.utilcode.util.AppUtils
+import com.google.gson.Gson
 import com.my.kizzy.data.remote.ApiResponse
+import com.my.kizzy.data.remote.User
 import com.my.kizzy.rpc.RpcImage
 import retrofit2.Response
 import java.io.File
@@ -103,3 +105,10 @@ private fun Context.getContentFileName(uri: Uri): String? = runCatching {
         return@use cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME).let(cursor::getString)
     }
 }.getOrNull()
+
+fun Gson.fromJson(value: String): User? {
+    return when {
+        value.isNotEmpty() -> this.fromJson(value, User::class.java)
+        else -> null
+    }
+}

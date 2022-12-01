@@ -3,6 +3,7 @@ package com.my.kizzy
 import android.app.Application
 import com.developer.crashx.config.CrashConfig
 import com.google.android.material.color.DynamicColors
+import com.my.kizzy.utils.AppUtils
 import com.my.kizzy.utils.Log
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.LANGUAGE
@@ -25,6 +26,7 @@ class App: Application() {
             .errorActivity(CrashHandler::class.java)
             .apply()
         Log.init(this)
+        AppUtils.init(this)
     }
 
     companion object{

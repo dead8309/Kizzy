@@ -41,11 +41,9 @@ fun Settings(
         Column(
             modifier = Modifier
         ) {
-            SmallTopAppBar(
-                title = {},
-                navigationIcon = { BackButton { onBackPressed() } },
-                modifier = Modifier.padding(start = 8.dp)
-            )
+            TopAppBar(title = {},
+                modifier = Modifier.padding(start = 8.dp),
+                navigationIcon = { BackButton { onBackPressed() } })
             Text(
                 modifier = Modifier.padding(start = 24.dp, top = 48.dp),
                 text = stringResource(id = R.string.settings),

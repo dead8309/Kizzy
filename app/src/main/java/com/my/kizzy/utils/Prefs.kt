@@ -74,6 +74,8 @@ object Prefs {
     const val USER_ID = "user-id"
     const val USER_BIO = "user-bio"
     const val USER_NITRO = "user-nitro"
+    const val LAST_RUN_CONSOLE_RPC = "last_run_console_rpc"
+    const val LAST_RUN_CUSTOM_RPC = "last_run_custom_rpc"
 
     const val LANGUAGE = "language"
     const val ENABLED_APPS = "enabled_apps"
@@ -99,6 +101,7 @@ object Prefs {
     const val DYNAMIC_COLOR = "dynamic_color"
     const val THEME_COLOR = "theme_color"
     const val CUSTOM_THEME_COLOR = "custom_theme_color"
+    const val IS_FIRST_LAUNCHED = "is_first_launched"
 
     data class AppSettings(
         val darkTheme: DarkThemePreference = DarkThemePreference(),
@@ -172,10 +175,11 @@ object Prefs {
 
         @Composable
         fun getDarkThemeDesc(): String {
+            Log.vlog.d("Theme",darkThemeValue.toString())
             return when (darkThemeValue) {
                 FOLLOW_SYSTEM -> stringResource(R.string.follow_system)
-                ON -> stringResource(R.string.on)
-                else -> stringResource(R.string.off)
+                ON -> stringResource(id = R.string.android_on)
+                else -> stringResource(id = R.string.android_off)
             }
         }
     }

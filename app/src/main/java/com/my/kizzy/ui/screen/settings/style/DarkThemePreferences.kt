@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.my.kizzy.R
 import com.my.kizzy.common.LocalDarkTheme
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.PreferenceSingleChoiceItem
@@ -32,7 +33,6 @@ import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.DarkThemePreference.Companion.FOLLOW_SYSTEM
 import com.my.kizzy.utils.Prefs.DarkThemePreference.Companion.OFF
 import com.my.kizzy.utils.Prefs.DarkThemePreference.Companion.ON
-import com.my.kizzy.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -70,13 +70,13 @@ fun DarkThemePreferences(onBackPressed: () -> Unit) {
                 }
                 item {
                     PreferenceSingleChoiceItem(
-                        text = stringResource(R.string.on),
+                        text = stringResource(id = R.string.android_on),
                         selected = darkThemePreference.darkThemeValue == ON
                     ) { Prefs.modifyDarkThemePreference(ON) }
                 }
                 item {
                     PreferenceSingleChoiceItem(
-                        text = stringResource(R.string.off),
+                        text = stringResource(id = R.string.android_off),
                         selected = darkThemePreference.darkThemeValue == OFF
                     ) { Prefs.modifyDarkThemePreference(OFF) }
                 }

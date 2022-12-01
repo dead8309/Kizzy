@@ -19,7 +19,6 @@ import androidx.compose.ui.window.Dialog
 import com.blankj.utilcode.util.FileIOUtils
 import com.blankj.utilcode.util.FileUtils
 import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
 import com.my.kizzy.R
 import com.my.kizzy.common.Constants
 import com.my.kizzy.data.remote.User
@@ -51,7 +50,7 @@ else{
 @Composable
 fun LoadConfig(
     onDismiss: () -> Unit,
-    onConfigSelected: (IntentRpcData) -> Unit
+    onConfigSelected: (RpcIntent) -> Unit
 ) {
     val ctx = LocalContext.current
     val dir = ctx.dir()
@@ -90,7 +89,7 @@ fun LoadConfig(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SaveConfig(
-    rpc: IntentRpcData,
+    rpc: RpcIntent,
     onDismiss: () -> Unit,
     onSaved: (String) -> Unit
 ) {
@@ -195,64 +194,31 @@ fun DeleteConfig(
         }
     )
 }
-
-
-fun IntentRpcData.dataToString(): String {
-    val value: MutableMap<String, String> = HashMap()
-    value["name"] = this.name
-    value["details"] = this.details
-    value["state"] = this.state
-    value["status"] = this.status
-    value["button1"] = this.button1
-    value["button2"] = this.button2
-    value["largeImg"] = this.largeImg
-    value["smallImg"] = this.smallImg
-    value["type"] = this.type
-    value["timeatampsStart"] = this.startTime
-    value["timeatampsStop"] = this.StopTime
-    value["button1link"] = this.button1Url
-    value["button2link"] = this.button2Url
-    return gson.toJson(value)
+fun RpcIntent.dataToString(): String {
+    return gson.toJson(this)
 }
 
-fun String.stringToData(): IntentRpcData {
-   try {
-       val values = gson.fromJson<Map<String, String>>(
-           this,
-           object : TypeToken<HashMap<String, String>>() {}.type
-       )
-       return IntentRpcData(
-           values["name"] ?: "",
-           values["details"] ?: "",
-           values["state"] ?: "",
-           values["timeatampsStart"] ?: "",
-           values["timeatampsStop"] ?: "",
-           values["status"] ?: "",
-           values["button1"] ?: "",
-           values["button2"] ?: "",
-           values["button1link"] ?: "",
-           values["button2link"] ?: "",
-           values["largeImg"] ?: "",
-           values["smallImg"] ?: "",
-           values["type"] ?: "")
-   } catch (ex: Exception){
-       return IntentRpcData("", "", "", "", "", "", "", "", "", "", "", "", "")
-   }
+fun String.stringToData(): RpcIntent {
+    try {
+        return gson.fromJson(this, RpcIntent::class.java)
+    } catch (ex: Exception) {
+        return RpcIntent()
+    }
 }
 
 
 @Composable
 fun PreviewDialog(
     user: User,
-    intentRpcData: IntentRpcData? = null,
+    rpc: RpcIntent? = null,
     onDismiss: () -> Unit
 ) {
     Dialog(onDismissRequest = {
         onDismiss()
     }) {
         ProfileCard(
-            user = user, padding = 0.dp, rpcData = intentRpcData,
-            type = intentRpcData?.type.getType(intentRpcData?.name),
+            user = user, padding = 0.dp, rpcData = rpc,
+            type = rpc?.type.getType(rpc?.name),
             showTs = false
         )
     }

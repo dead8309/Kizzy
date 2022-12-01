@@ -35,7 +35,6 @@ import com.my.kizzy.common.LocalSeedColor
 import com.my.kizzy.ui.common.*
 import com.my.kizzy.ui.svg.PALETTE
 import com.my.kizzy.ui.theme.ColorScheme.DEFAULT_SEED_COLOR
-import com.my.kizzy.ui.theme.onLight
 import com.my.kizzy.utils.Log.vlog
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.CUSTOM_THEME_COLOR
@@ -76,14 +75,13 @@ fun Appearance(
                         .clip(RoundedCornerShape(24.dp))
                         .background(
                             MaterialTheme.colorScheme.inverseOnSurface
-                                    onLight MaterialTheme.colorScheme.surface.copy(0.7f)
                         )
                         .clickable { },
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     DynamicSVGImage(
-                        modifier = Modifier.padding(50.dp),
+                        modifier = Modifier.padding(60.dp),
                         contentDescription = "palette",
                         svgString = PALETTE
                     )

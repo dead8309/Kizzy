@@ -6,9 +6,7 @@ package com.my.kizzy.ui.theme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import com.my.kizzy.common.LocalDarkTheme
 import material.io.color.scheme.Scheme.dark
 import material.io.color.scheme.Scheme.light
 
@@ -92,11 +90,3 @@ object ColorScheme {
         }
     }
 }
-
-@Composable
-infix fun Color.onLight(lightColor: Color): Color =
-    if (!LocalDarkTheme.current.isDarkTheme()) lightColor else this
-
-@Composable
-infix fun Color.onDark(darkColor: Color): Color =
-    if (LocalDarkTheme.current.isDarkTheme()) darkColor else this

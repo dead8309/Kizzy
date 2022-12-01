@@ -1,5 +1,6 @@
 package com.my.kizzy.ui.common
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -13,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -277,20 +279,19 @@ fun SettingItem(
     }
 }
 
-
+@SuppressLint("ModifierParameter")
 @Composable
 fun PreferenceSubtitle(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.fillMaxWidth().padding(15.dp, 5.dp ),
     text: String,
     color: Color = MaterialTheme.colorScheme.primary,
+    style: TextStyle = MaterialTheme.typography.labelLarge
 ) {
     Text(
         text = text,
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(15.dp, 5.dp ),
+        modifier = modifier,
         color = color,
-        style = MaterialTheme.typography.labelLarge
+        style = style
     )
 }
 

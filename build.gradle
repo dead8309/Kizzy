@@ -9,7 +9,6 @@ buildscript {
         constraintLayoutVersion = "2.1.4"
         androidxMaterialVersion = "1.6.1"
         junitVersion = "4.13.2"
-        md3compatVersion = "1.0.11"
         composeNavigationVersion = "2.5.1"
         accompanistVersion = "0.25.1"
         gsonVersion = "2.9.1"
@@ -54,7 +53,6 @@ buildscript {
         accompanistSystemUiController = "com.google.accompanist:accompanist-systemuicontroller:${accompanistVersion}"
 
         //Utilities
-        md3Compat = "com.github.re-ovo:md3compat:${md3compatVersion}"
         googleGson = "com.google.code.gson:gson:${gsonVersion}"
         glide = "com.github.skydoves:landscapist-glide:${glideVersion}"
         blankjUtil = "com.blankj:utilcodex:${utilcodeVersion}"

@@ -40,11 +40,11 @@ import com.my.kizzy.utils.Prefs
 import com.skydoves.landscapist.glide.GlideImage
 
 
-fun usageAccess(ctx: Context): Boolean {
+fun Context.hasUsageAccess(): Boolean {
     return try {
-        val packageManager: PackageManager = ctx.packageManager
-        val applicationInfo = packageManager.getApplicationInfo(ctx.packageName, 0)
-        val appOpsManager = ctx.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+        val packageManager: PackageManager = this.packageManager
+        val applicationInfo = packageManager.getApplicationInfo(this.packageName, 0)
+        val appOpsManager = this.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
         val mode = appOpsManager.checkOpNoThrow(
             AppOpsManager.OPSTR_GET_USAGE_STATS,
             applicationInfo.uid,
@@ -64,7 +64,7 @@ fun AppsRPC(onBackPressed: () -> Unit) {
         canScroll = { true })
     val ctx = LocalContext.current
     var hasUsageAccess by remember {
-        mutableStateOf(usageAccess(ctx))
+        mutableStateOf(ctx.hasUsageAccess())
     }
 
     Scaffold(
@@ -89,7 +89,7 @@ fun AppsRPC(onBackPressed: () -> Unit) {
             .padding(it)) {
 
             var serviceEnabled by remember {
-                mutableStateOf(AppUtils.appDetectionRunning(ctx))
+                mutableStateOf(AppUtils.appDetectionRunning())
             }
 
 
@@ -107,7 +107,7 @@ fun AppsRPC(onBackPressed: () -> Unit) {
                             description = stringResource(id = R.string.usage_access_desc),
                             icon = Icons.Default.AppsOutage,
                         ) {
-                            when (usageAccess(ctx)) {
+                            when (ctx.hasUsageAccess()) {
                                 true -> hasUsageAccess = !hasUsageAccess
                                 false -> ctx.startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
                             }

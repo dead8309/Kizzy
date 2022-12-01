@@ -1,7 +1,8 @@
 package com.my.kizzy.ui.common
 
-class Routes() {
+class Routes {
     companion object {
+        const val SETUP = "setup"
         const val ABOUT = "about"
         const val CREDITS = "credits"
         const val HOME = "home"

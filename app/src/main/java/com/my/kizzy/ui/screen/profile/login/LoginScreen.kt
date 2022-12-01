@@ -19,7 +19,6 @@ import android.webkit.JsResult
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -36,9 +35,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.my.kizzy.R
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.screen.profile.user.getUserInfo
-import com.my.kizzy.ui.theme.DISCORD_DARK
 import com.my.kizzy.ui.theme.DISCORD_GREY
-import com.my.kizzy.ui.theme.DISCORD_LIGHT_DARK
 import com.my.kizzy.utils.Log
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.TOKEN
@@ -64,22 +61,14 @@ fun LoginScreen(
         modifier = Modifier
             .fillMaxSize(),
         topBar = {
-            SmallTopAppBar(
-                title = { },
-                navigationIcon = { BackButton { onBackPressed() } },
-                colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = DISCORD_DARK,
-                    scrolledContainerColor = DISCORD_DARK,
-                    navigationIconContentColor = Color.White,
-                )
-            )
+            TopAppBar(title = { },
+                navigationIcon = { BackButton { onBackPressed() } })
         }
     ) {
         Box(
             modifier = Modifier
                 .padding(it)
-                .fillMaxSize()
-                .background(DISCORD_LIGHT_DARK),
+                .fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
             if (showProgress) {

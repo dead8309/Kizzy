@@ -57,7 +57,7 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
     val context = LocalContext.current
 
     var isCustomRpcEnabled by remember {
-        mutableStateOf(AppUtils.customRpcRunning(context))
+        mutableStateOf(AppUtils.customRpcRunning())
     }
     with(viewModel) {
         Scaffold(snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -151,17 +151,17 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
                     })
             }) { padding ->
             Column(modifier = Modifier.padding(padding)) {
-                val rpc = IntentRpcData(
+                val rpc = RpcIntent(
                     name = name,
                     details = details,
                     state = state,
-                    startTime = startTimestamps,
-                    StopTime = stopTimestamps,
+                    timeatampsStart = startTimestamps,
+                    timeatampsStop = stopTimestamps,
                     status = status,
                     button1 = button1,
                     button2 = button2,
-                    button1Url = button1Url,
-                    button2Url = button2Url,
+                    button1link = button1Url,
+                    button2link = button2Url,
                     largeImg = largeImg,
                     smallImg = smallImg,
                     type = type
@@ -174,13 +174,13 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
                         name = it.name
                         details = it.details
                         state = it.state
-                        startTimestamps = it.startTime
-                        stopTimestamps = it.StopTime
+                        startTimestamps = it.timeatampsStart
+                        stopTimestamps = it.timeatampsStop
                         status = it.status
                         button1 = it.button1
                         button2 = it.button2
-                        button1Url = it.button1Url
-                        button2Url = it.button2Url
+                        button1Url = it.button1link
+                        button2Url = it.button2link
                         largeImg = it.largeImg
                         smallImg = it.smallImg
                         type = it.type
@@ -233,23 +233,24 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
                                     )
                                     val intent = Intent(context, CustomRpcService::class.java)
                                     val string = Gson().toJson(
-                                        IntentRpcData(
+                                        RpcIntent(
                                             name = name,
                                             details = details,
                                             state = state,
-                                            startTime = startTimestamps,
-                                            StopTime = stopTimestamps,
+                                            timeatampsStart = startTimestamps,
+                                            timeatampsStop = stopTimestamps,
                                             status = status,
                                             button1 = button1,
                                             button2 = button2,
-                                            button1Url = button1Url,
-                                            button2Url = button2Url,
+                                            button1link = button1Url,
+                                            button2link = button2Url,
                                             largeImg = largeImg,
                                             smallImg = smallImg,
                                             type = type,
                                         )
                                     )
                                     intent.putExtra("RPC", string)
+                                    Prefs[Prefs.LAST_RUN_CUSTOM_RPC] = string
                                     context.startService(intent)
                                 }
                                 false -> context.stopService(

@@ -73,8 +73,6 @@
     <string name="use_custom_buttons">Use Custom Buttons</string>
     <string name="use_custom_buttons_desc">Use Predefined buttons to show on Media and AppDetection rpc</string>
     <string name="follow_system">Follow System</string>
-    <string name="on">On</string>
-    <string name="off">Off</string>
     <string name="advance_settings">Advanced Settings</string>
     <string name="amoled">Amoled Theme</string>
     <string name="dynamic_color">Dynamic color</string>
@@ -84,6 +82,13 @@
     <string name="confirm">Confirm</string>
     <string name="primary_color">Primary Color</string>
     <string name="primary_color_hint">Like #666666 or 666666</string>
+    <string name="android_on">On</string>
+    <string name="android_off">Off</string>
+    <string name="setup">Setup</string>
+    <string name="user_data_policy">This app does not collect any user data</string>
+    <string name="setup_desc">Before moving ahead it is recommended to perform the necessary actions to make sure all the features of the app work.</string>
+    <string name="permission_granted">Granted</string>
+    <string name="permission_not_granted">Not Granted, Click to Allow</string>
 
 
 </resources>
