@@ -12,9 +12,14 @@
 
 package com.my.kizzy.ui.screen.startup
 
+import android.Manifest.permission.POST_NOTIFICATIONS
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.provider.Settings
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -30,13 +35,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.my.kizzy.R
 import com.my.kizzy.ui.common.PreferenceSubtitle
-import com.my.kizzy.ui.screen.settings.language.languages
+import com.my.kizzy.utils.Prefs
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
 @Composable
@@ -50,6 +56,20 @@ fun StartUp(
     val storagePermissionState = rememberPermissionState(
         android.Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
+    var hasNotificationPermission by remember {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            mutableStateOf(
+                ContextCompat.checkSelfPermission(
+                    context, POST_NOTIFICATIONS
+                ) == PackageManager.PERMISSION_GRANTED
+            )
+        } else mutableStateOf(true)
+    }
+    val launcher =
+        rememberLauncherForActivityResult(contract = ActivityResultContracts.RequestPermission(),
+            onResult = { isGranted ->
+                hasNotificationPermission = isGranted
+            })
     Scaffold(topBar = {
         TopAppBar(title = {
             Text(
@@ -65,15 +85,9 @@ fun StartUp(
                 .padding(it)
         ) {
             LazyColumn(
-                Modifier
-                    .fillMaxSize(),
-                contentPadding = PaddingValues(
-                    start = 15.dp,
-                    top = 0.dp,
-                    end = 15.dp,
-                    bottom = 70.dp
-                ),
-                verticalArrangement = Arrangement.spacedBy(17.dp)
+                Modifier.fillMaxSize(), contentPadding = PaddingValues(
+                    start = 15.dp, top = 0.dp, end = 15.dp, bottom = 70.dp
+                ), verticalArrangement = Arrangement.spacedBy(17.dp)
             ) {
                 item {
                     Text(
@@ -137,21 +151,33 @@ fun StartUp(
                         context.startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
                     }
                 }
-
-                item {
-                    SetupCard(
-                        title = "Grant Storage Access Permission ",
-                        description = stringResource(id = R.string.request_for_permission),
-                        status = storagePermissionState.status.isGranted
-                    ) {
-                        when (storagePermissionState.status) {
-                            PermissionStatus.Granted -> {}
-                            is PermissionStatus.Denied -> {
-                                storagePermissionState.launchPermissionRequest()
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    item {
+                        SetupCard(
+                            title = "Grant Permission to Show Notification",
+                            description = stringResource(id = R.string.request_for_permission),
+                            status = hasNotificationPermission
+                        ) {
+                            launcher.launch(POST_NOTIFICATIONS)
+                        }
+                    }
+                } else {
+                    item {
+                        SetupCard(
+                            title = "Grant Storage Access Permission",
+                            description = stringResource(id = R.string.request_for_permission),
+                            status = storagePermissionState.status.isGranted
+                        ) {
+                            when (storagePermissionState.status) {
+                                PermissionStatus.Granted -> {}
+                                is PermissionStatus.Denied -> {
+                                    storagePermissionState.launchPermissionRequest()
+                                }
                             }
                         }
                     }
                 }
+
                 item {
                     PreferenceSubtitle(
                         text = "Optional",
@@ -160,10 +186,12 @@ fun StartUp(
                     )
                 }
                 item {
-                    SetupCard(
-                        title = stringResource(id = R.string.language),
-                        description = languages().keys.joinToString()
-                    ) {
+                    SetupCard(title = stringResource(id = R.string.language),
+                        description = buildString {
+                            Prefs.languages.keys.forEach { key ->
+                                this.append(Prefs.getLanguageDesc(key) + ", ")
+                            }
+                        }) {
                         navigateToLanguages()
                     }
                 }
@@ -177,25 +205,27 @@ fun StartUp(
                     .padding(end = 15.dp),
                 horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.CenterVertically
-                ) {
-                    TextButton(onClick = { navigateToHome() }) {
-                        val text =  if (usageAccessStatus.value && mediaControlStatus.value)
-                            "Start App Now" else "Skip"
-                        val style = if (usageAccessStatus.value && mediaControlStatus.value)
-                            MaterialTheme.typography.titleLarge else MaterialTheme.typography.titleLarge.copy(fontSize = 20.sp)
-                        val color = if (usageAccessStatus.value && mediaControlStatus.value)
-                            MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSecondaryContainer
-                        Text(
-                            text = text,
-                            maxLines = 1,
-                            style = style.copy(fontWeight = FontWeight.SemiBold),
-                            color = color
+            ) {
+                TextButton(onClick = { navigateToHome() }, enabled = hasNotificationPermission) {
+                    val text =
+                        if (usageAccessStatus.value && mediaControlStatus.value) "Start App Now" else "Skip"
+                    val style =
+                        if (usageAccessStatus.value && mediaControlStatus.value) MaterialTheme.typography.titleLarge else MaterialTheme.typography.titleLarge.copy(
+                            fontSize = 20.sp
                         )
-                    }
+                    val color =
+                        if (usageAccessStatus.value && mediaControlStatus.value) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSecondaryContainer
+                    Text(
+                        text = text,
+                        maxLines = 1,
+                        style = style.copy(fontWeight = FontWeight.SemiBold),
+                        color = color
+                    )
                 }
             }
         }
     }
+}
 
 
 @SuppressLint("UnrememberedMutableState")

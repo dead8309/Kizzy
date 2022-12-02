@@ -1,16 +1,19 @@
 package com.my.kizzy
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.*
+import androidx.core.os.LocaleListCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -44,11 +47,12 @@ import com.my.kizzy.ui.screen.startup.StartUp
 import com.my.kizzy.ui.theme.KizzyTheme
 import com.my.kizzy.utils.Prefs
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
-    private lateinit var usageAccessStatus: MutableState<Boolean>
-    private lateinit var mediaControlStatus: MutableState<Boolean>
+class MainActivity : AppCompatActivity() {
 
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,6 +63,12 @@ class MainActivity : ComponentActivity() {
         ViewCompat.setOnApplyWindowInsetsListener(window.decorView) { v, insets ->
             v.setPadding(0, 0, 0, 0)
             insets
+        }
+        runBlocking {
+            if (Build.VERSION.SDK_INT < 33)
+                AppCompatDelegate.setApplicationLocales(
+                    LocaleListCompat.forLanguageTags(Prefs.getLanguageConfig())
+                )
         }
         setContent {
             val windowSizeClass = calculateWindowSizeClass(this)
@@ -107,7 +117,9 @@ class MainActivity : ComponentActivity() {
                    })
                 }
                 animatedComposable(Routes.HOME) {
-                    Home(navController = navController)
+                    Home{
+                        navController.navigate(it)
+                    }
                 }
                 animatedComposable(Routes.SETTINGS) {
                     Settings(
@@ -204,6 +216,18 @@ class MainActivity : ComponentActivity() {
                         navController.popBackStack()
                     }
                 }
+            }
+        }
+    }
+    companion object {
+        lateinit var usageAccessStatus: MutableState<Boolean>
+        lateinit var mediaControlStatus: MutableState<Boolean>
+        fun setLanguage(locale: String) {
+            val localeListCompat =
+                if (locale.isEmpty()) LocaleListCompat.getEmptyLocaleList()
+                else LocaleListCompat.forLanguageTags(locale)
+            App.applicationScope.launch(Dispatchers.Main) {
+                AppCompatDelegate.setApplicationLocales(localeListCompat)
             }
         }
     }
