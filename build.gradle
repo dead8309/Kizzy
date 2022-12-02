@@ -20,6 +20,7 @@ buildscript {
         retrofitVersion = "2.9.0"
         hiltVersion = "2.44"
         mmkvVersion = "1.2.14"
+        coilVersion = "2.1.0"
     }
 
     ext {
@@ -37,6 +38,7 @@ buildscript {
         composeActivity = "androidx.activity:activity-compose:${activityComposeVersion}"
         Hilt = "com.google.dagger:hilt-android:${hiltVersion}"
         HiltCompiler = "com.google.dagger:hilt-android-compiler:${hiltVersion}"
+        AppCompat = "androidx.appcompat:appcompat:1.7.0-alpha01"
 
         //Compose
         composeUi = "androidx.compose.ui:ui:${compose_version}"
@@ -57,13 +59,15 @@ buildscript {
         glide = "com.github.skydoves:landscapist-glide:${glideVersion}"
         blankjUtil = "com.blankj:utilcodex:${utilcodeVersion}"
         javaWebsocket = "org.java-websocket:Java-WebSocket:${websocketVersion}"
-        lingver = "com.github.YarikSOffice:lingver:1.3.0"
         okhttp =  "com.squareup.okhttp3:okhttp:${okhttpVersion}"
         okhttpInterceptor =  "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
         crashX = 'com.github.TutorialsAndroid:crashx:v6.0.19'
         retrofit = "com.squareup.retrofit2:retrofit:${retrofitVersion}"
         retrofitGsonConverter = "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
         MMKV = "com.tencent:mmkv:${mmkvVersion}"
+        coilCompose = "io.coil-kt:coil-compose:${coilVersion}"
+        coilSvg = "io.coil-kt:coil-svg:${coilVersion}"
+        androidSVG = "com.caverock:androidsvg-aar:1.4"
     }
     dependencies {
         classpath("com.google.dagger:hilt-android-gradle-plugin:2.44")

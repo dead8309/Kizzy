@@ -25,8 +25,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.google.gson.Gson
+import com.my.kizzy.MainActivity
 import com.my.kizzy.R
 import com.my.kizzy.data.remote.User
 import com.my.kizzy.service.AppDetectionService
@@ -43,7 +43,7 @@ import com.skydoves.landscapist.glide.GlideImage
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Home(
-    navController: NavController
+    navigateTo: (String) -> Unit
 ) {
     val user: User? = Gson().fromJson(Prefs[USER_DATA, ""])
     val avatar = user?.let { _user ->
@@ -60,14 +60,14 @@ fun Home(
             )
         }, navigationIcon = {
             IconButton(
-                onClick = { navController.navigate(Routes.SETTINGS) },
+                onClick = { navigateTo(Routes.SETTINGS) },
             ) {
                 Icon(
                     Icons.Outlined.Settings, Icons.Outlined.Settings.name
                 )
             }
         }, actions = {
-            IconButton(onClick = { navController.navigate(Routes.PROFILE) }) {
+            IconButton(onClick = { navigateTo(Routes.PROFILE) }) {
                 if (user != null) {
                     GlideImage(
                         imageModel = avatar,
@@ -105,8 +105,9 @@ fun Home(
                     icon = R.drawable.ic_apps,
                     route = Routes.APPS_DETECTION,
                     isChecked = AppUtils.appDetectionRunning(),
+                    showSwitch = MainActivity.usageAccessStatus.value,
                     onClick = {
-                        navController.navigate(it)
+                        navigateTo(it)
                     },
                     onCheckedChange = {
                         if (it) ctx.startService(Intent(ctx, AppDetectionService::class.java))
@@ -118,8 +119,9 @@ fun Home(
                     icon = R.drawable.ic_media_rpc,
                     route = Routes.MEDIA_RPC,
                     isChecked = AppUtils.mediaRpcRunning(),
+                    showSwitch = MainActivity.mediaControlStatus.value,
                     onClick = {
-                        navController.navigate(it)
+                        navigateTo(it)
                     },
                     onCheckedChange = {
                         if (it) ctx.startService(Intent(ctx, MediaRpcService::class.java))
@@ -132,7 +134,7 @@ fun Home(
                     route = Routes.CUSTOM_RPC,
                     isChecked = AppUtils.customRpcRunning(),
                     onClick = {
-                        navController.navigate(it)
+                        navigateTo(it)
                     },
                     onCheckedChange = {
                         if (it) {
@@ -152,7 +154,7 @@ fun Home(
                     route = Routes.CONSOLE_RPC,
                     isChecked = AppUtils.customRpcRunning(),
                     onClick = {
-                        navController.navigate(it)
+                        navigateTo(it)
                     },
                     onCheckedChange = {
                         if (it) {

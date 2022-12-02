@@ -1,8 +1,10 @@
 package com.my.kizzy.utils
 
+import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
+import androidx.core.os.LocaleListCompat
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.my.kizzy.App.Companion.applicationScope
@@ -183,4 +185,62 @@ object Prefs {
             }
         }
     }
+    const val SYSTEM_DEFAULT = 0
+    const val ENGLISH = 1
+    const val TURKISH = 2
+    const val DUTCH = 3
+    const val RUSSIAN = 4
+    const val POLISH = 5
+    const val PORTUGUESE = 6
+    const val INDONESIAN = 7
+    const val SIMPLIFIED_CHINESE = 8
+
+    val languages: Map<Int, String> =
+        mapOf(
+            Pair(ENGLISH, "en"),
+            Pair(TURKISH, "tr"),
+            Pair(DUTCH,"nl"),
+            Pair(RUSSIAN, "ru"),
+            Pair(POLISH, "pl"),
+            Pair(PORTUGUESE, "pt"),
+            Pair(INDONESIAN, "in"),
+            Pair(SIMPLIFIED_CHINESE, "zh")
+        )
+
+    fun getLanguageConfig(languageNumber: Int = Prefs[LANGUAGE]): String {
+        return if (languages.containsKey(languageNumber)) languages[languageNumber].toString() else ""
+    }
+
+    private fun getLanguageNumberByCode(languageCode: String): Int {
+        languages.entries.forEach {
+            if (it.value == languageCode) return it.key
+        }
+        return SYSTEM_DEFAULT
+    }
+
+    fun getLanguageNumber(): Int {
+        return if (Build.VERSION.SDK_INT >= 33)
+            getLanguageNumberByCode(
+                LocaleListCompat.getAdjustedDefault()[0]?.toLanguageTag().toString()
+            )
+        else get(LANGUAGE, SYSTEM_DEFAULT)
+    }
+
+    @Composable
+    fun getLanguageDesc(language: Int = getLanguageNumber()): String {
+        return stringResource(
+            when (language) {
+                SIMPLIFIED_CHINESE -> R.string.locale_zh
+                ENGLISH -> R.string.locale_en
+                TURKISH -> R.string.locale_tr
+                RUSSIAN -> R.string.locale_ru
+                INDONESIAN -> R.string.locale_in
+                DUTCH -> R.string.locale_nl
+                POLISH -> R.string.locale_pl
+                PORTUGUESE -> R.string.locale_pt
+                else -> R.string.follow_system
+            }
+        )
+    }
+
 }

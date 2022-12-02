@@ -2,11 +2,11 @@ name: Test Build
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
     paths-ignore:
       - 'metadata/**'
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
     paths-ignore:
       - 'metadata/**'
   workflow_dispatch:
