@@ -32,6 +32,7 @@ import com.my.kizzy.R
 import com.my.kizzy.data.remote.User
 import com.my.kizzy.service.AppDetectionService
 import com.my.kizzy.service.CustomRpcService
+import com.my.kizzy.service.ExperimentalRpc
 import com.my.kizzy.service.MediaRpcService
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.SwitchBar
@@ -231,6 +232,7 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
                                             context, MediaRpcService::class.java
                                         )
                                     )
+                                    context.stopService(Intent(context, ExperimentalRpc::class.java))
                                     val intent = Intent(context, CustomRpcService::class.java)
                                     val string = Gson().toJson(
                                         RpcIntent(

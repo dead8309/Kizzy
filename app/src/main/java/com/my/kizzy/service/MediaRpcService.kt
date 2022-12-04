@@ -134,12 +134,6 @@ class MediaRpcService : Service() {
         }
     }
 
-    private fun getArtistOrAuthor(metadata: MediaMetadata?): String? {
-        return if (metadata!!.getString(MediaMetadata.METADATA_KEY_ARTIST) != null) "by " + metadata.getString(
-            MediaMetadata.METADATA_KEY_ARTIST) else if (metadata.getString(MediaMetadata.METADATA_KEY_ARTIST) != null) "by " + metadata.getString(
-            MediaMetadata.METADATA_KEY_ARTIST) else null
-    }
-
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         intent?.let {
             it.action?.let { ac ->
@@ -171,5 +165,11 @@ class MediaRpcService : Service() {
         var enable_time: Boolean = false
         var author: String? = null
         const val ACTION_STOP_SERVICE = "STOP_RPC"
+
+        fun getArtistOrAuthor(metadata: MediaMetadata?): String? {
+            return if (metadata!!.getString(MediaMetadata.METADATA_KEY_ARTIST) != null) "by " + metadata.getString(
+                MediaMetadata.METADATA_KEY_ARTIST) else if (metadata.getString(MediaMetadata.METADATA_KEY_ARTIST) != null) "by " + metadata.getString(
+                MediaMetadata.METADATA_KEY_ARTIST) else null
+        }
     }
 }

@@ -117,7 +117,10 @@ class MainActivity : AppCompatActivity() {
                    })
                 }
                 animatedComposable(Routes.HOME) {
-                    Home{
+                    Home(
+                        hasUsageAccess = usageAccessStatus,
+                        hasNotificationAccess = mediaControlStatus
+                    ){
                         navController.navigate(it)
                     }
                 }
@@ -232,4 +235,3 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-

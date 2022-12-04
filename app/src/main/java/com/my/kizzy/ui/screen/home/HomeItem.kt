@@ -12,5 +12,6 @@ data class HomeItem(
     val onClick: (String) -> Unit = {},
     val onCheckedChange: (Boolean) -> Unit = {},
     val showSwitch: Boolean = true,
-    val shape: RoundedCornerShape = RoundedCornerShape(0.dp)
+    val shape: RoundedCornerShape = RoundedCornerShape(0.dp),
+    val isVisible: Boolean = true
 )

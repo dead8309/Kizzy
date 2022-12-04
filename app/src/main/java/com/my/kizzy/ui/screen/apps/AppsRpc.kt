@@ -32,6 +32,7 @@ import com.my.kizzy.R
 import com.my.kizzy.service.AppDetectionService
 import com.my.kizzy.service.CustomRpcService
 import com.my.kizzy.service.MediaRpcService
+import com.my.kizzy.service.ExperimentalRpc
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.PreferencesHint
 import com.my.kizzy.ui.common.SwitchBar
@@ -125,6 +126,7 @@ fun AppsRPC(onBackPressed: () -> Unit) {
                             true -> {
                                 ctx.stopService(Intent(ctx, MediaRpcService::class.java))
                                 ctx.stopService(Intent(ctx, CustomRpcService::class.java))
+                                ctx.stopService(Intent(ctx,ExperimentalRpc::class.java))
                                 ctx.startService(Intent(ctx, AppDetectionService::class.java))
                             }
                             false -> ctx.stopService(Intent(ctx, AppDetectionService::class.java))

@@ -86,6 +86,9 @@
                 android:value="true" />
         </service>
 
+        <service android:name=".service.ExperimentalRpc"
+            android:exported="false"/>
+
     </application>
 
 </manifest>

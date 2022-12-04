@@ -39,6 +39,7 @@ import com.my.kizzy.R
 import com.my.kizzy.domain.model.Game
 import com.my.kizzy.service.AppDetectionService
 import com.my.kizzy.service.CustomRpcService
+import com.my.kizzy.service.ExperimentalRpc
 import com.my.kizzy.service.MediaRpcService
 import com.my.kizzy.ui.common.AnimatedShimmer
 import com.my.kizzy.ui.common.BackButton
@@ -114,6 +115,7 @@ fun GamesScreen(
                                             )
                                         )
                                         context.stopService(Intent(context, MediaRpcService::class.java))
+                                        context.stopService(Intent(context, ExperimentalRpc::class.java))
                                         context.startService(intent)
                                     }
                                 }

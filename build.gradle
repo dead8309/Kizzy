@@ -53,6 +53,7 @@ buildscript {
         accompanistPermission = "com.google.accompanist:accompanist-permissions:${accompanistPermissionVersion}"
         accompanistAnimation ="com.google.accompanist:accompanist-navigation-animation:${accompanistVersion}"
         accompanistSystemUiController = "com.google.accompanist:accompanist-systemuicontroller:${accompanistVersion}"
+        accompanistFlowLayout = "com.google.accompanist:accompanist-flowlayout:0.28.0"
 
         //Utilities
         googleGson = "com.google.code.gson:gson:${gsonVersion}"

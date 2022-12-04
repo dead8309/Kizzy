@@ -83,6 +83,7 @@ dependencies {
     implementation(accompanistPermission)
     implementation(accompanistSystemUiController)
     implementation(accompanistAnimation)
+    implementation(accompanistFlowLayout)
 
     implementation(crashX)
     debugImplementation project(":logger")

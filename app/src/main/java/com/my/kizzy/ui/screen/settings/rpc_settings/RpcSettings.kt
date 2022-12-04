@@ -52,7 +52,6 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
     var rpcButtons by remember {
         mutableStateOf(Gson().fromJson(Prefs[Prefs.RPC_BUTTONS_DATA,"{}"],RpcButtons::class.java))
     }
-    Log.vlog.d("Data acc to prefs",rpcButtons.toString())
     var vlogEnabled by remember {
         mutableStateOf(Log.vlog.isEnabled())
     }

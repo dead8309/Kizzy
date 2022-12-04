@@ -8,7 +8,6 @@ import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.content.Intent
 import android.os.IBinder
-import android.util.Log
 import com.blankj.utilcode.util.AppUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -83,7 +82,6 @@ class AppDetectionService : Service() {
                         ) {
                             val packageName = treeMap[treeMap.lastKey()]!!.packageName
                             Objects.requireNonNull(packageName)
-                            Log.i("current app", packageName)
                             if (enabledPackages.contains(packageName)) {
                                 if (!kizzyRPC.isRpcRunning()) {
                                     kizzyRPC.apply {

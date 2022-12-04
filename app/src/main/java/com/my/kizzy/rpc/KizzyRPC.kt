@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import com.my.kizzy.common.Constants
 import com.my.kizzy.domain.repository.KizzyRepository
+import com.my.kizzy.domain.use_case.get_current_data.SharedRpc
 import com.my.kizzy.rpc.model.*
 import org.java_websocket.client.WebSocketClient
 import org.java_websocket.handshake.ServerHandshake
@@ -307,6 +308,40 @@ class KizzyRPC @Inject constructor(
                     ),
                     afk = true,
                     since = time,
+                    status = Constants.DND
+                )
+            )
+        )
+    }
+
+    suspend fun updateRPC(sharedRpc: SharedRpc) {
+        if (!isRpcRunning()) return
+        webSocketClient!!.send(
+            RichPresence(
+                op = 3,
+                d = RichPresenceData(
+                    activities = listOf(
+                        Activity(
+                            name = sharedRpc.name,
+                            details = sharedRpc.details?.takeIf { it.isNotEmpty() },
+                            state = sharedRpc.state?.takeIf { it.isNotEmpty() },
+                            type = 0,
+                            timestamps = Timestamps(
+                                start = startTimestamps
+                            ),
+                            assets = if (sharedRpc.large_image != null || sharedRpc.small_image != null)
+                                Assets(
+                                    largeImage = sharedRpc.large_image?.resolveImage(kizzyRepository),
+                                    smallImage = sharedRpc.small_image?.resolveImage(kizzyRepository)
+                                )
+                            else null,
+                            buttons = if (buttons.size > 0) buttons else null,
+                            metadata = if (buttonUrl.size > 0) Metadata(buttonUrls = buttonUrl) else null,
+                            applicationId = if (buttons.size > 0) Constants.APPLICATION_ID else null
+                        )
+                    ),
+                    afk = true,
+                    since = startTimestamps,
                     status = Constants.DND
                 )
             )
