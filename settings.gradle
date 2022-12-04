@@ -22,3 +22,4 @@ rootProject.name = "Kizzy"
 include ':app'
 include ':logger'
 include ':logger-no-op'
+include ':color'

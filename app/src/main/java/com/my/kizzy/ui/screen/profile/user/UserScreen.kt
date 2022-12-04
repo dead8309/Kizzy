@@ -42,11 +42,13 @@ import com.my.kizzy.BuildConfig
 import com.my.kizzy.R
 import com.my.kizzy.common.Constants
 import com.my.kizzy.data.remote.User
+import com.my.kizzy.ui.common.AnimatedShimmer
 import com.my.kizzy.ui.common.BackButton
-import com.my.kizzy.ui.screen.custom.IntentRpcData
-import com.my.kizzy.ui.theme.DISCORD_DARK
+import com.my.kizzy.ui.common.ShimmerProfileCard
+import com.my.kizzy.ui.screen.custom.RpcIntent
 import com.my.kizzy.ui.theme.DISCORD_LIGHT_DARK
 import com.my.kizzy.ui.theme.DarkBlueBg
+import com.my.kizzy.utils.Log.vlog
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.USER_BIO
 import com.my.kizzy.utils.Prefs.USER_NITRO
@@ -72,22 +74,14 @@ fun UserScreen(
         modifier = Modifier
             .fillMaxSize(),
         topBar = {
-            SmallTopAppBar(
-                title = { },
-                navigationIcon = { BackButton { onBackPressed() } },
-                colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = DISCORD_DARK,
-                    scrolledContainerColor = DISCORD_DARK,
-                    navigationIconContentColor = Color.White,
-                )
-            )
+            TopAppBar(title = { },
+                navigationIcon = { BackButton { onBackPressed() } })
         }
-    ) {
+    ) { paddingValues ->
         Box(
             modifier = Modifier
-                .padding(it)
-                .fillMaxSize()
-                .background(DISCORD_LIGHT_DARK),
+                .padding(paddingValues)
+                .fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
             if (state.error.isNotEmpty()) {
@@ -100,7 +94,9 @@ fun UserScreen(
                 )
             }
             if (state.loading) {
-                CircularProgressIndicator()
+                AnimatedShimmer {
+                    ShimmerProfileCard(brush = it)
+                }
             } else {
                 ProfileCard(state.user)
                 Logout(
@@ -122,6 +118,7 @@ fun UserScreen(
                                     runtime.exec("pm clear ${BuildConfig.APPLICATION_ID}")
                                 } catch (e: Exception) {
                                     e.printStackTrace()
+                                    vlog.e("Error",e.message.toString())
                                 }
                                 SnackbarResult.Dismissed -> Unit
                             }
@@ -176,7 +173,7 @@ fun ProfileCard(
     backgroundColors: List<Color> = listOf(Color(0xFFC2C0FA), Color(0xFFFADAF0)),
     padding: Dp = 30.dp,
     type: String = "USING KIZZY RICH PRESENCE",
-    rpcData: IntentRpcData? = null,
+    rpcData: RpcIntent? = null,
     showTs: Boolean = true
 ) {
     var elapsed by remember {
@@ -339,7 +336,7 @@ fun CardText(
 @Composable
 fun RpcRow(
     elapsed: Int,
-    rpcData: IntentRpcData?,
+    rpcData: RpcIntent?,
     showTs: Boolean,
     special: String?
 ) {
@@ -430,8 +427,8 @@ fun RpcRow(
         if (showTs)
             ProfileButton(label = "Special Button", link = special)
         if (rpcData != null) {
-            ProfileButton(label = rpcData.button1, link = rpcData.button1Url )
-            ProfileButton(label = rpcData.button2, link = rpcData.button2Url )
+            ProfileButton(label = rpcData.button1, link = rpcData.button1link )
+            ProfileButton(label = rpcData.button2, link = rpcData.button2link )
         }
 
     }

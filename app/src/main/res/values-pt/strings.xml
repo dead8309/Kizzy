@@ -37,9 +37,6 @@
     <string name="grant_permission">Conceder Permissão</string>
     <string name="use_low_res_icon">Usar imagens com resolução baixa</string>
     <string name="use_low_res_icon_desc">Use um ícone de aplicativo de resolução mais baixa para exibir no rpc (ative-o se o rpc estiver crashando). Essa configuração também será aplicada aos Apps Rpc.</string>
-    <string name="use_your_own_webhook">Usar Um Custom Webhook</string>
-    <string name="use_your_own_webhook_desc">Para fazer upload de imagens rpc para servidores do discord, o aplicativo usará este webhook. Não mexa com essa configuração se você não souber como os webhooks funcionam.</string>
-    <string name="edit_webhook_url">Edite Webhook Url</string>
     <string name="delete_saved_icon_urls">Deletar ícones de link salvados</string>
     <string name="delete_saved_icon_urls_desc">Excluir URLs de ícones de aplicativos salvos em arquivos locais (use isso apenas em casos raros, pois enviará todas as imagens novamente para os servidores do discord que consumirão mais dados)</string>
     <string name="app_crashed">O App Crashou</string>
@@ -72,5 +69,25 @@
     <string name="privacy_policy">Política de Privacidade</string>
     <string name="privacy_policy_desc">Confira a Política de Privacidade</string>
     <string name="enable_console_rpc">Ativar Console Rpc</string>
+    <string name="rpc_settings_button_configs">Button configuration for Media and AppDetection Rpc</string>
+    <string name="use_custom_buttons">Use Custom Buttons</string>
+    <string name="use_custom_buttons_desc">Use Predefined buttons to show on Media and AppDetection rpc</string>
+    <string name="follow_system">Follow System</string>
+    <string name="advance_settings">Advanced Settings</string>
+    <string name="amoled">Amoled Theme</string>
+    <string name="dynamic_color">Dynamic color</string>
+    <string name="dynamic_color_desc">Apply colors from wallpapers</string>
+    <string name="only_android_8_1_plus">Only android8.1+ is supported</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="primary_color">Primary Color</string>
+    <string name="primary_color_hint">Like #666666 or 666666</string>
+    <string name="android_on">On</string>
+    <string name="android_off">Off</string>
+    <string name="setup">Setup</string>
+    <string name="user_data_policy">This app does not collect any user data</string>
+    <string name="setup_desc">Before moving ahead it is recommended to perform the necessary actions to make sure all the features of the app work.</string>
+    <string name="permission_granted">Granted</string>
+    <string name="permission_not_granted">Not Granted, Click to Allow</string>
 
 </resources>

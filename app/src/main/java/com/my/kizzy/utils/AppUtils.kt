@@ -8,42 +8,62 @@ import com.android.girish.vlog.Vlog
 import com.my.kizzy.service.AppDetectionService
 import com.my.kizzy.service.CustomRpcService
 import com.my.kizzy.service.MediaRpcService
+import com.my.kizzy.service.ExperimentalRpc
+import javax.inject.Singleton
 
+@Singleton
 object AppUtils {
+    lateinit var activityManager: ActivityManager
+    fun init(context: Context) {
+        activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+    }
 
-        fun appDetectionRunning(context: Context): Boolean {
-            for (runningServiceInfo in (context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).getRunningServices(
-                Int.MAX_VALUE)) {
-                if (AppDetectionService::class.java.name == runningServiceInfo.service.className) {
-                    return true
-                }
+    fun appDetectionRunning(): Boolean {
+        for (runningServiceInfo in activityManager.getRunningServices(
+            Int.MAX_VALUE
+        )) {
+            if (AppDetectionService::class.java.name == runningServiceInfo.service.className) {
+                return true
             }
-            return false
         }
+        return false
+    }
 
-        fun mediaRpcRunning(context: Context): Boolean {
-            for (runningServiceInfo in (context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).getRunningServices(
-                Int.MAX_VALUE)) {
-                if (MediaRpcService::class.java.name == runningServiceInfo.service.className) {
-                    return true
-                }
+    fun mediaRpcRunning(): Boolean {
+        for (runningServiceInfo in activityManager.getRunningServices(
+            Int.MAX_VALUE
+        )) {
+            if (MediaRpcService::class.java.name == runningServiceInfo.service.className) {
+                return true
             }
-            return false
         }
+        return false
+    }
 
-        fun customRpcRunning(context: Context): Boolean {
-            for (runningServiceInfo in (context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).getRunningServices(
-                Int.MAX_VALUE)) {
-                if (CustomRpcService::class.java.name == runningServiceInfo.service.className)
-                    return true
-            }
-            return false
+    fun customRpcRunning(): Boolean {
+        for (runningServiceInfo in activityManager.getRunningServices(
+            Int.MAX_VALUE
+        )) {
+            if (CustomRpcService::class.java.name == runningServiceInfo.service.className)
+                return true
         }
+        return false
+    }
+
+    fun sharedRpcRunning(): Boolean {
+        for (runningServiceInfo in activityManager.getRunningServices(
+            Int.MAX_VALUE
+        )) {
+            if (ExperimentalRpc::class.java.name == runningServiceInfo.service.className)
+                return true
+        }
+        return false
+    }
 }
 
-object Log{
+object Log {
     lateinit var vlog: Vlog
-    fun init(context: Context){
+    fun init(context: Context) {
         vlog = Vlog.getInstance(context)
     }
 }
