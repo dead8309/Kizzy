@@ -13,7 +13,6 @@
 package com.my.kizzy.ui.screen.startup
 
 import android.Manifest.permission.POST_NOTIFICATIONS
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -32,7 +31,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
@@ -40,9 +38,12 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
+import com.google.gson.Gson
 import com.my.kizzy.R
+import com.my.kizzy.data.remote.User
 import com.my.kizzy.ui.common.PreferenceSubtitle
 import com.my.kizzy.utils.Prefs
+import com.my.kizzy.utils.fromJson
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
 @Composable
@@ -50,13 +51,15 @@ fun StartUp(
     usageAccessStatus: MutableState<Boolean>,
     mediaControlStatus: MutableState<Boolean>,
     navigateToLanguages: () -> Unit = {},
+    navigateToLogin: () -> Unit = {},
     navigateToHome: () -> Unit = {}
 ) {
+    val user: User? = Gson().fromJson(Prefs[Prefs.USER_DATA,""])
     val context = LocalContext.current
     val storagePermissionState = rememberPermissionState(
         android.Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
-    var hasNotificationPermission by remember {
+    var notificationPostingPerm by remember {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             mutableStateOf(
                 ContextCompat.checkSelfPermission(
@@ -68,7 +71,7 @@ fun StartUp(
     val launcher =
         rememberLauncherForActivityResult(contract = ActivityResultContracts.RequestPermission(),
             onResult = { isGranted ->
-                hasNotificationPermission = isGranted
+                notificationPostingPerm = isGranted
             })
     Scaffold(topBar = {
         TopAppBar(title = {
@@ -78,11 +81,11 @@ fun StartUp(
                 color = MaterialTheme.colorScheme.primary
             )
         })
-    }) {
+    }) { paddingValues ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(it)
+                .padding(paddingValues)
         ) {
             LazyColumn(
                 Modifier.fillMaxSize(), contentPadding = PaddingValues(
@@ -156,7 +159,7 @@ fun StartUp(
                         SetupCard(
                             title = "Grant Permission to Show Notification",
                             description = stringResource(id = R.string.request_for_permission),
-                            status = hasNotificationPermission
+                            status = notificationPostingPerm
                         ) {
                             launcher.launch(POST_NOTIFICATIONS)
                         }
@@ -186,6 +189,13 @@ fun StartUp(
                     )
                 }
                 item {
+                    SetupCard(title = stringResource(id = R.string.account),
+                        description = user?.username ?: stringResource(id = R.string.login_with_discord)
+                        ) {
+                        navigateToLogin()
+                    }
+                }
+                item {
                     SetupCard(title = stringResource(id = R.string.language),
                         description = buildString {
                             Prefs.languages.keys.forEach { key ->
@@ -206,7 +216,7 @@ fun StartUp(
                 horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                TextButton(onClick = { navigateToHome() }, enabled = hasNotificationPermission) {
+                TextButton(onClick = { navigateToHome() }, enabled = notificationPostingPerm && usageAccessStatus.value || mediaControlStatus.value) {
                     val text =
                         if (usageAccessStatus.value && mediaControlStatus.value) "Start App Now" else "Skip"
                     val style =
@@ -225,12 +235,4 @@ fun StartUp(
             }
         }
     }
-}
-
-
-@SuppressLint("UnrememberedMutableState")
-@Preview(showBackground = true)
-@Composable
-fun PreviewStartup() {
-    //StartUp(usageAccessStatus = , mediaControlStatus = )
 }

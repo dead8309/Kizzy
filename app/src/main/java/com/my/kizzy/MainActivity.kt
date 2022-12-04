@@ -111,9 +111,11 @@ class MainActivity : AppCompatActivity() {
                        }
                    }, navigateToHome = {
                        Prefs[Prefs.IS_FIRST_LAUNCHED] = false
-                       navController.navigate(Routes.HOME){
-                           popUpTo(Routes.SETUP){ inclusive = true}
+                       navController.navigate(Routes.HOME) {
+                           popUpTo(Routes.SETUP) { inclusive = true }
                        }
+                   }, navigateToLogin = {
+                       navController.navigate(Routes.PROFILE)
                    })
                 }
                 animatedComposable(Routes.HOME) {
