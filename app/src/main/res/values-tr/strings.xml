@@ -69,26 +69,26 @@
     <string name="privacy_policy">Gizlilik Politikası</string>
     <string name="privacy_policy_desc">Gizlilik Politikasına göz at</string>
     <string name="enable_console_rpc">Konsol RPC\'sini Etkinleştir</string>
-    <string name="rpc_settings_button_configs">Button configuration for Media and AppDetection Rpc</string>
-    <string name="use_custom_buttons">Use Custom Buttons</string>
-    <string name="use_custom_buttons_desc">Use Predefined buttons to show on Media and AppDetection rpc</string>
-    <string name="follow_system">Follow System</string>
-    <string name="advance_settings">Advanced Settings</string>
-    <string name="amoled">Amoled Theme</string>
-    <string name="dynamic_color">Dynamic color</string>
-    <string name="dynamic_color_desc">Apply colors from wallpapers</string>
-    <string name="only_android_8_1_plus">Only android8.1+ is supported</string>
-    <string name="cancel">Cancel</string>
-    <string name="confirm">Confirm</string>
-    <string name="primary_color">Primary Color</string>
-    <string name="primary_color_hint">Like #666666 or 666666</string>
-    <string name="android_on">On</string>
-    <string name="android_off">Off</string>
-    <string name="setup">Setup</string>
-    <string name="user_data_policy">This app does not collect any user data</string>
-    <string name="setup_desc">Before moving ahead it is recommended to perform the necessary actions to make sure all the features of the app work.</string>
-    <string name="permission_granted">Granted</string>
-    <string name="permission_not_granted">Not Granted, Click to Allow</string>
+    <string name="rpc_settings_button_configs">Medya RPC\'si ve Uygulama Algılama RPC\'si için Buton Yapılandırması</string>
+    <string name="use_custom_buttons">Özel Butonlar Kullan</string>
+    <string name="use_custom_buttons_desc">Medya ve Uygulama Algılama RPC\'sinde göstermek için önden tanımlanmış butonlar kullan</string>
+    <string name="follow_system">Sisteme Uy</string>
+    <string name="advance_settings">Gelişmiş Ayarlar</string>
+    <string name="amoled">Amoled Tema</string>
+    <string name="dynamic_color">Dinamik renk</string>
+    <string name="dynamic_color_desc">Renkleri duvar kağıdından uygula</string>
+    <string name="only_android_8_1_plus">Yalnızca android8.1+ desteklenir</string>
+    <string name="cancel">İptal</string>
+    <string name="confirm">Onayla</string>
+    <string name="primary_color">Ana Renk</string>
+    <string name="primary_color_hint">#666666 veya 666666 gibi</string>
+    <string name="android_on">Açık</string>
+    <string name="android_off">Kapalı</string>
+    <string name="setup">Kurulum</string>
+    <string name="user_data_policy">Bu uygulama hiçbir kullanıcı verisi toplamaz</string>
+    <string name="setup_desc">İlerlemeden önce uygulamanın tüm özelliklerinin çalıştığından emin olmak için gerekli eylemlerin yapılması önerilir. </string>
+    <string name="permission_granted">İzin Verildi</string>
+    <string name="permission_not_granted">İzin Verilmedi, İzin Vermek İçin Tıkla</string>
 
 
 </resources>
