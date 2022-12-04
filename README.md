@@ -1,5 +1,5 @@
 <div align="center">
-    <img width="50%" src="https://images.weserv.nl/?url=raw.githubusercontent.com/dead8309/Kizzy/master/metadata/icon.png?v=4&h=300&w=300&fit=cover&mask=circle&maxage=7d">
+    <img src="metadata/banner.jpg">
 </div>
 <br>
 
@@ -30,7 +30,7 @@
 <h4>A Discord Rich Presence manager for Android fully written in Kotlin.
 </h4>
 <p>
-<img src="https://user-images.githubusercontent.com/68665948/193395906-94e669b9-41a9-4e17-b7b6-a723fce14e2a.png" width=60%/>
+<img src="metadata/rpc.png" width=60%/>
 </p>
 </div>
 
