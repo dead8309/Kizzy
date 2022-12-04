@@ -9,9 +9,9 @@ import android.os.PowerManager.WakeLock
 import com.android.girish.vlog.Vlog
 import com.google.gson.Gson
 import com.my.kizzy.R
-import com.my.kizzy.rpc.Constants
+import com.my.kizzy.common.Constants
 import com.my.kizzy.rpc.KizzyRPC
-import com.my.kizzy.ui.screen.custom.IntentRpcData
+import com.my.kizzy.ui.screen.custom.RpcIntent
 import com.my.kizzy.utils.toRpcImage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class CustomRpcService : Service() {
-    private var rpcData: IntentRpcData? = null
+    private var rpcData: RpcIntent? = null
     private var wakeLock: WakeLock? = null
 
     @Inject
@@ -41,7 +41,7 @@ class CustomRpcService : Service() {
         else {
             val string = intent?.getStringExtra("RPC")
             string?.let {
-                rpcData = Gson().fromJson(it, IntentRpcData::class.java)
+                rpcData = Gson().fromJson(it, RpcIntent::class.java)
             }
             vlog.d(CHANNEL_NAME,kizzyRPC.isUserTokenValid().toString())
             if (!kizzyRPC.isUserTokenValid())
@@ -77,12 +77,12 @@ class CustomRpcService : Service() {
                             setState(it.state.ifEmpty { null })
                             setStatus(it.status.ifEmpty { Constants.ONLINE })
                             setType(it.type.toIntOrNull() ?: 0)
-                            setStartTimestamps(it.startTime.toLongOrNull())
-                            setStopTimestamps(it.StopTime.toLongOrNull())
+                            setStartTimestamps(it.timeatampsStart.toLongOrNull())
+                            setStopTimestamps(it.timeatampsStop.toLongOrNull())
                             setButton1(it.button1.ifEmpty { null })
-                            setButton1URL(it.button1Url.ifEmpty { null })
+                            setButton1URL(it.button1link.ifEmpty { null })
                             setButton2(it.button2.ifEmpty { null })
-                            setButton2URL(it.button2Url.ifEmpty { null })
+                            setButton2URL(it.button2link.ifEmpty { null })
                             setLargeImage(if (it.largeImg.isEmpty()) null else it.largeImg.toRpcImage())
                             setSmallImage(if (it.smallImg.isEmpty()) null else it.smallImg.toRpcImage())
                             build()

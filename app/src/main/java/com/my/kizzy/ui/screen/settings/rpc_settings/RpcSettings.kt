@@ -1,53 +1,106 @@
+/*
+ *
+ *  ******************************************************************
+ *  *  * Copyright (C) 2022
+ *  *  * RpcSettings.kt is part of Kizzy
+ *  *  *  and can not be copied and/or distributed without the express
+ *  *  * permission of yzziK(Vaibhav)
+ *  *  *****************************************************************
+ *
+ *
+ */
+
 package com.my.kizzy.ui.screen.settings.rpc_settings
 
+import android.os.Build
 import android.widget.Toast
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DeleteForever
-import androidx.compose.material.icons.filled.HighQuality
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.Code
 import androidx.compose.material.icons.outlined.CodeOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.DialogProperties
+import com.google.gson.Gson
 import com.my.kizzy.BuildConfig
 import com.my.kizzy.R
-import com.my.kizzy.ui.common.BackButton
-import com.my.kizzy.ui.common.PreferenceSwitch
-import com.my.kizzy.ui.common.SettingItem
+import com.my.kizzy.common.Constants
+import com.my.kizzy.ui.common.*
+import com.my.kizzy.ui.screen.custom.RpcField
 import com.my.kizzy.utils.Log
 import com.my.kizzy.utils.Prefs
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun RpcSettings(onBackPressed: () -> Boolean) {
     val context = LocalContext.current
     var isLowResIconsEnabled by remember { mutableStateOf(Prefs[Prefs.RPC_USE_LOW_RES_ICON, false]) }
-//    var useCustomWebhook by remember { mutableStateOf(Prefs[Prefs.RPC_USE_CUSTOM_WEBHOOK, ""]) }
-//    var dismiss by remember { mutableStateOf(false) }
+    var configsDir by remember { mutableStateOf(Prefs[Prefs.CONFIGS_DIRECTORY, "Directory to store Custom Rpc configs"]) }
+    var showDirConfigDialog by remember { mutableStateOf(false) }
+    var useButtonConfigs by remember { mutableStateOf(Prefs[Prefs.USE_RPC_BUTTONS,false]) }
+    var showButtonsConfigDialog by remember { mutableStateOf(false) }
+    var rpcButtons by remember {
+        mutableStateOf(Gson().fromJson(Prefs[Prefs.RPC_BUTTONS_DATA,"{}"],RpcButtons::class.java))
+    }
     var vlogEnabled by remember {
         mutableStateOf(Log.vlog.isEnabled())
     }
-    Scaffold(
-        modifier = Modifier
-            .fillMaxSize(),
-        topBar = {
-            LargeTopAppBar(
-                title = {
-                    Text(
-                        text = stringResource(id = R.string.rpc_settings),
-                        style = MaterialTheme.typography.headlineLarge,
-                    )
-                },
-                navigationIcon = { BackButton { onBackPressed() } }
+    Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
+        LargeTopAppBar(title = {
+            Text(
+                text = stringResource(id = R.string.rpc_settings),
+                style = MaterialTheme.typography.headlineLarge,
             )
-        }
-    ) {
-        LazyColumn(modifier = Modifier.padding(it)) {
+        }, navigationIcon = { BackButton { onBackPressed() } })
+    }) { paddingValues ->
+        LazyColumn(modifier = Modifier.padding(paddingValues)) {
+            item{
+                PreferenceSubtitle(text = "General")
+            }
+            item {
+                SettingItem(
+                    title = "Configs Directory",
+                    description = configsDir,
+                    icon = Icons.Default.Storage,
+                ) {
+                    showDirConfigDialog = true
+                }
+            }
+            item {
+                PreferenceSwitch(
+                    title = stringResource(id = R.string.use_custom_buttons),
+                    description = stringResource(id = R.string.use_custom_buttons_desc),
+                    icon = Icons.Default.Tune,
+                    isChecked = useButtonConfigs,
+                ){
+                    useButtonConfigs = !useButtonConfigs
+                    Prefs[Prefs.USE_RPC_BUTTONS] = useButtonConfigs
+                }
+            }
+            item {
+                AnimatedVisibility(visible = useButtonConfigs) {
+                    SettingItem(
+                        title = "Rpc Buttons",
+                        description = stringResource(id = R.string.rpc_settings_button_configs),
+                        icon = Icons.Default.SmartButton
+                    ) {
+                        showButtonsConfigDialog = true
+                    }
+                }
+            }
+            item {
+                PreferenceSubtitle(text = stringResource(id = R.string.advance_settings))
+            }
             item {
                 PreferenceSwitch(
                     title = stringResource(id = R.string.use_low_res_icon),
@@ -59,16 +112,6 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                     Prefs[Prefs.RPC_USE_LOW_RES_ICON] = isLowResIconsEnabled
                 }
             }
-            /*
-            item {
-                SettingItem(
-                    title = stringResource(id = R.string.use_your_own_webhook),
-                    description = stringResource(id = R.string.use_your_own_webhook_desc),
-                    icon = Icons.Default.Webhook,
-                ) {
-                    dismiss = !dismiss
-                }
-            }*/
             item {
                 SettingItem(
                     title = stringResource(id = R.string.delete_saved_icon_urls),
@@ -83,10 +126,8 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
             if (BuildConfig.DEBUG) {
                 item {
                     PreferenceSwitch(
-                        title = "Show Logs",
-                        icon = if (vlogEnabled) Icons.Outlined.Code
-                        else Icons.Outlined.CodeOff,
-                        isChecked = vlogEnabled
+                        title = "Show Logs", icon = if (vlogEnabled) Icons.Outlined.Code
+                        else Icons.Outlined.CodeOff, isChecked = vlogEnabled
                     ) {
                         vlogEnabled = if (!vlogEnabled) {
                             Log.vlog.start()
@@ -99,36 +140,79 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                     }
                 }
             }
-            /*if (dismiss) {
+        }
+        if (showDirConfigDialog && Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
             AlertDialog(
-                onDismissRequest = { dismiss = !dismiss },
+                onDismissRequest = { showDirConfigDialog = false },
+                confirmButton = {},
+                icon = {
+                    Icon(
+                        imageVector = Icons.Default.Storage, contentDescription = null
+                    )
+                },
+                title = { Text("Select Directory") },
+                text = {
+                    Column {
+                        SingleChoiceItem(
+                            text = Constants.APP_DIRECTORY,
+                            selected = configsDir == Constants.APP_DIRECTORY
+                        ) {
+                            configsDir = Constants.APP_DIRECTORY
+                            Prefs[Prefs.CONFIGS_DIRECTORY] = configsDir
+                            showDirConfigDialog = false
+                        }
+                        SingleChoiceItem(
+                            text = Constants.DOWNLOADS_DIRECTORY,
+                            selected = configsDir == Constants.DOWNLOADS_DIRECTORY
+                        ) {
+                            configsDir = Constants.DOWNLOADS_DIRECTORY
+                            Prefs[Prefs.CONFIGS_DIRECTORY] = configsDir
+                            showDirConfigDialog = false
+                        }
+                    }
+                })
+        }
+        if (showButtonsConfigDialog) {
+            AlertDialog(
+                properties = DialogProperties(usePlatformDefaultWidth = false),
+                modifier = Modifier.padding(20.dp),
+                onDismissRequest = { showButtonsConfigDialog = false },
                 confirmButton = {
                     TextButton(onClick = {
-                        if(useCustomWebhook.startsWith("https://discord.com/api/webhooks"))
-                           Prefs[Prefs.RPC_USE_CUSTOM_WEBHOOK] = "$useCustomWebhook?wait=true"
-                        else Prefs.remove(Prefs.RPC_USE_CUSTOM_WEBHOOK)
-                        dismiss = false
-                    }) {
-                        Text(text = "Save")
+                        Prefs[Prefs.RPC_BUTTONS_DATA] = Gson().toJson(rpcButtons)
+                        Log.vlog.d("Gson", rpcButtons.toString())
+                        showButtonsConfigDialog = false
+                    }
+                    ) {
+                        Text("Save")
                     }
                 },
                 icon = {
                     Icon(
-                        imageVector = Icons.Default.Edit,
-                        contentDescription = null
+                        imageVector = Icons.Default.Storage, contentDescription = null
                     )
                 },
-                title = { Text(stringResource(id = R.string.edit_webhook_url)) },
+                title = { Text("Enter Details") },
                 text = {
-                    TextField(
-                        value = useCustomWebhook,
-                        onValueChange = { new ->
-                            useCustomWebhook = new
+                    Column {
+                       RpcField(value = rpcButtons.button1, label = R.string.activity_button1_text){
+                           rpcButtons = rpcButtons.copy(button1 = it)
+                       }
+                        AnimatedVisibility(visible = rpcButtons.button1.isNotEmpty()) {
+                            RpcField(value = rpcButtons.button1Url, label = R.string.activity_button1_url){
+                                rpcButtons = rpcButtons.copy(button1Url = it)
+                            }
                         }
-                    )
-                }
-            )
-        }*/
+                       RpcField(value = rpcButtons.button2, label = R.string.activity_button2_text){
+                           rpcButtons = rpcButtons.copy(button2 = it)
+                       }
+                        AnimatedVisibility(visible = rpcButtons.button2.isNotEmpty()) {
+                            RpcField(value = rpcButtons.button2Url, label = R.string.activity_button2_url){
+                                rpcButtons = rpcButtons.copy(button2Url = it)
+                            }
+                        }
+                    }
+                })
         }
     }
 }

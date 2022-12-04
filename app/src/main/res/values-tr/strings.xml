@@ -37,9 +37,6 @@
     <string name="grant_permission">İzin Ver</string>
     <string name="use_low_res_icon">Düşük Çözünürlüklü Resim Kullan</string>
     <string name="use_low_res_icon_desc">RPC\'de gözükecek uygulama simgesini düşük çözünürlüklü kullan (bunu RPC çöküyorsa açın). Bu ayar Uygulama RPC\'sine de uygulanır.</string>
-    <string name="use_your_own_webhook">Özel Webhook Kullan</string>
-    <string name="use_your_own_webhook_desc">Discord sunucularına resim yüklemek için uygulama bu webhook\'u kullansın. Webhook\'ların nasıl çalıştığını bilmiyorsanız ellemeyin</string>
-    <string name="edit_webhook_url">Webhook URL\'sini düzenle</string>
     <string name="delete_saved_icon_urls">Kaydedilmiş Simge Bağlantılarını Sil</string>
     <string name="delete_saved_icon_urls_desc">Yerel dosyalarda kaydedilen simge bağlantılarını sil(Daha fazla veri harcar. Discord sunucularına yeniden tüm resimleri göndereceğinden bu seçeneği yalnızca nadir durumlarda kullanın.)</string>
     <string name="app_crashed">Uygulama Çöktü</string>
@@ -72,6 +69,26 @@
     <string name="privacy_policy">Gizlilik Politikası</string>
     <string name="privacy_policy_desc">Gizlilik Politikasına göz at</string>
     <string name="enable_console_rpc">Konsol RPC\'sini Etkinleştir</string>
+    <string name="rpc_settings_button_configs">Button configuration for Media and AppDetection Rpc</string>
+    <string name="use_custom_buttons">Use Custom Buttons</string>
+    <string name="use_custom_buttons_desc">Use Predefined buttons to show on Media and AppDetection rpc</string>
+    <string name="follow_system">Follow System</string>
+    <string name="advance_settings">Advanced Settings</string>
+    <string name="amoled">Amoled Theme</string>
+    <string name="dynamic_color">Dynamic color</string>
+    <string name="dynamic_color_desc">Apply colors from wallpapers</string>
+    <string name="only_android_8_1_plus">Only android8.1+ is supported</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="primary_color">Primary Color</string>
+    <string name="primary_color_hint">Like #666666 or 666666</string>
+    <string name="android_on">On</string>
+    <string name="android_off">Off</string>
+    <string name="setup">Setup</string>
+    <string name="user_data_policy">This app does not collect any user data</string>
+    <string name="setup_desc">Before moving ahead it is recommended to perform the necessary actions to make sure all the features of the app work.</string>
+    <string name="permission_granted">Granted</string>
+    <string name="permission_not_granted">Not Granted, Click to Allow</string>
 
 
 </resources>

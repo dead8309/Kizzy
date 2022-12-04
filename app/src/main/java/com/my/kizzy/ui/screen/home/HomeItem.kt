@@ -1,39 +1,17 @@
 package com.my.kizzy.ui.screen.home
 
 import androidx.annotation.DrawableRes
-import com.my.kizzy.R
-import com.my.kizzy.ui.common.Routes
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.unit.dp
 
 data class HomeItem(
     val title: String,
     @DrawableRes val icon: Int,
-    val route: String?,
-)
-
-fun getHomeitems() = listOf(
-    HomeItem(
-        title = "App Detection",
-        icon = R.drawable.ic_apps,
-        route = Routes.APPS_DETECTION,
-    ),
-    HomeItem(
-        title = "Media Rpc",
-        icon = R.drawable.ic_media_rpc,
-        route = Routes.MEDIA_RPC,
-    ),
-    HomeItem(
-        title = "Custom Rpc",
-        icon = R.drawable.ic_rpc_placeholder,
-        route = Routes.CUSTOM_RPC,
-        ),
-    HomeItem(
-        title = "Console Rpc",
-        icon = R.drawable.ic_console_games,
-        route = Routes.CONSOLE_RPC,
-    ),
-    HomeItem(
-        title = "Soon",
-        icon = R.drawable.ic_info,
-        route = null,
-    )
+    val route: String? = null,
+    val isChecked: Boolean = false,
+    val onClick: (String) -> Unit = {},
+    val onCheckedChange: (Boolean) -> Unit = {},
+    val showSwitch: Boolean = true,
+    val shape: RoundedCornerShape = RoundedCornerShape(0.dp),
+    val isVisible: Boolean = true
 )

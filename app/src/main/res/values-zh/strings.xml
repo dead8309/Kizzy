@@ -37,9 +37,6 @@
     <string name="grant_permission">授權權限</string>
     <string name="use_low_res_icon">使用低畫質圖示</string>
     <string name="use_low_res_icon_desc">顯示低畫質圖示在 rpc 上(如果rpc停止運作請啟用這個)。 這項功能也會應用到程式rpc上</string>
-    <string name="use_your_own_webhook">使用自訂 Webhook</string>
-    <string name="use_your_own_webhook_desc">上載rpc到Discord 將會使用 webhook。 如果你不知道webhook如何運作請不要修改此設定。</string>
-    <string name="edit_webhook_url">修改 Webhook 連結</string>
     <string name="delete_saved_icon_urls">刪除已儲存圖示的連結</string>
     <string name="delete_saved_icon_urls_desc">刪除儲存在本地檔案的程式圖示(僅在極少數情況下使用它，因為它會將所有圖像再次發送到Discord伺服器，這將消耗更多數據)</string>
     <string name="app_crashed">程式已停止運作</string>
@@ -72,6 +69,26 @@
     <string name="privacy_policy">隱私政策</string>
     <string name="privacy_policy_desc">閱讀隱私政策</string>
     <string name="enable_console_rpc">啟用 Console Rpc</string>
+    <string name="rpc_settings_button_configs">Button configuration for Media and AppDetection Rpc</string>
+    <string name="use_custom_buttons">Use Custom Buttons</string>
+    <string name="use_custom_buttons_desc">Use Predefined buttons to show on Media and AppDetection rpc</string>
+    <string name="follow_system">Follow System</string>
+    <string name="advance_settings">Advanced Settings</string>
+    <string name="amoled">Amoled Theme</string>
+    <string name="dynamic_color">Dynamic color</string>
+    <string name="dynamic_color_desc">Apply colors from wallpapers</string>
+    <string name="only_android_8_1_plus">Only android8.1+ is supported</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="primary_color">Primary Color</string>
+    <string name="primary_color_hint">Like #666666 or 666666</string>
+    <string name="android_on">On</string>
+    <string name="android_off">Off</string>
+    <string name="setup">Setup</string>
+    <string name="user_data_policy">This app does not collect any user data</string>
+    <string name="setup_desc">Before moving ahead it is recommended to perform the necessary actions to make sure all the features of the app work.</string>
+    <string name="permission_granted">Granted</string>
+    <string name="permission_not_granted">Not Granted, Click to Allow</string>
 
 
 </resources>

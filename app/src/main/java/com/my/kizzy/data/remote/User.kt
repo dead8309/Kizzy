@@ -36,7 +36,9 @@ data class User(
     @SerializedName("username")
     val username: String?,
     @SerializedName("special")
-    val special: String?
+    val special: String?,
+    @SerializedName("verified")
+    val verified: Boolean
 )
 
 data class Badge(

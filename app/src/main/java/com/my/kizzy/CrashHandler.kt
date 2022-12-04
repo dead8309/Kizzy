@@ -6,9 +6,12 @@ import androidx.activity.compose.setContent
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.DeviceUtils
 import com.developer.crashx.CrashActivity
+import com.my.kizzy.common.LocalDarkTheme
+import com.my.kizzy.common.LocalDynamicColorSwitch
+import com.my.kizzy.common.LocalSeedColor
 import com.my.kizzy.ui.screen.crash.CrashScreen
 import com.my.kizzy.ui.theme.AppTypography
-import me.rerere.md3compat.Md3CompatTheme
+import com.my.kizzy.ui.theme.KizzyTheme
 
 class CrashHandler : ComponentActivity() {
 
@@ -16,7 +19,12 @@ class CrashHandler : ComponentActivity() {
         super.onCreate(savedInstanceState)
         val report = CrashActivity.getStackTraceFromIntent(intent)
         setContent {
-            Md3CompatTheme(typography = AppTypography) {
+            KizzyTheme(
+                darkTheme = LocalDarkTheme.current.isDarkTheme(),
+                isHighContrastModeEnabled = LocalDarkTheme.current.isHighContrastModeEnabled,
+                seedColor = LocalSeedColor.current,
+                isDynamicColorEnabled = LocalDynamicColorSwitch.current,
+            ){
                 CrashScreen(trace = report.buildCrashLog())
             }
         }
