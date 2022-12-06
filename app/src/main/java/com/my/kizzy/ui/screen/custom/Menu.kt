@@ -199,10 +199,10 @@ fun RpcIntent.dataToString(): String {
 }
 
 fun String.stringToData(): RpcIntent {
-    try {
-        return gson.fromJson(this, RpcIntent::class.java)
+    return try {
+        gson.fromJson(this, RpcIntent::class.java)
     } catch (ex: Exception) {
-        return RpcIntent()
+        RpcIntent()
     }
 }
 

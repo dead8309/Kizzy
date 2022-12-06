@@ -41,6 +41,8 @@ class CustomScreenViewModel @Inject constructor(
     var button2Url by mutableStateOf("")
     var largeImg by mutableStateOf("")
     var smallImg by mutableStateOf("")
+    var largeImgText by mutableStateOf("")
+    var smallImgText by mutableStateOf("")
     var type by mutableStateOf("")
     var activityTypeisExpanded by mutableStateOf(false)
     var menuClicked by mutableStateOf(false)

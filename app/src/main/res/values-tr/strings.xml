@@ -89,6 +89,8 @@
     <string name="setup_desc">İlerlemeden önce uygulamanın tüm özelliklerinin çalıştığından emin olmak için gerekli eylemlerin yapılması önerilir. </string>
     <string name="permission_granted">İzin Verildi</string>
     <string name="permission_not_granted">İzin Verilmedi, İzin Vermek İçin Tıkla</string>
+    <string name="activity_large_text">Activity Large Text</string>
+    <string name="activity_small_text">Activity Small Text</string>
 
 
 </resources>

@@ -89,5 +89,7 @@
     <string name="setup_desc">Antes de prosseguir, é recomendável executar as ações necessárias para garantir que todos os recursos do aplicativo funcionem.</string>
     <string name="permission_granted">Garantido</string>
     <string name="permission_not_granted">Não Garantido, Clique para Permitir</string>
+    <string name="activity_large_text">Activity Large Text</string>
+    <string name="activity_small_text">Activity Small Text</string>
 
 </resources>

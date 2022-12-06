@@ -83,8 +83,8 @@ class CustomRpcService : Service() {
                             setButton1URL(it.button1link.ifEmpty { null })
                             setButton2(it.button2.ifEmpty { null })
                             setButton2URL(it.button2link.ifEmpty { null })
-                            setLargeImage(if (it.largeImg.isEmpty()) null else it.largeImg.toRpcImage())
-                            setSmallImage(if (it.smallImg.isEmpty()) null else it.smallImg.toRpcImage())
+                            setLargeImage(if (it.largeImg.isEmpty()) null else it.largeImg.toRpcImage(),it.largeText)
+                            setSmallImage(if (it.smallImg.isEmpty()) null else it.smallImg.toRpcImage(),it.smallText)
                             build()
                         }
                     }

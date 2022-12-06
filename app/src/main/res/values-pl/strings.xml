@@ -89,5 +89,7 @@
     <string name="setup_desc">Przed przejściem dalej zaleca się wykonanie niezbędnych czynności, aby upewnić się, że wszystkie funkcje aplikacji będą działać.</string>
     <string name="permission_granted">Nadano</string>
     <string name="permission_not_granted">Nie nadano, Kliknij by Zezwolić</string>
+    <string name="activity_large_text">Activity Large Text</string>
+    <string name="activity_small_text">Activity Small Text</string>
 
 </resources>

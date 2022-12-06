@@ -89,4 +89,6 @@
     <string name="setup_desc">Before moving ahead it is recommended to perform the necessary actions to make sure all the features of the app work.</string>
     <string name="permission_granted">Granted</string>
     <string name="permission_not_granted">Not Granted, Click to Allow</string>
+    <string name="activity_large_text">Activity Large Text</string>
+    <string name="activity_small_text">Activity Small Text</string>
 </resources>

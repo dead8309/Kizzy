@@ -45,7 +45,7 @@ import java.util.*
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
 @Composable
 fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
-    val snackbarHostState = remember { SnackbarHostState() }
+    val snackBarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
     val storagePermissionState = rememberPermissionState(
@@ -61,7 +61,7 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
         mutableStateOf(AppUtils.customRpcRunning())
     }
     with(viewModel) {
-        Scaffold(snackbarHost = { SnackbarHost(snackbarHostState) },
+        Scaffold(snackbarHost = { SnackbarHost(snackBarHostState) },
             modifier = Modifier
                 .fillMaxSize()
                 .nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -164,7 +164,9 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
                     button1link = button1Url,
                     button2link = button2Url,
                     largeImg = largeImg,
+                    largeText = largeImgText,
                     smallImg = smallImg,
+                    smallText = smallImgText,
                     type = type
                 )
 
@@ -183,7 +185,9 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
                         button1Url = it.button1link
                         button2Url = it.button2link
                         largeImg = it.largeImg
+                        largeImgText = it.largeText
                         smallImg = it.smallImg
+                        smallImgText = it.smallText
                         type = it.type
                     }
                 } else if (showSaveDialog) {
@@ -192,7 +196,7 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
                         onDismiss = { showSaveDialog = false }
                     ) {
                         scope.launch {
-                            snackbarHostState.showSnackbar(it)
+                            snackBarHostState.showSnackbar(it)
                         }
                     }
                 } else if (showDeleteDialog) {
@@ -200,7 +204,7 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
                         showDeleteDialog = false
                     }) {
                         scope.launch {
-                            snackbarHostState.showSnackbar(it)
+                            snackBarHostState.showSnackbar(it)
                         }
                     }
                 } else if(showPreviewDialog) {
@@ -403,6 +407,15 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
                         }
                     }
                     item {
+                        AnimatedVisibility(visible = largeImg.isNotBlank()) {
+                            RpcField(
+                                value = largeImgText, label = R.string.activity_large_text
+                            ) {
+                                largeImgText = it
+                            }
+                        }
+                    }
+                    item {
                         var openPickerDialog by remember {
                             mutableStateOf(false)
                         }
@@ -433,6 +446,15 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
                                 }
                             }) {
                             smallImg = it
+                        }
+                    }
+                    item {
+                        AnimatedVisibility(visible = smallImg.isNotBlank()) {
+                            RpcField(
+                                value = smallImgText, label = R.string.activity_small_text
+                            ) {
+                                smallImgText = it
+                            }
                         }
                     }
                     val icon = if (activityTypeisExpanded) Icons.Default.KeyboardArrowUp

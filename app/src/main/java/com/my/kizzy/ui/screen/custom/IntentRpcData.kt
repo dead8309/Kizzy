@@ -27,5 +27,9 @@ data class RpcIntent(
     @SerializedName("timeatampsStop")
     val timeatampsStop: String = "",
     @SerializedName("type")
-    val type: String = ""
+    val type: String = "",
+    @SerializedName("large_text")
+    val largeText: String = "",
+    @SerializedName("small_text")
+    val smallText: String = ""
 )
