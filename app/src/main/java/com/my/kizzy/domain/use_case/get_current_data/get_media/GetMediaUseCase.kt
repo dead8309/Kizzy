@@ -38,7 +38,7 @@ fun getCurrentRunningMedia(context: Context): SharedRpc {
         val metadata = mediaController.metadata
         val title = metadata?.getString(MediaMetadata.METADATA_KEY_TITLE)
         val appName = AppUtils.getAppName(mediaController.packageName)
-        var author = metadata?.getString(MediaRpcService.getArtistOrAuthor(metadata))
+        val author =  if (Prefs[Prefs.MEDIA_RPC_ARTIST_NAME, false]) metadata?.getString(MediaRpcService.getArtistOrAuthor(metadata)) else null
         val bitmap = metadata?.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART)
         val duration = metadata?.getLong(MediaMetadata.METADATA_KEY_DURATION)
         duration?.let {
@@ -49,8 +49,6 @@ fun getCurrentRunningMedia(context: Context): SharedRpc {
             largeIcon = if (Prefs[Prefs.MEDIA_RPC_APP_ICON, false]) RpcImage.ApplicationIcon(
                 mediaController.packageName, context
             ) else null
-            if (Prefs[Prefs.MEDIA_RPC_ARTIST_NAME, false])
-                author = ""
             if (bitmap != null){
                 smallIcon = largeIcon
                 largeIcon = RpcImage.BitmapImage(
