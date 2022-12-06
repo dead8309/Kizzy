@@ -20,6 +20,7 @@ import android.media.session.MediaSessionManager
 import com.blankj.utilcode.util.AppUtils
 import com.my.kizzy.domain.use_case.get_current_data.SharedRpc
 import com.my.kizzy.rpc.RpcImage
+import com.my.kizzy.rpc.model.Timestamps
 import com.my.kizzy.service.MediaRpcService
 import com.my.kizzy.service.NotificationListener
 import com.my.kizzy.utils.Prefs
@@ -27,6 +28,7 @@ import com.my.kizzy.utils.Prefs
 fun getCurrentRunningMedia(context: Context): SharedRpc {
     var largeIcon: RpcImage?
     val smallIcon: RpcImage?
+    var timestamps: Timestamps? = null
     val mediaSessionManager =
         context.getSystemService(Service.MEDIA_SESSION_SERVICE) as MediaSessionManager
     val component = ComponentName(context, NotificationListener::class.java)
@@ -38,6 +40,11 @@ fun getCurrentRunningMedia(context: Context): SharedRpc {
         val appName = AppUtils.getAppName(mediaController.packageName)
         var author = metadata?.getString(MediaRpcService.getArtistOrAuthor(metadata))
         val bitmap = metadata?.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART)
+        val duration = metadata?.getLong(MediaMetadata.METADATA_KEY_DURATION)
+        duration?.let {
+            if (it != 0L)
+                timestamps = Timestamps(end = System.currentTimeMillis()+duration, start = System.currentTimeMillis())
+        }
         if (title != null) {
             largeIcon = if (Prefs[Prefs.MEDIA_RPC_APP_ICON, false]) RpcImage.ApplicationIcon(
                 mediaController.packageName, context
@@ -54,12 +61,13 @@ fun getCurrentRunningMedia(context: Context): SharedRpc {
                 )
             } else smallIcon = null
             return SharedRpc(
-                name = title,
-                details = appName,
+                name = appName,
+                details = title,
                 state = author,
                 large_image = largeIcon,
                 small_image = smallIcon,
-                package_name = "$title::${mediaController.packageName}"
+                package_name = "$title::${mediaController.packageName}",
+                time = timestamps.takeIf { it != null }
             )
         }
     }

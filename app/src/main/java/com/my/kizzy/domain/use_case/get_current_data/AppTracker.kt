@@ -16,6 +16,7 @@ import android.content.Context
 import com.my.kizzy.domain.use_case.get_current_data.get_apps.getCurrentRunningApp
 import com.my.kizzy.domain.use_case.get_current_data.get_media.getCurrentRunningMedia
 import com.my.kizzy.rpc.RpcImage
+import com.my.kizzy.rpc.model.Timestamps
 import com.my.kizzy.utils.Log.vlog
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.currentCoroutineContext
@@ -57,5 +58,6 @@ data class SharedRpc(
     val state: String? = "",
     val large_image: RpcImage? = null,
     val small_image: RpcImage? = null,
+    val time: Timestamps? = null,
     val package_name: String = ""
 )
