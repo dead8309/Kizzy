@@ -15,10 +15,10 @@ package com.my.kizzy.ui.screen.settings.rpc_settings
 import android.os.Build
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.Code
@@ -29,6 +29,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.google.gson.Gson
@@ -47,11 +48,18 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
     var isLowResIconsEnabled by remember { mutableStateOf(Prefs[Prefs.RPC_USE_LOW_RES_ICON, false]) }
     var configsDir by remember { mutableStateOf(Prefs[Prefs.CONFIGS_DIRECTORY, "Directory to store Custom Rpc configs"]) }
     var showDirConfigDialog by remember { mutableStateOf(false) }
-    var useButtonConfigs by remember { mutableStateOf(Prefs[Prefs.USE_RPC_BUTTONS,false]) }
+    var useButtonConfigs by remember { mutableStateOf(Prefs[Prefs.USE_RPC_BUTTONS, false]) }
     var showButtonsConfigDialog by remember { mutableStateOf(false) }
     var rpcButtons by remember {
-        mutableStateOf(Gson().fromJson(Prefs[Prefs.RPC_BUTTONS_DATA,"{}"],RpcButtons::class.java))
+        mutableStateOf(Gson().fromJson(Prefs[Prefs.RPC_BUTTONS_DATA, "{}"], RpcButtons::class.java))
     }
+    var customActivityType by remember {
+        mutableStateOf(Prefs[Prefs.CUSTOM_ACTIVITY_TYPE, 0].toString())
+    }
+    var showActivityTypeDialog by remember {
+        mutableStateOf(false)
+    }
+
     var vlogEnabled by remember {
         mutableStateOf(Log.vlog.isEnabled())
     }
@@ -64,7 +72,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
         }, navigationIcon = { BackButton { onBackPressed() } })
     }) { paddingValues ->
         LazyColumn(modifier = Modifier.padding(paddingValues)) {
-            item{
+            item {
                 PreferenceSubtitle(text = "General")
             }
             item {
@@ -82,7 +90,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                     description = stringResource(id = R.string.use_custom_buttons_desc),
                     icon = Icons.Default.Tune,
                     isChecked = useButtonConfigs,
-                ){
+                ) {
                     useButtonConfigs = !useButtonConfigs
                     Prefs[Prefs.USE_RPC_BUTTONS] = useButtonConfigs
                 }
@@ -96,6 +104,15 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                     ) {
                         showButtonsConfigDialog = true
                     }
+                }
+            }
+            item {
+                SettingItem(
+                    title = "Custom Activity Type",
+                    description = "Overrides the default activity type. Works for media and experimental rpc only",
+                    icon = Icons.Default.Code
+                ) {
+                    showActivityTypeDialog = true
                 }
             }
             item {
@@ -195,24 +212,98 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 title = { Text("Enter Details") },
                 text = {
                     Column {
-                       RpcField(value = rpcButtons.button1, label = R.string.activity_button1_text){
-                           rpcButtons = rpcButtons.copy(button1 = it)
-                       }
+                        RpcField(
+                            value = rpcButtons.button1,
+                            label = R.string.activity_button1_text
+                        ) {
+                            rpcButtons = rpcButtons.copy(button1 = it)
+                        }
                         AnimatedVisibility(visible = rpcButtons.button1.isNotEmpty()) {
-                            RpcField(value = rpcButtons.button1Url, label = R.string.activity_button1_url){
+                            RpcField(
+                                value = rpcButtons.button1Url,
+                                label = R.string.activity_button1_url
+                            ) {
                                 rpcButtons = rpcButtons.copy(button1Url = it)
                             }
                         }
-                       RpcField(value = rpcButtons.button2, label = R.string.activity_button2_text){
-                           rpcButtons = rpcButtons.copy(button2 = it)
-                       }
+                        RpcField(
+                            value = rpcButtons.button2,
+                            label = R.string.activity_button2_text
+                        ) {
+                            rpcButtons = rpcButtons.copy(button2 = it)
+                        }
                         AnimatedVisibility(visible = rpcButtons.button2.isNotEmpty()) {
-                            RpcField(value = rpcButtons.button2Url, label = R.string.activity_button2_url){
+                            RpcField(
+                                value = rpcButtons.button2Url,
+                                label = R.string.activity_button2_url
+                            ) {
                                 rpcButtons = rpcButtons.copy(button2Url = it)
                             }
                         }
                     }
                 })
+        }
+
+        if (showActivityTypeDialog) {
+            AlertDialog(
+                onDismissRequest = {
+                    showActivityTypeDialog = false
+                },
+                text = {
+                    var activityTypeisExpanded by remember {
+                        mutableStateOf(false)
+                    }
+                    val icon = if (activityTypeisExpanded) Icons.Default.KeyboardArrowUp
+                    else Icons.Default.KeyboardArrowDown
+                        RpcField(value = customActivityType,
+                            label = R.string.activity_type,
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                            trailingIcon = {
+                                Icon(imageVector = icon,
+                                    contentDescription = null,
+                                    modifier = Modifier.clickable {
+                                        activityTypeisExpanded = !activityTypeisExpanded
+                                    })
+                            }) {
+                            customActivityType = it
+                        }
+                    DropdownMenu(
+                        expanded = activityTypeisExpanded, onDismissRequest = {
+                            activityTypeisExpanded = !activityTypeisExpanded
+                        }, modifier = Modifier.fillMaxWidth()
+                    ) {
+                        val rpcTypes = listOf(
+                            Pair("Playing", 0),
+                            Pair("Streaming", 1),
+                            Pair("Listening", 2),
+                            Pair("Watching", 3),
+                            Pair("Competing", 5)
+                        )
+                        rpcTypes.forEach {
+                            DropdownMenuItem(
+                                text = {
+                                    Text(text = it.first)
+                                },
+                                onClick = {
+                                    customActivityType = it.second.toString()
+                                    activityTypeisExpanded = false
+                                },
+                            )
+                        }
+                    }
+
+                },
+                confirmButton = {
+                    TextButton(onClick = {
+                            if (customActivityType.toInt() in 0..5) {
+                                Prefs[Prefs.CUSTOM_ACTIVITY_TYPE] = customActivityType.toInt()
+                                showActivityTypeDialog = false
+                            }
+                    }) {
+                        Text(text = "Save")
+                    }
+                }
+            )
         }
     }
 }
