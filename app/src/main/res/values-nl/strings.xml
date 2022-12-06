@@ -38,7 +38,7 @@
     <string name="use_low_res_icon">Use Low Resolution Images</string>
     <string name="use_low_res_icon_desc">Gebruik een lagere resolutie voor de app icoon/logo op rpc (schakel dit in als de rpc crasht). Deze instelling wordt ook toegepast op Apps Rpc.</string>
     <string name="delete_saved_icon_urls">Verwijder opgeslagen Icoon links</string>
-    <string name="delete_saved_icon_urls_desc">Verwijder alle opgeslagen icoon/logo's urls op de telefoon (gebruik dit alleen in speciale momenten* zoals verkeerde icoon/logo voor een app, of zelfs nooit, deze optie stuurt slle afbeeldingen naar discord servers en zal dus ook meer data verbruiken)</string>
+    <string name="delete_saved_icon_urls_desc">Verwijder alle opgeslagen icoon/logo urls op de telefoon (gebruik dit alleen in speciale momenten, deze optie stuurt slle afbeeldingen naar discord servers en verbruit meer data)</string>
     <string name="app_crashed">De App is GeCrashed</string>
     <string name="share_crash_logs_desc">Stuur De Logs Naar Het Discord-kanaal Met De Volgende Stacktrace :</string>
     <string name="share_crash_logs">DEEL LOGS</string>
