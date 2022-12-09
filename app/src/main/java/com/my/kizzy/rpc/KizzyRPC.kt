@@ -5,8 +5,12 @@ import com.android.girish.vlog.Vlog
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import com.my.kizzy.common.Constants
 import com.my.kizzy.domain.repository.KizzyRepository
+import com.my.kizzy.domain.use_case.get_current_data.SharedRpc
 import com.my.kizzy.rpc.model.*
+import com.my.kizzy.utils.Prefs
+import com.my.kizzy.utils.Prefs.CUSTOM_ACTIVITY_TYPE
 import org.java_websocket.client.WebSocketClient
 import org.java_websocket.handshake.ServerHandshake
 import java.net.URI
@@ -25,6 +29,8 @@ class KizzyRPC @Inject constructor(
     private var state: String? = null
     private var largeImage: RpcImage? = null
     private var smallImage: RpcImage? = null
+    private var largeText: String? = null
+    private var smallText: String? = null
     private var status: String? = null
     private var startTimestamps: Long? = null
     private var stopTimestamps: Long? = null
@@ -101,7 +107,8 @@ class KizzyRPC @Inject constructor(
      * @param large_image
      * @return
      */
-    fun setLargeImage(large_image: RpcImage?): KizzyRPC {
+    fun setLargeImage(large_image: RpcImage?,large_text: String? = null): KizzyRPC {
+        this.largeText = large_text.takeIf { !it.isNullOrEmpty() }
         this.largeImage = large_image
         return this
     }
@@ -112,7 +119,8 @@ class KizzyRPC @Inject constructor(
      * @param small_image
      * @return
      */
-    fun setSmallImage(small_image: RpcImage?): KizzyRPC {
+    fun setSmallImage(small_image: RpcImage?,small_text: String? = null): KizzyRPC {
+        this.smallText = small_text.takeIf { !it.isNullOrEmpty() }
         this.smallImage = small_image
         return this
     }
@@ -224,7 +232,9 @@ class KizzyRPC @Inject constructor(
                         ) else null,
                         assets = if (largeImage != null || smallImage != null) Assets(
                             largeImage = largeImage?.resolveImage(kizzyRepository),
-                            smallImage = smallImage?.resolveImage(kizzyRepository)
+                            smallImage = smallImage?.resolveImage(kizzyRepository),
+                            largeText = largeText,
+                            smallText = smallText
                         ) else null,
                         buttons = if (buttons.size > 0) buttons else null,
                         metadata = if (buttonUrl.size > 0) Metadata(buttonUrls = buttonUrl) else null,
@@ -290,7 +300,7 @@ class KizzyRPC @Inject constructor(
                             name = name,
                             details = details,
                             state = state,
-                            type = 0,
+                            type = Prefs[CUSTOM_ACTIVITY_TYPE,0],
                             timestamps = if (enableTimestamps) Timestamps(start = time) else null,
                             assets =
                             if (large_image != null || small_image != null)
@@ -298,11 +308,49 @@ class KizzyRPC @Inject constructor(
                                 largeImage = large_image?.resolveImage(kizzyRepository),
                                 smallImage = small_image?.resolveImage(kizzyRepository)
                                 )
-                            else null
+                            else null,
+                            buttons = if (buttons.size > 0) buttons else null,
+                            metadata = if (buttonUrl.size > 0) Metadata(buttonUrls = buttonUrl) else null,
+                            applicationId = if (buttons.size > 0) Constants.APPLICATION_ID else null
                         )
                     ),
                     afk = true,
                     since = time,
+                    status = Constants.DND
+                )
+            )
+        )
+    }
+
+    suspend fun updateRPC(sharedRpc: SharedRpc) {
+        if (!isRpcRunning()) return
+        var time = Timestamps(start = startTimestamps)
+        if (sharedRpc.time != null)
+            Timestamps(end = sharedRpc.time.end, start = sharedRpc.time.start).also { time = it }
+        webSocketClient!!.send(
+            RichPresence(
+                op = 3,
+                d = RichPresenceData(
+                    activities = listOf(
+                        Activity(
+                            name = sharedRpc.name,
+                            details = sharedRpc.details?.takeIf { it.isNotEmpty() },
+                            state = sharedRpc.state?.takeIf { it.isNotEmpty() },
+                            type = Prefs[CUSTOM_ACTIVITY_TYPE,0],
+                            timestamps = time,
+                            assets = if (sharedRpc.large_image != null || sharedRpc.small_image != null)
+                                Assets(
+                                    largeImage = sharedRpc.large_image?.resolveImage(kizzyRepository),
+                                    smallImage = sharedRpc.small_image?.resolveImage(kizzyRepository)
+                                )
+                            else null,
+                            buttons = if (buttons.size > 0) buttons else null,
+                            metadata = if (buttonUrl.size > 0) Metadata(buttonUrls = buttonUrl) else null,
+                            applicationId = if (buttons.size > 0) Constants.APPLICATION_ID else null
+                        )
+                    ),
+                    afk = true,
+                    since = startTimestamps,
                     status = Constants.DND
                 )
             )

@@ -33,13 +33,10 @@
     <string name="show_app_icon">Mostrar Ícone do Aplicativo</string>
     <string name="enable_timestamps">Ativar Tempo de Atividade</string>
     <string name="text_after_permission_denied">O acesso à memória é importante para este aplicativo armazenar configurações em diretórios públicos. Por favor, conceda permissão.</string>
-    <string name="request_for_permission">Permissão de armazenamento é necessária para que os recursos de configuração funcionem. Por favor, conceda a permissão.</string>
+    <string name="request_for_permission">A Permissão de armazenamento é necessária para que os recursos de configuração funcionem. Por favor, conceda a permissão.</string>
     <string name="grant_permission">Conceder Permissão</string>
     <string name="use_low_res_icon">Usar imagens com resolução baixa</string>
     <string name="use_low_res_icon_desc">Use um ícone de aplicativo de resolução mais baixa para exibir no rpc (ative-o se o rpc estiver crashando). Essa configuração também será aplicada aos Apps Rpc.</string>
-    <string name="use_your_own_webhook">Usar Um Custom Webhook</string>
-    <string name="use_your_own_webhook_desc">Para fazer upload de imagens rpc para servidores do discord, o aplicativo usará este webhook. Não mexa com essa configuração se você não souber como os webhooks funcionam.</string>
-    <string name="edit_webhook_url">Edite Webhook Url</string>
     <string name="delete_saved_icon_urls">Deletar ícones de link salvados</string>
     <string name="delete_saved_icon_urls_desc">Excluir URLs de ícones de aplicativos salvos em arquivos locais (use isso apenas em casos raros, pois enviará todas as imagens novamente para os servidores do discord que consumirão mais dados)</string>
     <string name="app_crashed">O App Crashou</string>
@@ -63,7 +60,7 @@
     <string name="enable_appsRpc">Ativar App Detection</string>
     <string name="usage_access">Acesso de uso necessário</string>
     <string name="usage_access_desc">O acesso de uso é necessário para que o aplicativo saiba qual é o aplicativo que está em execução atual</string>
-    <string name="enable_mediaRpc">Ativar Media Rpc</string>
+    <string name="enable_mediaRpc">Ativar Mídia Rpc</string>
     <string name="permission_required">Permissão Requerida</string>
     <string name="enable_customRpc">Ativar Custom Rpc</string>
     <string name="rpc_settings">Configurações do Rpc</string>
@@ -72,5 +69,27 @@
     <string name="privacy_policy">Política de Privacidade</string>
     <string name="privacy_policy_desc">Confira a Política de Privacidade</string>
     <string name="enable_console_rpc">Ativar Console Rpc</string>
+    <string name="rpc_settings_button_configs">Configuração de Botão para Mídia e AppDetection Rpc</string>
+    <string name="use_custom_buttons">Usar Botões Personalizado</string>
+    <string name="use_custom_buttons_desc">Use botões predefinidos para mostrar em Mídia e AppDetection rpc</string>
+    <string name="follow_system">Seguir o Sistema</string>
+    <string name="advance_settings">Configuraçãoes Avançadas</string>
+    <string name="amoled">Tema Amoled</string>
+    <string name="dynamic_color">Cor Dinâmica</string>
+    <string name="dynamic_color_desc">Aplicar cores a partir dos papéis de paredes</string>
+    <string name="only_android_8_1_plus">Apenas android8.1+ é suportado</string>
+    <string name="cancel">Cancelar</string>
+    <string name="confirm">Confirmar</string>
+    <string name="primary_color">Cor Primária</string>
+    <string name="primary_color_hint">Como #666666 ou 666666</string>
+    <string name="android_on">On</string>
+    <string name="android_off">Off</string>
+    <string name="setup">Setup</string>
+    <string name="user_data_policy">Este app não coleta nenhum dado do usuário</string>
+    <string name="setup_desc">Antes de prosseguir, é recomendável executar as ações necessárias para garantir que todos os recursos do aplicativo funcionem.</string>
+    <string name="permission_granted">Garantido</string>
+    <string name="permission_not_granted">Não Garantido, Clique para Permitir</string>
+    <string name="activity_large_text">Activity Large Text</string>
+    <string name="activity_small_text">Activity Small Text</string>
 
 </resources>

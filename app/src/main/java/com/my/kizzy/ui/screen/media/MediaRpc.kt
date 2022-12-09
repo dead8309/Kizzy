@@ -21,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import com.my.kizzy.R
 import com.my.kizzy.service.AppDetectionService
 import com.my.kizzy.service.CustomRpcService
+import com.my.kizzy.service.ExperimentalRpc
 import com.my.kizzy.service.MediaRpcService
 import com.my.kizzy.ui.common.BackButton
 import com.my.kizzy.ui.common.PreferenceSwitch
@@ -36,11 +37,11 @@ import com.my.kizzy.utils.Prefs.MEDIA_RPC_ENABLE_TIMESTAMPS
 @Composable
 fun MediaRPC(onBackPressed: () -> Unit) {
     val context = LocalContext.current
-    var mediarpcRunning by remember { mutableStateOf(AppUtils.mediaRpcRunning(context)) }
+    var mediarpcRunning by remember { mutableStateOf(AppUtils.mediaRpcRunning()) }
     var isArtistEnabled by remember { mutableStateOf(Prefs[MEDIA_RPC_ARTIST_NAME, false]) }
     var isAppIconEnabled by remember { mutableStateOf(Prefs[MEDIA_RPC_APP_ICON, false]) }
     var isTimestampsEnabled by remember { mutableStateOf(Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS, false]) }
-    var hasNotificationAccess by remember { mutableStateOf(hasNotificationAccess(context)) }
+    var hasNotificationAccess by remember { mutableStateOf(context.hasNotificationAccess()) }
     Scaffold(
         modifier = Modifier
             .fillMaxSize(),
@@ -65,8 +66,8 @@ fun MediaRPC(onBackPressed: () -> Unit) {
                     description = "Notification Access is needed for app to extract media information",
                     icon = Icons.Default.Warning,
                 ) {
-                    when (hasNotificationAccess(context)) {
-                        true -> hasNotificationAccess = hasNotificationAccess(context)
+                    when (context.hasNotificationAccess()) {
+                        true -> hasNotificationAccess = true
                         false -> context.startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
                     }
                 }
@@ -81,6 +82,7 @@ fun MediaRPC(onBackPressed: () -> Unit) {
                     true -> {
                         context.stopService(Intent(context, AppDetectionService::class.java))
                         context.stopService(Intent(context, CustomRpcService::class.java))
+                        context.stopService(Intent(context, ExperimentalRpc::class.java))
                         context.startService(Intent(context, MediaRpcService::class.java))
                     }
                     false -> context.stopService(Intent(context, MediaRpcService::class.java))
@@ -122,9 +124,9 @@ fun MediaRPC(onBackPressed: () -> Unit) {
     }
 }
 
-private fun hasNotificationAccess(context: Context): Boolean {
+fun Context.hasNotificationAccess(): Boolean {
     val enabledNotificationListeners = Settings.Secure.getString(
-        context.contentResolver, "enabled_notification_listeners"
+        this.contentResolver, "enabled_notification_listeners"
     )
-    return enabledNotificationListeners != null && enabledNotificationListeners.contains(context.packageName)
+    return enabledNotificationListeners != null && enabledNotificationListeners.contains(this.packageName)
 }

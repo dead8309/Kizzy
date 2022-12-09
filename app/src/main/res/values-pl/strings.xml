@@ -37,9 +37,6 @@
     <string name="grant_permission">Nadaj Uprawnienie</string>
     <string name="use_low_res_icon">Użyj Obrazów Niskiej Rozdzielczości</string>
     <string name="use_low_res_icon_desc">Użyj niskiej rozdzielczości ikony aplikacji wyświetlanej w rpc (włącz to jeśli rpc ulega awarii). To ustawienie zostanie zastosowane również do Rpc Aplikacji.</string>
-    <string name="use_your_own_webhook">Użyj Własnego Webhooka</string>
-    <string name="use_your_own_webhook_desc">Aplikacja użyje tego webhooka do wysyłania obrazów rpc na serwery Discord. Nie tykaj, jeśli nie wiesz jak działają webhooki.</string>
-    <string name="edit_webhook_url">Edytuj URL Webhooka</string>
     <string name="delete_saved_icon_urls">Usuń Zapisane Linki Ikon</string>
     <string name="delete_saved_icon_urls_desc">Usuń URL-e ikon aplikacji zapisanych w lokalnych plikach (Do użycia tylko w szczególnych wypadkach, gdyż wyśle to wszystkie obrazy znów na serwery Discord co zużyje więcej danych)</string>
     <string name="app_crashed">Aplikacja Uległa Awarii</string>
@@ -72,5 +69,27 @@
     <string name="privacy_policy">Polityka Prywatności</string>
     <string name="privacy_policy_desc">Sprawdź Polityke Prywatności</string>
     <string name="enable_console_rpc">Włącz Rpc Konsoli</string>
+    <string name="rpc_settings_button_configs">Konfiguracja przycisków dla Mediów i Wykrywania Aplikacji Rpc</string>
+    <string name="use_custom_buttons">Użyj Własnych Przycisków</string>
+    <string name="use_custom_buttons_desc">Użyj wstępnie zdefiniowanych przycisków, aby wyświetlić w Mediach i Wykrywania Aplikacji Rpc</string>
+    <string name="follow_system">Przez System</string>
+    <string name="advance_settings">Ustawienia Zaawansowane</string>
+    <string name="amoled">Motyw Amoled</string>
+    <string name="dynamic_color">Dynamiczny kolor</string>
+    <string name="dynamic_color_desc">Zastosuj kolory z tapety</string>
+    <string name="only_android_8_1_plus">Tylko android8.1+ jest wspierany</string>
+    <string name="cancel">Anuluj</string>
+    <string name="confirm">Potwierdź</string>
+    <string name="primary_color">Kolor Podstawowy</string>
+    <string name="primary_color_hint">Jak #666666 lub 666666</string>
+    <string name="android_on">Włącz</string>
+    <string name="android_off">Wyłącz</string>
+    <string name="setup">Konfiguracja</string>
+    <string name="user_data_policy">Ta aplikacja nie zbiera żadnych danych użytkownika</string>
+    <string name="setup_desc">Przed przejściem dalej zaleca się wykonanie niezbędnych czynności, aby upewnić się, że wszystkie funkcje aplikacji będą działać.</string>
+    <string name="permission_granted">Nadano</string>
+    <string name="permission_not_granted">Nie nadano, Kliknij by Zezwolić</string>
+    <string name="activity_large_text">Activity Large Text</string>
+    <string name="activity_small_text">Activity Small Text</string>
 
 </resources>

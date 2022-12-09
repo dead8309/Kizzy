@@ -1,23 +1,13 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
+    id("kotlin-kapt")
 }
 
 android {
     compileSdk 33
 
-    signingConfigs {
-        release {
-            storeFile file("Kizzy.keystore")
-            storePassword RELEASE_STORE_PASSWORD
-            keyAlias RELEASE_KEY_ALIAS
-            keyPassword RELEASE_KEY_PASSWORD
-            v1SigningEnabled true
-            v2SigningEnabled true
-        }
-    }
     defaultConfig {
         applicationId "com.my.kizzy"
         minSdk 26
@@ -33,7 +23,6 @@ android {
 
     buildTypes {
         release {
-            signingConfig signingConfigs.release
             shrinkResources true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -64,13 +53,16 @@ android {
 }
 
 dependencies {
+    implementation(coilCompose)
+    implementation(coilSvg)
+    implementation(androidSVG)
+    implementation(AppCompat)
+    implementation(MMKV)
     implementation(coreKtx)
     implementation(material3)
+    implementation(windowSizeClass)
     implementation(lifecycleRuntimeKtx)
     implementation(composeActivity)
-    implementation(cardView)
-    implementation(constraintLayout)
-    implementation(androidxMaterial)
     testImplementation(junit)
     androidTestImplementation(junitExt)
     androidTestImplementation(junitEspressoCore)
@@ -79,20 +71,24 @@ dependencies {
     debugImplementation(uiTooling)
     debugImplementation(testManifest)
     implementation(composeToolingPreview)
-    implementation(md3Compat)
+    implementation(androidxMaterial)
     implementation(composeNavigation)
     implementation(materialIconsExtended)
-    implementation(accompanistAnimation)
     implementation(googleGson)
     implementation(glide)
     implementation(blankjUtil)
     implementation(javaWebsocket)
-    implementation(lingver)
     implementation(okhttp)
+
     implementation(accompanistPermission)
+    implementation(accompanistSystemUiController)
+    implementation(accompanistAnimation)
+    implementation(accompanistFlowLayout)
+
     implementation(crashX)
     debugImplementation project(":logger")
     releaseImplementation project(":logger-no-op")
+    implementation project(":color")
     implementation(Hilt)
     kapt(HiltCompiler)
     implementation(retrofit)
