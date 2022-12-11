@@ -86,7 +86,7 @@
     <string name="android_off">關閉</string>
     <string name="setup">Setup</string>
     <string name="user_data_policy">本應用程式不會收集任何用戶資料</string>
-    <string name="setup_desc">在繼續前, 建議先完成必要動作已確保程式的所有功能可以正常運作</string>
+    <string name="setup_desc">在繼續前, 請確保已授權所有必要權限已確保程式的所有功能可以正常運作</string>
     <string name="permission_granted">已授權</string>
     <string name="permission_not_granted">未授權, 點擊已授權</string>
     <string name="activity_large_text">活動大標題</string>
