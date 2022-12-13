@@ -30,7 +30,7 @@
 <h4>A Discord Rich Presence manager for Android fully written in Kotlin.
 </h4>
 <p>
-<img src="metadata/rpc.png" width=60%/>
+<img src="https://user-images.githubusercontent.com/68665948/207303492-c537af75-0d63-49e9-91c5-97114d974883.png" width=60%/>
 </p>
 </div>
 
@@ -43,24 +43,21 @@
      alt="Download from GitHub"
      height="60">
 </a>
-<a href="https://apt.izzysoft.de/fdroid/index/apk/com.my.kizzy">
-<img src="https://codeberg.org/IzzyOnDroid/repo/raw/commit/6b8ffbd7746747238cb48f6076764eaf4e390316/assets/IzzyOnDroid.png">
-</a>
 
 ## Screenshots
 <div>
-<img src="metadata/0.jpg" width="30%" />
-<img src="metadata/1.jpg" width="30%" />
-<img src="metadata/2.jpg" width="30%" />
-<img src="metadata/3.jpg" width="30%" />
-<img src="metadata/4.jpg" width="30%" />
-<img src="metadata/5.jpg" width="30%" />
+<img width="30%" alt="Slice 1" src="https://user-images.githubusercontent.com/68665948/207300844-a6177a86-250b-4d2e-b21b-b6bdb431a414.png">
+<img width="30%" alt="Slice 2" src="https://user-images.githubusercontent.com/68665948/207301097-f83b31d0-26f7-4e1e-8e77-bd16bfdd0eda.png">
+<img width="30%" alt="Slice 3" src="https://user-images.githubusercontent.com/68665948/207301272-9e40dae9-9fd5-4c41-894f-0d5da1ccbe1e.png">
+<img width="30%" alt="Slice 4" src="https://user-images.githubusercontent.com/68665948/207301298-e82d934d-4ca2-4d52-ae21-9d54cf66e353.png">
+<img width="30%" alt="Slice 5" src="https://user-images.githubusercontent.com/68665948/207301309-f4a23b58-c687-44c4-8506-695ed5c0ff5d.png">
+<img width="30%" alt="Slice 6" src="https://user-images.githubusercontent.com/68665948/207301334-f923ac6e-9d75-4280-a820-e5397fcf0d5a.png">
 </div>
+
 
 ## Features
 
 - [x] Clickable buttons
-- [x] Clean UI
 - [x] Detects current Running app
 - [x] Detects Current Playing media
 - [x] Optional timestamps
@@ -69,12 +66,13 @@
 - [x] Material You theme
 - [x] Translations
 - [x] Easy [Setup](https://kizzy.gitbook.io/kizzy-docs/setup/setting-up-the-app) 
-- [x] Predefined presets(Nintendo,Wii Rpc have 200+ options)
+- [x] 300+ Predefined presets
 - [x] Create custom configs with your own images and links
 - [x] Preview Rpc in the app itself
 - [x] Runs in background even when screen is off
 - [x] Gif support
-- [x] External Url support (meaning you can give a url which points to an image on the web and discord will show it!) [How it works ?](https://github.com/dead8309/Kizzy/blob/bd070025f2194ab888f908f7796c6c924555e786/app/src/main/java/com/my/kizzy/rpc/ImageResolver.kt)
+- [x] External Url support (meaning you can give a url which points to an image on the web and discord will show it!)
+- [x] Use Images from Gallery
 
 ## Getting Started
 Read the Setup Guide [at Gitbook](https://kizzy.gitbook.io/kizzy-docs/setup/setting-up-the-app)
@@ -102,7 +100,7 @@ git clone https://github.com/dead8309/Kizzy.git
 - Click on Build and Run
 
 > **Warning**
-> This app uses the Discord Gateway connection so this might not be safe. Use this at your own risk.
+> This app uses the Discord Gateway connection. Use this at your own risk.
 However people have been using custom rich presence for past 4-5 years and there's is still no case of account getting terminated.
 
 ## Translate
@@ -112,7 +110,7 @@ See [Contribute for Translation](https://github.com/dead8309/Kizzy/issues/2#issu
 ## Credits
 ✨ [Read You](https://github.com/Ashinch/ReadYou) and [Seal](https://github.com/JunkFood02/Seal) for Ui Components
 
-✨ [md3compat](https://github.com/re-ovo/md3compat) for Material You library
+✨ [Material Color Utilities](https://github.com/material-foundation/material-color-utilities)
 
 ✨ [Rich-Presence-U](https://github.com/ninstar/Rich-Presence-U) for Nintendo and Wii U games data
 
