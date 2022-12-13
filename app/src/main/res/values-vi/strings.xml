@@ -8,7 +8,7 @@
     <string name="activity_start_timestamps">Thời gian bắt đầu hoạt động</string>
     <string name="activity_stop_timestamps">Thời gian dừng hoạt động</string>
     <string name="activity_status_online_idle_dnd"> Trạng thái hoạt động(online,idle,dnd)</string>
-    <string name="activity_button1_text">Tên nút hoạt động 1/string>
+    <string name="activity_button1_text">Tên nút hoạt động 1</string>
     <string name="activity_button2_text">Tên nút hoạt động 2</string>
     <string name="activity_button1_url">Liên kết nút l</string>
     <string name="activity_button2_url">Liên kết nút 2</string>
@@ -25,7 +25,7 @@
     <string name="github_readme_desc">Xem kho lưu trữ trên Github</string>
     <string name="github_latest_release">"Bản phát hành cuối cùng"</string>
     <string name="github_latest_release_desc">Xem phiên bản mới và các thay đổi</string>
-    <string name="github_issue"> Vấn đề Github</string>
+    <string name="github_issue">Vấn đề Github</string>
     <string name="github_issue_desc">Gửi các vấn đề về lỗi và lỗ hổng qua Github</string>
     <string name="credits">Ghi công</string>
     <string name="credits_desc">Ghi công các thư viện được sử dụng và những người đóng góp</string>
