@@ -25,7 +25,7 @@
     <string name="github_readme_desc">GitHubتحقق من مستودع ال</string>
     <string name="github_latest_release">أحدث إصدار</string>
     <string name="github_latest_release_desc">البحث عن الإصدار الجديد و التغييرات</string>
-    <string name="github_issue">Github issue</string>
+    <string name="github_issue">مشكلة في الGithub</string>
     <string name="github_issue_desc">إرسال مشكلة في حالة حدوث خطأ ما او طلب ميزة جديدة</string>
     <string name="credits">الشكر و الإعتمادات</string>
     <string name="credits_desc">الاعتمادات للمكتبات المستخدمة والمساهمين</string>
@@ -40,7 +40,7 @@
     <string name="delete_saved_icon_urls">حذف روابط ايقونات محفوظة</string>
     <string name="delete_saved_icon_urls_desc">احذف روابط الurl لأيقونات التطبيقات المحفوظة في الملفات المحلية (إستخدم هذا فقط في حالات نادرة لأنه سيرسل جميع الصور مرة أخرى إلى خوادم الديسكورد التي ستستهلك المزيد من البيانات)</string>
     <string name="app_crashed">تعطل التطبيق</string>
-    <string name="share_crash_logs_desc">: يرجى إرسال السجلات في قناة  الديسكورد باستخدام تتبع المكدس التالي</string>
+    <string name="share_crash_logs_desc">: يرجى إرسال السجلات في قناة الديسكورد باستخدام هذه التتبعات :</string>
     <string name="share_crash_logs">مشاركة السجلات</string>
     <string name="welcome">أهلا بك</string>
     <string name="features">الميزات</string>
@@ -69,7 +69,7 @@
     <string name="privacy_policy">سياسة الخصوصية</string>
     <string name="privacy_policy_desc">تحقق من سياسة الخصوصية</string>
     <string name="enable_console_rpc">تفعيل RPC الكونسول</string>
-    <string name="rpc_settings_button_configs">تكوين الزر للMedia و RPC إكتشاف التطبيق</string>
+    <string name="rpc_settings_button_configs">Button configuration for Media and AppDetection Rpc</string>
     <string name="use_custom_buttons">إستعمال أزرار متعددة</string>
     <string name="use_custom_buttons_desc">إستخدام الأزرار المحددة مسبقا في الMedia RPC و إكتشاف التطبيق</string>
     <string name="follow_system">اتبع النظام</string>
