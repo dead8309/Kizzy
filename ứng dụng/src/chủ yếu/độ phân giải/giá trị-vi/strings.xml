@@ -55,7 +55,7 @@
     <string name="settings">Cài đặt</string>
     <string name="theme">Chủ đề</string>
     <string name="language">Ngôn ngữ</string>
-    <string name="design_credits">Ghi công người thiết kế</string>
+    <string name="design_credits">Ghi công thư viện được sử dụng</string>
     <string name="translation_credits">Ghi công người dịch</string>
     <string name="enable_appsRpc">Bật phát hiện ứng dụng</string>
     <string name="usage_access">Yêu cầu truy cập sử dụng</string>
