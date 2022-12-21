@@ -35,7 +35,7 @@
 </div>
 
 > **Warning**
-> I do not take any responsibility for a user's account if they downloaded a clone/app claiming to be *Kizzy* from any third party services(except the download links mentioned in repository).
+> If you're thinking about downloading a Kizzy clone or app from any third-party service (other than the ones listed in our repository), think again! We can't be held responsible for any issues that may arise with your account as a result. Stay safe and stick to our trusted download links for the genuine app.
 
 ## Download
 <a href="https://github.com/dead8309/Kizzy/releases/latest">
