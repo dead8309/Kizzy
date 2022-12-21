@@ -77,7 +77,7 @@
     <string name="amoled">Amoled Tema</string>
     <string name="dynamic_color">Dinamik renk</string>
     <string name="dynamic_color_desc">Renkleri duvar kağıdından uygula</string>
-    <string name="only_android_8_1_plus">Yalnızca android8.1+ desteklenir</string>
+    <string name="only_android_8_1_plus">Yalnızca Android 8.1+ desteklenir</string>
     <string name="cancel">İptal</string>
     <string name="confirm">Onayla</string>
     <string name="primary_color">Ana Renk</string>
@@ -89,8 +89,8 @@
     <string name="setup_desc">İlerlemeden önce uygulamanın tüm özelliklerinin çalıştığından emin olmak için gerekli eylemlerin yapılması önerilir. </string>
     <string name="permission_granted">İzin Verildi</string>
     <string name="permission_not_granted">İzin Verilmedi, İzin Vermek İçin Tıkla</string>
-    <string name="activity_large_text">Activity Large Text</string>
-    <string name="activity_small_text">Activity Small Text</string>
+    <string name="activity_large_text">Aktivite Büyük Yazısı</string>
+    <string name="activity_small_text">Aktivite Küçük Yazısı</string>
 
 
 </resources>
