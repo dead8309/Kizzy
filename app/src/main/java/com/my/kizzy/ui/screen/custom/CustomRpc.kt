@@ -238,23 +238,7 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
                                     )
                                     context.stopService(Intent(context, ExperimentalRpc::class.java))
                                     val intent = Intent(context, CustomRpcService::class.java)
-                                    val string = Gson().toJson(
-                                        RpcIntent(
-                                            name = name,
-                                            details = details,
-                                            state = state,
-                                            timeatampsStart = startTimestamps,
-                                            timeatampsStop = stopTimestamps,
-                                            status = status,
-                                            button1 = button1,
-                                            button2 = button2,
-                                            button1link = button1Url,
-                                            button2link = button2Url,
-                                            largeImg = largeImg,
-                                            smallImg = smallImg,
-                                            type = type,
-                                        )
-                                    )
+                                    val string = Gson().toJson(rpc)
                                     intent.putExtra("RPC", string)
                                     Prefs[Prefs.LAST_RUN_CUSTOM_RPC] = string
                                     context.startService(intent)
