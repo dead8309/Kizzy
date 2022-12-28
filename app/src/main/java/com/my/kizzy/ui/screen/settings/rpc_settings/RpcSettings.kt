@@ -253,9 +253,13 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                     var activityTypeisExpanded by remember {
                         mutableStateOf(false)
                     }
-                    val icon = if (activityTypeisExpanded) Icons.Default.KeyboardArrowUp
-                    else Icons.Default.KeyboardArrowDown
-                        RpcField(value = customActivityType,
+                    val icon = 
+                    if (activityTypeisExpanded) {
+                      Icons.Default.KeyboardArrowUp
+                    } else {
+                      Icons.Default.KeyboardArrowDown
+                    }
+                    RpcField(value = customActivityType,
                             label = R.string.activity_type,
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             trailingIcon = {
