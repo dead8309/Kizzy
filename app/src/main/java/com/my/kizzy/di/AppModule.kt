@@ -28,7 +28,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
+import java.util.concurrent.TimeUnit
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -50,6 +50,9 @@ object AppModule {
             builder.addInterceptor(HttpLoggingInterceptor {
                 vlog.d("Retrofit",it)
             }.setLevel(HttpLoggingInterceptor.Level.BODY))
+        builder.connectTimeout(30, TimeUnit.SECONDS)
+        builder.readTimeout(30, TimeUnit.SECONDS)
+        builder.writeTimeout(30, TimeUnit.SECONDS)
         return builder.build()
     }
 
