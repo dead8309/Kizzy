@@ -62,7 +62,7 @@ fun AnimatedShimmer(
 @Preview(showBackground = true)
 fun ShimmerGridItemPreview() {
     AnimatedShimmer {
-        ShimmerProfileCard(brush = it)
+        ShimmerGameItems(brush = it)
     }
 }
 
@@ -89,18 +89,23 @@ fun ShimmerGameItems(
         )
 
         repeat(6) {
+            //.padding(8.dp)
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(15.dp)
-                    .clip(RoundedCornerShape(10.dp))
-                    .background(brush), horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
+                    .padding(8.dp)
+                    .clip(RoundedCornerShape(25.dp))
+                    .background(brush)
+                    .padding(8.dp)
+                    , horizontalArrangement = Arrangement.SpaceEvenly
+            ){
                 Spacer(
                     modifier = Modifier
-                        .size(90.dp)
+                        .size(80.dp)
+                        .clip(RoundedCornerShape(15.dp))
                         .background(brush)
                 )
+
                 Column(
                     modifier = Modifier
                         .weight(9f)
@@ -117,6 +122,7 @@ fun ShimmerGameItems(
                 Spacer(
                     modifier = Modifier
                         .size(40.dp)
+                        .clip(CircleShape)
                         .background(brush)
                 )
             }
