@@ -230,21 +230,20 @@ fun PreferenceSwitch(
     }
 }
 
-
+@SuppressLint("ModifierParameter")
 @Composable
 fun SettingItem(
     title: String,
     description: String = "",
     icon: ImageVector? = null,
+    modifier: Modifier = Modifier.fillMaxWidth().padding(16.dp, 20.dp),
     onClick: () -> Unit
 ) {
     Surface(
         modifier = Modifier.clickable { onClick() }
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp, 20.dp),
+            modifier = modifier,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             icon?.let {

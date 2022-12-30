@@ -49,7 +49,7 @@
     <string name="account">Account</string>
     <string name="account_info">Account info</string>
     <string name="display">Display</string>
-    <string name="display_desc">Theme,Dynamic Colors,Languages</string>
+    <string name="display_desc">Theme, Dynamic Colors, Languages</string>
     <string name="about_desc">Version,releases,credits</string>
     <string name="about">About</string>
     <string name="settings">Settings</string>

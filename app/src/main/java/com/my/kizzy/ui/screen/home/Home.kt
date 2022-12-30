@@ -1,5 +1,6 @@
 package com.my.kizzy.ui.screen.home
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -10,8 +11,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -24,6 +25,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
@@ -38,11 +40,13 @@ import com.my.kizzy.service.ExperimentalRpc
 import com.my.kizzy.service.MediaRpcService
 import com.my.kizzy.ui.common.Routes
 import com.my.kizzy.ui.screen.profile.user.Base
+import com.my.kizzy.ui.screen.settings.SettingsDrawer
 import com.my.kizzy.utils.AppUtils
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.USER_DATA
 import com.my.kizzy.utils.fromJson
 import com.skydoves.landscapist.glide.GlideImage
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -169,60 +173,87 @@ fun Home(
     var homeItems by remember {
         mutableStateOf(features)
     }
-    Scaffold(topBar = {
-        LargeTopAppBar(title = {
-            Text(
-                text = stringResource(id = R.string.welcome) + ", ${user?.username ?: ""}",
-                style = MaterialTheme.typography.headlineLarge,
-            )
-        }, navigationIcon = {
-            IconButton(
-                onClick = { navigateTo(Routes.SETTINGS) },
-            ) {
-                Icon(
-                    Icons.Outlined.Settings, Icons.Outlined.Settings.name
-                )
-            }
-        }, actions = {
-            IconButton(onClick = { navigateTo(Routes.PROFILE) }) {
-                if (user != null) {
-                    GlideImage(
-                        imageModel = avatar,
-                        modifier = Modifier
-                            .size(52.dp)
-                            .border(
-                                2.dp, MaterialTheme.colorScheme.secondaryContainer, CircleShape
-                            )
-                            .clip(CircleShape),
-                        previewPlaceholder = R.drawable.error_avatar
-                    )
-                } else {
-                    Icon(
-                        imageVector = Icons.Outlined.Person,
-                        contentDescription = Icons.Default.Person.name
-                    )
+    val drawerState = rememberDrawerState(DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        drawerContent = {
+            ModalDrawerSheet(modifier = Modifier.width(300.dp)) {
+                SettingsDrawer(
+                    user = user,
+                    navigateToProfile = {
+                        navigateTo(Routes.PROFILE)
+                    },
+                    navigateToStyleAndAppeareance = {
+                        navigateTo(Routes.STYLE_AND_APPEAREANCE)
+                    },
+                    navigateToAbout = {
+                        navigateTo(Routes.ABOUT)
+                    }
+                ) {
+                    navigateTo(Routes.RPC_SETTINGS)
                 }
             }
-        })
-    }) { paddingValues ->
-        LazyColumn(
-            modifier = Modifier.padding(paddingValues),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            item {
-                ChipSection()
-                Text(
-                    text = stringResource(id = R.string.features),
-                    style = MaterialTheme.typography.headlineMedium,
-                    modifier = Modifier.padding(start = 15.dp)
-                )
-            }
-            item {
-                Features(homeItems) {
-                    homeItems = homeItems.mapIndexed { j, item ->
-                        if (it == j) {
-                            item.copy(isChecked = !item.isChecked)
-                        } else item
+        }) {
+        Scaffold(
+            topBar = {
+                LargeTopAppBar(title = {
+                    Text(
+                        text = stringResource(id = R.string.welcome) + ", ${user?.username ?: ""}",
+                        style = MaterialTheme.typography.headlineLarge,
+                    )
+                }, navigationIcon = {
+                    IconButton(
+                        onClick = { scope.launch { drawerState.open() } }//navigateTo(Routes.SETTINGS) },
+                    ) {
+                        Icon(
+                            Icons.Outlined.Menu, Icons.Outlined.Menu.name
+                        )
+                    }
+                }, actions = {
+                    IconButton(onClick = { navigateTo(Routes.PROFILE) }) {
+                        if (user != null) {
+                            GlideImage(
+                                imageModel = avatar,
+                                modifier = Modifier
+                                    .size(52.dp)
+                                    .border(
+                                        2.dp,
+                                        MaterialTheme.colorScheme.secondaryContainer,
+                                        CircleShape
+                                    )
+                                    .clip(CircleShape),
+                                previewPlaceholder = R.drawable.error_avatar
+                            )
+                        } else {
+                            Icon(
+                                imageVector = Icons.Outlined.Person,
+                                contentDescription = Icons.Default.Person.name
+                            )
+                        }
+                    }
+                })
+            },
+        ){ paddingValues ->
+            LazyColumn(
+                modifier = Modifier.padding(paddingValues),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                item {
+                    ChipSection()
+                    Text(
+                        text = stringResource(id = R.string.features),
+                        style = MaterialTheme.typography.headlineMedium,
+                        modifier = Modifier.padding(start = 15.dp)
+                    )
+                }
+                item {
+                    Features(homeItems) {
+                        homeItems = homeItems.mapIndexed { j, item ->
+                            if (it == j) {
+                                item.copy(isChecked = !item.isChecked)
+                            } else item
+                        }
                     }
                 }
             }
@@ -318,4 +349,17 @@ fun Features(
             }
         }
     }
+}
+
+@SuppressLint("UnrememberedMutableState")
+@Preview
+@Composable
+fun HomeScreenPreview() {
+    Home(
+        hasUsageAccess = mutableStateOf(false),
+        hasNotificationAccess = mutableStateOf(
+            false
+        ),
+        navigateTo = {}
+    )
 }

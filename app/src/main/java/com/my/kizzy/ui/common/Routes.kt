@@ -10,7 +10,6 @@ class Routes {
         const val MEDIA_RPC = "media_rpc"
         const val CUSTOM_RPC = "custom_rpc"
         const val CONSOLE_RPC = "xbox"
-        const val SETTINGS = "settings"
         const val PROFILE = "profile"
         const val LANGUAGES = "languages"
         const val STYLE_AND_APPEAREANCE = "style_and_appeareance"

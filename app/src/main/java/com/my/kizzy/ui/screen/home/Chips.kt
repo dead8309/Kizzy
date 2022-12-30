@@ -19,7 +19,7 @@ data class Chips(
     val url: String
 )
 
-private val chips =  listOf(
+val chips =  listOf(
     Chips("Discord", "https://discord.gg/vUPc7zzpV5"),
     Chips("Youtube", "https://youtube.com/channel/UCh-zsCv66gwHCIbMKLMJmaw")
 )

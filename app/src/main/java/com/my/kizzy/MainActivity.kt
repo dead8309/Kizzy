@@ -36,7 +36,6 @@ import com.my.kizzy.ui.screen.media.hasNotificationAccess
 import com.my.kizzy.ui.screen.profile.login.LoginScreen
 import com.my.kizzy.ui.screen.profile.user.UserScreen
 import com.my.kizzy.ui.screen.profile.user.UserViewModel
-import com.my.kizzy.ui.screen.settings.Settings
 import com.my.kizzy.ui.screen.settings.about.About
 import com.my.kizzy.ui.screen.settings.about.Credits
 import com.my.kizzy.ui.screen.settings.language.Language
@@ -125,33 +124,6 @@ class MainActivity : AppCompatActivity() {
                     ){
                         navController.navigate(it)
                     }
-                }
-                animatedComposable(Routes.SETTINGS) {
-                    Settings(
-                        onBackPressed = {
-                            navController.popBackStack()
-                        },
-                        navigateToAbout = {
-                            navController.navigate(Routes.ABOUT) {
-                                launchSingleTop = true
-                            }
-                        },
-                        navigateToProfile = {
-                            navController.navigate(Routes.PROFILE) {
-                                launchSingleTop = true
-                            }
-                        },
-                        navigateToStyleAndAppeareance = {
-                            navController.navigate(Routes.STYLE_AND_APPEAREANCE) {
-                                launchSingleTop = true
-                            }
-                        },
-                        navigateToRpcSettings = {
-                            navController.navigate(Routes.RPC_SETTINGS) {
-                                launchSingleTop = true
-                            }
-                        }
-                    )
                 }
                 animatedComposable(Routes.APPS_DETECTION) { AppsRPC(onBackPressed = { navController.popBackStack() }) }
                 animatedComposable(Routes.CUSTOM_RPC) {
