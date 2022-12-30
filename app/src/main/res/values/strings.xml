@@ -44,16 +44,12 @@
     <string name="share_crash_logs">SHARE LOGS</string>
     <string name="welcome">Welcome</string>
     <string name="features">Features</string>
-    <string name="battery_optimisation">Battery Optimisation</string>
-    <string name="battery_optimisation_desc">Ignore battery optimization for this app to work better in background</string>
     <string name="account">Account</string>
-    <string name="account_info">Account info</string>
     <string name="display">Display</string>
     <string name="display_desc">Theme, Dynamic Colors, Languages</string>
     <string name="about_desc">Version,releases,credits</string>
     <string name="about">About</string>
     <string name="settings">Settings</string>
-    <string name="theme">Theme</string>
     <string name="language">Language</string>
     <string name="design_credits">Design Credits</string>
     <string name="translation_credits">Translation Credits</string>
@@ -77,7 +73,6 @@
     <string name="amoled">Amoled Theme</string>
     <string name="dynamic_color">Dynamic color</string>
     <string name="dynamic_color_desc">Apply colors from wallpapers</string>
-    <string name="only_android_8_1_plus">Only android8.1+ is supported</string>
     <string name="cancel">Cancel</string>
     <string name="confirm">Confirm</string>
     <string name="primary_color">Primary Color</string>

@@ -44,16 +44,12 @@
     <string name="share_crash_logs">ПОДЕЛИТЬСЯ ЖУРНАЛАМИ</string>
     <string name="welcome">Добро пожаловать</string>
     <string name="features">Возможности</string>
-    <string name="battery_optimisation">Оптимизация батареи</string>
-    <string name="battery_optimisation_desc">Игнорировать оптимизацию батареи, чтобы приложение лучше работало в фоновом режиме.</string>
     <string name="account">Аккаунт</string>
-    <string name="account_info">Информация об аккаунте</string>
     <string name="display">Дисплей</string>
     <string name="display_desc">Тема, Динамические цвета, Языки</string>
     <string name="about_desc">Версия, Релизы, Кредиты</string>
     <string name="about">О приложении</string>
     <string name="settings">Настройки</string>
-    <string name="theme">Тема</string>
     <string name="language">Язык</string>
     <string name="design_credits">Кредиты на дизайн</string>
     <string name="translation_credits">Кредиты на перевод</string>
@@ -77,7 +73,6 @@
     <string name="amoled">Amoled тема</string>
     <string name="dynamic_color">Динамический цвет</string>
     <string name="dynamic_color_desc">Применять цвета от обоев</string>
-    <string name="only_android_8_1_plus">Поддерживается только на android8.1+</string>
     <string name="cancel">Отменить</string>
     <string name="confirm">Подтвердить</string>
     <string name="primary_color">Основной цвет</string>

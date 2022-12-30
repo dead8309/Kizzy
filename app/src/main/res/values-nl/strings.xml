@@ -44,16 +44,12 @@
     <string name="share_crash_logs">DEEL LOGS</string>
     <string name="welcome">Welkom</string>
     <string name="features">Functies</string>
-    <string name="battery_optimisation">Batterij Optimalisatie</string>
-    <string name="battery_optimisation_desc">Zet batterij optimalisatie uit voor deze app om het beter te laten werken in de achtergrond</string>
     <string name="account">Account</string>
-    <string name="account_info">Account info</string>
     <string name="display">Weergave</string>
     <string name="display_desc">Thema,Dynamische Kleuren,Talen</string>
     <string name="about_desc">Version,releases,credits</string>
     <string name="about">About</string>
     <string name="settings">Instellingen</string>
-    <string name="theme">Thema</string>
     <string name="language">Taal</string>
     <string name="design_credits">Design/Ontwerp Credits</string>
     <string name="translation_credits">Vertaling Credits</string>
@@ -77,7 +73,6 @@
     <string name="amoled">Amoled Thema</string>
     <string name="dynamic_color">Dynamische Kleuren</string>
     <string name="dynamic_color_desc">Gebruik kleuren van Achtergrond</string>
-    <string name="only_android_8_1_plus">alleen android 8.1+ wordt ondersteund</string>
     <string name="cancel">Annuleer</string>
     <string name="confirm">Accepteer</string>
     <string name="primary_color">Primaire kleur</string>

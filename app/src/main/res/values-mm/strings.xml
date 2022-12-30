@@ -44,16 +44,12 @@
     <string name="share_crash_logs">LOGS များကို မျှဝေပါ</string>
     <string name="welcome">ကြိုဆိုပါသည်</string>
     <string name="features">လုပ်ဆောင်မှုများ</string>
-    <string name="battery_optimisation">Battery ပိုမိုကောင်းမွန်အောင် ပြုလုပ်ခြင်း</string>
-    <string name="battery_optimisation_desc">Battery ပိုမိုကောင်းမွန်အောင် ပြုလုပ်ခြင်းကို background တွင်လုပ်ဆောင်မှုမြန်စေလျှင် လျစ်လျူရှုပါ</string>
     <string name="account">အကောင့်</string>
-    <string name="account_info">အကောင့် အကြောင်းအရာ</string>
     <string name="display">ပြရုပ်</string>
     <string name="display_desc">အပြင်အဆင်, Dynamic အရောင်များ, ဘာသာစကားများ</string>
     <string name="about_desc">Version,releases,credits</string>
     <string name="about">အကြောင်းအရာ</string>
     <string name="settings">ဆက်တင်များ</string>
-    <string name="theme">အပြင်အဆင်</string>
     <string name="language">ဘာသာစကားများ</string>
     <string name="design_credits">ဒီဇိုင်းခရက်ဒစ်မျာ</string>
     <string name="translation_credits">ဘာသာပြန်ခရက်ဒစ်များ</string>
@@ -77,7 +73,6 @@
     <string name="amoled">Amoled အပြင်အဆင်</string>
     <string name="dynamic_color">Dynamic အရောင်</string>
     <string name="dynamic_color_desc">Wallpaper မှအရောင်များကို သုံးပါ</string>
-    <string name="only_android_8_1_plus">Android 8.1+ ကိုသာ ထောက်ပံ့သည်</string>
     <string name="cancel">မလုပ်တော့ပါ</string>
     <string name="confirm">လုပ်မည်</string>
     <string name="primary_color">Primary အရောင်</string>

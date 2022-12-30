@@ -44,16 +44,12 @@
     <string name="share_crash_logs">WYŚLIJ</string>
     <string name="welcome">Witaj</string>
     <string name="features">Funkcje</string>
-    <string name="battery_optimisation">Optymalizacja Baterii</string>
-    <string name="battery_optimisation_desc">Ignoruj optymalizację baterii dla tej aplikacji by w tle działała lepiej</string>
     <string name="account">Konto</string>
-    <string name="account_info">Info o koncie</string>
     <string name="display">Wyświetlanie</string>
     <string name="display_desc">Motywy, Dynamicze Kolory, Języki</string>
     <string name="about_desc">Wersja, wydania, podziękowania</string>
     <string name="about">O Aplikacji</string>
     <string name="settings">Ustawienia</string>
-    <string name="theme">Motyw</string>
     <string name="language">Język</string>
     <string name="design_credits">Podziękowania za Design</string>
     <string name="translation_credits">Podziękowania Tłumaczom</string>
@@ -77,7 +73,6 @@
     <string name="amoled">Motyw Amoled</string>
     <string name="dynamic_color">Dynamiczny kolor</string>
     <string name="dynamic_color_desc">Zastosuj kolory z tapety</string>
-    <string name="only_android_8_1_plus">Tylko android8.1+ jest wspierany</string>
     <string name="cancel">Anuluj</string>
     <string name="confirm">Potwierdź</string>
     <string name="primary_color">Kolor Podstawowy</string>

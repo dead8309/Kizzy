@@ -44,16 +44,12 @@
     <string name="share_crash_logs">ÇÖKME KAYDINI PAYLAŞ</string>
     <string name="welcome">Hoş geldin</string>
     <string name="features">Özellikler</string>
-    <string name="battery_optimisation">Batarya Optimizasyonu</string>
-    <string name="battery_optimisation_desc">Bu uygulamanın arkaplanda daha iyi çalışması için Batarya Optimizasyonunu kapatın</string>
     <string name="account">Hesap</string>
-    <string name="account_info">Hesap bilgisi</string>
     <string name="display">Görünüm</string>
     <string name="display_desc">Tema,Dinamik Renkler,Diller</string>
     <string name="about_desc">Sürüm, yayın,katkıda bulunanlar</string>
     <string name="about">Hakkında</string>
     <string name="settings">Ayarlar</string>
-    <string name="theme">Tema</string>
     <string name="language">Dil</string>
     <string name="design_credits">Tasarıma Katkıda Bulunanlar</string>
     <string name="translation_credits">Çeviriye Katkıda Bulunanlar</string>
@@ -77,7 +73,6 @@
     <string name="amoled">Amoled Tema</string>
     <string name="dynamic_color">Dinamik renk</string>
     <string name="dynamic_color_desc">Renkleri duvar kağıdından uygula</string>
-    <string name="only_android_8_1_plus">Yalnızca Android 8.1+ desteklenir</string>
     <string name="cancel">İptal</string>
     <string name="confirm">Onayla</string>
     <string name="primary_color">Ana Renk</string>

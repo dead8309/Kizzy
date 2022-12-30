@@ -44,16 +44,12 @@
     <string name="share_crash_logs">BAGIKAN LOGS</string>
     <string name="welcome">Selamat Datang</string>
     <string name="features">Fitur</string>
-    <string name="battery_optimisation">Optimasi Baterai</string>
-    <string name="battery_optimisation_desc">Abaikan Pengoptimalan baterai untuk aplikasi ini agar aplikasi ini bekerja lebih baik</string>
     <string name="account">Akun</string>
-    <string name="account_info">Tentang Akun</string>
     <string name="display">Tampilan</string>
     <string name="display_desc">Tema,Warna Dinamis,Bahasa</string>
     <string name="about_desc">Versi,rilis,kredits</string>
     <string name="about">Tentang</string>
     <string name="settings">Pengaturan</string>
-    <string name="theme">Tema</string>
     <string name="language">Bahasa</string>
     <string name="design_credits">Kredit Desain</string>
     <string name="translation_credits">Kredit Terjemahan</string>
@@ -77,7 +73,6 @@
     <string name="amoled">Amoled Theme</string>
     <string name="dynamic_color">Dynamic color</string>
     <string name="dynamic_color_desc">Apply colors from wallpapers</string>
-    <string name="only_android_8_1_plus">Only android8.1+ is supported</string>
     <string name="cancel">Cancel</string>
     <string name="confirm">Confirm</string>
     <string name="primary_color">Primary Color</string>

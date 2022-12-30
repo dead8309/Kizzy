@@ -44,16 +44,12 @@
     <string name="share_crash_logs">分享日誌</string>
     <string name="welcome">歡迎</string>
     <string name="features">功能</string>
-    <string name="battery_optimisation">電量最佳化</string>
-    <string name="battery_optimisation_desc">關閉此程式的電量最佳化以在背景正常運作</string>
     <string name="account">帳號</string>
-    <string name="account_info">帳號詳情</string>
     <string name="display">顯示</string>
     <string name="display_desc">主題,動態顏色,語言</string>
     <string name="about_desc">版本號,版本,捐款</string>
     <string name="about">關於</string>
     <string name="settings">設定</string>
-    <string name="theme">主題</string>
     <string name="language">語言</string>
     <string name="design_credits">捐款給設計者</string>
     <string name="translation_credits">捐款給翻譯奉獻者</string>
@@ -77,7 +73,6 @@
     <string name="amoled">Amoled 主題</string>
     <string name="dynamic_color">動態顔色</string>
     <string name="dynamic_color_desc">使用背景顔色</string>
-    <string name="only_android_8_1_plus">只支援 android8.1 以上</string>
     <string name="cancel">取消</string>
     <string name="confirm">確定</string>
     <string name="primary_color">主要顔色</string>
