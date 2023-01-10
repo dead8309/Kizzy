@@ -195,6 +195,7 @@ object Prefs {
     const val INDONESIAN = 7
     const val SIMPLIFIED_CHINESE = 8
     const val BURMESE = 9
+    const val VIETNAMESE = 10
 
     val languages: Map<Int, String> =
         mapOf(
@@ -206,7 +207,8 @@ object Prefs {
             Pair(PORTUGUESE, "pt"),
             Pair(INDONESIAN, "in"),
             Pair(SIMPLIFIED_CHINESE, "zh"),
-            Pair(BURMESE, "mm")
+            Pair(BURMESE, "mm"),
+            Pair(VIETNAMESE, "vi")
         )
 
     fun getLanguageConfig(languageNumber: Int = Prefs[LANGUAGE]): String {
@@ -241,6 +243,7 @@ object Prefs {
                 POLISH -> R.string.locale_pl
                 PORTUGUESE -> R.string.locale_pt
                 BURMESE -> R.string.locale_mm
+                VIETNAMESE -> R.string.locale_vi
                 else -> R.string.follow_system
             }
         )
