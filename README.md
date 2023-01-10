@@ -12,7 +12,7 @@
 <img alt="Release" src="https://img.shields.io/github/v/release/dead8309/Kizzy?&style=flat-square&color=5b5ef7&display_name=release">
 </a>
 
-<img src="https://img.shields.io/github/workflow/status/dead8309/Kizzy/Release%20Apk?&style=flat-square&color=5b5ef7">
+<img src="https://img.shields.io/github/actions/workflow/status/dead8309/Kizzy/build.yml?branch=master?&style=flat-square&color=5b5ef7">
 
 <img src="https://img.shields.io/badge/kotlin-5b5ef7.svg?logo=kotlin&logoColor=white&style=flat-square">
 
@@ -33,6 +33,10 @@
 <img src="https://user-images.githubusercontent.com/68665948/207303492-c537af75-0d63-49e9-91c5-97114d974883.png" width=60%/>
 </p>
 </div>
+
+## Quickstart
+Check out our [QuickStart Guide](https://kizzydocs.vercel.app/quickstart/install)
+
 
 > **Warning**
 > If you're thinking about downloading a Kizzy clone or app from any third-party service (other than the ones listed in our repository), think again! We can't be held responsible for any issues that may arise with your account as a result. Stay safe and stick to our trusted download links for the genuine app.
@@ -78,10 +82,6 @@
 Read the Setup Guide [at Gitbook](https://kizzy.gitbook.io/kizzy-docs/setup/setting-up-the-app)
 or watch the tutorial video
 [![IMAGE_ALT](https://img.youtube.com/vi/kjPDMHgsOcU/0.jpg)](https://www.youtube.com/embed/kjPDMHgsOcU)
-
-
-## Documentation
-Check out our  [Docs](https://kizzy.gitbook.io/kizzy-docs/) at Gitbook
 
 
 ## Build
