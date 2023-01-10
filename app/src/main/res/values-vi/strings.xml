@@ -44,16 +44,12 @@
     <string name="share_crash_logs">Chia sẻ nhật kí</string>
     <string name="welcome">Chào mừng</string>
     <string name="features">Tính năng</string>
-    <string name="battery_optimisation">Tối ưu hóa pin</string>
-    <string name="battery_optimisation_desc">Bỏ qua tối ưu hóa pin để ứng dụng này hoạt động tốt hơn ở chế độ nền</string>
-    <string name="account">Tài khoản</string>
-    <string name="account_info">Thông tin tài khoản</string>
+    <string name="account">Tài khoản</string> 
     <string name="display">Hiển thị</string>
     <string name="display_desc">Chủ đề,Màu sắc,Ngôn ngữ</string>
     <string name="about_desc">Phiên bản,phát hành,ghi công</string>
     <string name="about">Thông tin</string>
     <string name="settings">Cài đặt</string>
-    <string name="theme">Chủ đề</string>
     <string name="language">Ngôn ngữ</string>
     <string name="design_credits">Ghi công thư viện được sử dụng</string>
     <string name="translation_credits">Ghi công người dịch</string>
@@ -77,7 +73,6 @@
     <string name="amoled">Chủ đề Amoled</string>
     <string name="dynamic_color">Màu</string>
     <string name="dynamic_color_desc">Áp dụng màu sắc từ hình nền</string>
-    <string name="only_android_8_1_plus">Chỉ hỗ trợ cho Android 8.1+</string>
     <string name="cancel">Ngừng</string>
     <string name="confirm">Xác nhận</string>
     <string name="primary_color">Màu chính</string>
