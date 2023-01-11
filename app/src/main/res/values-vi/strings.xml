@@ -29,7 +29,7 @@
     <string name="github_issue_desc">Gửi các vấn đề về lỗi và lỗ hổng qua Github</string>
     <string name="credits">Ghi công</string>
     <string name="credits_desc">Ghi công các thư viện được sử dụng và những người đóng góp</string>
-    <string name="enable_artist_name">Bật tên nghệ sĩ</string>
+    <string name="enable_artist_name">Hiện tên nghệ sĩ</string>
     <string name="show_app_icon">Hiển thị biểu tượng ứng dụng</string>
     <string name="enable_timestamps">Kích hoạt bộ đếm thời gian</string>
     <string name="text_after_permission_denied">Quyền truy cập bộ nhớ rất quan trọng đối với ứng dụng này để lưu trữ các tệp cấu hình trong các thư mục. Vui lòng cấp phép.</string>
@@ -44,7 +44,7 @@
     <string name="share_crash_logs">Chia sẻ nhật kí</string>
     <string name="welcome">Chào mừng</string>
     <string name="features">Tính năng</string>
-    <string name="account">Tài khoản</string> 
+    <string name="account">Tài khoản</string>
     <string name="display">Hiển thị</string>
     <string name="display_desc">Chủ đề,Màu sắc,Ngôn ngữ</string>
     <string name="about_desc">Phiên bản,phát hành,ghi công</string>
@@ -68,22 +68,22 @@
     <string name="rpc_settings_button_configs">Cấu hình nút hoạt động cho phương tiện và nhận diện ứng dụng</string>
     <string name="use_custom_buttons">Sử dụng nút tùy chỉnh</string>
     <string name="use_custom_buttons_desc">Sử dụng các nút Được xác định trước để hiển thị hoạt động trên phương tiện và ứng dụng được nhận diện</string>
-    <string name="follow_system">Theo dõi hệ thống</string>
+    <string name="follow_system">Theo hệ thống</string>
     <string name="advance_settings">Cài đặt nâng cao</string>
     <string name="amoled">Chủ đề Amoled</string>
     <string name="dynamic_color">Màu</string>
     <string name="dynamic_color_desc">Áp dụng màu sắc từ hình nền</string>
-    <string name="cancel">Ngừng</string>
+    <string name="cancel">Hủy</string>
     <string name="confirm">Xác nhận</string>
-    <string name="primary_color">Màu chính</string>
-    <string name="primary_color_hint">#666666 cũng giống 666666</string>
+    <string name="primary_color">Màu sắc chính</string>
+    <string name="primary_color_hint">Ví dụ #666666 hoặc 666666</string>
     <string name="android_on">Bật</string>
     <string name="android_off">Tắt</string>
     <string name="setup">Cài đặt</string>
     <string name="user_data_policy">Ứng dụng này không thu thập bất kỳ dữ liệu nào của người dùng</string>
     <string name="setup_desc">Trước khi tiếp tục, bạn nên thực hiện các hành động cần thiết để đảm bảo tất cả các tính năng của ứng dụng hoạt động.</string>
-    <string name="permission_granted">Được cấp phép</string>
-    <string name="permission_not_granted">Không được cấp phép, Ấn để cấp phép</string>
+    <string name="permission_granted">Đã cấp phép</string>
+    <string name="permission_not_granted">Chưa được cấp phép, Ấn để cấp quyền</string>
     <string name="activity_large_text">Văn bản hoạt động lớn</string>
     <string name="activity_small_text">Văn bản hoạt động nhỏ</string>
 </resources>
