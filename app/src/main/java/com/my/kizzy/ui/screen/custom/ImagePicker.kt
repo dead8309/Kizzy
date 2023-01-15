@@ -15,6 +15,7 @@ package com.my.kizzy.ui.screen.custom
 //
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -44,7 +45,7 @@ fun ImagePicker(
     val context = LocalContext.current
     val imageUri = remember { mutableStateOf<Uri?>(null) }
     val launcher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.GetContent()
+        contract = ActivityResultContracts.PickVisualMedia()
     ) {
         Log.vlog.d("file:"+it?.let { it1 -> context.getFileName(it1).toString() },it.toString())
         imageUri.value = it
@@ -53,7 +54,7 @@ fun ImagePicker(
         UploadDialog(
             image = imageUri,
             onBrowse = {
-                launcher.launch("image/*")
+                launcher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.SingleMimeType("image/*")))
             },
             onPicked = {
                 onImageSelected(it)
