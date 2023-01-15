@@ -54,7 +54,7 @@ fun ImagePicker(
         UploadDialog(
             image = imageUri,
             onBrowse = {
-                launcher.launch(PickVisualMediaRequest("image/*"))
+                launcher.launch(PickVisualMediaRequest(PickVisualMedia.SingleMimeType("image/*")))
             },
             onPicked = {
                 onImageSelected(it)
