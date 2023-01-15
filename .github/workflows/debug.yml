@@ -1,8 +1,6 @@
 name: Build Debug Apk
 
-on:
-  push:
-    branches: [ "android13" ] 
+on: 
   workflow_dispatch:
 
 jobs:
