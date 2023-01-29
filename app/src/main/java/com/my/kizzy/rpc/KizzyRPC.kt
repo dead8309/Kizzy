@@ -59,11 +59,14 @@ class KizzyRPC @Inject constructor(
     }
 
     /**
-     * #Todo add a better token checking function
+     * Use Regex to check if token are valid
      * @return true if token is valid else false
+     *
+     * source: [#token-structure](https://gist.github.com/aydynx/5d29e903417354fd25641b98efc9d437#token-structure)
      */
     fun isUserTokenValid(): Boolean {
-        return token.isNotEmpty()
+        val regex = Regex("[a-z\\d]{24}\\.[a-z\\d]{6}\\.([\\w-]{107}|[\\w-]{38}|[\\w-]{27})|mfa\\.[\\w-]{84}", RegexOption.IGNORE_CASE)
+        return regex.matches(token)
     }
 
     /**
