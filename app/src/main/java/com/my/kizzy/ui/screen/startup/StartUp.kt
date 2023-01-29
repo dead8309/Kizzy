@@ -157,8 +157,8 @@ fun StartUp(
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     item {
                         SetupCard(
-                            title = "Grant Permission to Show Notification",
-                            description = stringResource(id = R.string.request_for_permission),
+                            title = "Post Notification",
+                            description = "Grant Permission to Show Notification",
                             status = notificationPostingPerm
                         ) {
                             launcher.launch(POST_NOTIFICATIONS)
