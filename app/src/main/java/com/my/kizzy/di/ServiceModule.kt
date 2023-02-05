@@ -29,9 +29,8 @@ import kotlinx.coroutines.SupervisorJob
 object ServiceModule {
     @Provides
     fun provideKizzyRpc(
-        kizzyRepository: KizzyRepository,
-        vlog: Vlog
-    ) = KizzyRPC(Prefs[Prefs.TOKEN,""],kizzyRepository,vlog)
+        kizzyRepository: KizzyRepository
+    ) = KizzyRPC(Prefs[Prefs.TOKEN,""],kizzyRepository)
 
     @Provides
     fun providesCoroutineScope(): CoroutineScope {
