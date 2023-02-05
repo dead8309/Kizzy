@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="background">#35383F</color>
-    <color name="editTextColorHint">#7735383F</color>
-    <color name="editTextColor">#35383F</color>
-    <color name="white_bg">#ffffff</color>
-</resources>

@@ -14,14 +14,12 @@ package com.my.kizzy.ui.svg
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import com.my.kizzy.utils.Log.vlog
 import material.io.color.palettes.CorePalette
 
 fun String.parseDynamicColor(color: Int,isDarkTheme: Boolean): String =
     replace("fill=\"(.+?)\"".toRegex()) {
         val corePalette: CorePalette = CorePalette.of(color)
         val value = it.groupValues[1]
-        vlog.i("RLog", "parseDynamicColor: $value")
         if (value.startsWith("#")) return@replace it.value
         try {
             val (scheme, tone) = value.split("(?<=\\d)(?=\\D)|(?=\\d)(?<=\\D)".toRegex())
@@ -37,7 +35,6 @@ fun String.parseDynamicColor(color: Int,isDarkTheme: Boolean): String =
         "fill=\"${String.format("#%06X", 0xFFFFFF and argb)}\""
         } catch (e: Exception) {
             e.printStackTrace()
-            vlog.e("RLog", "parseDynamicColor: ${e.message}")
             it.value
         }
     }

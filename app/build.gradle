@@ -86,10 +86,9 @@ dependencies {
     implementation(accompanistFlowLayout)
 
     implementation(crashX)
-    debugImplementation project(":logger")
-    releaseImplementation project(":logger-no-op")
+    debugImplementation project(":bubble-logger")
+    releaseImplementation project(":bubble-logger-no-op")
     implementation project(":color")
-    implementation project(":bubble-logger")
     implementation(Hilt)
     kapt(HiltCompiler)
     implementation(retrofit)
