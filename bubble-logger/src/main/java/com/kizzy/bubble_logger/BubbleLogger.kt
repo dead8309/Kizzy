@@ -39,7 +39,7 @@ object BubbleLogger {
         notificationId: Int,
         notificationChannelId: String,
         @Dimension(unit = Dimension.DP) desiredHeight: Int = 640,
-        @DrawableRes notificationIconResource: Int = R.drawable.notification,
+        @DrawableRes notificationIconResource: Int = R.drawable.ic_bubble_adaptive,
         shortcutId: String = "logger"
     ) {
         BubbleDataHelper.log(type = logType, title = title, message = message)

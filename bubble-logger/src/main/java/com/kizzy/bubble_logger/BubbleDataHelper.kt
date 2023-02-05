@@ -13,9 +13,8 @@
 package com.kizzy.bubble_logger
 
 import androidx.lifecycle.MutableLiveData
-import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 internal object BubbleDataHelper {
@@ -29,10 +28,10 @@ internal object BubbleDataHelper {
     )
 
     val logs = MutableLiveData<List<Log>?>()
+    private val coroutineScope = CoroutineScope(Dispatchers.Main)
 
-    @OptIn(DelicateCoroutinesApi::class)
     fun log(type: LogType, title: CharSequence?, message: CharSequence) {
-        GlobalScope.launch(Dispatchers.Main) {
+        coroutineScope.launch {
             val log = Log(
                 type = type,
                 id = System.nanoTime(),
