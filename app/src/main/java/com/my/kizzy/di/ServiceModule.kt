@@ -12,7 +12,6 @@
 
 package com.my.kizzy.di
 
-import com.android.girish.vlog.Vlog
 import com.my.kizzy.domain.repository.KizzyRepository
 import com.my.kizzy.rpc.KizzyRPC
 import com.my.kizzy.utils.Prefs
