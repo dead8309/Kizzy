@@ -25,7 +25,6 @@ import com.my.kizzy.common.SettingsProvider
 import com.my.kizzy.ui.common.Routes
 import com.my.kizzy.ui.common.animatedComposable
 import com.my.kizzy.ui.screen.apps.AppsRPC
-import com.my.kizzy.ui.screen.apps.hasUsageAccess
 import com.my.kizzy.ui.screen.console_games.GamesScreen
 import com.my.kizzy.ui.screen.console_games.GamesViewModel
 import com.my.kizzy.ui.screen.custom.CustomRPC
@@ -45,6 +44,7 @@ import com.my.kizzy.ui.screen.settings.style.DarkThemePreferences
 import com.my.kizzy.ui.screen.startup.StartUp
 import com.my.kizzy.ui.theme.KizzyTheme
 import com.my.kizzy.utils.Prefs
+import com.my.kizzy.utils.hasUsageAccess
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
