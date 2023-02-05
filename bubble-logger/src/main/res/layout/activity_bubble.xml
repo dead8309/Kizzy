@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/rootLayout"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:fitsSystemWindows="true"
+	android:orientation="vertical"
+	tools:context=".screen.BubbleActivity">
+
+	<com.google.android.material.appbar.AppBarLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:fitsSystemWindows="true">
+
+		<LinearLayout
+			android:id="@+id/toolbar"
+			android:layout_width="match_parent"
+			android:layout_height="?actionBarSize"
+			android:animateLayoutChanges="true"
+			android:gravity="center_vertical"
+			android:paddingStart="16dp"
+			android:paddingEnd="8dp"
+			tools:background="?colorSurface">
+
+			<EditText
+				android:id="@+id/filterEditText"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:background="@null"
+				android:hint="@string/filter_hint"
+				android:imeOptions="actionDone"
+				android:importantForAutofill="no"
+				android:inputType="text" />
+
+			<ImageButton
+				android:id="@+id/resetFilterButton"
+				style="?actionButtonStyle"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:contentDescription="@string/reset_filter_button_tooltip"
+				android:minWidth="0dp"
+				android:src="@drawable/ic_close"
+				android:visibility="gone"
+				app:tint="?android:textColorPrimary"
+				tools:visibility="visible" />
+
+			<ImageButton
+				android:id="@+id/clearButton"
+				style="?actionButtonStyle"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:contentDescription="@string/clear_button_tooltip"
+				android:minWidth="0dp"
+				android:src="@drawable/ic_delete_logs"
+				app:tint="?android:textColorPrimary" />
+		</LinearLayout>
+	</com.google.android.material.appbar.AppBarLayout>
+
+	<FrameLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/recyclerView"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:clipToPadding="false"
+			tools:listitem="@layout/list_item_log" />
+
+		<TextView
+			android:id="@+id/nothingTextView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:padding="16dp"
+			android:textColor="?android:textColorSecondary"
+			tools:text="@string/log_empty_message" />
+
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/scrollToTopButton"
+			style="@style/Widget.MaterialComponents.FloatingActionButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="end"
+			android:layout_margin="16dp"
+			android:contentDescription="@string/scroll_to_top_tooltip"
+			android:src="@drawable/ic_scroll_top_top"
+			android:stateListAnimator="@drawable/button_bubble_fab_state_list"
+			app:backgroundTint="?colorSurface"
+			app:rippleColor="?colorControlHighlight"
+			app:tint="?android:textColorPrimary" />
+	</FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

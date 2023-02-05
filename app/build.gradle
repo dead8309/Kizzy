@@ -89,6 +89,7 @@ dependencies {
     debugImplementation project(":logger")
     releaseImplementation project(":logger-no-op")
     implementation project(":color")
+    implementation project(":bubble-logger")
     implementation(Hilt)
     kapt(HiltCompiler)
     implementation(retrofit)

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="system_ui_overlay_dark">#8000</color>
+	<color name="system_ui_overlay_light">#dfff</color>
+</resources>
