@@ -27,7 +27,7 @@ import javax.inject.Singleton
 
 @Singleton
 object AppUtils {
-    lateinit var activityManager: ActivityManager
+    private lateinit var activityManager: ActivityManager
     fun init(context: Context) {
         activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
     }

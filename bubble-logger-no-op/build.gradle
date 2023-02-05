@@ -1,13 +1,15 @@
 plugins {
     id 'com.android.library'
-    id 'kotlin-android'
+    id 'org.jetbrains.kotlin.android'
 }
+
 android {
-    compileSdkVersion 33
+    namespace 'com.kizzy.bubble_logger'
+    compileSdk 33
 
     defaultConfig {
-        minSdkVersion 26
-        targetSdkVersion 33
+        minSdk 29
+        targetSdk 33
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -29,7 +31,7 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation(androidxMaterial)
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.6.0'
+    implementation 'com.google.android.material:material:1.8.0'
 }
