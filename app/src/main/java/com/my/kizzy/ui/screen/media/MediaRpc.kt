@@ -74,7 +74,7 @@ fun MediaRPC(onBackPressed: () -> Unit) {
             }
             SwitchBar(
                 title = stringResource(id = R.string.enable_mediaRpc),
-                checked = mediarpcRunning,
+                isChecked = mediarpcRunning,
                 enabled = hasNotificationAccess
             ) {
                 mediarpcRunning = !mediarpcRunning

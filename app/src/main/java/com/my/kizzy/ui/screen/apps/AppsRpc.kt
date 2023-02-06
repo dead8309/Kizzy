@@ -84,7 +84,7 @@ fun AppsRPC(onBackPressed: () -> Unit) {
                 item {
                     SwitchBar(
                         title = stringResource(id = R.string.enable_appsRpc),
-                        checked = serviceEnabled,
+                        isChecked = serviceEnabled,
                         enabled = hasUsageAccess
                     ) {
                         serviceEnabled = !serviceEnabled

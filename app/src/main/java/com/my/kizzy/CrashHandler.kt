@@ -10,7 +10,6 @@ import com.my.kizzy.common.LocalDarkTheme
 import com.my.kizzy.common.LocalDynamicColorSwitch
 import com.my.kizzy.common.LocalSeedColor
 import com.my.kizzy.ui.screen.crash.CrashScreen
-import com.my.kizzy.ui.theme.AppTypography
 import com.my.kizzy.ui.theme.KizzyTheme
 
 class CrashHandler : ComponentActivity() {
