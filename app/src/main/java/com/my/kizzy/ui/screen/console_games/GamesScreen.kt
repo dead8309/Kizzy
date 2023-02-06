@@ -102,7 +102,7 @@ fun GamesScreen(
                     item {
                         SwitchBar(
                             title = stringResource(id = R.string.enable_console_rpc),
-                            checked = isConsoleRpcRunning
+                            isChecked = isConsoleRpcRunning
                         ) {
                             isConsoleRpcRunning = !isConsoleRpcRunning
                             when (isConsoleRpcRunning) {
