@@ -4,11 +4,12 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -16,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -121,35 +123,22 @@ fun PreferenceSingleChoiceItem(
 
 @Composable
 fun SwitchBar(
-title: String,
-checked: Boolean,
-enabled: Boolean = true,
-onClick: () -> Unit
+    title: String,
+    isChecked: Boolean,
+    enabled: Boolean = true,
+    onClick: () -> Unit
 ) {
-    
-    val icon: (@Composable () -> Unit)? =
-        if (checked) {
-        {
-            Icon(
-                imageVector = Icons.Filled.Check,
-                contentDescription = null,
-                modifier = Modifier.size(SwitchDefaults.IconSize),
-            )
-        }
-        } else {
-        null
-    }
-    
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 12.dp)
-            .clip(MaterialTheme.shapes.extraLarge)
-            .background(MaterialTheme.colorScheme.secondaryContainer)
-            .clickable {
-                if (enabled) onClick()
+            .clip(RoundedCornerShape(25.dp))
+            .background(with(MaterialTheme.colorScheme) {
+            if (isChecked) primaryContainer else outline })
+            .toggleable(enabled){
+                onClick()
             }
-            .padding(horizontal = 12.dp, vertical = 16.dp),
+            .padding(20.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceAround
         ) {
@@ -159,16 +148,27 @@ onClick: () -> Unit
                 text = title,
                 maxLines = 1,
                 style = typography.titleLarge.copy(fontSize = 20.sp),
-                color = colorScheme.onSecondaryContainer,
+                color = if (isChecked) colorScheme.onSurface else colorScheme.surface,
                 overflow = TextOverflow.Ellipsis
             )
-            Switch(
+            KSwitch(
                 modifier = Modifier.weight(1f),
-                checked = checked,
-                onCheckedChange = { if (enabled) onClick() },
-                thumbContent = icon,
-                enabled = enabled
-            )
+                checked = isChecked,
+                enable = enabled
+            ){
+                if (enabled) onClick()
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewSwitchBar() {
+    Box(Modifier.fillMaxSize().background(Color.Black), contentAlignment = Alignment.Center){
+        var state by remember { mutableStateOf(false)}
+        SwitchBar(title = "SwitchBar", isChecked = state) {
+            state = !state
         }
     }
 }
@@ -219,11 +219,10 @@ fun PreferenceSwitch(
                         style = MaterialTheme.typography.bodyMedium,
                     )
             }
-            Switch(
+            KSwitch(
                 checked = isChecked,
-                onCheckedChange = null,
                 modifier = Modifier.padding(start = 20.dp, end = 6.dp),
-                enabled = enabled
+                enable = enabled
             )
 
         }
@@ -236,7 +235,9 @@ fun SettingItem(
     title: String,
     description: String = "",
     icon: ImageVector? = null,
-    modifier: Modifier = Modifier.fillMaxWidth().padding(16.dp, 20.dp),
+    modifier: Modifier = Modifier
+        .fillMaxWidth()
+        .padding(16.dp, 20.dp),
     onClick: () -> Unit
 ) {
     Surface(
@@ -281,7 +282,9 @@ fun SettingItem(
 @SuppressLint("ModifierParameter")
 @Composable
 fun PreferenceSubtitle(
-    modifier: Modifier = Modifier.fillMaxWidth().padding(15.dp, 5.dp ),
+    modifier: Modifier = Modifier
+        .fillMaxWidth()
+        .padding(15.dp, 5.dp),
     text: String,
     color: Color = MaterialTheme.colorScheme.primary,
     style: TextStyle = MaterialTheme.typography.labelLarge

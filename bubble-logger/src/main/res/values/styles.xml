@@ -1,0 +1,30 @@
+<resources>
+
+	<style name="BubbleTheme" parent="LightBubbleTheme" />
+
+	<style name="BaseLightBubbleTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+		<item name="windowNoTitle">true</item>
+		<item name="windowActionBar">false</item>
+		<item name="windowActionModeOverlay">true</item>
+		<item name="android:windowDrawsSystemBarBackgrounds">true</item>
+		<item name="appBarLayoutStyle">@style/Widget.MaterialComponents.AppBarLayout.Surface</item>
+	</style>
+
+	<style name="LightBubbleTheme" parent="BaseLightBubbleTheme">
+		<item name="android:statusBarColor">@color/system_ui_overlay_dark</item>
+		<item name="android:navigationBarColor">@color/system_ui_overlay_dark</item>
+	</style>
+
+	<style name="DarkBubbleTheme" parent="Theme.MaterialComponents">
+		<item name="windowNoTitle">true</item>
+		<item name="windowActionBar">false</item>
+		<item name="windowActionModeOverlay">true</item>
+		<item name="android:statusBarColor">@android:color/transparent</item>
+		<item name="android:navigationBarColor">@color/system_ui_overlay_dark</item>
+		<item name="android:windowDrawsSystemBarBackgrounds">true</item>
+		<item name="android:colorBackground">#2d2d2d</item>
+		<item name="colorSurface">#2a2a2a</item>
+		<item name="appBarLayoutStyle">@style/Widget.MaterialComponents.AppBarLayout.Surface</item>
+	</style>
+
+</resources>

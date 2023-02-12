@@ -3,6 +3,11 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.8">
       <module name="Kizzy.app" target="11" />
+      <module name="Kizzy.bubble-logger" target="11" />
+      <module name="Kizzy.bubble-logger-no-op" target="11" />
+      <module name="Kizzy.buildSrc" target="11" />
+      <module name="Kizzy.buildSrc.main" target="11" />
+      <module name="Kizzy.buildSrc.test" target="11" />
       <module name="Kizzy.logger" target="11" />
       <module name="Kizzy.logger-no-op" target="11" />
     </bytecodeTargetLevel>

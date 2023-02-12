@@ -12,6 +12,7 @@
 
 package com.my.kizzy.utils
 
+import android.app.AppOpsManager
 import android.content.ContentResolver
 import android.content.Context
 import android.content.pm.ApplicationInfo
@@ -110,5 +111,20 @@ fun Gson.fromJson(value: String): User? {
     return when {
         value.isNotEmpty() -> this.fromJson(value, User::class.java)
         else -> null
+    }
+}
+
+fun Context.hasUsageAccess(): Boolean {
+    return try {
+        val packageManager: PackageManager = this.packageManager
+        val applicationInfo = packageManager.getApplicationInfo(this.packageName, 0)
+        val appOpsManager = this.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+        val mode = appOpsManager.checkOpNoThrow(
+            AppOpsManager.OPSTR_GET_USAGE_STATS,
+            applicationInfo.uid,
+            applicationInfo.packageName)
+        mode == AppOpsManager.MODE_ALLOWED
+    } catch (e: PackageManager.NameNotFoundException) {
+        false
     }
 }

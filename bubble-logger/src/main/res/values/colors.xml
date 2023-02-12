@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="system_ui_overlay_dark">#8000</color>
+	<color name="system_ui_overlay_light">#dfff</color>
+	<color name="ic_bubble_adaptive_background">#424242</color>
+</resources>
