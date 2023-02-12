@@ -12,6 +12,7 @@
 
 package com.my.kizzy.di
 
+import com.android.girish.vlog.Vlog
 import com.my.kizzy.domain.repository.KizzyRepository
 import com.my.kizzy.rpc.KizzyRPC
 import com.my.kizzy.utils.Prefs
@@ -28,8 +29,9 @@ import kotlinx.coroutines.SupervisorJob
 object ServiceModule {
     @Provides
     fun provideKizzyRpc(
-        kizzyRepository: KizzyRepository
-    ) = KizzyRPC(Prefs[Prefs.TOKEN,""],kizzyRepository)
+        kizzyRepository: KizzyRepository,
+        vlog: Vlog
+    ) = KizzyRPC(Prefs[Prefs.TOKEN,""],kizzyRepository,vlog)
 
     @Provides
     fun providesCoroutineScope(): CoroutineScope {

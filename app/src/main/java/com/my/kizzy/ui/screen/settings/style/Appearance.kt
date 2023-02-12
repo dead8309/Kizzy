@@ -35,6 +35,7 @@ import com.my.kizzy.common.LocalSeedColor
 import com.my.kizzy.ui.common.*
 import com.my.kizzy.ui.svg.PALETTE
 import com.my.kizzy.ui.theme.ColorScheme.DEFAULT_SEED_COLOR
+import com.my.kizzy.utils.Log.vlog
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.CUSTOM_THEME_COLOR
 import material.io.color.hct.Hct
@@ -64,6 +65,7 @@ fun Appearance(
             Modifier.padding(it),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
+            vlog.e(TAG, LocalSeedColor.current.toString())
             Column {
                 Row(
                     modifier = Modifier

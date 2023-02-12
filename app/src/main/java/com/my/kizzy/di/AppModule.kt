@@ -12,14 +12,16 @@
 
 package com.my.kizzy.di
 
+import android.content.Context
+import com.android.girish.vlog.Vlog
 import com.my.kizzy.BuildConfig
 import com.my.kizzy.data.remote.ApiService
 import com.my.kizzy.data.repository.KizzyRepositoryImpl
 import com.my.kizzy.domain.repository.KizzyRepository
-import com.my.kizzy.utils.Log
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
@@ -31,10 +33,19 @@ import java.util.concurrent.TimeUnit
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
     @Provides
-    fun providesOkHttpClient(): OkHttpClient {
+    fun providesVlogInstance(
+        @ApplicationContext context: Context
+    ): Vlog {
+        return Vlog.getInstance(context)
+    }
+
+    @Provides
+    fun providesOkHttpClient(
+        vlog: Vlog
+    ): OkHttpClient {
         val builder = OkHttpClient.Builder()
-        val vlog = Log.vlog
         if (BuildConfig.DEBUG)
             builder.addInterceptor(HttpLoggingInterceptor {
                 vlog.d("Retrofit",it)

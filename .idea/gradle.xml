@@ -11,10 +11,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/bubble-logger" />
-            <option value="$PROJECT_DIR$/bubble-logger-no-op" />
-            <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/color" />
+            <option value="$PROJECT_DIR$/logger" />
+            <option value="$PROJECT_DIR$/logger-no-op" />
           </set>
         </option>
       </GradleProjectSettings>

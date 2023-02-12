@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.IBinder
 import android.os.PowerManager
 import android.os.PowerManager.WakeLock
+import com.android.girish.vlog.Vlog
 import com.google.gson.Gson
 import com.my.kizzy.R
 import com.my.kizzy.common.Constants
@@ -29,6 +30,9 @@ class CustomRpcService : Service() {
     @Inject
     lateinit var scope: CoroutineScope
 
+    @Inject
+    lateinit var vlog: Vlog
+
     @SuppressLint("WakelockTimeout")
     @Suppress("DEPRECATION")
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -39,6 +43,7 @@ class CustomRpcService : Service() {
             string?.let {
                 rpcData = Gson().fromJson(it, RpcIntent::class.java)
             }
+            vlog.d(CHANNEL_NAME,kizzyRPC.isUserTokenValid().toString())
             if (!kizzyRPC.isUserTokenValid())
                 stopSelf()
 
@@ -65,6 +70,7 @@ class CustomRpcService : Service() {
             startForeground(7744, builder.build())
             scope.launch {
               kizzyRPC.apply {
+                    vlog.d(CHANNEL_NAME,"Inside rpc block @CustomRpcService::class.java")
                         rpcData?.let {
                             setName(it.name.ifEmpty { "" })
                             setDetails(it.details.ifEmpty { null })
