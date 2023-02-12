@@ -221,7 +221,7 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
                     item {
                         SwitchBar(
                             title = stringResource(id = R.string.enable_customRpc),
-                            isChecked = isCustomRpcEnabled
+                            checked = isCustomRpcEnabled
                         ) {
                             isCustomRpcEnabled = !isCustomRpcEnabled
                             when (isCustomRpcEnabled) {

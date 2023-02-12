@@ -16,6 +16,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,7 +25,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.blankj.utilcode.util.AppUtils
-import com.my.kizzy.ui.common.KSwitch
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
@@ -71,8 +71,9 @@ fun AppsItem(
                         style = MaterialTheme.typography.bodyMedium,
                     )
             }
-            KSwitch(
+            Switch(
                 checked = isChecked,
+                onCheckedChange = null,
                 modifier = Modifier.padding(start = 20.dp, end = 6.dp),
             )
         }

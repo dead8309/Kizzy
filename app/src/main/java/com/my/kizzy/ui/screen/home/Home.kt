@@ -38,7 +38,6 @@ import com.my.kizzy.service.AppDetectionService
 import com.my.kizzy.service.CustomRpcService
 import com.my.kizzy.service.ExperimentalRpc
 import com.my.kizzy.service.MediaRpcService
-import com.my.kizzy.ui.common.KSwitch
 import com.my.kizzy.ui.common.Routes
 import com.my.kizzy.ui.screen.profile.user.Base
 import com.my.kizzy.ui.screen.settings.SettingsDrawer
@@ -336,13 +335,12 @@ fun Features(
                                     color = if (homeItems[i].isChecked) MaterialTheme.colorScheme.onPrimaryContainer
                                     else MaterialTheme.colorScheme.onSecondaryContainer
                                 )
-                                KSwitch(
-                                    checked = homeItems[i].isChecked,
-                                    modifier = Modifier.rotate(-90f),
-                                    onClick = {
-                                        homeItems[i].onCheckedChange(!homeItems[i].isChecked)
+                                Switch(
+                                    checked = homeItems[i].isChecked, onCheckedChange = {
+                                        homeItems[i].onCheckedChange(it)
                                         onValueUpdate(i)
-                                    }
+                                    },
+                                    modifier = Modifier.rotate(-90f)
                                 )
                             }
                         }
