@@ -17,8 +17,8 @@ import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
 import com.kizzy.bubble_logger.BubbleLogger
 import com.kizzy.bubble_logger.LogType
-import com.my.kizzy.BuildConfig
 import com.my.kizzy.MainActivity
+import com.my.kizzy.R
 import com.my.kizzy.service.AppDetectionService
 import com.my.kizzy.service.CustomRpcService
 import com.my.kizzy.service.ExperimentalRpc
@@ -80,48 +80,46 @@ object Log {
     const val CHANNEL_ID_BUBBLE_LOGGER = "CHANNEL_ID_BUBBLE_LOGGER"
     const val NOTIFICATION_ID = 8000
     fun init(context: Context) {
-        if (BuildConfig.DEBUG){
-            NotificationManagerCompat.from(context).createNotificationChannel(
-                NotificationChannel(
-                    CHANNEL_ID_BUBBLE_LOGGER,
-                    "Logger",
-                    NotificationManager.IMPORTANCE_HIGH
-                ).apply {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                        setAllowBubbles(true)
-                    }
-                    setSound(null, null)
-                    enableLights(false)
-                    enableVibration(false)
-                    description = "Channel for bubble logger"
+        NotificationManagerCompat.from(context).createNotificationChannel(
+            NotificationChannel(
+                CHANNEL_ID_BUBBLE_LOGGER,
+                "Logger",
+                NotificationManager.IMPORTANCE_HIGH
+            ).apply {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    setAllowBubbles(true)
                 }
-            )
+                setSound(null, null)
+                enableLights(false)
+                enableVibration(false)
+                description = "Channel for bubble logger"
+            }
+        )
 
-            //shortcut
-            val bubbleIcon = IconCompat.createWithResource(
-                context,
-                com.kizzy.bubble_logger.R.drawable.ic_bubble_adaptive
+        //shortcut
+        val bubbleIcon = IconCompat.createWithResource(
+            context,
+            R.drawable.ic_dev_rpc
+        )
+        // Setup shortcuts
+        val shortcut = ShortcutInfoCompat.Builder(context, "logger")
+            .setLocusId(LocusIdCompat("locus_id"))
+            .setShortLabel("Bubble Shortcut")
+            .setActivity(ComponentName(context, MainActivity::class.java))
+            .setIntent(
+                Intent(context, MainActivity::class.java)
+                    .setAction(Intent.ACTION_VIEW))
+            .setIcon(bubbleIcon)
+            .setLongLived(true)
+            .setCategories(setOf("com.example.android.bubbles.category.TEXT_SHARE_TARGET"))
+            .setPerson(
+                Person.Builder()
+                    .setName("Logger")
+                    .setIcon(bubbleIcon)
+                    .build()
             )
-            // Setup shortcuts
-            val shortcut = ShortcutInfoCompat.Builder(context, "logger")
-                .setLocusId(LocusIdCompat("locus_id"))
-                .setShortLabel("Logger")
-                .setActivity(ComponentName(context, MainActivity::class.java))
-                .setIntent(
-                    Intent(context, MainActivity::class.java)
-                        .setAction(Intent.ACTION_VIEW))
-                .setIcon(bubbleIcon)
-                .setLongLived(true)
-                .setCategories(setOf("com.example.android.bubbles.category.TEXT_SHARE_TARGET"))
-                .setPerson(
-                    Person.Builder()
-                        .setName("Logger")
-                        .setIcon(bubbleIcon)
-                        .build()
-                )
-                .build()
-            ShortcutManagerCompat.pushDynamicShortcut(context, shortcut)
-        }
+            .build()
+        ShortcutManagerCompat.pushDynamicShortcut(context, shortcut)
         vlog = Logger.getInstance(context)
     }
 }

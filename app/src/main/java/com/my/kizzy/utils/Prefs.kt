@@ -97,10 +97,10 @@ object Prefs {
     const val SAVED_ARTWORK = "saved_artwork"
 
     //new
-    private const val DARK_THEME = "dark_theme_value"
-    private const val HIGH_CONTRAST = "high_contrast"
-    private const val DYNAMIC_COLOR = "dynamic_color"
-    private const val THEME_COLOR = "theme_color"
+    const val DARK_THEME = "dark_theme_value"
+    const val HIGH_CONTRAST = "high_contrast"
+    const val DYNAMIC_COLOR = "dynamic_color"
+    const val THEME_COLOR = "theme_color"
     const val CUSTOM_THEME_COLOR = "custom_theme_color"
     const val IS_FIRST_LAUNCHED = "is_first_launched"
     const val CUSTOM_ACTIVITY_TYPE = "custom_activity_type"
@@ -177,6 +177,7 @@ object Prefs {
 
         @Composable
         fun getDarkThemeDesc(): String {
+            Log.vlog.d("Theme",darkThemeValue.toString())
             return when (darkThemeValue) {
                 FOLLOW_SYSTEM -> stringResource(R.string.follow_system)
                 ON -> stringResource(id = R.string.android_on)
@@ -185,16 +186,16 @@ object Prefs {
         }
     }
     const val SYSTEM_DEFAULT = 0
-    private const val ENGLISH = 1
-    private const val TURKISH = 2
-    private const val DUTCH = 3
-    private const val RUSSIAN = 4
-    private const val POLISH = 5
-    private const val PORTUGUESE = 6
-    private const val INDONESIAN = 7
-    private const val SIMPLIFIED_CHINESE = 8
-    private const val BURMESE = 9
-    private const val VIETNAMESE = 10
+    const val ENGLISH = 1
+    const val TURKISH = 2
+    const val DUTCH = 3
+    const val RUSSIAN = 4
+    const val POLISH = 5
+    const val PORTUGUESE = 6
+    const val INDONESIAN = 7
+    const val SIMPLIFIED_CHINESE = 8
+    const val BURMESE = 9
+    const val VIETNAMESE = 10
 
     val languages: Map<Int, String> =
         mapOf(
