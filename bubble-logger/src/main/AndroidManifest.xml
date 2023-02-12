@@ -11,7 +11,8 @@
   ~
   -->
 <manifest
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.kizzy.bubble_logger">
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <application>
