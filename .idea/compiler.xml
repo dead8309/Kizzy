@@ -4,7 +4,6 @@
     <bytecodeTargetLevel target="1.8">
       <module name="Kizzy.app" target="11" />
       <module name="Kizzy.bubble-logger" target="11" />
-      <module name="Kizzy.bubble-logger-no-op" target="11" />
       <module name="Kizzy.logger" target="11" />
       <module name="Kizzy.logger-no-op" target="11" />
     </bytecodeTargetLevel>

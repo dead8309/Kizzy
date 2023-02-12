@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:focusableInTouchMode="false"
+    android:theme="@style/Theme.AppCompat.Light">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/layout_bg"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/layout_bg"
+            android:padding="5dp"
+            android:clipToPadding="false"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/log_priority_txtvw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:layout_gravity="center_vertical"
+                android:drawablePadding="2dp"
+                android:gravity="center_vertical"
+                android:text="@string/select_priority"
+                android:drawableRight="@drawable/ic_arrow_down" />
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/input_rounded"
+                android:hint="Enter filter text"
+                android:padding="8dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="0dp"
+                android:textColor="@color/editTextColor"
+                android:textColorHint="@color/editTextColorHint"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/clear_logs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Clear" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/events"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+</LinearLayout>

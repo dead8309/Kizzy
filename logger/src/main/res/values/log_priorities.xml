@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="log_priority_names">
+        <item>Verbose</item>
+        <item>Debug</item>
+        <item>Info</item>
+        <item>Warn</item>
+        <item>Error</item>
+    </string-array>
+</resources>

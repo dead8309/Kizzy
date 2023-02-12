@@ -400,6 +400,7 @@ class KizzyRPC @Inject constructor(
         }
 
         override fun onMessage(message: String) {
+            vlog.i(TAG, "onMessage() called with: message = $message")
             val map = gson.fromJson<ArrayMap<String, Any>>(
                 message, object : TypeToken<ArrayMap<String?, Any?>?>() {}.type
             )
@@ -411,8 +412,8 @@ class KizzyRPC @Inject constructor(
                 0 -> if (map["t"] as String? == "READY") {
                     sessionId = (map["d"] as Map<*, *>?)!!["session_id"].toString()
                     gatewayResume = (map["d"] as Map<*, *>?)!!["resume_gateway_url"].toString()
-                    vlog.d(TAG, "updating gateway url to $gatewayResume")
-                    vlog.i(TAG, "Connected to Gateway ")
+                    vlog.d(TAG, gatewayResume)
+                    vlog.i(TAG, "Connected")
                     send(rpc)
                     return
                 }

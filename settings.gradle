@@ -20,6 +20,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Kizzy"
 include ':app'
+include ':logger'
+include ':logger-no-op'
 include ':color'
 include ':bubble-logger'
-include ':bubble-logger-no-op'
