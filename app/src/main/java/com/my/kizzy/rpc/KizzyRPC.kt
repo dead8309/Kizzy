@@ -1,6 +1,7 @@
 package com.my.kizzy.rpc
 
 import android.util.ArrayMap
+import com.android.girish.vlog.Vlog
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
@@ -8,7 +9,6 @@ import com.my.kizzy.common.Constants
 import com.my.kizzy.domain.repository.KizzyRepository
 import com.my.kizzy.domain.use_case.get_current_data.SharedRpc
 import com.my.kizzy.rpc.model.*
-import com.my.kizzy.utils.Log
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.CUSTOM_ACTIVITY_TYPE
 import org.java_websocket.client.WebSocketClient
@@ -21,8 +21,8 @@ import javax.net.ssl.SSLParameters
 class KizzyRPC @Inject constructor(
     private val token: String,
     private val kizzyRepository: KizzyRepository,
+    private val vlog: Vlog
 ) {
-    private val vlog = Log.vlog
     lateinit var rpc: RichPresence
     private var activityName: String? = null
     private var details: String? = null
