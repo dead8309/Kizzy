@@ -70,7 +70,7 @@ Check out our [QuickStart Guide](https://kizzydocs.vercel.app/quickstart/install
 - [x] Save/Load presence configs
 - [x] Material You theme
 - [x] Translations
-- [x] Easy [Setup](https://kizzy.gitbook.io/kizzy-docs/setup/setting-up-the-app) 
+- [x] Easy [Setup](https://kizzydocs.vercel.app/quickstart/post_install) 
 - [x] 300+ Predefined presets
 - [x] Create custom configs with your own images and links
 - [x] Preview Rpc in the app itself
@@ -80,7 +80,7 @@ Check out our [QuickStart Guide](https://kizzydocs.vercel.app/quickstart/install
 - [x] Use Images from Gallery
 
 ## Getting Started
-Read the Setup Guide [at Gitbook](https://kizzy.gitbook.io/kizzy-docs/setup/setting-up-the-app)
+Read the [Setup Guide](https://kizzydocs.vercel.app/quickstart/post_install)
 or watch the tutorial video
 [![IMAGE_ALT](https://img.youtube.com/vi/kjPDMHgsOcU/0.jpg)](https://www.youtube.com/embed/kjPDMHgsOcU)
 
