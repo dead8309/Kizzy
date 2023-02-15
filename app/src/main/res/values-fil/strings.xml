@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Kizzy</string>
+
+    <!-- Activities -->
+    <string name="activity_name">Pangalan ng Aktibidad</string>
+    <string name="activity_details">Mga Detalye ng Aktibidad</string>
+    <string name="activity_state">Estado ng Aktibidad</string>
+    <string name="activity_start_timestamps">Simulan ang mga Timestamp</string>
+    <string name="activity_stop_timestamps">Itigil ang mga Timestamp</string>
+    <string name="activity_status_online_idle_dnd">Status ng aktibidad(online, idle, dnd)</string>
+    <string name="activity_button1_text">Text ng button1</string>
+    <string name="activity_button2_text">Text ng button2</string>
+    <string name="activity_button1_url">Button 1 Url</string>
+    <string name="activity_button2_url">Button 2 Url</string>
+    <string name="activity_large_image">Aktibidad Malaking na Larawan</string>
+    <string name="activity_small_image">Aktibidad Maliit na Larawan</string>
+    <string name="activity_type">Klase ng gawain</string>
+    <string name="load_config">Mag-load mula sa mga file</string>
+    <string name="save_config">I-save ang Config</string>
+    <string name="delete_configs">I-delete ang Config</string>
+    <string name="preview_rpc">I-preview ang RPC</string>
+    <string name="select_a_config">Pumili ng config</string>
+    <string name="login_with_discord">Mag-login gamit ang Discord</string>
+    <string name="github_readme">Basahin mo Ako</string>
+    <string name="github_readme_desc">Suriin ang GitHub repository</string>
+    <string name="github_latest_release">"Pinakabagong release "</string>
+    <string name="github_latest_release_desc">Maghanap ng bagong bersyon at changelog</string>
+    <string name="github_issue">GitHub Issue</string>
+    <string name="github_issue_desc">Magsumite ng isyu para sa ulat ng bug o kahilingan sa tampok"</string>
