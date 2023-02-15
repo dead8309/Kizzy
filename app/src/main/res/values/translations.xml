@@ -13,6 +13,7 @@
         <item>Burmese</item>
         <item>Vietnamese</item>
         <item>Italian</item>
+        <item>Filipino</item>
     </string-array>
 
     <!-- Edit your name here according to translated language -->
@@ -26,6 +27,7 @@
     <string name="burmese_contributors" translatable="false">JasonBenfrin</string>
     <string name="vietnamese_contributors" translatable="false">Hiyurin</string>
     <string name="italian_contributors" translatable="false">Giasko</string>
+    <string name="filipino_contributors" translatable="false">haz3d</string>
 
 <!-- Only Edit this if you language contributiors tag is not present -->
     <string-array name="contributors">
@@ -39,6 +41,7 @@
         <item>@string/burmese_contributors</item>
         <item>@string/vietnamese_contributors</item>
         <item>@string/italian_contributors</item>
+        <item>@string/filipino_contributors</item>
     </string-array>
 
     <!-- Don't Modify These -->
@@ -52,5 +55,6 @@
     <string name="locale_zh" translatable="false">简体中文</string>
     <string name="locale_mm" translatable="false">Burmese</string>
     <string name="locale_vi" translatable="false">Tiếng Việt</string>
+    <string name="locale_fil" translatable="false">Filipino</string>
     <!-- Until here -->
 </resources>
