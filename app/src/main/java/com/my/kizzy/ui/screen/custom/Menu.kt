@@ -72,7 +72,7 @@ fun LoadConfig(
                        ) {
                            onDismiss()
                            selected = file
-                           Log.vlog.d("Directory",dir.absolutePath)
+                           Log.logger.d("Directory",dir.absolutePath)
                            FileIOUtils.readFile2String(File(dir,file)).also { data = it }
                            data?.let {
                                onConfigSelected(it.stringToData())
