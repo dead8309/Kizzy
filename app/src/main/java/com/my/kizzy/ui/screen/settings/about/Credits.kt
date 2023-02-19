@@ -26,19 +26,15 @@ const val MIT = "MIT License"
 const val app_home_page="https://kizzy.vercel.app"
 const val readYou = "https://github.com/Ashinch/ReadYou"
 const val seal = "https://github.com/JunkFood02/Seal"
-const val materialIcon = "https://fonts.google.com/icons"
 const val materialColor = "https://github.com/material-foundation/material-color-utilities"
 const val nintendoRepo = "https://github.com/ninstar/Rich-Presence-U"
-const val Vlog = "https://github.com/girish3/Vlog"
 const val XboxRpc = "https://github.com/MrCoolAndroid/Xbox-Rich-Presence-Discord"
 
 val creditsList = listOf(
     Credit("Read You", GPL_V3, readYou),
     Credit("Seal", GPL_V3, seal),
-    Credit("Material Icons", APACHE_V2, materialIcon),
     Credit("material-color-utilities", APACHE_V2, materialColor),
     Credit("Rich-Presence-U", GPL_V3, nintendoRepo),
-    Credit("Vlog-Logging Library", MIT, Vlog),
     Credit("Xbox-Rich-Presence-Discord", MIT, XboxRpc)
 )
 

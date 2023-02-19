@@ -15,5 +15,5 @@ object AppConfig {
     const val minSdk = 26
     const val targetSdk = 33
     const val versionCode = 4
-    const val versionName = "4.1"
+    const val versionName = "4.2"
 }
