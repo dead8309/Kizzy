@@ -48,7 +48,7 @@ import com.my.kizzy.ui.common.ShimmerProfileCard
 import com.my.kizzy.ui.screen.custom.RpcIntent
 import com.my.kizzy.ui.theme.DISCORD_LIGHT_DARK
 import com.my.kizzy.ui.theme.DarkBlueBg
-import com.my.kizzy.utils.Log.vlog
+import com.my.kizzy.utils.Log.logger
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.USER_BIO
 import com.my.kizzy.utils.Prefs.USER_NITRO
@@ -118,7 +118,7 @@ fun UserScreen(
                                     runtime.exec("pm clear ${BuildConfig.APPLICATION_ID}")
                                 } catch (e: Exception) {
                                     e.printStackTrace()
-                                    vlog.e("Error",e.message.toString())
+                                    logger.e("Error",e.message.toString())
                                 }
                                 SnackbarResult.Dismissed -> Unit
                             }
