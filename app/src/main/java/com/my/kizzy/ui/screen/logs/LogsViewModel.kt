@@ -38,6 +38,6 @@ class LogsViewModel: ViewModel() {
     }
 
     private fun LogEvent.matches(filter: String): Boolean {
-        return this.text.contains(filter) || this.tag.contains(filter)
+        return this.text.contains(filter,ignoreCase = true) || this.tag.contains(filter,ignoreCase = true)
     }
 }
