@@ -176,9 +176,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 animatedComposable(Routes.RPC_SETTINGS) {
-                    RpcSettings(
-                        navigateToLogsScreen = { navController.navigate(Routes.LOGS_SCREEN) },
-                        onBackPressed = { navController.popBackStack() })
+                    RpcSettings { navController.popBackStack() }
                 }
                 animatedComposable(Routes.LOGS_SCREEN){
                     val viewModel: LogsViewModel by viewModels()

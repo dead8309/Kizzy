@@ -24,7 +24,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.outlined.BugReport
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -44,7 +43,7 @@ import com.my.kizzy.utils.Prefs
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
-fun RpcSettings(navigateToLogsScreen: () -> Unit,onBackPressed: () -> Boolean) {
+fun RpcSettings(onBackPressed: () -> Boolean) {
     val context = LocalContext.current
     var isLowResIconsEnabled by remember { mutableStateOf(Prefs[Prefs.RPC_USE_LOW_RES_ICON, false]) }
     var configsDir by remember { mutableStateOf(Prefs[Prefs.CONFIGS_DIRECTORY, "Directory to store Custom Rpc configs"]) }
@@ -135,14 +134,6 @@ fun RpcSettings(navigateToLogsScreen: () -> Unit,onBackPressed: () -> Boolean) {
                     Prefs.remove(Prefs.SAVED_IMAGES)
                     Prefs.remove(Prefs.SAVED_ARTWORK)
                     Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
-                }
-            }
-            item {
-                SettingItem(
-                    title = "Show Logs",
-                    icon = Icons.Outlined.BugReport
-                ) {
-                    navigateToLogsScreen()
                 }
             }
         }

@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.BugReport
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material.icons.outlined.SettingsSuggest
@@ -43,7 +44,8 @@ fun SettingsDrawer(
     navigateToProfile: () -> Unit,
     navigateToStyleAndAppeareance: () -> Unit,
     navigateToAbout: () -> Unit,
-    navigateToRpcSettings: () -> Unit
+    navigateToRpcSettings: () -> Unit,
+    navigateToLogsScreen: () -> Unit
 ) {
     val uriHandler = LocalUriHandler.current
     Surface(modifier = Modifier
@@ -78,6 +80,15 @@ fun SettingsDrawer(
                         icon = Icons.Outlined.SettingsSuggest
                     ) {
                         navigateToRpcSettings()
+                    }
+                }
+                item {
+                    SettingsItemCard(
+                        title = "Debug Logs",
+                        description = "Show logs related to application",
+                        icon = Icons.Outlined.BugReport
+                    ) {
+                        navigateToLogsScreen()
                     }
                 }
                 item {
@@ -225,7 +236,8 @@ fun SettingsDrawerPreview() {
             user = null,
             navigateToProfile = {},
             navigateToStyleAndAppeareance = {},
-            navigateToAbout = {}
+            navigateToAbout = {},
+            navigateToRpcSettings = {}
         ) {}
     }
 
