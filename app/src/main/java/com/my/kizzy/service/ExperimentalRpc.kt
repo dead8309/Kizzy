@@ -21,7 +21,7 @@ import com.my.kizzy.common.Constants
 import com.my.kizzy.domain.use_case.get_current_data.AppTracker
 import com.my.kizzy.rpc.KizzyRPC
 import com.my.kizzy.ui.screen.settings.rpc_settings.RpcButtons
-import com.my.kizzy.utils.Log.vlog
+import com.my.kizzy.utils.Log.logger
 import com.my.kizzy.utils.Prefs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -67,9 +67,9 @@ class ExperimentalRpc: Service() {
 
             scope.launch {
                 appTracker.getCurrentAppData().onStart {
-                    vlog.e(TAG, "Starting Flow")
+                    logger.e(TAG, "Starting Flow")
                 }.collect { collectedData ->
-                    vlog.i(TAG,"Flow Data Received")
+                    logger.i(TAG,"Flow Data Received")
                     if (kizzyRPC.isRpcRunning()) {
                         kizzyRPC.updateRPC(collectedData)
                     } else kizzyRPC.apply {
