@@ -10,4 +10,6 @@
     <locale android:name="zh" />
     <locale android:name="mm" />
     <locale android:name="vi" />
+    <locale android:name="it" />
+    <locale android:name="fil" />
 </locale-config>

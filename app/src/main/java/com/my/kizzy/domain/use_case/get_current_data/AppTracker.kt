@@ -16,9 +16,9 @@ import android.content.Context
 import com.my.kizzy.domain.use_case.get_current_data.get_apps.getCurrentRunningApp
 import com.my.kizzy.domain.use_case.get_current_data.get_media.getCurrentRunningMedia
 import com.my.kizzy.rpc.RpcImage
-import com.my.kizzy.rpc.model.Timestamps
-import com.my.kizzy.utils.Log.vlog
+import com.my.kizzy.utils.Log.logger
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kizzy.gateway.entities.presence.Timestamps
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
@@ -43,12 +43,12 @@ class AppTracker @Inject constructor(
                 val getCurrentApp = getCurrentRunningApp(context)
                 if (getCurrentApp.name.isNotEmpty()) {
                     emit(getCurrentApp)
-                } else vlog.d("AppTracker", "No Apps Running")
+                } else logger.d("AppTracker", "No Apps Running")
             }
             delay(5000)
         }
     }.catch { exception ->
-        vlog.e("Error", exception.message.toString())
+        logger.e("Error", exception.message.toString())
     }
 }
 

@@ -190,10 +190,13 @@ fun Home(
                     },
                     navigateToAbout = {
                         navigateTo(Routes.ABOUT)
-                    }
-                ) {
-                    navigateTo(Routes.RPC_SETTINGS)
-                }
+                    },
+                    navigateToRpcSettings = {
+                        navigateTo(Routes.RPC_SETTINGS)
+                    },
+                    navigateToLogsScreen = {
+                        navigateTo(Routes.LOGS_SCREEN)
+                    })
             }
         }) {
         Scaffold(

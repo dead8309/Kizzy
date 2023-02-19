@@ -39,8 +39,6 @@ class CustomRpcService : Service() {
             string?.let {
                 rpcData = Gson().fromJson(it, RpcIntent::class.java)
             }
-            if (!kizzyRPC.isUserTokenValid())
-                stopSelf()
 
             val channel = NotificationChannel(
                 CHANNEL_ID,
@@ -89,10 +87,7 @@ class CustomRpcService : Service() {
 
     override fun onDestroy() {
         scope.cancel()
-        try {
-            if (kizzyRPC.isRpcRunning())
-                kizzyRPC.closeRPC()
-        } catch (_: UninitializedPropertyAccessException){}
+        kizzyRPC.closeRPC()
         wakeLock?.let {
             if (it.isHeld) it.release()
         }

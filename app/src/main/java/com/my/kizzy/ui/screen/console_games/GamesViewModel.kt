@@ -35,6 +35,7 @@ class GamesViewModel @Inject constructor(
    private val _state = mutableStateOf(GamesState())
     val state: State<GamesState> = _state
     private val games = mutableListOf<Game>()
+    val isSearchBarVisible = mutableStateOf(false)
 
     private var searchJob: Job? = null
 

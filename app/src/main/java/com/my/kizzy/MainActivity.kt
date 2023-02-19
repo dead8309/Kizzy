@@ -30,6 +30,8 @@ import com.my.kizzy.ui.screen.console_games.GamesViewModel
 import com.my.kizzy.ui.screen.custom.CustomRPC
 import com.my.kizzy.ui.screen.custom.CustomScreenViewModel
 import com.my.kizzy.ui.screen.home.Home
+import com.my.kizzy.ui.screen.logs.LogScreen
+import com.my.kizzy.ui.screen.logs.LogsViewModel
 import com.my.kizzy.ui.screen.media.MediaRPC
 import com.my.kizzy.ui.screen.media.hasNotificationAccess
 import com.my.kizzy.ui.screen.profile.login.LoginScreen
@@ -174,9 +176,11 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 animatedComposable(Routes.RPC_SETTINGS) {
-                    RpcSettings {
-                        navController.popBackStack()
-                    }
+                    RpcSettings { navController.popBackStack() }
+                }
+                animatedComposable(Routes.LOGS_SCREEN){
+                    val viewModel: LogsViewModel by viewModels()
+                    LogScreen(viewModel)
                 }
                 animatedComposable(Routes.ABOUT) {
                     About(

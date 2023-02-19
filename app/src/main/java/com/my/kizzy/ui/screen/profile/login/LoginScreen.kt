@@ -39,6 +39,7 @@ import com.my.kizzy.ui.theme.DISCORD_GREY
 import com.my.kizzy.utils.Log
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.TOKEN
+import kotlinx.coroutines.launch
 
 const val JS_SNIPPET =
     "javascript:(function()%7Bvar%20i%3Ddocument.createElement('iframe')%3Bdocument.body.appendChild(i)%3Balert(i.contentWindow.localStorage.token.slice(1,-1))%7D)()"
@@ -56,6 +57,7 @@ fun LoginScreen(
     var showProgress by remember {
         mutableStateOf(false)
     }
+    val scope = rememberCoroutineScope()
     val url = "https://discord.com/login"
     Scaffold(
         modifier = Modifier
@@ -125,10 +127,12 @@ fun LoginScreen(
                             ): Boolean {
                                 Prefs[TOKEN] = message
                                 showProgress = true
-                                getUserInfo(message, onInfoSaved = {
-                                    Log.vlog.d("Login Screen","Login Completed")
-                                    onCompleted()
-                                })
+                                scope.launch {
+                                    getUserInfo(message, onInfoSaved = {
+                                        Log.logger.d("Login Screen","Login Completed")
+                                        onCompleted()
+                                    })
+                                }
                                 visibility = View.GONE
                                 return true
                             }

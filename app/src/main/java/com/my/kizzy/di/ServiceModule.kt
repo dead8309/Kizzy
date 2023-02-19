@@ -19,6 +19,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ServiceComponent
+import kizzy.gateway.DiscordWebSocket
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -28,8 +29,9 @@ import kotlinx.coroutines.SupervisorJob
 object ServiceModule {
     @Provides
     fun provideKizzyRpc(
-        kizzyRepository: KizzyRepository
-    ) = KizzyRPC(Prefs[Prefs.TOKEN,""],kizzyRepository)
+        kizzyRepository: KizzyRepository,
+        discordWebSocket: DiscordWebSocket
+    ) = KizzyRPC(Prefs[Prefs.TOKEN, ""],kizzyRepository,discordWebSocket)
 
     @Provides
     fun providesCoroutineScope(): CoroutineScope {

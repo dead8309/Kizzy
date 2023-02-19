@@ -21,7 +21,7 @@ class App: Application() {
         CrashConfig.Builder.create()
             .errorActivity(CrashHandler::class.java)
             .apply()
-        Log.init(this)
+        Log.init()
         AppUtils.init(this)
     }
 

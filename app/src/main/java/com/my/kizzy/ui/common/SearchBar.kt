@@ -1,92 +1,79 @@
 package com.my.kizzy.ui.common
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.my.kizzy.ui.theme.googleSansText
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBar(
-    onInputValueChange: (String) -> Unit,
-    text: String,
-    onSearchClicked: () -> Unit
+    text: String = "",
+    placeholder: String = "",
+    onClose: () -> Unit = {},
+    onTextChanged: ((String) -> Unit)
 ) {
-    OutlinedTextField(
-        modifier = Modifier
-            .background(
-                MaterialTheme.colorScheme.surface,
-                MaterialTheme.shapes.small,
-            )
-            .padding(10.dp)
-            .fillMaxWidth(),
-        shape = RoundedCornerShape(50.dp),
+    BasicTextField(
         value = text,
-        onValueChange = {
-            onInputValueChange(it)
-        },
-        textStyle = TextStyle(
-            color = MaterialTheme.colorScheme.onSurface,
-            fontSize = 18.sp
+        onValueChange = onTextChanged,
+        textStyle = MaterialTheme.typography.bodyLarge.copy(
+            color = MaterialTheme.colorScheme.onSurface
         ),
-        placeholder = {
-            Text(
-                text = "Search...",
-                fontFamily = googleSansText,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-            )
-        },
-        leadingIcon = {
-            Icon(
-                imageVector = Icons.Filled.Search,
-                contentDescription = "Search Icon",
-                tint = MaterialTheme.colorScheme.onSurface.copy(
-                    alpha = 0.5f
-                )
-            )
-        },
-        trailingIcon = {
-            IconButton(
-                onClick = {
-                    if (text.isNotEmpty()) {
-                        onInputValueChange("")
-                    }
-                }
-            ) {
-                Icon(
-                    imageVector = Icons.Filled.Close,
-                    contentDescription = "Close Icon",
-                    tint = MaterialTheme.colorScheme.onSurface.copy(
-                        alpha = 0.5f
-                    )
-                )
-            }
-        },
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            unfocusedBorderColor =MaterialTheme.colorScheme.onSurface.copy(
-                alpha = 0.6f
+        cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
+        singleLine = true,
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(
+                RoundedCornerShape(200.dp)
             ),
-            focusedBorderColor = MaterialTheme.colorScheme.onSurface,
-            cursorColor = MaterialTheme.colorScheme.primary,
-        ),
-        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-        keyboardActions = KeyboardActions(
-            onSearch = { onSearchClicked() }
-        )
+        decorationBox = { innerTextField ->
+            TextFieldDefaults.TextFieldDecorationBox(
+                value = text,
+                innerTextField = innerTextField,
+                placeholder = { Text(placeholder) },
+                trailingIcon = {
+                    IconButton(onClick = {
+                        if (text.isNotEmpty())
+                            onTextChanged("")
+                        else
+                            onClose()
+                    }) {
+                        Icon(
+                            imageVector = Icons.Filled.Close,
+                            contentDescription = "Close Icon"
+                        )
+                    }
+                },
+                singleLine = true,
+                enabled = true,
+                interactionSource = remember { MutableInteractionSource() },
+                visualTransformation = VisualTransformation.None,
+                contentPadding = PaddingValues(
+                    start = 14.dp,
+                    end = 12.dp,
+                    top = 10.dp,
+                    bottom = 10.dp
+                ),
+                colors = TextFieldDefaults.textFieldColors(
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(5.dp)
+                )
+            )
+        }
     )
 }
 
@@ -94,7 +81,6 @@ fun SearchBar(
 @Composable
 fun Search() {
     SearchBar(
-        onInputValueChange = {},
         text = "test"
     ) {
     }
