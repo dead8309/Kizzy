@@ -10,5 +10,5 @@
  *
  */
 
-include(":app", ":color", ":bubble-logger", ":bubble-logger-no-op")
+include(":app", ":color", ":gateway")
 rootProject.name = "Kizzy"

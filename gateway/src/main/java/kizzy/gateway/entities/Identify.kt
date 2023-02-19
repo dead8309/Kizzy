@@ -1,28 +1,9 @@
-/*
- *
- *  ******************************************************************
- *  *  * Copyright (C) 2022
- *  *  * Identify.kt is part of Kizzy
- *  *  *  and can not be copied and/or distributed without the express
- *  *  * permission of yzziK(Vaibhav)
- *  *  *****************************************************************
- *
- *
- */
-
-package com.my.kizzy.rpc.model
-
+package kizzy.gateway.entities
 
 import com.google.gson.annotations.SerializedName
 
-data class Identify(
-    @SerializedName("d")
-    val d: Data,
-    @SerializedName("op")
-    val op: Int
-)
 
-data class Data(
+data class Identify(
     @SerializedName("capabilities")
     val capabilities: Int,
     @SerializedName("compress")
@@ -33,7 +14,21 @@ data class Data(
     val properties: Properties,
     @SerializedName("token")
     val token: String
-)
+){
+    companion object {
+        fun String.toIdentifyPayload() = Identify(
+            capabilities = 65,
+            compress = false,
+            largeThreshold = 100,
+            properties = Properties(
+                browser = "chrome",
+                device = "ktor",
+                os = "windows"
+            ),
+            token = this
+        )
+    }
+}
 data class Properties(
     @SerializedName("browser")
     val browser: String,

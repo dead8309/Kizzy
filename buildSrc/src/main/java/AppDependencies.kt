@@ -18,10 +18,9 @@ object AppDependencies {
     const val material3 = "androidx.compose.material3:material3:${Versions.material3Version}"
     const val windowSizeClass = "androidx.compose.material3:material3-window-size-class:${Versions.material3Version}"
     const val lifecycleRuntimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.ktxLifecycleVersion}"
-    const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayoutVersion}"
     const val cardView = "androidx.cardview:cardview:1.0.0"
     const val androidxMaterial = "com.google.android.material:material:${Versions.androidxMaterialVersion}"
-    const val ActivityKtx = "androidx.activity:activity-ktx:${Versions.ActivityKtx}"
+
     const val KotlinXCoroutine = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.KotlinXCoroutine}"
 
     const val composeActivity = "androidx.activity:activity-compose:${Versions.activityComposeVersion}"
@@ -45,7 +44,6 @@ object AppDependencies {
     const val googleGson = "com.google.code.gson:gson:${Versions.gsonVersion}"
     const val glide = "com.github.skydoves:landscapist-glide:${Versions.glideVersion}"
     const val blankjUtil = "com.blankj:utilcodex:${Versions.utilcodeVersion}"
-    const val javaWebsocket = "org.java-websocket:Java-WebSocket:${Versions.websocketVersion}"
     const val okhttp =  "com.squareup.okhttp3:okhttp:${Versions.okhttpVersion}"
     const val okhttpInterceptor =  "com.squareup.okhttp3:logging-interceptor:${Versions.okhttpVersion}"
     const val crashX = "com.github.TutorialsAndroid:crashx:v6.0.19"
@@ -56,7 +54,13 @@ object AppDependencies {
     const val coilSvg = "io.coil-kt:coil-svg:${Versions.coilVersion}"
     const val androidSVG = "com.caverock:androidsvg-aar:1.4"
 
-    val appLibraries = arrayListOf<String>().apply {
+    //Ktor
+    const val ktorCore = "io.ktor:ktor-client-core:${Versions.ktorVersion}"
+    const val ktorClientCIO = "io.ktor:ktor-client-cio:${Versions.ktorVersion}"
+    const val ktorWebSockets = "io.ktor:ktor-client-websockets:${Versions.ktorVersion}"
+    const val ktorGson = "io.ktor:ktor-serialization-gson:${Versions.ktorVersion}"
+
+    val AppLibraries = arrayListOf<String>().apply {
         add(coilCompose)
         add(coilSvg)
         add(androidSVG)
@@ -75,7 +79,6 @@ object AppDependencies {
         add(googleGson)
         add(glide)
         add(blankjUtil)
-        add(javaWebsocket)
         add(okhttp)
         add(accompanistPermission)
         add(accompanistSystemUiController)
@@ -87,18 +90,14 @@ object AppDependencies {
         add(retrofitGsonConverter)
         add(okhttpInterceptor)
     }
-    val loggerLibraries = arrayListOf<String>().apply {
-        add(ActivityKtx)
-        add(AppCompat)
-        add(coreKtx)
-        add(androidxMaterial)
+    val GatewayLibraries = arrayListOf<String>().apply {
         add(KotlinXCoroutine)
+        add(ktorCore)
+        add(ktorClientCIO)
+        add(ktorWebSockets)
+        add(ktorGson)
     }
-    val loggerNoOpLibraries = arrayListOf<String>().apply {
-        add(AppCompat)
-        add(coreKtx)
-        add(androidxMaterial)
-    }
+
 }
 
 //util functions for adding the different type dependencies from build.gradle file
