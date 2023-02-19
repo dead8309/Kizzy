@@ -21,17 +21,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -52,16 +49,13 @@ import com.my.kizzy.utils.AppUtils
 import com.my.kizzy.utils.Prefs
 import com.skydoves.landscapist.glide.GlideImage
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GamesScreen(
     onBackPressed: () -> Unit,
     viewModel: GamesViewModel
 ) {
     val state = viewModel.state.value
-    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
-        rememberTopAppBarState(),
-        canScroll = { true })
 
     var selected by remember {
         mutableStateOf("")
@@ -71,107 +65,105 @@ fun GamesScreen(
     var isConsoleRpcRunning by remember {
         mutableStateOf(AppUtils.customRpcRunning())
     }
-    val keyboardController = LocalSoftwareKeyboardController.current
-    val focusManager = LocalFocusManager.current
     val intent = Intent(context, CustomRpcService::class.java)
-    Scaffold(
-        modifier = Modifier
-            .fillMaxSize()
-            .nestedScroll(scrollBehavior.nestedScrollConnection),
+    Scaffold(Modifier.fillMaxSize(),
         topBar = {
-            LargeTopAppBar(
+            TopAppBar(
                 title = {
-                    Text(
-                        text = "Console Rpc",
-                        style = MaterialTheme.typography.headlineLarge,
-                    )
+                    if (viewModel.isSearchBarVisible.value) {
+                        SearchBar(
+                            onTextChanged = {
+                                viewModel.onSearch(it)
+                            },
+                            text = state.searchText,
+                            placeholder = "Search",
+                            onClose = {
+                                viewModel.isSearchBarVisible.value = false
+                            }
+                        )
+                    }
+                    else {
+                        Text(
+                            text = "Console Rpc",
+                            style = MaterialTheme.typography.headlineLarge,
+                        )
+                    }
                 },
-                navigationIcon = { BackButton { onBackPressed() } },
-                scrollBehavior = scrollBehavior
+                actions = {
+                        if(!viewModel.isSearchBarVisible.value) {
+                            IconButton(onClick = { viewModel.isSearchBarVisible.value = true }) {
+                                Icon(Icons.Default.Search, "search")
+                            }
+                        }
+                },
+                navigationIcon = { BackButton { onBackPressed() } }
             )
         }
     ) { padding ->
         Box(modifier = Modifier.fillMaxSize()) {
             if (state.success) {
-                LazyColumn(
-                    Modifier
-                        .padding(padding)
-                        .fillMaxSize()
-                ) {
-
-                    item {
-                        SwitchBar(
-                            title = stringResource(id = R.string.enable_console_rpc),
-                            isChecked = isConsoleRpcRunning
-                        ) {
-                            isConsoleRpcRunning = !isConsoleRpcRunning
-                            when (isConsoleRpcRunning) {
-                                true -> {
-                                    if (intent.hasExtra("RPC")) {
-                                        Prefs[Prefs.LAST_RUN_CONSOLE_RPC] =
-                                            intent.getStringExtra("RPC")
-                                        context.stopService(
-                                            Intent(
-                                                context,
-                                                AppDetectionService::class.java
-                                            )
+                Column(Modifier.fillMaxSize().padding(padding)) {
+                    SwitchBar(
+                        title = stringResource(id = R.string.enable_console_rpc),
+                        isChecked = isConsoleRpcRunning
+                    ) {
+                        isConsoleRpcRunning = !isConsoleRpcRunning
+                        when (isConsoleRpcRunning) {
+                            true -> {
+                                if (intent.hasExtra("RPC")) {
+                                    Prefs[Prefs.LAST_RUN_CONSOLE_RPC] =
+                                        intent.getStringExtra("RPC")
+                                    context.stopService(
+                                        Intent(
+                                            context,
+                                            AppDetectionService::class.java
                                         )
-                                        context.stopService(
-                                            Intent(
-                                                context,
-                                                MediaRpcService::class.java
-                                            )
-                                        )
-                                        context.stopService(
-                                            Intent(
-                                                context,
-                                                ExperimentalRpc::class.java
-                                            )
-                                        )
-                                        context.startService(intent)
-                                    }
-                                }
-                                false -> context.stopService(
-                                    Intent(
-                                        context,
-                                        CustomRpcService::class.java
                                     )
-                                )
+                                    context.stopService(
+                                        Intent(
+                                            context,
+                                            MediaRpcService::class.java
+                                        )
+                                    )
+                                    context.stopService(
+                                        Intent(
+                                            context,
+                                            ExperimentalRpc::class.java
+                                        )
+                                    )
+                                    context.startService(intent)
+                                }
                             }
-                        }
-                    }
-                    item {
-                        SearchBar(
-                            onInputValueChange = {
-                                viewModel.onSearch(it)
-                            },
-                            text = state.searchText,
-                            onSearchClicked = {
-                                keyboardController?.hide()
-                                focusManager.clearFocus()
-                            }
-                        )
-                    }
-                    items(state.games) { game ->
-                        SingleChoiceGameItem(
-                            game = game,
-                            selected = game.game_title == selected
-                        ) { info ->
-                            selected = game.game_title
-                            val string = Gson().toJson(
-                                RpcIntent(
-                                    name = info.platform,
-                                    details = info.game_title,
-                                    timeatampsStart = System.currentTimeMillis().toString(),
-                                    status = "dnd",
-                                    largeImg = info.large_image ?: "",
-                                    smallImg = info.small_image,
-                                    type = "0",
+                            false -> context.stopService(
+                                Intent(
+                                    context,
+                                    CustomRpcService::class.java
                                 )
                             )
-                            intent.apply {
-                                removeExtra("RPC")
-                                putExtra("RPC", string)
+                        }
+                    }
+                    LazyColumn {
+                        items(state.games) { game ->
+                            SingleChoiceGameItem(
+                                game = game,
+                                selected = game.game_title == selected
+                            ) { info ->
+                                selected = game.game_title
+                                val string = Gson().toJson(
+                                    RpcIntent(
+                                        name = info.platform,
+                                        details = info.game_title,
+                                        timeatampsStart = System.currentTimeMillis().toString(),
+                                        status = "dnd",
+                                        largeImg = info.large_image ?: "",
+                                        smallImg = info.small_image,
+                                        type = "0",
+                                    )
+                                )
+                                intent.apply {
+                                    removeExtra("RPC")
+                                    putExtra("RPC", string)
+                                }
                             }
                         }
                     }
@@ -299,7 +291,7 @@ fun ConsoleTest() {
                     platform = Constants.NINTENDO,
                     small_image = "",
                     large_image = "",
-                    game_title = "Assassin's creed: iwikwkaiaisiow"
+                    game_title = "Assassin's creed:"
                 ),
                 selected = true
             ) {
