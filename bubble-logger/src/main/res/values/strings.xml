@@ -1,9 +1,0 @@
-<resources>
-	<string name="bubble_logger">Logger</string>
-	<string name="scroll_to_top_tooltip">Scroll to top</string>
-	<string name="clear_button_tooltip">Clear all logs</string>
-	<string name="reset_filter_button_tooltip">Reset filter</string>
-	<string name="filter_hint">Filter items</string>
-	<string name="log_empty_message">No logs.</string>
-	<string name="log_empty_filtered_message">No match.</string>
-</resources>
