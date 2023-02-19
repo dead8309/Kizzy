@@ -16,13 +16,15 @@ import android.os.Build
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.outlined.Code
-import androidx.compose.material.icons.outlined.CodeOff
+import androidx.compose.material.icons.outlined.BugReport
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -33,7 +35,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.google.gson.Gson
-import com.my.kizzy.BuildConfig
 import com.my.kizzy.R
 import com.my.kizzy.common.Constants
 import com.my.kizzy.ui.common.*
@@ -43,7 +44,7 @@ import com.my.kizzy.utils.Prefs
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
-fun RpcSettings(onBackPressed: () -> Boolean) {
+fun RpcSettings(navigateToLogsScreen: () -> Unit,onBackPressed: () -> Boolean) {
     val context = LocalContext.current
     var isLowResIconsEnabled by remember { mutableStateOf(Prefs[Prefs.RPC_USE_LOW_RES_ICON, false]) }
     var configsDir by remember { mutableStateOf(Prefs[Prefs.CONFIGS_DIRECTORY, "Directory to store Custom Rpc configs"]) }
@@ -58,10 +59,6 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
     }
     var showActivityTypeDialog by remember {
         mutableStateOf(false)
-    }
-
-    var vlogEnabled by remember {
-        mutableStateOf(Log.vlog.isEnabled())
     }
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         LargeTopAppBar(title = {
@@ -140,21 +137,12 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                     Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
                 }
             }
-            if (BuildConfig.DEBUG) {
-                item {
-                    PreferenceSwitch(
-                        title = "Show Logs", icon = if (vlogEnabled) Icons.Outlined.Code
-                        else Icons.Outlined.CodeOff, isChecked = vlogEnabled
-                    ) {
-                        vlogEnabled = if (!vlogEnabled) {
-                            Log.vlog.start()
-                            !vlogEnabled
-                        } else {
-                            Log.vlog.stop()
-                            !vlogEnabled
-                        }
-
-                    }
+            item {
+                SettingItem(
+                    title = "Show Logs",
+                    icon = Icons.Outlined.BugReport
+                ) {
+                    navigateToLogsScreen()
                 }
             }
         }
@@ -197,7 +185,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 confirmButton = {
                     TextButton(onClick = {
                         Prefs[Prefs.RPC_BUTTONS_DATA] = Gson().toJson(rpcButtons)
-                        Log.vlog.d("Gson", rpcButtons.toString())
+                        Log.logger.d("Gson", rpcButtons.toString())
                         showButtonsConfigDialog = false
                     }
                     ) {

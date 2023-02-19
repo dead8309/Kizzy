@@ -104,6 +104,7 @@ object Prefs {
     const val CUSTOM_THEME_COLOR = "custom_theme_color"
     const val IS_FIRST_LAUNCHED = "is_first_launched"
     const val CUSTOM_ACTIVITY_TYPE = "custom_activity_type"
+    const val SHOW_LOGS_IN_COMPACT_MODE = "logs_compact_mode"
 
     data class AppSettings(
         val darkTheme: DarkThemePreference = DarkThemePreference(),

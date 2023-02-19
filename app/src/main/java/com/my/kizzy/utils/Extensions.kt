@@ -114,6 +114,7 @@ fun Gson.fromJson(value: String): User? {
     }
 }
 
+@Suppress("DEPRECATION")
 fun Context.hasUsageAccess(): Boolean {
     return try {
         val packageManager: PackageManager = this.packageManager
