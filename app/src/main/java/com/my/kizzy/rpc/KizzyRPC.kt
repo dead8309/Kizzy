@@ -1,29 +1,20 @@
 package com.my.kizzy.rpc
 
-import android.util.ArrayMap
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
 import com.my.kizzy.common.Constants
 import com.my.kizzy.domain.repository.KizzyRepository
 import com.my.kizzy.domain.use_case.get_current_data.SharedRpc
-import com.my.kizzy.rpc.model.*
-import com.my.kizzy.utils.Log
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.CUSTOM_ACTIVITY_TYPE
-import org.java_websocket.client.WebSocketClient
-import org.java_websocket.handshake.ServerHandshake
-import java.net.URI
-import java.net.URISyntaxException
-import javax.inject.Inject
-import javax.net.ssl.SSLParameters
+import kizzy.gateway.DiscordWebSocket
+import kizzy.gateway.entities.presence.*
+import kotlinx.coroutines.isActive
 
-class KizzyRPC @Inject constructor(
+class KizzyRPC(
     private val token: String,
     private val kizzyRepository: KizzyRepository,
+    private val discordWebSocket: DiscordWebSocket
 ) {
-    private val vlog = Log.vlog
-    lateinit var rpc: RichPresence
+    private lateinit var presence: Presence
     private var activityName: String? = null
     private var details: String? = null
     private var state: String? = null
@@ -35,27 +26,15 @@ class KizzyRPC @Inject constructor(
     private var startTimestamps: Long? = null
     private var stopTimestamps: Long? = null
     private var type: Int = 0
-    var webSocketClient: WebSocketClient? = null
-    var gson: Gson = GsonBuilder().setPrettyPrinting().create()
-    var heartbeatRunnable: Runnable
-    var heartbeatThr: Thread? = null
-    var heartbeatInterval = 0
-    var seq = 0
-    private var sessionId: String? = null
-    private var reconnectSession = false
     private var buttons = ArrayList<String>()
     private var buttonUrl = ArrayList<String>()
 
-
     fun closeRPC() {
-        if (heartbeatThr != null) {
-            if (!heartbeatThr!!.isInterrupted) heartbeatThr!!.interrupt()
-        }
-        if (webSocketClient != null) webSocketClient!!.close(1000)
+        discordWebSocket.close()
     }
 
     fun isRpcRunning(): Boolean {
-        return webSocketClient?.isOpen == true
+        return discordWebSocket.isWebSocketConnected()
     }
 
     /**
@@ -64,8 +43,11 @@ class KizzyRPC @Inject constructor(
      *
      * source: [#token-structure](https://gist.github.com/aydynx/5d29e903417354fd25641b98efc9d437#token-structure)
      */
-    fun isUserTokenValid(): Boolean {
-        val regex = Regex("[a-z\\d]{24}\\.[a-z\\d]{6}\\.([\\w-]{107}|[\\w-]{38}|[\\w-]{27})|mfa\\.[\\w-]{84}", RegexOption.IGNORE_CASE)
+    private fun isUserTokenValid(): Boolean {
+        val regex = Regex(
+            "[a-z\\d]{24}\\.[a-z\\d]{6}\\.([\\w-]{107}|[\\w-]{38}|[\\w-]{27})|mfa\\.[\\w-]{84}",
+            RegexOption.IGNORE_CASE
+        )
         return regex.matches(token)
     }
 
@@ -110,7 +92,7 @@ class KizzyRPC @Inject constructor(
      * @param large_image
      * @return
      */
-    fun setLargeImage(large_image: RpcImage?,large_text: String? = null): KizzyRPC {
+    fun setLargeImage(large_image: RpcImage?, large_text: String? = null): KizzyRPC {
         this.largeText = large_text.takeIf { !it.isNullOrEmpty() }
         this.largeImage = large_image
         return this
@@ -122,7 +104,7 @@ class KizzyRPC @Inject constructor(
      * @param small_image
      * @return
      */
-    fun setSmallImage(small_image: RpcImage?,small_text: String? = null): KizzyRPC {
+    fun setSmallImage(small_image: RpcImage?, small_text: String? = null): KizzyRPC {
         this.smallText = small_text.takeIf { !it.isNullOrEmpty() }
         this.smallImage = small_image
         return this
@@ -220,68 +202,40 @@ class KizzyRPC @Inject constructor(
     }
 
     suspend fun build() {
-        rpc = RichPresence(
-            op = 3,
-            d = RichPresenceData(
-                activities = listOf(
-                    Activity(
-                        name = activityName,
-                        state = state,
-                        details = details,
-                        type = type,
-                        timestamps = if (startTimestamps != null || stopTimestamps != null) Timestamps(
-                            start = startTimestamps,
-                            end = stopTimestamps
-                        ) else null,
-                        assets = if (largeImage != null || smallImage != null) Assets(
-                            largeImage = largeImage?.resolveImage(kizzyRepository),
-                            smallImage = smallImage?.resolveImage(kizzyRepository),
-                            largeText = largeText,
-                            smallText = smallText
-                        ) else null,
-                        buttons = if (buttons.size > 0) buttons else null,
-                        metadata = if (buttonUrl.size > 0) Metadata(buttonUrls = buttonUrl) else null,
-                        applicationId = if (buttons.size > 0) Constants.APPLICATION_ID else null
-                    )
-                ),
-                afk = true,
-                since = if (startTimestamps != null) startTimestamps else System.currentTimeMillis(),
-                status = status
-            )
-        )
-        createWebsocketClient()
-    }
-
-    fun sendIdentify() {
-        vlog.d(TAG, "sendIdentify() called")
-        webSocketClient!!.send(
-            Identify(
-                op = 2,
-                d = Data(
-                    capabilities = 65,
-                    compress = false,
-                    largeThreshold = 100,
-                    properties = Properties(
-                        browser = "Discord Client",
-                        device = "disco",
-                        os = "Windows"
-                    ),
-                    token = token
+        presence = Presence(
+            activities = listOf(
+                Activity(
+                    name = activityName,
+                    state = state,
+                    details = details,
+                    type = type,
+                    timestamps = Timestamps(
+                        start = startTimestamps,
+                        end = stopTimestamps
+                    ).takeIf { startTimestamps != null || stopTimestamps != null },
+                    assets = Assets(
+                        largeImage = largeImage?.resolveImage(kizzyRepository),
+                        smallImage = smallImage?.resolveImage(kizzyRepository),
+                        largeText = largeText,
+                        smallText = smallText
+                    ).takeIf { largeImage != null || smallImage != null },
+                    buttons = buttons.takeIf { buttons.size > 0 },
+                    metadata = Metadata(buttonUrls = buttonUrl).takeIf { buttonUrl.size > 0 },
+                    applicationId = Constants.APPLICATION_ID.takeIf { buttons.size > 0 }
                 )
-            )
+            ),
+            afk = true,
+            since = startTimestamps.takeIf { startTimestamps != null }?: System.currentTimeMillis(),
+            status = status
         )
+        connectToWebSocket()
     }
 
-    private fun createWebsocketClient() {
-        val uri: URI = try {
-            URI("wss://gateway.discord.gg/?encoding=json&v=10")
-        } catch (e: URISyntaxException) {
-            e.printStackTrace()
-            return
-        }
-        val headerMap = ArrayMap<String, String>()
-        webSocketClient = Websocket(uri, headerMap)
-        (webSocketClient as Websocket).connect()
+    private suspend fun connectToWebSocket() {
+        if (!isUserTokenValid())
+            throw IllegalArgumentException("Provided an Invalid Token, Please Login if you haven't")
+        discordWebSocket.connect()
+        discordWebSocket.sendActivity(presence)
     }
 
     suspend fun updateRPC(
@@ -293,224 +247,56 @@ class KizzyRPC @Inject constructor(
         enableTimestamps: Boolean,
         time: Long
     ) {
-        if (!isRpcRunning()) return
-        webSocketClient!!.send(
-            RichPresence(
-                op = 3,
-                d = RichPresenceData(
-                    activities = listOf(
-                        Activity(
-                            name = name,
-                            details = details,
-                            state = state,
-                            type = Prefs[CUSTOM_ACTIVITY_TYPE,0],
-                            timestamps = if (enableTimestamps) Timestamps(start = time) else null,
-                            assets =
-                            if (large_image != null || small_image != null)
-                                Assets(
-                                largeImage = large_image?.resolveImage(kizzyRepository),
-                                smallImage = small_image?.resolveImage(kizzyRepository)
-                                )
-                            else null,
-                            buttons = if (buttons.size > 0) buttons else null,
-                            metadata = if (buttonUrl.size > 0) Metadata(buttonUrls = buttonUrl) else null,
-                            applicationId = if (buttons.size > 0) Constants.APPLICATION_ID else null
-                        )
-                    ),
-                    afk = true,
-                    since = time,
-                    status = Constants.DND
-                )
+        discordWebSocket.sendActivity(
+            Presence(
+                activities = listOf(
+                    Activity(name = name,
+                        details = details,
+                        state = state,
+                        type = Prefs[CUSTOM_ACTIVITY_TYPE, 0],
+                        timestamps = Timestamps(start = time).takeIf { enableTimestamps },
+                        assets = Assets(
+                            largeImage = large_image?.resolveImage(kizzyRepository),
+                            smallImage = small_image?.resolveImage(kizzyRepository)
+                        ).takeIf { large_image != null || small_image != null },
+                        buttons = buttons.takeIf { it.size > 0 },
+                        metadata = Metadata(buttonUrls = buttonUrl).takeIf { buttonUrl.size > 0 },
+                        applicationId = Constants.APPLICATION_ID.takeIf { buttons.size > 0 })
+                ),
+                afk = true,
+                since = time,
+                status = Constants.DND
             )
         )
     }
 
     suspend fun updateRPC(sharedRpc: SharedRpc) {
-        if (!isRpcRunning()) return
+        if (!discordWebSocket.isActive) return
         var time = Timestamps(start = startTimestamps)
         if (sharedRpc.time != null)
             Timestamps(end = sharedRpc.time.end, start = sharedRpc.time.start).also { time = it }
-        webSocketClient!!.send(
-            RichPresence(
-                op = 3,
-                d = RichPresenceData(
-                    activities = listOf(
-                        Activity(
-                            name = sharedRpc.name,
-                            details = sharedRpc.details?.takeIf { it.isNotEmpty() },
-                            state = sharedRpc.state?.takeIf { it.isNotEmpty() },
-                            type = Prefs[CUSTOM_ACTIVITY_TYPE,0],
-                            timestamps = time,
-                            assets = if (sharedRpc.large_image != null || sharedRpc.small_image != null)
-                                Assets(
-                                    largeImage = sharedRpc.large_image?.resolveImage(kizzyRepository),
-                                    smallImage = sharedRpc.small_image?.resolveImage(kizzyRepository)
-                                )
-                            else null,
-                            buttons = if (buttons.size > 0) buttons else null,
-                            metadata = if (buttonUrl.size > 0) Metadata(buttonUrls = buttonUrl) else null,
-                            applicationId = if (buttons.size > 0) Constants.APPLICATION_ID else null
-                        )
-                    ),
-                    afk = true,
-                    since = startTimestamps,
-                    status = Constants.DND
-                )
+        discordWebSocket.sendActivity(
+            Presence(
+                activities = listOf(
+                    Activity(
+                        name = sharedRpc.name,
+                        details = sharedRpc.details?.takeIf { it.isNotEmpty() },
+                        state = sharedRpc.state?.takeIf { it.isNotEmpty() },
+                        type = Prefs[CUSTOM_ACTIVITY_TYPE, 0],
+                        timestamps = time,
+                        assets = Assets(
+                                largeImage = sharedRpc.large_image?.resolveImage(kizzyRepository),
+                                smallImage = sharedRpc.small_image?.resolveImage(kizzyRepository)
+                            ).takeIf { sharedRpc.large_image != null || sharedRpc.small_image != null },
+                        buttons = buttons.takeIf { buttons.size > 0 },
+                        metadata = Metadata(buttonUrls = buttonUrl).takeIf { buttonUrl.size > 0 },
+                        applicationId = Constants.APPLICATION_ID.takeIf { buttons.size > 0 }
+                    )
+                ),
+                afk = true,
+                since = startTimestamps,
+                status = Constants.DND
             )
         )
-    }
-
-    init {
-        heartbeatRunnable = Runnable {
-            try {
-                if (heartbeatInterval < 10000) throw RuntimeException("invalid")
-                Thread.sleep(heartbeatInterval.toLong())
-                webSocketClient.send(
-                    HeartBeat(
-                        op = 1,
-                        d = if (seq == 0) "null" else seq.toString()
-                    )
-                )
-            } catch (_: InterruptedException) {
-            }
-        }
-    }
-
-    companion object {
-        const val TAG = "Websocket"
-    }
-
-    inner class Websocket(uri: URI, map: ArrayMap<String, String>) : WebSocketClient(uri, map) {
-        private var gatewayResume = ""
-
-        override fun send(text: String?) {
-            if (text != null) {
-                vlog.d(TAG,text)
-            }
-            super.send(text)
-        }
-
-        override fun connect() {
-            vlog.d(TAG, "connect() called")
-            super.connect()
-        }
-
-        override fun onOpen(handshakedata: ServerHandshake?) {
-            vlog.i(TAG, "onOpen() called with: handshake-data = $handshakedata")
-        }
-
-        override fun onMessage(message: String) {
-            val map = gson.fromJson<ArrayMap<String, Any>>(
-                message, object : TypeToken<ArrayMap<String?, Any?>?>() {}.type
-            )
-            val o = map["s"]
-            if (o != null) {
-                seq = (o as Double).toInt()
-            }
-            when ((map["op"] as Double?)!!.toInt()) {
-                0 -> if (map["t"] as String? == "READY") {
-                    sessionId = (map["d"] as Map<*, *>?)!!["session_id"].toString()
-                    gatewayResume = (map["d"] as Map<*, *>?)!!["resume_gateway_url"].toString()
-                    vlog.d(TAG, "updating gateway url to $gatewayResume")
-                    vlog.i(TAG, "Connected to Gateway ")
-                    send(rpc)
-                    return
-                }
-                10 -> if (!reconnectSession) {
-                    val data = map["d"] as Map<*, *>?
-                    heartbeatInterval = (data!!["heartbeat_interval"] as Double?)!!.toInt()
-                    heartbeatThr = Thread(heartbeatRunnable)
-                    heartbeatThr!!.start()
-                    sendIdentify()
-                } else {
-                    vlog.d(TAG, "Sending Resume")
-                    val data = map["d"] as Map<*, *>?
-                    heartbeatInterval = (data!!["heartbeat_interval"] as Double?)!!.toInt()
-                    heartbeatThr = Thread(heartbeatRunnable)
-                    heartbeatThr!!.start()
-                    reconnectSession = false
-                    send(
-                        Resume(
-                            op = 6,
-                            d = D(
-                                token = token,
-                                sessionId = sessionId,
-                                seq = seq
-                            )
-                        )
-                    )
-                }
-                1 -> {
-                    if (!Thread.interrupted()) {
-                        heartbeatThr!!.interrupt()
-                    }
-                    send(
-                        HeartBeat(
-                            op = 1,
-                            d = if (seq == 0) "null" else seq.toString()
-                        )
-                    )
-                }
-                11 -> {
-                    if (!Thread.interrupted()) {
-                        heartbeatThr!!.interrupt()
-                    }
-                    heartbeatThr = Thread(heartbeatRunnable)
-                    heartbeatThr!!.start()
-                }
-                7 -> {
-                    reconnectSession = true
-                    vlog.e(TAG, "Closing and Reconnecting Session")
-                    webSocketClient!!.close(4000)
-                }
-                9 -> if (!heartbeatThr!!.isInterrupted) {
-                    vlog.d(TAG, "Reconnect Failed")
-                    heartbeatThr!!.interrupt()
-                    heartbeatThr = Thread(heartbeatRunnable)
-                    heartbeatThr!!.start()
-                    sendIdentify()
-                }
-            }
-        }
-
-        override fun onClose(code: Int, reason: String, remote: Boolean) {
-            vlog.d(TAG, "onClose() called with: code = $code, reason = $reason, remote = $remote")
-            if (code == 4000) {
-                reconnectSession = true
-                heartbeatThr!!.interrupt()
-                vlog.e(TAG, "Closed Socket")
-                val newTh = Thread {
-                    try {
-                        Thread.sleep(200)
-                        webSocketClient = Websocket(URI(gatewayResume), ArrayMap<String, String>())
-                        (webSocketClient as Websocket).connect()
-                    } catch (_: InterruptedException) {
-                    }
-                }
-                newTh.start()
-            } else throw RuntimeException("Invalid")
-        }
-
-        override fun onError(e: Exception) {
-            vlog.e(TAG, "onError() called with: e = $e")
-            if (e.message != "Interrupt") {
-                closeRPC()
-            }
-        }
-
-        override fun onSetSSLParameters(p: SSLParameters) {
-            try {
-                super.onSetSSLParameters(p)
-            } catch (th: Throwable) {
-                th.printStackTrace()
-            }
-        }
-    }
-
-    private fun WebSocketClient?.send(src: Any) {
-        this?.let {
-            if (it.isOpen)
-                it.send(gson.toJson(src))
-        }
     }
 }
