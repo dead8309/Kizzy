@@ -21,9 +21,9 @@ data class Identify(
             compress = false,
             largeThreshold = 100,
             properties = Properties(
-                browser = "chrome",
+                browser = "Discord Client",
                 device = "ktor",
-                os = "windows"
+                os = "Windows"
             ),
             token = this
         )
