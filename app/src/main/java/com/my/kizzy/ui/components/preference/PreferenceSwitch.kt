@@ -2,7 +2,7 @@
  *
  *  ******************************************************************
  *  *  * Copyright (C) 2022
- *  *  * AppsItem.kt is part of Kizzy
+ *  *  * PreferenceSwitch.kt is part of Kizzy
  *  *  *  and can not be copied and/or distributed without the express
  *  *  * permission of yzziK(Vaibhav)
  *  *  *****************************************************************
@@ -10,34 +10,34 @@
  *
  */
 
-package com.my.kizzy.ui.screen.apps
+package com.my.kizzy.ui.components.preference
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.blankj.utilcode.util.AppUtils
 import com.my.kizzy.ui.components.KSwitch
-import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
-fun AppsItem(
-    name: String,
-    pkg: String,
-    isChecked: Boolean,
+fun PreferenceSwitch(
+    title: String = "",
+    description: String? = null,
+    icon: ImageVector? = null,
+    enabled: Boolean = true,
+    isChecked: Boolean = true,
     onClick: () -> Unit = {},
 ) {
     Surface(
-        modifier = Modifier.clickable {
-            onClick()
-        }
+        modifier = if (enabled) Modifier.clickable { onClick() } else Modifier
     ) {
         Row(
             modifier = Modifier
@@ -45,36 +45,40 @@ fun AppsItem(
                 .padding(16.dp, 20.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            GlideImage(
-                    imageModel = AppUtils.getAppIcon(pkg),
-                    contentDescription = null,
+            icon?.let {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = title,
                     modifier = Modifier
-                        .size(70.dp)
-                        .padding(10.dp),
-            )
-
+                        .padding(start = 8.dp, end = 16.dp)
+                        .size(24.dp),
+                    tint = MaterialTheme.colorScheme.secondary
+                )
+            }
             Column(
                 modifier = Modifier.weight(1f)
             ) {
                 Text(
-                    text = name,
-                    maxLines = 1,
+                    text = title,
+                    maxLines = 2,
                     style = MaterialTheme.typography.titleLarge.copy(fontSize = 20.sp),
                     color = MaterialTheme.colorScheme.onSurface,
                     overflow = TextOverflow.Ellipsis
                 )
-                if (pkg.isNotEmpty())
+                if (!description.isNullOrEmpty())
                     Text(
-                        text = pkg,
+                        text = description,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        maxLines = 2,
+                        maxLines = 5,
                         style = MaterialTheme.typography.bodyMedium,
                     )
             }
             KSwitch(
                 checked = isChecked,
                 modifier = Modifier.padding(start = 20.dp, end = 6.dp),
+                enable = enabled
             )
+
         }
     }
 }

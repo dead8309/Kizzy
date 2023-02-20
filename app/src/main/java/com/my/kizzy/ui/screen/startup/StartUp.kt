@@ -41,8 +41,10 @@ import com.google.accompanist.permissions.rememberPermissionState
 import com.google.gson.Gson
 import com.my.kizzy.R
 import com.my.kizzy.data.remote.User
-import com.my.kizzy.ui.common.PreferenceSubtitle
-import com.my.kizzy.utils.Prefs
+import com.my.kizzy.ui.components.Subtitle
+import com.my.kizzy.preference.Prefs
+import com.my.kizzy.preference.getLanguageDesc
+import com.my.kizzy.preference.languages
 import com.my.kizzy.utils.fromJson
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
@@ -130,7 +132,7 @@ fun StartUp(
                     )
                 }
                 item {
-                    PreferenceSubtitle(
+                    Subtitle(
                         text = "Mandatory",
                         modifier = Modifier,
                         style = MaterialTheme.typography.titleMedium
@@ -182,7 +184,7 @@ fun StartUp(
                 }
 
                 item {
-                    PreferenceSubtitle(
+                    Subtitle(
                         text = "Optional",
                         modifier = Modifier,
                         style = MaterialTheme.typography.titleMedium
@@ -198,8 +200,8 @@ fun StartUp(
                 item {
                     SetupCard(title = stringResource(id = R.string.language),
                         description = buildString {
-                            Prefs.languages.keys.forEach { key ->
-                                this.append(Prefs.getLanguageDesc(key) + ", ")
+                            languages.keys.forEach { key ->
+                                this.append(getLanguageDesc(key) + ", ")
                             }
                         }) {
                         navigateToLanguages()

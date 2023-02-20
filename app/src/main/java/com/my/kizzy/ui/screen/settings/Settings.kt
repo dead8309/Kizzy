@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.my.kizzy.R
 import com.my.kizzy.data.remote.User
-import com.my.kizzy.ui.common.PreferenceSubtitle
+import com.my.kizzy.ui.components.Subtitle
 import com.my.kizzy.ui.screen.home.chips
 import com.my.kizzy.ui.screen.profile.user.Base
 import com.my.kizzy.ui.screen.settings.about.app_home_page
@@ -95,7 +95,7 @@ fun SettingsDrawer(
                     Divider()
                 }
                 item { 
-                    PreferenceSubtitle(
+                    Subtitle(
                         text = "HELP",
                         modifier = Modifier
                     )

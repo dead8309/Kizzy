@@ -13,9 +13,9 @@ import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.my.kizzy.R
-import com.my.kizzy.ui.common.BackButton
-import com.my.kizzy.ui.common.CreditItem
-import com.my.kizzy.ui.common.PreferenceSubtitle
+import com.my.kizzy.ui.components.BackButton
+import com.my.kizzy.ui.components.CreditItem
+import com.my.kizzy.ui.components.Subtitle
 
 data class Credit(val title: String = "", val license: String = "", val url: String = "")
 
@@ -70,7 +70,7 @@ fun Credits(onBackPressed: () -> Unit) {
     ){
         LazyColumn(modifier = Modifier.padding(it)){
             item {
-                PreferenceSubtitle(text = stringResource(id = R.string.design_credits))
+                Subtitle(text = stringResource(id = R.string.design_credits))
                 }
             items(creditsList){item: Credit ->
                 CreditItem(title = item.title,
@@ -79,7 +79,7 @@ fun Credits(onBackPressed: () -> Unit) {
                 }
             }
             item {
-                PreferenceSubtitle(text = stringResource(id = R.string.translation_credits))
+                Subtitle(text = stringResource(id = R.string.translation_credits))
             }
            items(languages.size){ lang ->
                CreditItem(

@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.common
+package com.my.kizzy.domain.model
 
 sealed class Resource<T>(val data: T? = null, val message: String? = null) {
     class Success<T>(data: T) : Resource<T>(data)

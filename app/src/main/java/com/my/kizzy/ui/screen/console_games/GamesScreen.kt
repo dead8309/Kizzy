@@ -37,16 +37,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.gson.Gson
 import com.my.kizzy.R
-import com.my.kizzy.common.Constants
+import com.my.kizzy.utils.Constants
 import com.my.kizzy.domain.model.Game
 import com.my.kizzy.service.AppDetectionService
 import com.my.kizzy.service.CustomRpcService
 import com.my.kizzy.service.ExperimentalRpc
 import com.my.kizzy.service.MediaRpcService
-import com.my.kizzy.ui.common.*
+import com.my.kizzy.ui.components.BackButton
+import com.my.kizzy.ui.components.SearchBar
+import com.my.kizzy.ui.components.SwitchBar
+import com.my.kizzy.ui.components.shimmer.AnimatedShimmer
+import com.my.kizzy.ui.components.shimmer.ShimmerGamesScreen
 import com.my.kizzy.ui.screen.custom.RpcIntent
 import com.my.kizzy.utils.AppUtils
-import com.my.kizzy.utils.Prefs
+import com.my.kizzy.preference.Prefs
 import com.skydoves.landscapist.glide.GlideImage
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -195,7 +199,7 @@ fun GamesScreen(
                         .fillMaxSize()
                 ) {
                     AnimatedShimmer {
-                        ShimmerGameItems(brush = it)
+                        ShimmerGamesScreen(brush = it)
                     }
                 }
             }

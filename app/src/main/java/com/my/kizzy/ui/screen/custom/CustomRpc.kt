@@ -34,10 +34,10 @@ import com.my.kizzy.service.AppDetectionService
 import com.my.kizzy.service.CustomRpcService
 import com.my.kizzy.service.ExperimentalRpc
 import com.my.kizzy.service.MediaRpcService
-import com.my.kizzy.ui.common.BackButton
-import com.my.kizzy.ui.common.SwitchBar
+import com.my.kizzy.ui.components.BackButton
+import com.my.kizzy.ui.components.SwitchBar
 import com.my.kizzy.utils.AppUtils
-import com.my.kizzy.utils.Prefs
+import com.my.kizzy.preference.Prefs
 import kotlinx.coroutines.launch
 import java.util.*
 

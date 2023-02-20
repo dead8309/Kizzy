@@ -1,3 +1,15 @@
+/*
+ *
+ *  ******************************************************************
+ *  *  * Copyright (C) 2022
+ *  *  * KSwitch.kt is part of Kizzy
+ *  *  *  and can not be copied and/or distributed without the express
+ *  *  * permission of yzziK(Vaibhav)
+ *  *  *****************************************************************
+ *
+ *
+ */
+
 /**
  * Copyright (C) 2021 Kyant0
  *
@@ -5,7 +17,7 @@
  * @author Kyant0
  */
 
-package com.my.kizzy.ui.common
+package com.my.kizzy.ui.components
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState

@@ -16,7 +16,7 @@ import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import com.my.kizzy.utils.Log.logger
 import com.my.kizzy.utils.LogEvent
-import com.my.kizzy.utils.Prefs
+import com.my.kizzy.preference.Prefs
 
 class LogsViewModel: ViewModel() {
     val filterStrings = mutableStateOf("")

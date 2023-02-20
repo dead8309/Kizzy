@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.ui.common
+package com.my.kizzy.ui.components
 
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column

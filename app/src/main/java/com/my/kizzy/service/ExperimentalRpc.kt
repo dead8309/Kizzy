@@ -17,12 +17,12 @@ import android.content.Intent
 import android.os.IBinder
 import com.google.gson.GsonBuilder
 import com.my.kizzy.R
-import com.my.kizzy.common.Constants
+import com.my.kizzy.utils.Constants
 import com.my.kizzy.domain.use_case.get_current_data.AppTracker
 import com.my.kizzy.rpc.KizzyRPC
 import com.my.kizzy.ui.screen.settings.rpc_settings.RpcButtons
 import com.my.kizzy.utils.Log.logger
-import com.my.kizzy.utils.Prefs
+import com.my.kizzy.preference.Prefs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel

@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.common
+package com.my.kizzy.utils
 
 object Constants {
     const val NINTENDO_LINK =

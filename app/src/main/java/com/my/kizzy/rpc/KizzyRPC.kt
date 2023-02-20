@@ -1,11 +1,11 @@
 package com.my.kizzy.rpc
 
-import com.my.kizzy.common.Constants
+import com.my.kizzy.utils.Constants
 import com.my.kizzy.domain.repository.KizzyRepository
 import com.my.kizzy.domain.use_case.get_current_data.SharedRpc
 import com.my.kizzy.utils.Log.logger
-import com.my.kizzy.utils.Prefs
-import com.my.kizzy.utils.Prefs.CUSTOM_ACTIVITY_TYPE
+import com.my.kizzy.preference.Prefs
+import com.my.kizzy.preference.Prefs.CUSTOM_ACTIVITY_TYPE
 import kizzy.gateway.DiscordWebSocket
 import kizzy.gateway.entities.presence.*
 import kotlinx.coroutines.isActive

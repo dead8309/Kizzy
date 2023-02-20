@@ -17,7 +17,7 @@ import android.graphics.Bitmap
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.my.kizzy.domain.repository.KizzyRepository
-import com.my.kizzy.utils.Prefs
+import com.my.kizzy.preference.Prefs
 import com.my.kizzy.utils.getAppInfo
 import com.my.kizzy.utils.toBitmap
 import com.my.kizzy.utils.toFile

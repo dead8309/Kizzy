@@ -22,7 +22,7 @@ import com.my.kizzy.domain.use_case.get_current_data.SharedRpc
 import com.my.kizzy.rpc.RpcImage
 import com.my.kizzy.service.MediaRpcService
 import com.my.kizzy.service.NotificationListener
-import com.my.kizzy.utils.Prefs
+import com.my.kizzy.preference.Prefs
 import kizzy.gateway.entities.presence.Timestamps
 
 fun getCurrentRunningMedia(context: Context): SharedRpc {

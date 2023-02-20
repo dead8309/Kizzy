@@ -38,13 +38,13 @@ import com.my.kizzy.service.AppDetectionService
 import com.my.kizzy.service.CustomRpcService
 import com.my.kizzy.service.ExperimentalRpc
 import com.my.kizzy.service.MediaRpcService
-import com.my.kizzy.ui.common.KSwitch
-import com.my.kizzy.ui.common.Routes
+import com.my.kizzy.ui.components.KSwitch
+import com.my.kizzy.ui.Routes
 import com.my.kizzy.ui.screen.profile.user.Base
 import com.my.kizzy.ui.screen.settings.SettingsDrawer
 import com.my.kizzy.utils.AppUtils
-import com.my.kizzy.utils.Prefs
-import com.my.kizzy.utils.Prefs.USER_DATA
+import com.my.kizzy.preference.Prefs
+import com.my.kizzy.preference.Prefs.USER_DATA
 import com.my.kizzy.utils.fromJson
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.launch

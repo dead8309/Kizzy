@@ -12,10 +12,8 @@
 
 package com.my.kizzy.domain.use_case.get_user
 
-import com.my.kizzy.common.Resource
+import com.my.kizzy.domain.model.Resource
 import com.my.kizzy.data.remote.User
-import com.my.kizzy.data.remote.toGame
-import com.my.kizzy.domain.model.Game
 import com.my.kizzy.domain.repository.KizzyRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

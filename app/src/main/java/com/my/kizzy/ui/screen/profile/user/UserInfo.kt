@@ -1,9 +1,9 @@
 package com.my.kizzy.ui.screen.profile.user
 
-import com.my.kizzy.utils.Prefs
-import com.my.kizzy.utils.Prefs.USER_BIO
-import com.my.kizzy.utils.Prefs.USER_ID
-import com.my.kizzy.utils.Prefs.USER_NITRO
+import com.my.kizzy.preference.Prefs
+import com.my.kizzy.preference.Prefs.USER_BIO
+import com.my.kizzy.preference.Prefs.USER_ID
+import com.my.kizzy.preference.Prefs.USER_NITRO
 import kizzy.gateway.DiscordWebSocket
 import kizzy.gateway.DiscordWebSocketImpl
 import kizzy.gateway.entities.Payload

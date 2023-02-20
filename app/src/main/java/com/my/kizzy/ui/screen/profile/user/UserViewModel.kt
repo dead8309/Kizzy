@@ -17,12 +17,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
-import com.my.kizzy.common.Resource
+import com.my.kizzy.domain.model.Resource
 import com.my.kizzy.data.remote.User
 import com.my.kizzy.domain.use_case.get_user.GetUserUseCase
-import com.my.kizzy.utils.Prefs
-import com.my.kizzy.utils.Prefs.USER_DATA
-import com.my.kizzy.utils.Prefs.USER_ID
+import com.my.kizzy.preference.Prefs
+import com.my.kizzy.preference.Prefs.USER_DATA
+import com.my.kizzy.preference.Prefs.USER_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

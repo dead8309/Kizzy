@@ -16,7 +16,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.my.kizzy.common.Resource
+import com.my.kizzy.domain.model.Resource
 import com.my.kizzy.domain.model.Game
 import com.my.kizzy.domain.use_case.get_games.GetGamesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

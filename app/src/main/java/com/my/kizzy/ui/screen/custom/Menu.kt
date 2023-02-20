@@ -20,13 +20,13 @@ import com.blankj.utilcode.util.FileIOUtils
 import com.blankj.utilcode.util.FileUtils
 import com.google.gson.GsonBuilder
 import com.my.kizzy.R
-import com.my.kizzy.common.Constants
+import com.my.kizzy.utils.Constants
 import com.my.kizzy.data.remote.User
-import com.my.kizzy.ui.common.MultiChoiceItem
-import com.my.kizzy.ui.common.SingleChoiceItem
+import com.my.kizzy.ui.components.dialog.MultiChoiceItem
+import com.my.kizzy.ui.components.dialog.SingleChoiceItem
 import com.my.kizzy.ui.screen.profile.user.ProfileCard
 import com.my.kizzy.utils.Log
-import com.my.kizzy.utils.Prefs
+import com.my.kizzy.preference.Prefs
 import java.io.File
 import java.io.FilenameFilter
 
@@ -37,7 +37,7 @@ private val FILE_FILTER = FilenameFilter { _: File?, f: String ->
 private fun Context.dir() = if (Build.VERSION.SDK_INT == Build.VERSION_CODES.TIRAMISU)
     File(this.filesDir,"Configs")
 else{
-    val selected = Prefs[Prefs.CONFIGS_DIRECTORY,Constants.DOWNLOADS_DIRECTORY]
+    val selected = Prefs[Prefs.CONFIGS_DIRECTORY, Constants.DOWNLOADS_DIRECTORY]
     if (selected == Constants.DOWNLOADS_DIRECTORY)
         File(
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),

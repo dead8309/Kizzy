@@ -1,4 +1,4 @@
-package com.my.kizzy.ui.common
+package com.my.kizzy.ui
 
 class Routes {
     companion object {

@@ -12,11 +12,11 @@ import com.blankj.utilcode.util.AppUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.my.kizzy.R
-import com.my.kizzy.common.Constants
+import com.my.kizzy.utils.Constants
 import com.my.kizzy.rpc.KizzyRPC
 import com.my.kizzy.rpc.RpcImage
 import com.my.kizzy.ui.screen.settings.rpc_settings.RpcButtons
-import com.my.kizzy.utils.Prefs
+import com.my.kizzy.preference.Prefs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import java.util.*

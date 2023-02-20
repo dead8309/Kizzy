@@ -13,9 +13,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.my.kizzy.BuildConfig
 import com.my.kizzy.R
-import com.my.kizzy.ui.common.BackButton
-import com.my.kizzy.ui.common.PreferencesHint
-import com.my.kizzy.ui.common.SettingItem
+import com.my.kizzy.ui.components.BackButton
+import com.my.kizzy.ui.components.preference.PreferencesHint
+import com.my.kizzy.ui.components.SettingItem
 
 
 

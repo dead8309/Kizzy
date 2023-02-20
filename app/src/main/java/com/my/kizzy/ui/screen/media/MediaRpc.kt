@@ -23,15 +23,15 @@ import com.my.kizzy.service.AppDetectionService
 import com.my.kizzy.service.CustomRpcService
 import com.my.kizzy.service.ExperimentalRpc
 import com.my.kizzy.service.MediaRpcService
-import com.my.kizzy.ui.common.BackButton
-import com.my.kizzy.ui.common.PreferenceSwitch
-import com.my.kizzy.ui.common.PreferencesHint
-import com.my.kizzy.ui.common.SwitchBar
+import com.my.kizzy.ui.components.BackButton
+import com.my.kizzy.ui.components.preference.PreferencesHint
+import com.my.kizzy.ui.components.SwitchBar
+import com.my.kizzy.ui.components.preference.PreferenceSwitch
 import com.my.kizzy.utils.AppUtils
-import com.my.kizzy.utils.Prefs
-import com.my.kizzy.utils.Prefs.MEDIA_RPC_APP_ICON
-import com.my.kizzy.utils.Prefs.MEDIA_RPC_ARTIST_NAME
-import com.my.kizzy.utils.Prefs.MEDIA_RPC_ENABLE_TIMESTAMPS
+import com.my.kizzy.preference.Prefs
+import com.my.kizzy.preference.Prefs.MEDIA_RPC_APP_ICON
+import com.my.kizzy.preference.Prefs.MEDIA_RPC_ARTIST_NAME
+import com.my.kizzy.preference.Prefs.MEDIA_RPC_ENABLE_TIMESTAMPS
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -24,15 +24,15 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.my.kizzy.R
-import com.my.kizzy.common.LocalDarkTheme
-import com.my.kizzy.ui.common.BackButton
-import com.my.kizzy.ui.common.PreferenceSingleChoiceItem
-import com.my.kizzy.ui.common.PreferenceSubtitle
-import com.my.kizzy.ui.common.PreferenceSwitch
-import com.my.kizzy.utils.Prefs
-import com.my.kizzy.utils.Prefs.DarkThemePreference.Companion.FOLLOW_SYSTEM
-import com.my.kizzy.utils.Prefs.DarkThemePreference.Companion.OFF
-import com.my.kizzy.utils.Prefs.DarkThemePreference.Companion.ON
+import com.my.kizzy.preference.DarkThemePreference.Companion.FOLLOW_SYSTEM
+import com.my.kizzy.preference.DarkThemePreference.Companion.OFF
+import com.my.kizzy.preference.DarkThemePreference.Companion.ON
+import com.my.kizzy.preference.modifyDarkThemePreference
+import com.my.kizzy.ui.components.BackButton
+import com.my.kizzy.ui.components.Subtitle
+import com.my.kizzy.ui.components.preference.PreferenceSingleChoiceItem
+import com.my.kizzy.ui.components.preference.PreferenceSwitch
+import com.my.kizzy.utils.LocalDarkTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -66,29 +66,29 @@ fun DarkThemePreferences(onBackPressed: () -> Unit) {
                     PreferenceSingleChoiceItem(
                         text = stringResource(R.string.follow_system),
                         selected = darkThemePreference.darkThemeValue == FOLLOW_SYSTEM
-                    ) { Prefs.modifyDarkThemePreference(FOLLOW_SYSTEM) }
+                    ) { modifyDarkThemePreference(FOLLOW_SYSTEM) }
                 }
                 item {
                     PreferenceSingleChoiceItem(
                         text = stringResource(id = R.string.android_on),
                         selected = darkThemePreference.darkThemeValue == ON
-                    ) { Prefs.modifyDarkThemePreference(ON) }
+                    ) { modifyDarkThemePreference(ON) }
                 }
                 item {
                     PreferenceSingleChoiceItem(
                         text = stringResource(id = R.string.android_off),
                         selected = darkThemePreference.darkThemeValue == OFF
-                    ) { Prefs.modifyDarkThemePreference(OFF) }
+                    ) { modifyDarkThemePreference(OFF) }
                 }
                 item {
-                    PreferenceSubtitle(text = stringResource(R.string.advance_settings))
+                    Subtitle(text = stringResource(R.string.advance_settings))
                 }
                 item {
                     PreferenceSwitch(
                         title = stringResource(R.string.amoled),
                         icon = Icons.Outlined.Contrast,
                         isChecked = isHighContrastModeEnabled, onClick = {
-                            Prefs.modifyDarkThemePreference(isHighContrastModeEnabled = !isHighContrastModeEnabled)
+                            modifyDarkThemePreference(isHighContrastModeEnabled = !isHighContrastModeEnabled)
                         }
                     )
                 }

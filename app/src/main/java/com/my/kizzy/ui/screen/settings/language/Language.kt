@@ -8,17 +8,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.my.kizzy.MainActivity
 import com.my.kizzy.R
-import com.my.kizzy.ui.common.BackButton
-import com.my.kizzy.ui.common.PreferenceSingleChoiceItem
-import com.my.kizzy.utils.Prefs
-import com.my.kizzy.utils.Prefs.LANGUAGE
-import com.my.kizzy.utils.Prefs.SYSTEM_DEFAULT
-import com.my.kizzy.utils.Prefs.getLanguageConfig
+import com.my.kizzy.preference.*
+import com.my.kizzy.ui.components.BackButton
+import com.my.kizzy.ui.components.preference.PreferenceSingleChoiceItem
+import com.my.kizzy.preference.Prefs.LANGUAGE
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Language(onBackPressed: () -> Unit) {
-    var locale by remember { mutableStateOf(Prefs.getLanguageNumber()) }
+    var locale by remember { mutableStateOf(getLanguageNumber()) }
 
     fun changeLanguage(index: Int) {
         locale = index
@@ -49,10 +47,10 @@ fun Language(onBackPressed: () -> Unit) {
                     selected = locale == SYSTEM_DEFAULT
                 ) { changeLanguage(SYSTEM_DEFAULT) }
             }
-            for (language in Prefs.languages) {
+            for (language in languages) {
                 item {
                     PreferenceSingleChoiceItem(
-                        text = Prefs.getLanguageDesc(language.key),
+                        text = getLanguageDesc(language.key),
                         selected = locale == language.key
                     ) {
                         changeLanguage(language.key)

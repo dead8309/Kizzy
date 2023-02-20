@@ -18,12 +18,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-import com.my.kizzy.common.LocalDarkTheme
-import com.my.kizzy.common.LocalDynamicColorSwitch
-import com.my.kizzy.common.LocalSeedColor
-import com.my.kizzy.common.SettingsProvider
-import com.my.kizzy.ui.common.Routes
-import com.my.kizzy.ui.common.animatedComposable
+import com.my.kizzy.utils.LocalDarkTheme
+import com.my.kizzy.utils.LocalDynamicColorSwitch
+import com.my.kizzy.utils.LocalSeedColor
+import com.my.kizzy.utils.SettingsProvider
+import com.my.kizzy.ui.Routes
+import com.my.kizzy.ui.animatedComposable
 import com.my.kizzy.ui.screen.apps.AppsRPC
 import com.my.kizzy.ui.screen.console_games.GamesScreen
 import com.my.kizzy.ui.screen.console_games.GamesViewModel
@@ -45,7 +45,8 @@ import com.my.kizzy.ui.screen.settings.style.Appearance
 import com.my.kizzy.ui.screen.settings.style.DarkThemePreferences
 import com.my.kizzy.ui.screen.startup.StartUp
 import com.my.kizzy.ui.theme.KizzyTheme
-import com.my.kizzy.utils.Prefs
+import com.my.kizzy.preference.Prefs
+import com.my.kizzy.preference.getLanguageConfig
 import com.my.kizzy.utils.hasUsageAccess
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -68,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         runBlocking {
             if (Build.VERSION.SDK_INT < 33)
                 AppCompatDelegate.setApplicationLocales(
-                    LocaleListCompat.forLanguageTags(Prefs.getLanguageConfig())
+                    LocaleListCompat.forLanguageTags(getLanguageConfig())
                 )
         }
         setContent {
@@ -101,7 +102,7 @@ class MainActivity : AppCompatActivity() {
             val navController = rememberAnimatedNavController()
             AnimatedNavHost(
                 navController = navController,
-                startDestination = if (Prefs[Prefs.IS_FIRST_LAUNCHED,true])Routes.SETUP else Routes.HOME
+                startDestination = if (Prefs[Prefs.IS_FIRST_LAUNCHED,true]) Routes.SETUP else Routes.HOME
             ) {
                 animatedComposable(Routes.SETUP) {
                    StartUp(

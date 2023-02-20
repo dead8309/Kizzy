@@ -1,4 +1,4 @@
-package com.my.kizzy.ui.common
+package com.my.kizzy.ui
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween

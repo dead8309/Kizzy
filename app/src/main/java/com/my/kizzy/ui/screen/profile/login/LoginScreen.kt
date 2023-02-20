@@ -33,12 +33,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.my.kizzy.R
-import com.my.kizzy.ui.common.BackButton
+import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.screen.profile.user.getUserInfo
 import com.my.kizzy.ui.theme.DISCORD_GREY
 import com.my.kizzy.utils.Log
-import com.my.kizzy.utils.Prefs
-import com.my.kizzy.utils.Prefs.TOKEN
+import com.my.kizzy.preference.Prefs
+import com.my.kizzy.preference.Prefs.TOKEN
 import kotlinx.coroutines.launch
 
 const val JS_SNIPPET =
