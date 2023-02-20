@@ -39,10 +39,9 @@ object AppModule {
     @Provides
     fun providesOkHttpClient(): OkHttpClient {
         val builder = OkHttpClient.Builder()
-        val log = logger
         builder.addInterceptor(HttpLoggingInterceptor {
-                log.d("Retrofit",it)
-        }.setLevel(HttpLoggingInterceptor.Level.BODY))
+                logger.d("Retrofit",it)
+        }.setLevel(HttpLoggingInterceptor.Level.BASIC))
         builder.connectTimeout(30, TimeUnit.SECONDS)
         builder.readTimeout(30, TimeUnit.SECONDS)
         builder.writeTimeout(30, TimeUnit.SECONDS)

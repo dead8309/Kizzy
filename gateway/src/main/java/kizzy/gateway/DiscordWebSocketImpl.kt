@@ -55,6 +55,7 @@ open class DiscordWebSocketImpl(
                 handleClose()
             } catch (e: Exception) {
                 log(e, LogLevel.ERROR)
+                close()
             }
         }
     }
@@ -70,7 +71,8 @@ open class DiscordWebSocketImpl(
         if (close?.code?.toInt() == 4000) {
             delay(200.milliseconds)
             connect()
-        }
+        } else
+            close()
     }
 
     private suspend fun onMessage(payload: Payload?) {

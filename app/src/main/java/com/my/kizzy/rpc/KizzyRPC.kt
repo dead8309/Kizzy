@@ -3,6 +3,7 @@ package com.my.kizzy.rpc
 import com.my.kizzy.common.Constants
 import com.my.kizzy.domain.repository.KizzyRepository
 import com.my.kizzy.domain.use_case.get_current_data.SharedRpc
+import com.my.kizzy.utils.Log.logger
 import com.my.kizzy.utils.Prefs
 import com.my.kizzy.utils.Prefs.CUSTOM_ACTIVITY_TYPE
 import kizzy.gateway.DiscordWebSocket
@@ -44,11 +45,12 @@ class KizzyRPC(
      * source: [#token-structure](https://gist.github.com/aydynx/5d29e903417354fd25641b98efc9d437#token-structure)
      */
     private fun isUserTokenValid(): Boolean {
-        val regex = Regex(
+        /*val regex = Regex(
             "[a-z\\d]{24}\\.[a-z\\d]{6}\\.([\\w-]{107}|[\\w-]{38}|[\\w-]{27})|mfa\\.[\\w-]{84}",
             RegexOption.IGNORE_CASE
         )
-        return regex.matches(token)
+        return regex.matches(token)*/
+        return token.isNotBlank()
     }
 
     /**
@@ -233,7 +235,7 @@ class KizzyRPC(
 
     private suspend fun connectToWebSocket() {
         if (!isUserTokenValid())
-            throw IllegalArgumentException("Provided an Invalid Token, Please Login if you haven't")
+            logger.e("KizzyRPC","Token Seems to be invalid, Please Login if you haven't")
         discordWebSocket.connect()
         discordWebSocket.sendActivity(presence)
     }
