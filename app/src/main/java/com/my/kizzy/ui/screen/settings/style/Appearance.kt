@@ -5,7 +5,6 @@ package com.my.kizzy.ui.screen.settings.style
  */
 
 import android.graphics.Color.parseColor
-import android.util.Log
 import androidx.compose.animation.*
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
@@ -152,7 +151,6 @@ fun Appearance(
     }
 }
 
-const val TAG = "Appearance"
 @Composable
 fun ColorButton(
     modifier: Modifier = Modifier,
@@ -166,9 +164,6 @@ fun ColorButton(
 ) {
     val corePalette = CorePalette.of(color.toArgb())
     val seedColor = corePalette.a2.tone(60)
-    Log.d(
-        TAG, "ColorButton() called with: color = ${color.toArgb()}, seed color = $seedColor"
-    )
 
     var customColorValue by remember { mutableStateOf(customColor) }
 
