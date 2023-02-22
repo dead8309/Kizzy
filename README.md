@@ -114,7 +114,7 @@ See [Contribute for Translation](https://github.com/dead8309/Kizzy/issues/2#issu
 
 ✨ [Rich-Presence-U](https://github.com/ninstar/Rich-Presence-U) for Nintendo and Wii U games data
 
-✨ [Vlog](https://github.com/girish3/Vlog) for logging library
+✨ [Logra](https://github.com/wingio/Logra) for logs ui
 
 ✨ [Xbox-Rich-Presence-Discord](https://github.com/MrCoolAndroid/Xbox-Rich-Presence-Discord) for Xbox games data
 
