@@ -14,6 +14,7 @@
         <item>Vietnamese</item>
         <item>Italian</item>
         <item>Filipino</item>
+        <item>French</item>
     </string-array>
 
     <!-- Edit your name here according to translated language -->
@@ -28,6 +29,7 @@
     <string name="vietnamese_contributors" translatable="false">Hiyurin</string>
     <string name="italian_contributors" translatable="false">Giasko</string>
     <string name="filipino_contributors" translatable="false">haz3d</string>
+    <string name="french_contributors" translatable="false">Wan_s</string>
 
 <!-- Only Edit this if you language contributiors tag is not present -->
     <string-array name="contributors">
