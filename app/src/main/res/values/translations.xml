@@ -52,7 +52,7 @@
     <string name="locale_en" translatable="false">English</string>
     <string name="locale_tr" translatable="false">Türkçe</string>
     <string name="locale_nl" translatable="false">Nederlands</string>
-    <string name="locale_ru" translatable="false">Русский язык</string>
+    <string name="locale_ru" translatable="false">Русский</string>
     <string name="locale_pl" translatable="false">Polski</string>
     <string name="locale_pt" translatable="false">Português Brasileiro</string>
     <string name="locale_in" translatable="false">Bahasa Indonesia</string>
