@@ -7,7 +7,7 @@
     <string name="activity_state">Состояние активности</string>
     <string name="activity_start_timestamps">Начало временной метки</string>
     <string name="activity_stop_timestamps">Конец временной метки</string>
-    <string name="activity_status_online_idle_dnd">Статус активности ("В сети", "Не активен" или "Не беспокоить")</string>
+    <string name="activity_status_online_idle_dnd">Статус активности ("В сети", "Неактивен" или "Не беспокоить")</string>
     <string name="activity_button1_text">Текст на первой кнопке</string>
     <string name="activity_button2_text">Текст на второй кнопке</string>
     <string name="activity_button1_url">Ссылка первой кнопки</string>
