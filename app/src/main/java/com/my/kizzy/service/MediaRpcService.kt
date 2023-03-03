@@ -125,13 +125,15 @@ class MediaRpcService : Service() {
                             large_image = appIcon,
                             small_image = smallIcon,
                             enableTimestamps = enable_time,
-                            time = time
+                            time = time,
+                            type = 3
                         )
                     } else {
                         kizzyRPC.apply {
                             setName(App_Name.ifEmpty { "YouTube" })
                             setDetails(TITLE.ifEmpty { "Browsing Home Page.." })
                             setStatus(Constants.DND)
+                            setType(3)
                             if (Prefs[Prefs.USE_RPC_BUTTONS, false]) {
                                 with(rpcButtons) {
                                     setButton1(button1.takeIf { it.isNotEmpty() })
