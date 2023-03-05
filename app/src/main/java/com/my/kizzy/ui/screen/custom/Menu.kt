@@ -20,13 +20,13 @@ import com.blankj.utilcode.util.FileIOUtils
 import com.blankj.utilcode.util.FileUtils
 import com.google.gson.GsonBuilder
 import com.my.kizzy.R
-import com.my.kizzy.utils.Constants
 import com.my.kizzy.data.remote.User
+import com.my.kizzy.preference.Prefs
 import com.my.kizzy.ui.components.dialog.MultiChoiceItem
 import com.my.kizzy.ui.components.dialog.SingleChoiceItem
-import com.my.kizzy.ui.screen.profile.user.ProfileCard
+import com.my.kizzy.ui.screen.profile.user.component.ProfileCard
+import com.my.kizzy.utils.Constants
 import com.my.kizzy.utils.Log
-import com.my.kizzy.preference.Prefs
 import java.io.File
 import java.io.FilenameFilter
 
