@@ -27,6 +27,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.my.kizzy.ui.theme.getColorScheme
 
 @Composable
 fun SwitchBar(
@@ -35,13 +36,13 @@ fun SwitchBar(
     enabled: Boolean = true,
     onClick: () -> Unit
 ) {
+    val colorScheme = getColorScheme(darkTheme = false)
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 12.dp)
             .clip(RoundedCornerShape(25.dp))
-            .background(with(MaterialTheme.colorScheme) {
-                if (isChecked) primaryContainer else outline })
+            .background(colorScheme.primaryContainer)
             .toggleable(enabled){
                 onClick()
             }
@@ -55,7 +56,7 @@ fun SwitchBar(
                 text = title,
                 maxLines = 1,
                 style = typography.titleLarge.copy(fontSize = 20.sp),
-                color = if (isChecked) colorScheme.onSurface else colorScheme.surface,
+                color = colorScheme.onSurface,
                 overflow = TextOverflow.Ellipsis
             )
             KSwitch(
@@ -72,7 +73,10 @@ fun SwitchBar(
 @Preview
 @Composable
 fun PreviewSwitchBar() {
-    Box(Modifier.fillMaxSize().background(Color.Black), contentAlignment = Alignment.Center){
+    Box(
+        Modifier
+            .fillMaxSize()
+            .background(Color.Black), contentAlignment = Alignment.Center){
         var state by remember { mutableStateOf(false) }
         SwitchBar(title = "SwitchBar", isChecked = state) {
             state = !state
