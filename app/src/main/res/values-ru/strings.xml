@@ -7,7 +7,7 @@
     <string name="activity_state">Состояние активности</string>
     <string name="activity_start_timestamps">Начало временной метки</string>
     <string name="activity_stop_timestamps">Конец временной метки</string>
-    <string name="activity_status_online_idle_dnd">Статус активности (online, idle или dnd)</string>
+    <string name="activity_status_online_idle_dnd">Статус активности ("В сети", "Неактивен" или "Не беспокоить")</string>
     <string name="activity_button1_text">Текст на первой кнопке</string>
     <string name="activity_button2_text">Текст на второй кнопке</string>
     <string name="activity_button1_url">Ссылка первой кнопки</string>
@@ -25,10 +25,10 @@
     <string name="github_readme_desc">Проверить GitHub репозиторий</string>
     <string name="github_latest_release">Последний релиз</string>
     <string name="github_latest_release_desc">Проверить на новые версии и список изменений</string>
-    <string name="github_issue">GitHub проблема</string>
+    <string name="github_issue">Нашли ошибку?</string>
     <string name="github_issue_desc">Отправить отчёт об ошибке или запросить новые функции</string>
-    <string name="credits">Кредиты</string>
-    <string name="credits_desc">Кредиты используемым библиотекам и авторам</string>
+    <string name="credits">Спасибо этим людям!</string>
+    <string name="credits_desc">Упоминания используемых библиотек и авторов</string>
     <string name="enable_artist_name">Включить имя артиста</string>
     <string name="show_app_icon">Показывать иконку приложения</string>
     <string name="enable_timestamps">Включить временные метки</string>
@@ -46,13 +46,13 @@
     <string name="features">Возможности</string>
     <string name="account">Аккаунт</string>
     <string name="display">Дисплей</string>
-    <string name="display_desc">Тема, Динамические цвета, Языки</string>
-    <string name="about_desc">Версия, Релизы, Кредиты</string>
+    <string name="display_desc">Тема, динамические цвета, языки</string>
+    <string name="about_desc">Версия, релизы, упоминания</string>
     <string name="about">О приложении</string>
     <string name="settings">Настройки</string>
     <string name="language">Язык</string>
-    <string name="design_credits">Кредиты на дизайн</string>
-    <string name="translation_credits">Кредиты на перевод</string>
+    <string name="design_credits">Дизайн</string>
+    <string name="translation_credits">Перевод</string>
     <string name="enable_appsRpc">Включить обнаружение приложений</string>
     <string name="usage_access">Требуется доступ к использованию</string>
     <string name="usage_access_desc">Доступ к использованию необходим для приложения, чтобы получить текущее запущенное приложение.</string>
@@ -67,7 +67,7 @@
     <string name="enable_console_rpc">Включить консольную активность</string>
     <string name="rpc_settings_button_configs">Конфигурация кнопки для активности мультимедиа и приложений</string>
     <string name="use_custom_buttons">Использовать пользовательские кнопки</string>
-    <string name="use_custom_buttons_desc">Использовать предопределённые кнопки для показана в активности мультимедиа и приложений</string>
+    <string name="use_custom_buttons_desc">Использовать предопределённые кнопки для показа в активности мультимедиа и приложений</string>
     <string name="follow_system">Согласно системе</string>
     <string name="advance_settings">Расширенные настройки</string>
     <string name="amoled">Amoled тема</string>
@@ -82,10 +82,8 @@
     <string name="setup">Настройка</string>
     <string name="user_data_policy">Данное приложение не собирает никакие пользовательские данные</string>
     <string name="setup_desc">Перед тем, как идти дальше, рекомендуется выполнить все необходимые действия, чтобы все функции приложения работали исправно.</string>
-    <string name="permission_granted">ПредоставленоGranted</string>
+    <string name="permission_granted">Предоставлено</string>
     <string name="permission_not_granted">Не предоставлено. Нажмите, чтобы разрешить</string>
     <string name="activity_large_text">Большой текст активности</string>
     <string name="activity_small_text">Малый текст активности</string>
-
-
 </resources>
