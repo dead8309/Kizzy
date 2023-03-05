@@ -75,13 +75,15 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
             item {
                 Subtitle(text = "General")
             }
-            item {
-                SettingItem(
-                    title = "Configs Directory",
-                    description = configsDir,
-                    icon = Icons.Default.Storage,
-                ) {
-                    showDirConfigDialog = true
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                item {
+                    SettingItem(
+                        title = "Configs Directory",
+                        description = configsDir,
+                        icon = Icons.Default.Storage,
+                    ) {
+                        showDirConfigDialog = true
+                    }
                 }
             }
             item {
@@ -141,7 +143,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 }
             }
         }
-        if (showDirConfigDialog && Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+        if (showDirConfigDialog) {
             AlertDialog(
                 onDismissRequest = { showDirConfigDialog = false },
                 confirmButton = {},

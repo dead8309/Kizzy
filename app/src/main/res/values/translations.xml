@@ -44,6 +44,7 @@
         <item>@string/vietnamese_contributors</item>
         <item>@string/italian_contributors</item>
         <item>@string/filipino_contributors</item>
+        <item>@string/french_contributors</item>
     </string-array>
 
     <!-- Modify This according to locale_$folder-name
@@ -61,5 +62,6 @@
     <string name="locale_vi" translatable="false">Tiếng Việt</string>
     <string name="locale_it" translatable="false">Italian</string>
     <string name="locale_fil" translatable="false">Filipino</string>
+    <string name="locale_fr" translatable="false">French</string>
     <!-- Until here -->
 </resources>
