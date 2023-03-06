@@ -36,14 +36,6 @@ fun ShimmerGamesScreen(
             .clip(MaterialTheme.shapes.extraLarge)
             .background(brush))
         Spacer(modifier = Modifier.height(5.dp))
-        Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp)
-                .height(56.dp)
-                .clip(RoundedCornerShape(50.dp))
-                .background(brush)
-        )
 
         repeat(6) {
             Row(
