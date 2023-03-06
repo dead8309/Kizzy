@@ -86,6 +86,7 @@
     <string name="permission_not_granted">未授權, 點擊已授權</string>
     <string name="activity_large_text">活動大標題</string>
     <string name="activity_small_text">活動小標題</string>
+    <string name="use_profile_endpoint_desc">Uses new endpoint to get user data which includes bio and theme colors. It will only work if the user is in our Discord server</string>
 
 
 </resources>

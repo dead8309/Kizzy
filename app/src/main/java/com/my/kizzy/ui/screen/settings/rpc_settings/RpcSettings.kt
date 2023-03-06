@@ -63,6 +63,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
     var showActivityTypeDialog by remember {
         mutableStateOf(false)
     }
+    var isUseProfileEndPointEnabled by remember { mutableStateOf(Prefs[Prefs.USE_PROFILE_ENDPOINT,false]) }
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         LargeTopAppBar(title = {
             Text(
@@ -115,6 +116,17 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                     icon = Icons.Default.Code
                 ) {
                     showActivityTypeDialog = true
+                }
+            }
+            item {
+                PreferenceSwitch(
+                    title = "Use Profile Endpoint",
+                    description = stringResource(id = R.string.use_profile_endpoint_desc),
+                    icon = Icons.Default.Colorize,
+                    isChecked = isUseProfileEndPointEnabled
+                ) {
+                    isUseProfileEndPointEnabled = !isUseProfileEndPointEnabled
+                    Prefs[Prefs.USE_PROFILE_ENDPOINT] = isUseProfileEndPointEnabled
                 }
             }
             item {

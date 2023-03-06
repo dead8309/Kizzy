@@ -12,10 +12,13 @@
 
 package com.my.kizzy.data.repository
 
+import com.google.gson.Gson
 import com.my.kizzy.data.remote.ApiService
 import com.my.kizzy.data.remote.GamesResponse
 import com.my.kizzy.data.remote.User
 import com.my.kizzy.domain.repository.KizzyRepository
+import com.my.kizzy.preference.Prefs
+import com.my.kizzy.utils.fromJson
 import com.my.kizzy.utils.toImageAsset
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -45,6 +48,10 @@ class KizzyRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getUser(userid: String): User {
-        return api.getUser(userid)
+        val user: User? = Gson().fromJson(Prefs[Prefs.USER_DATA, ""])
+        return if (user?.verified == true && Prefs[Prefs.USE_PROFILE_ENDPOINT, false])
+            api.getUserProfile(userid)
+        else
+            api.getUser(userid)
     }
 }

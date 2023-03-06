@@ -86,6 +86,7 @@
     <string name="permission_not_granted">Not Granted, Click to Allow</string>
     <string name="activity_large_text">Activity Large Text</string>
     <string name="activity_small_text">Activity Small Text</string>
+    <string name="use_profile_endpoint_desc">Uses new endpoint to get user data which includes bio and theme colors. It will only work if the user is in our Discord server</string>
 
 
 </resources>

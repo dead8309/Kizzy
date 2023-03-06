@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
@@ -35,7 +36,7 @@ fun ActivityRow(
     elapsed: Int,
     rpcData: RpcIntent?,
     showTs: Boolean,
-    special: String?
+    special: Pair<Color, String?>
 ) {
     Column(
         Modifier.fillMaxWidth(),
@@ -123,10 +124,10 @@ fun ActivityRow(
             }
         }
         if (showTs)
-            ProfileButton(label = "Special Button", link = special)
+            ProfileButton(label = "Special Button", link = special.second, color = special.first)
         if (rpcData != null) {
-            ProfileButton(label = rpcData.button1, link = rpcData.button1link )
-            ProfileButton(label = rpcData.button2, link = rpcData.button2link )
+            ProfileButton(label = rpcData.button1, link = rpcData.button1link, color = special.first )
+            ProfileButton(label = rpcData.button2, link = rpcData.button2link, color = special.first)
         }
 
     }

@@ -38,7 +38,7 @@ import com.my.kizzy.data.remote.User
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.ui.screen.custom.RpcIntent
 import com.my.kizzy.ui.screen.profile.user.Base
-import com.my.kizzy.ui.theme.DISCORD_LIGHT_DARK
+import com.my.kizzy.ui.screen.settings.style.color
 import com.my.kizzy.utils.Constants
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.delay
@@ -46,8 +46,6 @@ import kotlinx.coroutines.delay
 @Composable
 fun ProfileCard(
     user: User?,
-    borderColors: List<Color> = listOf(Color(0xFFa3a1ed), Color(0xFFA77798)),
-    backgroundColors: List<Color> = listOf(Color(0xFFC2C0FA), Color(0xFFFADAF0)),
     padding: Dp = 30.dp,
     type: String = "USING KIZZY RICH PRESENCE",
     rpcData: RpcIntent? = null,
@@ -64,17 +62,31 @@ fun ProfileCard(
             elapsed++
         }
     }
+    val colors = user?.themeColors?.map {
+        it.color
+    }?: listOf("#FFA3A1ED".color, "#FFA77798".color)
+    val profileBackground = listOf(
+        colors.first(),
+        colors.first().copy(alpha = 0.8f),
+        colors.last().copy(alpha = 0.8f),
+    )
+    val profileBorder =  listOf(
+        colors.first(),
+        colors.last()
+    )
     Card(
         modifier = Modifier
             .padding(padding)
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
             .background(
-                brush = Brush.verticalGradient(colors = backgroundColors)
+                brush = Brush.verticalGradient(
+                    colors = profileBackground
+                )
             ),
         shape = RoundedCornerShape(8.dp),
         border = BorderStroke(
-            4.dp, Brush.verticalGradient(colors = borderColors)
+            5.dp, Brush.verticalGradient(colors = profileBorder)
         ),
         colors = CardDefaults.cardColors(
             containerColor = Color.Transparent,
@@ -113,7 +125,7 @@ fun ProfileCard(
                         .size(110.dp)
                         .border(
                             width = 8.dp,
-                            color = borderColors.first(),
+                            color = profileBackground.first(),
                             shape = CircleShape
                         )
                         .clip(CircleShape),
@@ -125,7 +137,7 @@ fun ProfileCard(
                         .align(Alignment.BottomEnd)
                         .padding(15.dp, 8.dp)
                         .clip(RoundedCornerShape(12.dp))
-                        .background(Color.White)
+                        .background(Color.White.copy(0.6f))
                 ) {
                     if (Prefs[Prefs.USER_NITRO, false]) {
                         GlideImage(
@@ -153,7 +165,7 @@ fun ProfileCard(
                 Modifier
                     .padding(15.dp, 5.dp, 15.dp, 15.dp)
                     .clip(RoundedCornerShape(8.dp))
-                    .background(Color.White)
+                    .background(Color.White.copy(0.6f))
             ) {
                 ProfileText(
                     text = user.username + "#" + user.discriminator,
@@ -164,18 +176,17 @@ fun ProfileCard(
                         .fillMaxWidth()
                         .padding(19.dp, 0.dp, 19.dp, 5.dp)
                         .height(1.5.dp)
-                        .background(Color(0xFFC2C0FA))
+                        .background(profileBackground.first())
                 )
                 ProfileText(
                     text = "ABOUT ME",
                     style = MaterialTheme.typography.titleSmall
                 )
                 ProfileText(
-                    text = Prefs[Prefs.USER_BIO, ""],
+                    text = user.bio,
                     style = MaterialTheme.typography.bodyMedium,
                     bold = false
                 )
-
                 ProfileText(
                     text = type,
                     style = MaterialTheme.typography.titleSmall
@@ -184,7 +195,7 @@ fun ProfileCard(
                     elapsed = elapsed,
                     rpcData = rpcData,
                     showTs = showTs,
-                    special = user.special
+                    special = Pair(colors.first(),user.special)
                 )
             }
         }
@@ -209,7 +220,7 @@ fun ProfileText(
 }
 
 @Composable
-fun ProfileButton(label: String?, link: String?) {
+fun ProfileButton(label: String?, link: String?, color: Color) {
     val uriHandler = LocalUriHandler.current
     if(!label.isNullOrEmpty()) {
         ElevatedButton(
@@ -222,7 +233,7 @@ fun ProfileButton(label: String?, link: String?) {
                 }
             },
             colors = ButtonDefaults.elevatedButtonColors(
-                containerColor = DISCORD_LIGHT_DARK,
+                containerColor = color,
                 contentColor = Color.White.copy(alpha = 0.8f)
             ),
             shape = RoundedCornerShape(8.dp)
@@ -235,19 +246,6 @@ fun ProfileButton(label: String?, link: String?) {
 @Preview
 @Composable
 fun PreviewProfileCard() {
-    val user = User(
-        accentColor = null,
-        avatar = null,
-        avatarDecoration = null,
-        badges = null,
-        banner = null,
-        bannerColor = null,
-        discriminator = null,
-        id = null,
-        publicFlags = null,
-        username = null,
-        special = null,
-        verified = false
-    )
-    ProfileCard(user = user)
+    ProfileCard(user = User())
 }
+

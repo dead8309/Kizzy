@@ -28,4 +28,6 @@ interface ApiService {
 
     @GET("user/{userid}")
     suspend fun getUser(@Path("userid") userid: String): User
+    @GET("profile/{userid}")
+    suspend fun getUserProfile(@Path("userid") userid: String): User
 }
