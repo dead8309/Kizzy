@@ -86,5 +86,4 @@
     <string name="permission_not_granted">Не предоставлено. Нажмите, чтобы разрешить</string>
     <string name="activity_large_text">Большой текст активности</string>
     <string name="activity_small_text">Малый текст активности</string>
-    <string name="use_profile_endpoint_desc">Uses new endpoint to get user data which includes bio and theme colors. It will only work if the user is in our Discord server</string>
 </resources>

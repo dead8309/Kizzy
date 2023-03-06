@@ -13,44 +13,32 @@
 package com.my.kizzy.data.remote
 
 import com.google.gson.annotations.SerializedName
-import com.my.kizzy.preference.Prefs
-import com.my.kizzy.preference.Prefs.USER_BIO
 
 data class User(
     @SerializedName("accent_color")
-    val accentColor: Int? = null,
+    val accentColor: Int?,
     @SerializedName("avatar")
-    val avatar: String? = null,
+    val avatar: String?,
     @SerializedName("avatar_decoration")
-    val avatarDecoration: Any? = null,
+    val avatarDecoration: Any?,
     @SerializedName("badges")
-    val badges: List<Badge?>? = null,
+    val badges: List<Badge>?,
     @SerializedName("banner")
-    val banner: String? = null,
+    val banner: String?,
     @SerializedName("banner_color")
-    val bannerColor: String? = "#000000",
-    @SerializedName("bio")
-    val bio: String = Prefs[USER_BIO,""],
-    @SerializedName("cached")
-    val cached: Boolean? = null,
+    val bannerColor: String?,
     @SerializedName("discriminator")
-    val discriminator: String? = null,
-    @SerializedName("display_name")
-    val displayName: Any? = null,
-    @SerializedName("flags")
-    val flags: Int? = null,
+    val discriminator: String?,
     @SerializedName("id")
-    val id: String? = null,
+    val id: String?,
     @SerializedName("public_flags")
-    val publicFlags: Int? = null,
-    @SerializedName("special")
-    val special: String? = null,
-    @SerializedName("theme_colors")
-    val themeColors: List<String> = listOf("#FFA3A1ED", "#FFA77798"),
+    val publicFlags: Int?,
     @SerializedName("username")
-    val username: String? = null,
+    val username: String?,
+    @SerializedName("special")
+    val special: String?,
     @SerializedName("verified")
-    val verified: Boolean? = null
+    val verified: Boolean
 )
 
 data class Badge(

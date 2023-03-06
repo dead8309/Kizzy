@@ -86,7 +86,6 @@
     <string name="permission_not_granted">İzin Verilmedi, İzin Vermek İçin Tıkla</string>
     <string name="activity_large_text">Aktivite Büyük Yazısı</string>
     <string name="activity_small_text">Aktivite Küçük Yazısı</string>
-    <string name="use_profile_endpoint_desc">Uses new endpoint to get user data which includes bio and theme colors. It will only work if the user is in our Discord server</string>
 
 
 </resources>
