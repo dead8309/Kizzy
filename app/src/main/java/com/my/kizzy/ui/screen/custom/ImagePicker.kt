@@ -21,7 +21,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BrokenImage
-import androidx.compose.material.icons.filled.OpenInNew
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -31,6 +30,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.my.kizzy.R
+import com.my.kizzy.ui.components.BrowseFilesButton
 import com.my.kizzy.utils.Log
 import com.my.kizzy.utils.getFileName
 import com.skydoves.landscapist.glide.GlideImage
@@ -102,19 +102,12 @@ fun UploadDialog(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Button(
-                    onClick = { onBrowse() },
+                BrowseFilesButton(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(15.dp),
-                    shape = RoundedCornerShape(8.dp)
+                        .padding(15.dp)
                 ) {
-                    Text(text = "Browse Files")
-                    Spacer(modifier = Modifier.width(5.dp))
-                    Icon(
-                        Icons.Default.OpenInNew,
-                        null
-                    )
+                    onBrowse()
                 }
                 if (image.value != null)
                     runCatching{

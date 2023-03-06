@@ -3,8 +3,11 @@
 package com.my.kizzy.ui.screen.custom
 
 import android.content.Context
+import android.net.Uri
 import android.os.Build
 import android.os.Environment
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
@@ -14,6 +17,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.blankj.utilcode.util.FileIOUtils
@@ -22,11 +26,13 @@ import com.google.gson.GsonBuilder
 import com.my.kizzy.R
 import com.my.kizzy.data.remote.User
 import com.my.kizzy.preference.Prefs
+import com.my.kizzy.ui.components.BrowseFilesButton
 import com.my.kizzy.ui.components.dialog.MultiChoiceItem
 import com.my.kizzy.ui.components.dialog.SingleChoiceItem
 import com.my.kizzy.ui.screen.profile.user.component.ProfileCard
 import com.my.kizzy.utils.Constants
 import com.my.kizzy.utils.Log
+import com.my.kizzy.utils.getFileName
 import java.io.File
 import java.io.FilenameFilter
 
@@ -46,7 +52,6 @@ else{
     else
         File(this.filesDir, "Configs")
 }
-
 @Composable
 fun LoadConfig(
     onDismiss: () -> Unit,
@@ -55,26 +60,33 @@ fun LoadConfig(
     val ctx = LocalContext.current
     val dir = ctx.dir()
     dir.mkdirs()
-    var data: String?
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri ->
+        ctx.handleUriResult(uri){
+            onDismiss()
+            onConfigSelected(it.stringToData())
+        }
+    }
     AlertDialog(onDismissRequest = { onDismiss() },
        confirmButton = {},
        title = { Text(text = stringResource(id = R.string.select_a_config)) }, text = {
-           var selected by remember {
-               mutableStateOf("")
-           }
            LazyColumn {
+               item {
+                   BrowseFilesButton(modifier = Modifier.fillMaxWidth()) {
+                       launcher.launch("application/json")
+                   }
+               }
                val files = dir.list(FILE_FILTER)?.asList()
                files?.forEach { file ->
                    item {
                        SingleChoiceItem(
                            text = file.dropLast(5),
-                           selected = file.equals(selected)
+                           selected = false
                        ) {
                            onDismiss()
-                           selected = file
                            Log.logger.d("Directory",dir.absolutePath)
-                           FileIOUtils.readFile2String(File(dir,file)).also { data = it }
-                           data?.let {
+                           FileIOUtils.readFile2String(File(dir,file)).also {
                                onConfigSelected(it.stringToData())
                            }
                        }
@@ -84,6 +96,24 @@ fun LoadConfig(
        })
 }
 
+fun Context.handleUriResult(uri: Uri?, onSuccess: (json: String) -> Unit) {
+    if (uri == null)
+        return
+    val fileName = this.getFileName(uri)
+    if (fileName == null || !fileName.endsWith(".json"))
+        return
+
+    val file = File(this.cacheDir, "tmp.json")
+    val inputStream = this.contentResolver.openInputStream(uri)
+    inputStream?.use { input ->
+        file.outputStream().use { out ->
+            input.copyTo(out)
+        }
+    }
+    FileIOUtils.readFile2String(file).also { json ->
+        onSuccess(json)
+    }
+}
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -239,4 +269,10 @@ private fun String?.getType(name: String?): String {
         5 -> "Competing in $name"
         else -> "Playing a game"
     }
+}
+
+@Preview
+@Composable
+fun PreviewLoadConfig() {
+    LoadConfig(onDismiss = {}, onConfigSelected = {})
 }
