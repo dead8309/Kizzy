@@ -58,14 +58,14 @@
             android:exported="false"/>
 
         <service
-            android:name="com.my.kizzy.service.AppDetectionService"
+            android:name="com.my.kizzy.domain.services.AppDetectionService"
             android:exported="false" />
         <service
-            android:name="com.my.kizzy.service.MediaRpcService"
+            android:name="com.my.kizzy.domain.services.MediaRpcService"
             android:exported="false"
             android:foregroundServiceType="mediaPlayback" />
         <service
-            android:name="com.my.kizzy.service.NotificationListener"
+            android:name="com.my.kizzy.domain.services.NotificationListener"
             android:exported="false"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" >
             <intent-filter>
@@ -73,7 +73,7 @@
             </intent-filter>
         </service>
         <service
-            android:name="com.my.kizzy.service.CustomRpcService"
+            android:name="com.my.kizzy.domain.services.CustomRpcService"
             android:exported="false" >
         </service>
 
@@ -86,7 +86,7 @@
                 android:value="true" />
         </service>
 
-        <service android:name=".service.ExperimentalRpc"
+        <service android:name=".domain.services.ExperimentalRpc"
             android:exported="false"/>
 
     </application>

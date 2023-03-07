@@ -35,15 +35,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.google.gson.Gson
 import com.my.kizzy.R
-import com.my.kizzy.utils.Constants
+import com.my.kizzy.data.utils.Constants
 import com.my.kizzy.ui.components.dialog.SingleChoiceItem
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.SettingItem
 import com.my.kizzy.ui.components.Subtitle
 import com.my.kizzy.ui.components.preference.PreferenceSwitch
-import com.my.kizzy.ui.screen.custom.RpcField
-import com.my.kizzy.utils.Log
-import com.my.kizzy.preference.Prefs
+import com.my.kizzy.ui.screen.home.custom.RpcField
+import com.my.kizzy.data.utils.Log
+import com.my.kizzy.data.preference.Prefs
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable

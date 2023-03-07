@@ -15,8 +15,8 @@ package com.my.kizzy.domain.use_case.get_current_data
 import android.content.Context
 import com.my.kizzy.domain.use_case.get_current_data.get_apps.getCurrentRunningApp
 import com.my.kizzy.domain.use_case.get_current_data.get_media.getCurrentRunningMedia
-import com.my.kizzy.rpc.RpcImage
-import com.my.kizzy.utils.Log.logger
+import com.my.kizzy.data.rpc.RpcImage
+import com.my.kizzy.data.utils.Log.logger
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kizzy.gateway.entities.presence.Timestamps
 import kotlinx.coroutines.currentCoroutineContext

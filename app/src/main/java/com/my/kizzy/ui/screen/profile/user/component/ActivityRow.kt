@@ -26,7 +26,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.my.kizzy.R
-import com.my.kizzy.ui.screen.custom.RpcIntent
+import com.my.kizzy.ui.screen.home.custom.RpcIntent
 import com.my.kizzy.ui.theme.DarkBlueBg
 import com.skydoves.landscapist.glide.GlideImage
 

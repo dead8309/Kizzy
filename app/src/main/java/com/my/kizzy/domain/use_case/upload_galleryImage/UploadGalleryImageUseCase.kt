@@ -15,7 +15,7 @@ package com.my.kizzy.domain.use_case.upload_galleryImage
 import android.content.Context
 import android.net.Uri
 import com.my.kizzy.domain.repository.KizzyRepository
-import com.my.kizzy.utils.getFileName
+import com.my.kizzy.data.utils.getFileName
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import javax.inject.Inject

@@ -35,11 +35,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.my.kizzy.R
 import com.my.kizzy.data.remote.User
-import com.my.kizzy.preference.Prefs
-import com.my.kizzy.ui.screen.custom.RpcIntent
+import com.my.kizzy.data.preference.Prefs
+import com.my.kizzy.ui.screen.home.custom.RpcIntent
 import com.my.kizzy.ui.screen.profile.user.Base
 import com.my.kizzy.ui.theme.DISCORD_LIGHT_DARK
-import com.my.kizzy.utils.Constants
+import com.my.kizzy.data.utils.Constants
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.delay
 
@@ -139,7 +139,7 @@ fun ProfileCard(
                     user.badges?.let {
                         it.forEach { badge ->
                             GlideImage(
-                                imageModel = badge?.icon,
+                                imageModel = badge.icon,
                                 previewPlaceholder = R.drawable.editing_rpc_pencil,
                                 modifier = Modifier
                                     .size(40.dp)

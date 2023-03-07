@@ -17,8 +17,8 @@ import androidx.core.view.WindowCompat
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.android.material.color.DynamicColors
 import com.my.kizzy.ui.theme.ColorScheme.colorSchemeFromColor
-import com.my.kizzy.utils.LocalDynamicColorSwitch
-import com.my.kizzy.utils.LocalSeedColor
+import com.my.kizzy.data.utils.LocalDynamicColorSwitch
+import com.my.kizzy.data.utils.LocalSeedColor
 
 private tailrec fun Context.findWindow(): Window? =
     when (this) {

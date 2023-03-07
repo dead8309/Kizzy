@@ -30,8 +30,8 @@ import coil.size.Precision
 import coil.size.Scale
 import coil.size.Size
 import com.caverock.androidsvg.SVG
-import com.my.kizzy.utils.LocalDarkTheme
-import com.my.kizzy.utils.LocalSeedColor
+import com.my.kizzy.data.utils.LocalDarkTheme
+import com.my.kizzy.data.utils.LocalSeedColor
 import com.my.kizzy.ui.svg.parseDynamicColor
 
 @Composable

@@ -28,9 +28,9 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.unit.dp
 import com.google.android.material.color.DynamicColors
 import com.my.kizzy.R
-import com.my.kizzy.utils.LocalDarkTheme
-import com.my.kizzy.utils.LocalDynamicColorSwitch
-import com.my.kizzy.utils.LocalSeedColor
+import com.my.kizzy.data.utils.LocalDarkTheme
+import com.my.kizzy.data.utils.LocalDynamicColorSwitch
+import com.my.kizzy.data.utils.LocalSeedColor
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.DynamicSVGImage
 import com.my.kizzy.ui.components.SettingItem
@@ -38,10 +38,10 @@ import com.my.kizzy.ui.components.dialog.TextFieldDialog
 import com.my.kizzy.ui.components.preference.PreferenceSwitch
 import com.my.kizzy.ui.svg.PALETTE
 import com.my.kizzy.ui.theme.ColorScheme.DEFAULT_SEED_COLOR
-import com.my.kizzy.preference.Prefs
-import com.my.kizzy.preference.Prefs.CUSTOM_THEME_COLOR
-import com.my.kizzy.preference.modifyThemeSeedColor
-import com.my.kizzy.preference.switchDynamicColor
+import com.my.kizzy.data.preference.Prefs
+import com.my.kizzy.data.preference.Prefs.CUSTOM_THEME_COLOR
+import com.my.kizzy.data.preference.modifyThemeSeedColor
+import com.my.kizzy.data.preference.switchDynamicColor
 import material.io.color.hct.Hct
 import material.io.color.palettes.CorePalette
 

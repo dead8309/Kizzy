@@ -19,8 +19,8 @@ import com.blankj.utilcode.util.AppUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.my.kizzy.domain.use_case.get_current_data.SharedRpc
-import com.my.kizzy.rpc.RpcImage
-import com.my.kizzy.preference.Prefs
+import com.my.kizzy.data.rpc.RpcImage
+import com.my.kizzy.data.preference.Prefs
 import java.util.*
 
 fun getCurrentRunningApp(context: Context): SharedRpc {

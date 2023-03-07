@@ -16,7 +16,7 @@ import com.my.kizzy.data.remote.ApiService
 import com.my.kizzy.data.remote.GamesResponse
 import com.my.kizzy.data.remote.User
 import com.my.kizzy.domain.repository.KizzyRepository
-import com.my.kizzy.utils.toImageAsset
+import com.my.kizzy.data.utils.toImageAsset
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody

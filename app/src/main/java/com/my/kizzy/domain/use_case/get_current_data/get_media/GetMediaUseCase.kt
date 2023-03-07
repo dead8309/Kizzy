@@ -19,10 +19,10 @@ import android.media.MediaMetadata
 import android.media.session.MediaSessionManager
 import com.blankj.utilcode.util.AppUtils
 import com.my.kizzy.domain.use_case.get_current_data.SharedRpc
-import com.my.kizzy.rpc.RpcImage
-import com.my.kizzy.service.MediaRpcService
-import com.my.kizzy.service.NotificationListener
-import com.my.kizzy.preference.Prefs
+import com.my.kizzy.data.rpc.RpcImage
+import com.my.kizzy.domain.services.MediaRpcService
+import com.my.kizzy.domain.services.NotificationListener
+import com.my.kizzy.data.preference.Prefs
 import kizzy.gateway.entities.presence.Timestamps
 
 fun getCurrentRunningMedia(context: Context): SharedRpc {
@@ -38,7 +38,8 @@ fun getCurrentRunningMedia(context: Context): SharedRpc {
         val metadata = mediaController.metadata
         val title = metadata?.getString(MediaMetadata.METADATA_KEY_TITLE)
         val appName = AppUtils.getAppName(mediaController.packageName)
-        val author =  if (Prefs[Prefs.MEDIA_RPC_ARTIST_NAME, false]) metadata?.getString(MediaRpcService.getArtistOrAuthor(metadata)) else null
+        val author =  if (Prefs[Prefs.MEDIA_RPC_ARTIST_NAME, false]) metadata?.getString(
+            MediaRpcService.getArtistOrAuthor(metadata)) else null
         val bitmap = metadata?.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART)
         val duration = metadata?.getLong(MediaMetadata.METADATA_KEY_DURATION)
         duration?.let {

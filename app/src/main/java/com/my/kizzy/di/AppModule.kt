@@ -16,7 +16,7 @@ import com.my.kizzy.BuildConfig
 import com.my.kizzy.data.remote.ApiService
 import com.my.kizzy.data.repository.KizzyRepositoryImpl
 import com.my.kizzy.domain.repository.KizzyRepository
-import com.my.kizzy.utils.Log.logger
+import com.my.kizzy.data.utils.Log.logger
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

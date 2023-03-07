@@ -34,18 +34,18 @@ import com.google.gson.Gson
 import com.my.kizzy.BuildConfig
 import com.my.kizzy.R
 import com.my.kizzy.data.remote.User
-import com.my.kizzy.service.AppDetectionService
-import com.my.kizzy.service.CustomRpcService
-import com.my.kizzy.service.ExperimentalRpc
-import com.my.kizzy.service.MediaRpcService
+import com.my.kizzy.domain.services.AppDetectionService
+import com.my.kizzy.domain.services.CustomRpcService
+import com.my.kizzy.domain.services.ExperimentalRpc
+import com.my.kizzy.domain.services.MediaRpcService
 import com.my.kizzy.ui.components.KSwitch
 import com.my.kizzy.ui.Routes
 import com.my.kizzy.ui.screen.profile.user.Base
 import com.my.kizzy.ui.screen.settings.SettingsDrawer
-import com.my.kizzy.utils.AppUtils
-import com.my.kizzy.preference.Prefs
-import com.my.kizzy.preference.Prefs.USER_DATA
-import com.my.kizzy.utils.fromJson
+import com.my.kizzy.data.utils.AppUtils
+import com.my.kizzy.data.preference.Prefs
+import com.my.kizzy.data.preference.Prefs.USER_DATA
+import com.my.kizzy.data.utils.fromJson
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.launch
 

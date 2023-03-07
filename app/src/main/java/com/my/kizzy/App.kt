@@ -3,8 +3,8 @@ package com.my.kizzy
 import android.app.Application
 import com.developer.crashx.config.CrashConfig
 import com.google.android.material.color.DynamicColors
-import com.my.kizzy.utils.AppUtils
-import com.my.kizzy.utils.Log
+import com.my.kizzy.data.utils.AppUtils
+import com.my.kizzy.data.utils.Log
 import com.tencent.mmkv.MMKV
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope

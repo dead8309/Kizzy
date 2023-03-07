@@ -26,7 +26,7 @@ import com.my.kizzy.ui.components.shimmer.ShimmerProfileCard
 import com.my.kizzy.ui.screen.profile.user.component.Logout
 import com.my.kizzy.ui.screen.profile.user.component.ProfileCard
 import com.my.kizzy.ui.screen.profile.user.component.ProfileNetworkError
-import com.my.kizzy.utils.Log.logger
+import com.my.kizzy.data.utils.Log.logger
 import kotlinx.coroutines.launch
 
 const val Base = "https://cdn.discordapp.com"

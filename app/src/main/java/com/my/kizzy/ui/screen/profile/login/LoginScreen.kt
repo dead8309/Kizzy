@@ -36,9 +36,9 @@ import com.my.kizzy.R
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.screen.profile.user.getUserInfo
 import com.my.kizzy.ui.theme.DISCORD_GREY
-import com.my.kizzy.utils.Log
-import com.my.kizzy.preference.Prefs
-import com.my.kizzy.preference.Prefs.TOKEN
+import com.my.kizzy.data.utils.Log
+import com.my.kizzy.data.preference.Prefs
+import com.my.kizzy.data.preference.Prefs.TOKEN
 import kotlinx.coroutines.launch
 
 const val JS_SNIPPET =
