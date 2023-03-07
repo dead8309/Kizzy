@@ -57,7 +57,6 @@
     <string name="enable_mediaRpc">啟用媒體 Rpc</string>
     <string name="permission_required">需要權限</string>
     <string name="enable_customRpc">啟用自訂 Rpc</string>
-    <string name="rpc_settings">Rpc 設定</string>
     <string name="dark_theme">黑暗模式</string>
     <string name="privacy_policy">隱私政策</string>
     <string name="privacy_policy_desc">閱讀隱私政策</string>

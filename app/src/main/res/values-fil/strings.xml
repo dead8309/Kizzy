@@ -57,7 +57,6 @@
     <string name="enable_mediaRpc">Paganahin ang Media Rpc</string>
     <string name="permission_required">Kinakailangan ang Pahintulot</string>
     <string name="enable_customRpc">Paganahin ang Custom na Rpc</string>
-    <string name="rpc_settings">Mga Setting ng Rpc</string>
     <string name="dark_theme">Madilim na Tema</string>
     <string name="privacy_policy">Patakaran sa Privacy</string>
     <string name="privacy_policy_desc">Suriin ang Patakaran sa Privacy</string>

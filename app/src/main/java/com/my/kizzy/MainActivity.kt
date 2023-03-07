@@ -158,14 +158,12 @@ class MainActivity : AppCompatActivity() {
                         navController.popBackStack()
                     })
                 }
-                animatedComposable(Routes.STYLE_AND_APPEAREANCE) {
+                animatedComposable(Routes.STYLE_AND_APPEARANCE) {
                     Appearance(onBackPressed = {
                         navController.popBackStack()
-                    }, navigateToLanguages = {
-                        navController.navigate(Routes.LANGUAGES)
-                    }, navigateToDarkTheme = {
+                    }) {
                         navController.navigate(Routes.DARK_THEME)
-                    })
+                    }
                 }
                 animatedComposable(Routes.DARK_THEME) {
                     DarkThemePreferences {

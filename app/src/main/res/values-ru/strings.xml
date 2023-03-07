@@ -57,7 +57,6 @@
     <string name="enable_mediaRpc">Включить мультимедийную активность</string>
     <string name="permission_required">Требуется разрешение</string>
     <string name="enable_customRpc">Включить пользовательскую активность</string>
-    <string name="rpc_settings">Настройки активности</string>
     <string name="dark_theme">Тёмная тема</string>
     <string name="privacy_policy">Политика конфиденциальности</string>
     <string name="privacy_policy_desc">Ознакомиться с Политикой конфиденциальности</string>

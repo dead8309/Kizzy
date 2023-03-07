@@ -40,6 +40,7 @@ fun SettingsDrawer(
     user: User?,
     navigateToProfile: () -> Unit,
     navigateToStyleAndAppearance: () -> Unit,
+    navigateToLanguages: () -> Unit,
     navigateToAbout: () -> Unit,
     navigateToRpcSettings: () -> Unit,
     navigateToLogsScreen: () -> Unit
@@ -81,10 +82,10 @@ fun SettingsDrawer(
                 }
                 item {
                     SettingsItemCard(
-                        title = stringResource(id = R.string.settings),
-                        icon = Icons.Outlined.Settings
+                        title = stringResource(R.string.language),
+                        icon = Icons.Outlined.Language,
                     ) {
-                        navigateToRpcSettings()
+                        navigateToLanguages()
                     }
                 }
                 item {
@@ -93,6 +94,14 @@ fun SettingsDrawer(
                         icon = Icons.Outlined.BugReport
                     ) {
                         navigateToLogsScreen()
+                    }
+                }
+                item {
+                    SettingsItemCard(
+                        title = stringResource(id = R.string.settings),
+                        icon = Icons.Outlined.Settings
+                    ) {
+                        navigateToRpcSettings()
                     }
                 }
                 item {
@@ -226,6 +235,7 @@ fun SettingsDrawerPreview() {
             user = null,
             navigateToProfile = {},
             navigateToStyleAndAppearance = {},
+            navigateToLanguages = {},
             navigateToAbout = {},
             navigateToRpcSettings = {}
         ) {}

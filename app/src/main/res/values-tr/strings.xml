@@ -57,7 +57,6 @@
     <string name="enable_mediaRpc">Medya RPC\'sini Etkinleştir</string>
     <string name="permission_required">İzin Gerekli</string>
     <string name="enable_customRpc">Özel RPC\'yi Etkinleştir</string>
-    <string name="rpc_settings">RPC Ayarları</string>
     <string name="dark_theme">Koyu Tema</string>
     <string name="privacy_policy">Gizlilik Politikası</string>
     <string name="privacy_policy_desc">Gizlilik Politikasına göz at</string>

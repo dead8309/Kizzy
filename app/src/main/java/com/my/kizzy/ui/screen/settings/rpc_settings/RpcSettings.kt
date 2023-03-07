@@ -66,7 +66,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         LargeTopAppBar(title = {
             Text(
-                text = stringResource(id = R.string.rpc_settings),
+                text = stringResource(id = R.string.settings),
                 style = MaterialTheme.typography.headlineLarge,
             )
         }, navigationIcon = { BackButton { onBackPressed() } })

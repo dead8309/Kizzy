@@ -57,7 +57,6 @@
     <string name="enable_mediaRpc">Media Rpc ကိုသုံးပါ</string>
     <string name="permission_required">ခွင့်ပြုချက်လိုအပ်သည်</string>
     <string name="enable_customRpc">Custom Rpc ကိုသုံးပါ</string>
-    <string name="rpc_settings">Rpc ဆက်တင်များ</string>
     <string name="dark_theme">အမှောင် အပြင်အဆင်</string>
     <string name="privacy_policy">ကိုယ်ရေးအချက်အလက်မူဝါဒ</string>
     <string name="privacy_policy_desc">ကိုယ်ရေးအချက်အလက်မူဝါဒအား ကြည့်ရှုပါ</string>

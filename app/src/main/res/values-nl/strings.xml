@@ -57,7 +57,6 @@
     <string name="enable_mediaRpc">Zet Media Rpc Aan</string>
     <string name="permission_required">Toestemmingen Verplicht</string>
     <string name="enable_customRpc">Zet Custom Rpc aan</string>
-    <string name="rpc_settings">Rpc Instellingen</string>
     <string name="dark_theme">Donker Thema</string>
     <string name="privacy_policy">Privacybeleid</string>
     <string name="privacy_policy_desc">Bekijk het Privacybeleid</string>

@@ -57,7 +57,6 @@
     <string name="enable_mediaRpc">Abilita RPC Media</string>
     <string name="permission_required">Autorizzazione Richiesta</string>
     <string name="enable_customRpc">Abilita RPC Personalizzato</string>
-    <string name="rpc_settings">Impostazioni RPC</string>
     <string name="dark_theme">Tema Scuro</string>
     <string name="privacy_policy">Politica sulla Privacy</string>
     <string name="privacy_policy_desc">Controlla la Politica sulla Privacy</string>

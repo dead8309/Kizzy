@@ -48,7 +48,7 @@ import material.io.color.palettes.CorePalette
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Appearance(
-    onBackPressed: () -> Unit, navigateToLanguages: () -> Unit, navigateToDarkTheme: () -> Unit
+    onBackPressed: () -> Unit, navigateToDarkTheme: () -> Unit
 ) {
     var showCustomColorDialog by remember { mutableStateOf(false) }
     var savedHex by remember { mutableStateOf(Prefs[CUSTOM_THEME_COLOR, ""]) }
@@ -147,12 +147,6 @@ fun Appearance(
                 description = LocalDarkTheme.current.getDarkThemeDesc(),
                 icon = Icons.Outlined.DarkMode,
             ) { navigateToDarkTheme() }
-
-            SettingItem(
-                title = stringResource(R.string.language),
-                icon = Icons.Outlined.Language,
-                description = "English,Turkish,Dutch.."
-            ) { navigateToLanguages() }
         }
     }
 }

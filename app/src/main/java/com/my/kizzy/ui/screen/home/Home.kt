@@ -186,7 +186,10 @@ fun Home(
                         navigateTo(Routes.PROFILE)
                     },
                     navigateToStyleAndAppearance = {
-                        navigateTo(Routes.STYLE_AND_APPEAREANCE)
+                        navigateTo(Routes.STYLE_AND_APPEARANCE)
+                    },
+                    navigateToLanguages = {
+                        navigateTo(Routes.LANGUAGES)
                     },
                     navigateToAbout = {
                         navigateTo(Routes.ABOUT)

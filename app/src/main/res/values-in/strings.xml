@@ -57,7 +57,6 @@
     <string name="enable_mediaRpc">Nyalakan Media RPC</string>
     <string name="permission_required">Izin Diperlukan</string>
     <string name="enable_customRpc">Nyalakan RPC kustom</string>
-    <string name="rpc_settings">Setelan RPC</string>
     <string name="dark_theme">Tema Gelap</string>
     <string name="privacy_policy">Kebijakan Pribadi</string>
     <string name="privacy_policy_desc">Periksa Kebijakan Pribadi</string>

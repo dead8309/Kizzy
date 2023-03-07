@@ -57,7 +57,6 @@
     <string name="enable_mediaRpc">Bật trạng thái phương tiện</string>
     <string name="permission_required">Yêu cầu quyền</string>
     <string name="enable_customRpc">Bật tùy chỉnh trạng thái</string>
-    <string name="rpc_settings">Cài đặt trạng thái</string>
     <string name="dark_theme">Chủ đề tối</string>
     <string name="privacy_policy">Chính sách bảo mật</string>
     <string name="privacy_policy_desc">Xem Chính sách bảo mật</string>
