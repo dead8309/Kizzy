@@ -1,5 +1,11 @@
 package com.my.kizzy.ui.screen.settings
 
+import android.app.StatusBarManager
+import android.content.ComponentName
+import android.os.Build
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,12 +16,13 @@ import androidx.compose.material.icons.outlined.*
 import androidx.compose.material.icons.rounded.ArrowForwardIos
 import androidx.compose.material.icons.rounded.HelpOutline
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.stringResource
@@ -28,6 +35,7 @@ import androidx.compose.ui.unit.sp
 import com.my.kizzy.BuildConfig
 import com.my.kizzy.R
 import com.my.kizzy.data.remote.User
+import com.my.kizzy.domain.services.KizzyTileService
 import com.my.kizzy.ui.components.Subtitle
 import com.my.kizzy.ui.screen.home.chips
 import com.my.kizzy.ui.screen.profile.user.Base
@@ -107,7 +115,7 @@ fun SettingsDrawer(
                 item {
                     Divider()
                 }
-                item { 
+                item {
                     Subtitle(
                         text = "HELP",
                         modifier = Modifier
@@ -138,10 +146,41 @@ fun SettingsDrawer(
                         navigateToAbout()
                     }
                 }
+                item {
+                    RequestQsTile()
+                }
             }
             if (user != null){
                 ProfileCardSmall(user = user) { navigateToProfile() }
             }
+        }
+    }
+}
+
+@Composable
+fun RequestQsTile() {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
+    val ctx = LocalContext.current
+    val label = stringResource(R.string.qs_tile_label)
+    val statusBarManager: StatusBarManager = ctx.getSystemService(StatusBarManager::class.java)
+    AnimatedVisibility(
+        visible = !KizzyTileService.tileAdded.value,
+        exit = fadeOut(tween(800))
+    ){
+        SettingsItemCard(
+            title = label,
+            icon = Icons.Outlined.Star,
+            selected = true,
+        ) {
+            statusBarManager.requestAddTileService(
+                ComponentName(
+                    ctx,
+                    KizzyTileService::class.java
+                ),
+                label,
+                android.graphics.drawable.Icon.createWithResource(ctx, R.drawable.ic_tile_play),
+                {},
+            ) {}
         }
     }
 }
@@ -152,6 +191,7 @@ fun SettingsDrawer(
 fun SettingsItemCard(
     title: String,
     icon: ImageVector,
+    selected: Boolean = false,
     onClick: () -> Unit = {},
 ) {
     NavigationDrawerItem(
@@ -172,7 +212,7 @@ fun SettingsItemCard(
                     .size(28.dp)
             )
         },
-        selected = false,
+        selected = selected,
         onClick = { onClick() }
     )
 }
