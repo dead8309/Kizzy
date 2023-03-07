@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Kizzy</string>
+    <string name="qs_tile_label" translatable="false">Kizzy Quickie</string>
 
     <!-- Activities -->
     <string name="activity_name">Activity Name</string>
