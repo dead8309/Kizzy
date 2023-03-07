@@ -46,8 +46,6 @@
     <string name="features">လုပ်ဆောင်မှုများ</string>
     <string name="account">အကောင့်</string>
     <string name="display">ပြရုပ်</string>
-    <string name="display_desc">အပြင်အဆင်, Dynamic အရောင်များ, ဘာသာစကားများ</string>
-    <string name="about_desc">Version,releases,credits</string>
     <string name="about">အကြောင်းအရာ</string>
     <string name="settings">ဆက်တင်များ</string>
     <string name="language">ဘာသာစကားများ</string>
@@ -60,7 +58,6 @@
     <string name="permission_required">ခွင့်ပြုချက်လိုအပ်သည်</string>
     <string name="enable_customRpc">Custom Rpc ကိုသုံးပါ</string>
     <string name="rpc_settings">Rpc ဆက်တင်များ</string>
-    <string name="rpc_settings_desc">မီဒီယာနှင့် အက်ပ် RPC အတွက် အဆင့်မြင့် ဆက်တင်များ</string>
     <string name="dark_theme">အမှောင် အပြင်အဆင်</string>
     <string name="privacy_policy">ကိုယ်ရေးအချက်အလက်မူဝါဒ</string>
     <string name="privacy_policy_desc">ကိုယ်ရေးအချက်အလက်မူဝါဒအား ကြည့်ရှုပါ</string>

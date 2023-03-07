@@ -46,8 +46,6 @@
     <string name="features">功能</string>
     <string name="account">帳號</string>
     <string name="display">顯示</string>
-    <string name="display_desc">主題,動態顏色,語言</string>
-    <string name="about_desc">版本號,版本,捐款</string>
     <string name="about">關於</string>
     <string name="settings">設定</string>
     <string name="language">語言</string>
@@ -60,7 +58,6 @@
     <string name="permission_required">需要權限</string>
     <string name="enable_customRpc">啟用自訂 Rpc</string>
     <string name="rpc_settings">Rpc 設定</string>
-    <string name="rpc_settings_desc">媒體和程式的進階活動設定</string>
     <string name="dark_theme">黑暗模式</string>
     <string name="privacy_policy">隱私政策</string>
     <string name="privacy_policy_desc">閱讀隱私政策</string>

@@ -46,8 +46,6 @@
     <string name="features">Mga tampok</string>
     <string name="account">Account</string>
     <string name="display">Display</string>
-    <string name="display_desc">Tema, Mga Dynamic na Kulay, Mga Wika</string>
-    <string name="about_desc">Bersyon, release, credits</string>
     <string name="about">About</string>
     <string name="settings">Mga setting</string>
     <string name="language">Wika</string>
@@ -60,7 +58,6 @@
     <string name="permission_required">Kinakailangan ang Pahintulot</string>
     <string name="enable_customRpc">Paganahin ang Custom na Rpc</string>
     <string name="rpc_settings">Mga Setting ng Rpc</string>
-    <string name="rpc_settings_desc">Isulong ang mga setting ng presensya para sa media at apps RPC</string>
     <string name="dark_theme">Madilim na Tema</string>
     <string name="privacy_policy">Patakaran sa Privacy</string>
     <string name="privacy_policy_desc">Suriin ang Patakaran sa Privacy</string>

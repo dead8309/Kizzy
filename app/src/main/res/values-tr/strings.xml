@@ -46,8 +46,6 @@
     <string name="features">Özellikler</string>
     <string name="account">Hesap</string>
     <string name="display">Görünüm</string>
-    <string name="display_desc">Tema,Dinamik Renkler,Diller</string>
-    <string name="about_desc">Sürüm, yayın,katkıda bulunanlar</string>
     <string name="about">Hakkında</string>
     <string name="settings">Ayarlar</string>
     <string name="language">Dil</string>
@@ -60,7 +58,6 @@
     <string name="permission_required">İzin Gerekli</string>
     <string name="enable_customRpc">Özel RPC\'yi Etkinleştir</string>
     <string name="rpc_settings">RPC Ayarları</string>
-    <string name="rpc_settings_desc">Medya ve Uygulama RPC\'si için gelişmiş presence ayarları</string>
     <string name="dark_theme">Koyu Tema</string>
     <string name="privacy_policy">Gizlilik Politikası</string>
     <string name="privacy_policy_desc">Gizlilik Politikasına göz at</string>

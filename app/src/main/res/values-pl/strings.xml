@@ -46,8 +46,6 @@
     <string name="features">Funkcje</string>
     <string name="account">Konto</string>
     <string name="display">Wyświetlanie</string>
-    <string name="display_desc">Motywy, Dynamicze Kolory, Języki</string>
-    <string name="about_desc">Wersja, wydania, podziękowania</string>
     <string name="about">O Aplikacji</string>
     <string name="settings">Ustawienia</string>
     <string name="language">Język</string>
@@ -60,7 +58,6 @@
     <string name="permission_required">Wymagane Uprawnienie</string>
     <string name="enable_customRpc">Włącz Własne Rpc</string>
     <string name="rpc_settings">Ustawienia Rpc</string>
-    <string name="rpc_settings_desc">Zaawansowane ustawienia RPC mediów i aplikacji</string>
     <string name="dark_theme">Ciemny Motyw</string>
     <string name="privacy_policy">Polityka Prywatności</string>
     <string name="privacy_policy_desc">Sprawdź Polityke Prywatności</string>

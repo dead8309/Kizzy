@@ -46,8 +46,6 @@
     <string name="features">Features</string>
     <string name="account">Account</string>
     <string name="display">Display</string>
-    <string name="display_desc">Theme, Dynamic Colors, Languages</string>
-    <string name="about_desc">Version,releases,credits</string>
     <string name="about">About</string>
     <string name="settings">Settings</string>
     <string name="language">Language</string>
@@ -60,7 +58,6 @@
     <string name="permission_required">Permission Required</string>
     <string name="enable_customRpc">Enable Custom Rpc</string>
     <string name="rpc_settings">Rpc Settings</string>
-    <string name="rpc_settings_desc">Advance presence settings for media and apps RPC</string>
     <string name="dark_theme">Dark Theme</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="privacy_policy_desc">Check the Privacy Policy</string>

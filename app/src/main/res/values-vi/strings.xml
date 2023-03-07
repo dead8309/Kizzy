@@ -46,8 +46,6 @@
     <string name="features">Tính năng</string>
     <string name="account">Tài khoản</string> 
     <string name="display">Hiển thị</string>
-    <string name="display_desc">Chủ đề,Màu sắc,Ngôn ngữ</string>
-    <string name="about_desc">Phiên bản,phát hành,ghi công</string>
     <string name="about">Thông tin</string>
     <string name="settings">Cài đặt</string>
     <string name="language">Ngôn ngữ</string>
@@ -60,7 +58,6 @@
     <string name="permission_required">Yêu cầu quyền</string>
     <string name="enable_customRpc">Bật tùy chỉnh trạng thái</string>
     <string name="rpc_settings">Cài đặt trạng thái</string>
-    <string name="rpc_settings_desc">Cài đặt hoạt động hiện diện nâng cao cho phương tiện và ứng dụng</string>
     <string name="dark_theme">Chủ đề tối</string>
     <string name="privacy_policy">Chính sách bảo mật</string>
     <string name="privacy_policy_desc">Xem Chính sách bảo mật</string>

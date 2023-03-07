@@ -46,8 +46,6 @@
     <string name="features">Fitur</string>
     <string name="account">Akun</string>
     <string name="display">Tampilan</string>
-    <string name="display_desc">Tema,Warna Dinamis,Bahasa</string>
-    <string name="about_desc">Versi,rilis,kredits</string>
     <string name="about">Tentang</string>
     <string name="settings">Pengaturan</string>
     <string name="language">Bahasa</string>
@@ -60,7 +58,6 @@
     <string name="permission_required">Izin Diperlukan</string>
     <string name="enable_customRpc">Nyalakan RPC kustom</string>
     <string name="rpc_settings">Setelan RPC</string>
-    <string name="rpc_settings_desc">Lanjutan untuk media dan aplikasi rpc</string>
     <string name="dark_theme">Tema Gelap</string>
     <string name="privacy_policy">Kebijakan Pribadi</string>
     <string name="privacy_policy_desc">Periksa Kebijakan Pribadi</string>

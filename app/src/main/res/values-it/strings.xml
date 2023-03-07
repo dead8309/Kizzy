@@ -46,8 +46,6 @@
     <string name="features">Funzioni</string>
     <string name="account">Account</string>
     <string name="display">Aspetto</string>
-    <string name="display_desc">Tema, Colori Dinamici, Lingua</string>
-    <string name="about_desc">Versione, Aggiornamenti, Crediti</string>
     <string name="about">A Riguardo</string>
     <string name="settings">Impostazioni</string>
     <string name="language">Lingua</string>
@@ -60,7 +58,6 @@
     <string name="permission_required">Autorizzazione Richiesta</string>
     <string name="enable_customRpc">Abilita RPC Personalizzato</string>
     <string name="rpc_settings">Impostazioni RPC</string>
-    <string name="rpc_settings_desc">Impostazioni di presenza avanzate per media e app RPC</string>
     <string name="dark_theme">Tema Scuro</string>
     <string name="privacy_policy">Politica sulla Privacy</string>
     <string name="privacy_policy_desc">Controlla la Politica sulla Privacy</string>
