@@ -151,7 +151,7 @@ fun Home(
         HomeItem(
             title = "Experimental Rpc",
             icon = R.drawable.ic_dev_rpc,
-            isChecked = AppUtils.sharedRpcRunning(),
+            isChecked = AppUtils.experimentalRpcRunning(),
             onCheckedChange = {
                 if (it) {
                     ctx.stopService(Intent(ctx, MediaRpcService::class.java))
