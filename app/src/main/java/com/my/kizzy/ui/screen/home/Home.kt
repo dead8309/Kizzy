@@ -185,7 +185,7 @@ fun Home(
                     navigateToProfile = {
                         navigateTo(Routes.PROFILE)
                     },
-                    navigateToStyleAndAppeareance = {
+                    navigateToStyleAndAppearance = {
                         navigateTo(Routes.STYLE_AND_APPEAREANCE)
                     },
                     navigateToAbout = {

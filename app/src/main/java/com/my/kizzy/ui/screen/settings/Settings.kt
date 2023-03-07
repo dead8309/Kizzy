@@ -1,21 +1,16 @@
 package com.my.kizzy.ui.screen.settings
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.BugReport
-import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.icons.outlined.Palette
-import androidx.compose.material.icons.outlined.SettingsSuggest
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.material.icons.rounded.ArrowForwardIos
 import androidx.compose.material.icons.rounded.HelpOutline
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -30,6 +25,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.my.kizzy.BuildConfig
 import com.my.kizzy.R
 import com.my.kizzy.data.remote.User
 import com.my.kizzy.ui.components.Subtitle
@@ -38,11 +34,12 @@ import com.my.kizzy.ui.screen.profile.user.Base
 import com.my.kizzy.ui.screen.settings.about.app_home_page
 import com.skydoves.landscapist.glide.GlideImage
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsDrawer(
     user: User?,
     navigateToProfile: () -> Unit,
-    navigateToStyleAndAppeareance: () -> Unit,
+    navigateToStyleAndAppearance: () -> Unit,
     navigateToAbout: () -> Unit,
     navigateToRpcSettings: () -> Unit,
     navigateToLogsScreen: () -> Unit
@@ -52,40 +49,47 @@ fun SettingsDrawer(
         .fillMaxHeight()
         .width(300.dp)) {
         Column(
-            modifier = Modifier.padding(25.dp)
+            modifier = Modifier.padding(15.dp)
         ) {
-            Text(
-                modifier = Modifier
-                    .padding(start = 5.dp, bottom = 15.dp)
-                    .weight(1f),
-                text = stringResource(id = R.string.settings),
-                style = MaterialTheme.typography.headlineLarge
-            )
+            BadgedBox(
+                badge = {
+                    Badge(
+                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                        contentColor = MaterialTheme.colorScheme.tertiary,
+                    ) {
+                        Text(text = BuildConfig.VERSION_NAME)
+                    }
+                },
+                modifier = Modifier.padding(top = 8.dp, bottom = 10.dp)
+            ) {
+                Text(
+                    text = stringResource(R.string.app_name),
+                    style = MaterialTheme.typography.titleSmall
+                )
+            }
             LazyColumn (
-                verticalArrangement = Arrangement.spacedBy(15.dp),
-                modifier = Modifier.weight(8f)){
+                verticalArrangement = Arrangement.spacedBy(5.dp),
+                modifier = Modifier.weight(8f)
+            ){
                 item {
                     SettingsItemCard(
                         title = stringResource(id = R.string.display),
-                        description = stringResource(id = R.string.display_desc),
                         icon = Icons.Outlined.Palette
                     ){
-                       navigateToStyleAndAppeareance()
+                       navigateToStyleAndAppearance()
                     }
                 }
                 item {
                     SettingsItemCard(
-                        title = stringResource(id = R.string.rpc_settings),
-                        description = stringResource(id = R.string.rpc_settings_desc),
-                        icon = Icons.Outlined.SettingsSuggest
+                        title = stringResource(id = R.string.settings),
+                        icon = Icons.Outlined.Settings
                     ) {
                         navigateToRpcSettings()
                     }
                 }
                 item {
                     SettingsItemCard(
-                        title = "Debug Logs",
-                        description = "Show logs related to application",
+                        title = "Logs",
                         icon = Icons.Outlined.BugReport
                     ) {
                         navigateToLogsScreen()
@@ -103,7 +107,6 @@ fun SettingsDrawer(
                 item {
                     SettingsItemCard(
                         title = "FAQ",
-                        description = "Help & FAQ",
                         icon = Icons.Rounded.HelpOutline
                     ) {
                         uriHandler.openUri("$app_home_page/#FAQ")
@@ -112,7 +115,6 @@ fun SettingsDrawer(
                 item {
                     SettingsItemCard(
                         title = "Discord",
-                        description = "Join for updates",
                         icon = ImageVector.vectorResource(id = R.drawable.ic_discord)
                     ) {
                         //Discord Server Link
@@ -122,7 +124,6 @@ fun SettingsDrawer(
                 item {
                     SettingsItemCard(
                         title = stringResource(id = R.string.about),
-                        description = stringResource(id = R.string.about_desc),
                         icon = Icons.Outlined.Info
                     ) {
                         navigateToAbout()
@@ -137,19 +138,23 @@ fun SettingsDrawer(
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsItemCard(
     title: String,
-    description: String = "",
     icon: ImageVector,
     onClick: () -> Unit = {},
 ) {
-    ElevatedCard(modifier = Modifier
-        .fillMaxWidth()
-        .clip(RoundedCornerShape(15.dp))
-        .clickable { onClick() },) {
-        Row(modifier = Modifier.padding(8.dp),
-            verticalAlignment = Alignment.CenterVertically){
+    NavigationDrawerItem(
+        modifier = Modifier.fillMaxWidth(),
+        label = {
+            Text(
+                text = title,
+                maxLines = 1,
+                style = MaterialTheme.typography.titleLarge.copy(fontSize = 20.sp).copy(fontWeight = FontWeight.SemiBold),
+            )
+        },
+        icon = {
             Icon(
                 imageVector = icon,
                 contentDescription = title,
@@ -157,25 +162,10 @@ fun SettingsItemCard(
                     .padding(end = 5.dp)
                     .size(28.dp)
             )
-            Column {
-                with(MaterialTheme) {
-                    Text(
-                        text = title,
-                        maxLines = 1,
-                        style = typography.titleLarge.copy(fontSize = 20.sp).copy(fontWeight = FontWeight.SemiBold),
-                    )
-                    Text(
-                        text = description,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis,
-                        style = typography.bodyMedium,
-                    )
-                }
-            }
-        }
-    }
-
-
+        },
+        selected = false,
+        onClick = { onClick() }
+    )
 }
 
 @Composable
@@ -235,7 +225,7 @@ fun SettingsDrawerPreview() {
         SettingsDrawer(
             user = null,
             navigateToProfile = {},
-            navigateToStyleAndAppeareance = {},
+            navigateToStyleAndAppearance = {},
             navigateToAbout = {},
             navigateToRpcSettings = {}
         ) {}
