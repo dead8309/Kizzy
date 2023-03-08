@@ -14,24 +14,20 @@ package com.my.kizzy.domain.services
 
 import android.annotation.SuppressLint
 import android.app.*
-import android.content.ComponentName
 import android.content.Intent
-import android.media.MediaMetadata
-import android.media.session.MediaSessionManager
 import android.os.IBinder
 import android.os.PowerManager
 import android.os.PowerManager.WakeLock
-import com.blankj.utilcode.util.AppUtils
 import com.google.gson.Gson
 import com.my.kizzy.R
-import com.my.kizzy.data.utils.Constants
-import com.my.kizzy.data.rpc.KizzyRPC
-import com.my.kizzy.data.rpc.RpcImage
-import com.my.kizzy.ui.screen.settings.rpc_settings.RpcButtons
-import com.my.kizzy.data.utils.Log.logger
 import com.my.kizzy.data.preference.Prefs
 import com.my.kizzy.data.preference.Prefs.MEDIA_RPC_ENABLE_TIMESTAMPS
 import com.my.kizzy.data.preference.Prefs.TOKEN
+import com.my.kizzy.data.rpc.KizzyRPC
+import com.my.kizzy.data.utils.Constants
+import com.my.kizzy.data.utils.Log.logger
+import com.my.kizzy.domain.use_case.get_current_data.get_media.getCurrentlyPlayingMedia
+import com.my.kizzy.ui.screen.settings.rpc_settings.RpcButtons
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import javax.inject.Inject
@@ -53,96 +49,37 @@ class MediaRpcService : Service() {
         super.onCreate()
         val token = Prefs[TOKEN, ""]
         if (token.isEmpty()) stopSelf()
+        // TODO add time left later
         val time = System.currentTimeMillis()
-        val notificationManager = getSystemService(
-            NotificationManager::class.java
-        )
-        notificationManager.createNotificationChannel(
-            NotificationChannel(
-                CHANNEL_ID,
-                "Background Service",
-                NotificationManager.IMPORTANCE_LOW
-            )
-        )
-        val builder = Notification.Builder(this, CHANNEL_ID)
-        builder.setSmallIcon(R.drawable.ic_media_rpc)
-        val intent = Intent(this, MediaRpcService::class.java)
-        intent.action = ACTION_STOP_SERVICE
-        val pendingIntent = PendingIntent.getService(
-            this,
-            0, intent, PendingIntent.FLAG_IMMUTABLE
-        )
-        builder.addAction(R.drawable.ic_media_rpc, "Exit", pendingIntent)
-        enable_time = Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS, false]
-        val powerManager = getSystemService(POWER_SERVICE) as PowerManager
-        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "kizzy:MediaRPC")
-        wakeLock?.acquire()
-        var appIcon: RpcImage? = null
-        var smallIcon: RpcImage? = null
+        setupWakeLock()
+        startForeground(NOTIFICATION_ID, getNotification())
         scope.launch {
             while (isActive) {
-                try {
-                    val rpcButtonsString = Prefs[Prefs.RPC_BUTTONS_DATA, "{}"]
-                    val rpcButtons = Gson().fromJson(rpcButtonsString, RpcButtons::class.java)
-                    val mediaSessionManager =
-                        this@MediaRpcService.getSystemService(MEDIA_SESSION_SERVICE) as MediaSessionManager
-                    val component =
-                        ComponentName(this@MediaRpcService, NotificationListener::class.java)
-                    val sessions = mediaSessionManager.getActiveSessions(component)
-                    if (sessions.size > 0) {
-                        val mediaController = sessions[0]
-                        val metadata = mediaController.metadata
-                        val newTitle = metadata?.getString(MediaMetadata.METADATA_KEY_TITLE)
-                        val bitmap = metadata?.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART)
-                        if (newTitle != null) {
-                            if (newTitle != TITLE) {
-                                TITLE = newTitle
-                                App_Name = AppUtils.getAppName(mediaController.packageName)
-                                author =
-                                    if (Prefs[Prefs.MEDIA_RPC_ARTIST_NAME, false]) getArtistOrAuthor(
-                                        metadata
-                                    )
-                                    else null
-                                appIcon = if (Prefs[Prefs.MEDIA_RPC_APP_ICON, false])
-                                    RpcImage.ApplicationIcon(
-                                        mediaController.packageName,
-                                        this@MediaRpcService
-                                    )
-                                else null
-                                if (bitmap != null) {
-                                    smallIcon = appIcon
-                                    appIcon = RpcImage.BitmapImage(
-                                        this@MediaRpcService,
-                                        bitmap,
-                                        mediaController.packageName,
-                                        TITLE
-                                    )
-                                } else smallIcon = null
-                            }
-                        }
-                    } else {
-                        App_Name = ""
-                        TITLE = ""
-                        author = ""
-                        smallIcon = null
-                    }
-                    builder.setContentText(TITLE.ifEmpty { "Browsing Home Page.." })
-                    startForeground(8838, builder.build())
-                    if (kizzyRPC.isRpcRunning()) {
-                        logger.d("MediaRPC","Updating Rpc")
+                val enableTimestamps = Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS, false]
+                val playingMedia = getCurrentlyPlayingMedia(this@MediaRpcService)
+                getNotificationManager()?.notify(
+                    NOTIFICATION_ID,
+                    getNotification(playingMedia.details?:"")
+                )
+                val rpcButtonsString = Prefs[Prefs.RPC_BUTTONS_DATA, "{}"]
+                val rpcButtons = Gson().fromJson(rpcButtonsString, RpcButtons::class.java)
+                when (kizzyRPC.isRpcRunning()) {
+                    true -> {
+                        logger.d("MediaRPC", "Updating Rpc")
                         kizzyRPC.updateRPC(
-                            name = App_Name.ifEmpty { "YouTube" },
-                            details = TITLE.ifEmpty { "Browsing Home Page.." },
-                            state = author,
-                            large_image = appIcon,
-                            small_image = smallIcon,
-                            enableTimestamps = enable_time,
+                            name = playingMedia.name.ifEmpty { "YouTube" },
+                            details = playingMedia.details,
+                            state = playingMedia.state,
+                            large_image = playingMedia.large_image,
+                            small_image = playingMedia.small_image,
+                            enableTimestamps = enableTimestamps,
                             time = time
                         )
-                    } else {
+                    }
+                    false -> {
                         kizzyRPC.apply {
-                            setName(App_Name.ifEmpty { "YouTube" })
-                            setDetails(TITLE.ifEmpty { "Browsing Home Page.." })
+                            setName(playingMedia.name.ifEmpty { "YouTube" })
+                            setDetails(playingMedia.details)
                             setStatus(Constants.DND)
                             if (Prefs[Prefs.USE_RPC_BUTTONS, false]) {
                                 with(rpcButtons) {
@@ -155,11 +92,47 @@ class MediaRpcService : Service() {
                             build()
                         }
                     }
-                    delay(5000)
-                } catch (ignored: NullPointerException) {
                 }
+                delay(5000)
             }
         }
+    }
+
+    @Suppress("DEPRECATION")
+    private fun getNotification(notificationTitle: String = "Browsing Home Page.."): Notification {
+        getNotificationManager().apply {
+            this?.createNotificationChannel(
+                NotificationChannel(
+                    CHANNEL_ID,
+                    "Background Service",
+                    NotificationManager.IMPORTANCE_LOW
+                )
+            )
+        }
+        val builder = Notification.Builder(this, CHANNEL_ID)
+        builder.setSmallIcon(R.drawable.ic_media_rpc)
+        val intent = Intent(this, MediaRpcService::class.java)
+        intent.action = ACTION_STOP_SERVICE
+        val pendingIntent = PendingIntent.getService(
+            this,
+            0, intent, PendingIntent.FLAG_IMMUTABLE
+        )
+        builder.addAction(R.drawable.ic_media_rpc, "Exit", pendingIntent)
+        builder.setContentText(notificationTitle.ifEmpty { "Browsing Home Page.." })
+        return builder.build()
+    }
+
+    @SuppressLint("WakelockTimeout")
+    private fun setupWakeLock() {
+        val powerManager = getSystemService(POWER_SERVICE) as PowerManager
+        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "kizzy:MediaRPC")
+        wakeLock?.acquire()
+    }
+
+    private fun getNotificationManager(): NotificationManager? {
+        return getSystemService(
+            NotificationManager::class.java
+        )
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -187,17 +160,7 @@ class MediaRpcService : Service() {
 
     companion object {
         const val CHANNEL_ID = "MediaRPC"
-        var App_Name = ""
-        var TITLE = ""
-        var enable_time: Boolean = false
-        var author: String? = null
         const val ACTION_STOP_SERVICE = "STOP_RPC"
-        fun getArtistOrAuthor(metadata: MediaMetadata?): String? {
-            return if (metadata!!.getString(MediaMetadata.METADATA_KEY_ARTIST) != null) "by " + metadata.getString(
-                MediaMetadata.METADATA_KEY_ARTIST
-            ) else if (metadata.getString(MediaMetadata.METADATA_KEY_ARTIST) != null) "by " + metadata.getString(
-                MediaMetadata.METADATA_KEY_ARTIST
-            ) else null
-        }
+        const val NOTIFICATION_ID = 8838
     }
 }

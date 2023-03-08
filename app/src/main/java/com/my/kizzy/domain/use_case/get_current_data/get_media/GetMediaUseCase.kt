@@ -15,17 +15,17 @@ package com.my.kizzy.domain.use_case.get_current_data.get_media
 import android.app.Service
 import android.content.ComponentName
 import android.content.Context
+import android.graphics.Bitmap
 import android.media.MediaMetadata
 import android.media.session.MediaSessionManager
 import com.blankj.utilcode.util.AppUtils
 import com.my.kizzy.domain.use_case.get_current_data.SharedRpc
 import com.my.kizzy.data.rpc.RpcImage
-import com.my.kizzy.domain.services.MediaRpcService
 import com.my.kizzy.domain.services.NotificationListener
 import com.my.kizzy.data.preference.Prefs
 import kizzy.gateway.entities.presence.Timestamps
 
-fun getCurrentRunningMedia(context: Context): SharedRpc {
+fun getCurrentlyPlayingMedia(context: Context): SharedRpc {
     var largeIcon: RpcImage?
     val smallIcon: RpcImage?
     var timestamps: Timestamps? = null
@@ -39,8 +39,8 @@ fun getCurrentRunningMedia(context: Context): SharedRpc {
         val title = metadata?.getString(MediaMetadata.METADATA_KEY_TITLE)
         val appName = AppUtils.getAppName(mediaController.packageName)
         val author =  if (Prefs[Prefs.MEDIA_RPC_ARTIST_NAME, false]) metadata?.getString(
-            MediaRpcService.getArtistOrAuthor(metadata)) else null
-        val bitmap = metadata?.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART)
+            getArtistOrAuthor(metadata)) else null
+        val bitmap = getCoverArt(metadata)
         val duration = metadata?.getLong(MediaMetadata.METADATA_KEY_DURATION)
         duration?.let {
             if (it != 0L)
@@ -71,4 +71,20 @@ fun getCurrentRunningMedia(context: Context): SharedRpc {
         }
     }
     return SharedRpc()
+}
+
+fun getCoverArt(metadata: MediaMetadata?): Bitmap? {
+    if (metadata == null) return null
+    return if (metadata.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART) != null)
+        metadata.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART)
+    else
+        metadata.getBitmap(MediaMetadata.METADATA_KEY_ART)
+}
+
+fun getArtistOrAuthor(metadata: MediaMetadata?): String? {
+    return if (metadata!!.getString(MediaMetadata.METADATA_KEY_ARTIST) != null) "by " + metadata.getString(
+        MediaMetadata.METADATA_KEY_ARTIST
+    ) else if (metadata.getString(MediaMetadata.METADATA_KEY_ARTIST) != null) "by " + metadata.getString(
+        MediaMetadata.METADATA_KEY_ARTIST
+    ) else null
 }

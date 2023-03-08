@@ -14,7 +14,7 @@ package com.my.kizzy.domain.use_case.get_current_data
 
 import android.content.Context
 import com.my.kizzy.domain.use_case.get_current_data.get_apps.getCurrentRunningApp
-import com.my.kizzy.domain.use_case.get_current_data.get_media.getCurrentRunningMedia
+import com.my.kizzy.domain.use_case.get_current_data.get_media.getCurrentlyPlayingMedia
 import com.my.kizzy.data.rpc.RpcImage
 import com.my.kizzy.data.utils.Log.logger
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -33,7 +33,7 @@ class AppTracker @Inject constructor(
     fun getCurrentAppData() = flow {
         var songTitle = "" // Title::packageName
         while (currentCoroutineContext().isActive) {
-            val getCurrentMedia = getCurrentRunningMedia(context)
+            val getCurrentMedia = getCurrentlyPlayingMedia(context)
             if (getCurrentMedia.name.isNotEmpty()) {
                 if (songTitle != getCurrentMedia.package_name) {
                     songTitle = getCurrentMedia.package_name
