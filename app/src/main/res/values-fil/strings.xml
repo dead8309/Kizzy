@@ -50,7 +50,6 @@
     <string name="settings">Mga setting</string>
     <string name="language">Wika</string>
     <string name="design_credits">Mga Kredito sa Disenyo</string>
-    <string name="translation_credits">Mga Credit sa Pagsasalin</string>
     <string name="enable_appsRpc">I-enable ang App Detection</string>
     <string name="usage_access">Kinakailangan ang Access sa Paggamit</string>
     <string name="usage_access_desc">Kailangan ang Access sa Paggamit para makuha ng app ang kasalukuyang tumatakbong app</string>
@@ -82,4 +81,5 @@
     <string name="permission_not_granted">Not Granted, Click to Allow</string>
     <string name="activity_large_text">Aktibidad Malaking Teksto</string>
     <string name="activity_small_text">Aktibidad Maliit Teksto</string>
+    <string name="contributors">Contributors</string>
 </resources>

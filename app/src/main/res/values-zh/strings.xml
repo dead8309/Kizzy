@@ -50,7 +50,6 @@
     <string name="settings">設定</string>
     <string name="language">語言</string>
     <string name="design_credits">捐款給設計者</string>
-    <string name="translation_credits">捐款給翻譯奉獻者</string>
     <string name="enable_appsRpc">啟用程式偵測</string>
     <string name="usage_access">請開啟使用情況權限</string>
     <string name="usage_access_desc">請開啟使用情況權限已取得目前正在運行的程式</string>
@@ -82,6 +81,7 @@
     <string name="permission_not_granted">未授權, 點擊已授權</string>
     <string name="activity_large_text">活動大標題</string>
     <string name="activity_small_text">活動小標題</string>
+    <string name="contributors">Contributors</string>
 
 
 </resources>

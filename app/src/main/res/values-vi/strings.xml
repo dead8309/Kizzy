@@ -50,7 +50,6 @@
     <string name="settings">Cài đặt</string>
     <string name="language">Ngôn ngữ</string>
     <string name="design_credits">Ghi công thư viện được sử dụng</string>
-    <string name="translation_credits">Ghi công người dịch</string>
     <string name="enable_appsRpc">Bật phát hiện ứng dụng</string>
     <string name="usage_access">Yêu cầu truy cập sử dụng</string>
     <string name="usage_access_desc">Quyền truy cập sử dụng là cần thiết cho ứng dụng để tải ứng dụng đang chạy hiện tại</string>
@@ -82,4 +81,5 @@
     <string name="permission_not_granted">Không được cấp phép, Ấn để cấp phép</string>
     <string name="activity_large_text">Văn bản hoạt động lớn</string>
     <string name="activity_small_text">Văn bản hoạt động nhỏ</string>
+    <string name="contributors">Contributors</string>
 </resources>

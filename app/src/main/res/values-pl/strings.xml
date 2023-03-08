@@ -50,7 +50,6 @@
     <string name="settings">Ustawienia</string>
     <string name="language">Język</string>
     <string name="design_credits">Podziękowania za Design</string>
-    <string name="translation_credits">Podziękowania Tłumaczom</string>
     <string name="enable_appsRpc">Włącz Detekcję Aplikacji</string>
     <string name="usage_access">Wymagany Dostęp do Informacji o Użyciu</string>
     <string name="usage_access_desc">Dostęp do Informacji o Użyciu jest potrzebny dla aplikacji aby wiedzieć o aktualnie uruchomionych aplikacjach</string>
@@ -82,5 +81,6 @@
     <string name="permission_not_granted">Nie nadano, Kliknij by Zezwolić</string>
     <string name="activity_large_text">Duży Tekst Aktywności</string>
     <string name="activity_small_text">Mały Tekst Aktywności</string>
+    <string name="contributors">Contributors</string>
 
 </resources>

@@ -50,7 +50,6 @@
     <string name="settings">Ayarlar</string>
     <string name="language">Dil</string>
     <string name="design_credits">Tasarıma Katkıda Bulunanlar</string>
-    <string name="translation_credits">Çeviriye Katkıda Bulunanlar</string>
     <string name="enable_appsRpc">Uyg. Algılamayı Etkinleştir</string>
     <string name="usage_access">Kullanım Erişimi Gerekli</string>
     <string name="usage_access_desc">Kullanım Erişimi uygulama için mevcut çalışan uygulama hakkında bilgi edinmek için gereklidir</string>
@@ -82,6 +81,7 @@
     <string name="permission_not_granted">İzin Verilmedi, İzin Vermek İçin Tıkla</string>
     <string name="activity_large_text">Aktivite Büyük Yazısı</string>
     <string name="activity_small_text">Aktivite Küçük Yazısı</string>
+    <string name="contributors">Contributors</string>
 
 
 </resources>

@@ -50,7 +50,6 @@
     <string name="settings">ဆက်တင်များ</string>
     <string name="language">ဘာသာစကားများ</string>
     <string name="design_credits">ဒီဇိုင်းခရက်ဒစ်မျာ</string>
-    <string name="translation_credits">ဘာသာပြန်ခရက်ဒစ်များ</string>
     <string name="enable_appsRpc">App Detection ကိုသုံးပါ</string>
     <string name="usage_access">Usage Access လိုအပ်သည်</string>
     <string name="usage_access_desc">လက်ရှိအသုံးပြုနေသည့်အက်ပ်ကို ရယူရန် Usage Access ကိုလိုအပ်သည်</string>
@@ -82,4 +81,5 @@
     <string name="permission_not_granted">ခွင့်မပြုပါ, ခွင့်ပြုရန် နှိပ်ပါ</string>
     <string name="activity_large_text">လုပ်ဆောင်မှု စာအသေး</string>
     <string name="activity_small_text">လုပ်ဆောင်မှု စာအကြီး</string>
+    <string name="contributors">Contributors</string>
 </resources>

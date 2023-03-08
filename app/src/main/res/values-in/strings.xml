@@ -50,7 +50,6 @@
     <string name="settings">Pengaturan</string>
     <string name="language">Bahasa</string>
     <string name="design_credits">Kredit Desain</string>
-    <string name="translation_credits">Kredit Terjemahan</string>
     <string name="enable_appsRpc">Nyalakan Deteksi Aplikasi</string>
     <string name="usage_access">Diperlukan Akses Penggunaan</string>
     <string name="usage_access_desc">Akses Penggunaan Diperlukan agar aplikasi dapat melihat Aplikasi yang sedang berjalan</string>
@@ -82,6 +81,7 @@
     <string name="permission_not_granted">Not Granted, Click to Allow</string>
     <string name="activity_large_text">Activity Large Text</string>
     <string name="activity_small_text">Activity Small Text</string>
+    <string name="contributors">Contributors</string>
 
 
 </resources>

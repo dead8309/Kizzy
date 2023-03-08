@@ -50,7 +50,6 @@
     <string name="settings">Instellingen</string>
     <string name="language">Taal</string>
     <string name="design_credits">Design/Ontwerp Credits</string>
-    <string name="translation_credits">Vertaling Credits</string>
     <string name="enable_appsRpc">Zet App Detectie Aan</string>
     <string name="usage_access">Usage Access Required</string>
     <string name="usage_access_desc">Usage Access moet aan staan om app informatie op te halen</string>
@@ -82,6 +81,7 @@
     <string name="permission_not_granted">Niet Toegekend, Klik om Toe Te Staan</string>
     <string name="activity_large_text">Activieit Grote Text</string>
     <string name="activity_small_text">Activieit Kleine Text</string>
+    <string name="contributors">Contributors</string>
 
 
 </resources>

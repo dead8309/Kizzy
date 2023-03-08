@@ -50,7 +50,6 @@
     <string name="settings">Impostazioni</string>
     <string name="language">Lingua</string>
     <string name="design_credits">Crediti Collaboratori</string>
-    <string name="translation_credits">Crediti Traduttori</string>
     <string name="enable_appsRpc">Abilita Rilevamento App</string>
     <string name="usage_access">Accesso ai Dati di Utilizzo Necessario</string>
     <string name="usage_access_desc">Accesso ai Dati di Utilizzo necessario affinché questa app possa rilevare le app in esecuzione</string>
@@ -82,4 +81,5 @@
     <string name="permission_not_granted">Non Concesso, Fare Clic per Consentire</string>
     <string name="activity_large_text">Descrizione Attività Grande</string>
     <string name="activity_small_text">Descrizione Attività Piccola</string>
+    <string name="contributors">Contributors</string>
 </resources>

@@ -50,7 +50,6 @@
     <string name="settings">Paramètres</string>
     <string name="language">Langage</string>
     <string name="design_credits">Crédits de conception</string>
-    <string name="translation_credits">Crédits de traduction</string>
     <string name="enable_appsRpc">Activer la détection des applications</string>
     <string name="usage_access">Accès requis pour l\'utilisation</string>
     <string name="usage_access_desc">L\'accès d\'usage est nécessaire pour que Kizzy obtienne l\'application en cours d\'exécution.</string>
@@ -82,4 +81,5 @@
     <string name="permission_not_granted">Non accordé, cliquez pour autoriser</string>
     <string name="activity_large_text">Texte grande activité</string>
     <string name="activity_small_text">Texte petite activité</string>
+    <string name="contributors">Contributors</string>
 </resources>

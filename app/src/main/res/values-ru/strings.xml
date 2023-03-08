@@ -50,7 +50,6 @@
     <string name="settings">Настройки</string>
     <string name="language">Язык</string>
     <string name="design_credits">Дизайн</string>
-    <string name="translation_credits">Перевод</string>
     <string name="enable_appsRpc">Включить обнаружение приложений</string>
     <string name="usage_access">Требуется доступ к использованию</string>
     <string name="usage_access_desc">Доступ к использованию необходим для приложения, чтобы получить текущее запущенное приложение.</string>
@@ -82,4 +81,5 @@
     <string name="permission_not_granted">Не предоставлено. Нажмите, чтобы разрешить</string>
     <string name="activity_large_text">Большой текст активности</string>
     <string name="activity_small_text">Малый текст активности</string>
+    <string name="contributors">Contributors</string>
 </resources>
