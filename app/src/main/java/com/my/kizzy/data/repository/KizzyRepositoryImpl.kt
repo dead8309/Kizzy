@@ -13,6 +13,7 @@
 package com.my.kizzy.data.repository
 
 import com.my.kizzy.data.remote.ApiService
+import com.my.kizzy.data.remote.Contributor
 import com.my.kizzy.data.remote.GamesResponse
 import com.my.kizzy.data.remote.User
 import com.my.kizzy.domain.repository.KizzyRepository
@@ -46,5 +47,8 @@ class KizzyRepositoryImpl @Inject constructor(
 
     override suspend fun getUser(userid: String): User {
         return api.getUser(userid)
+    }
+    override suspend fun getContributors(): List<Contributor> {
+        return api.getContributors()
     }
 }

@@ -11,6 +11,7 @@
  */
 package com.my.kizzy.domain.repository
 
+import com.my.kizzy.data.remote.Contributor
 import com.my.kizzy.data.remote.GamesResponse
 import com.my.kizzy.data.remote.User
 import java.io.File
@@ -24,4 +25,6 @@ interface KizzyRepository {
     suspend fun getGames(): List<GamesResponse>
 
     suspend fun getUser(userid: String): User
+
+    suspend fun getContributors(): List<Contributor>
 }

@@ -28,4 +28,7 @@ interface ApiService {
 
     @GET("user/{userid}")
     suspend fun getUser(@Path("userid") userid: String): User
+
+    @GET("contributors")
+    suspend fun getContributors(): List<Contributor>
 }
