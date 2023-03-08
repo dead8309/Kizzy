@@ -38,6 +38,7 @@ import com.my.kizzy.ui.screen.profile.user.UserScreen
 import com.my.kizzy.ui.screen.profile.user.UserViewModel
 import com.my.kizzy.ui.screen.settings.about.About
 import com.my.kizzy.ui.screen.settings.about.Credits
+import com.my.kizzy.ui.screen.settings.about.CreditsScreenViewModel
 import com.my.kizzy.ui.screen.settings.language.Language
 import com.my.kizzy.ui.screen.settings.rpc_settings.RpcSettings
 import com.my.kizzy.ui.screen.settings.style.Appearance
@@ -188,7 +189,8 @@ class MainActivity : AppCompatActivity() {
                     )
                 }
                 animatedComposable(Routes.CREDITS) {
-                    Credits {
+                    val viewModel: CreditsScreenViewModel by viewModels()
+                    Credits(viewModel) {
                         navController.popBackStack()
                     }
                 }

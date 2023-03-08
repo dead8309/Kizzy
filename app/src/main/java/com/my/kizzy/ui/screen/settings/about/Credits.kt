@@ -1,21 +1,36 @@
 package com.my.kizzy.ui.screen.settings.about
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.animation.*
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalUriHandler
-import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.my.kizzy.R
+import com.my.kizzy.data.remote.Contributor
+import com.my.kizzy.domain.model.Resource
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.CreditItem
 import com.my.kizzy.ui.components.Subtitle
+import com.skydoves.landscapist.glide.GlideImage
+import kotlin.math.floor
 
 data class Credit(val title: String = "", val license: String = "", val url: String = "")
 
@@ -40,7 +55,7 @@ val creditsList = listOf(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Credits(onBackPressed: () -> Unit) {
+fun Credits(viewModel: CreditsScreenViewModel,onBackPressed: () -> Unit) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
         rememberTopAppBarState(),
         canScroll = { true })
@@ -49,8 +64,7 @@ fun Credits(onBackPressed: () -> Unit) {
     fun openUrl(url: String) {
         uriHandler.openUri(url)
     }
-    val languages = stringArrayResource(id = R.array.languages)
-    val contributors = stringArrayResource(id = R.array.contributors)
+    val contributors = viewModel.contributors.collectAsState()
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -67,8 +81,8 @@ fun Credits(onBackPressed: () -> Unit) {
                 scrollBehavior = scrollBehavior
             )
         }
-    ){
-        LazyColumn(modifier = Modifier.padding(it)){
+    ){ paddingValues ->
+        LazyColumn(modifier = Modifier.padding(paddingValues)){
             item {
                 Subtitle(text = stringResource(id = R.string.design_credits))
                 }
@@ -79,21 +93,85 @@ fun Credits(onBackPressed: () -> Unit) {
                 }
             }
             item {
-                Subtitle(text = stringResource(id = R.string.translation_credits))
+                Subtitle(text = stringResource(id = R.string.contributors))
             }
-           items(languages.size){ lang ->
-               CreditItem(
-                   title = languages[lang],
-                   description = contributors[lang],
-               ) {}
-           }
+            item {
+                when (contributors.value) {
+                    is Resource.Success -> {
+                        // dirty way to enable LazyVerticalGird,
+                        // TODO update this part once compose team release out a better
+                        //  implementation of nested scrolling
+                        val itemsPerRowAccordingToScreenWidth = floor((LocalConfiguration.current.screenWidthDp.dp / 90).value)
+                        val totalHeightForLazyGrid =
+                            contributors.value.data?.size?.div(itemsPerRowAccordingToScreenWidth)
+                                ?.times((96))?.dp
+                        if (totalHeightForLazyGrid != null) {
+                            LazyVerticalGrid(
+                                columns = GridCells.Adaptive(90.dp),
+                                modifier = Modifier.height(totalHeightForLazyGrid)
+                            ) {
+                                items(contributors.value.data!!) {
+                                    ContributorItem(contributor = it)
+                                }
+                            }
+                        }
+                    }
+                    is Resource.Error -> {
+                        Text(
+                            text = contributors.value.message + "",
+                            modifier = Modifier
+                                .padding(16.dp, 20.dp),
+                        )
+                    }
+                    is Resource.Loading -> {
+                       CircularProgressIndicator(
+                           modifier = Modifier
+                               .padding(16.dp, 20.dp))
+                    }
+                }
+            }
         }
+    }
+}
+
+@Composable
+fun ContributorItem(contributor: Contributor) {
+    val uriHandler = LocalUriHandler.current
+    val absoluteElevation = LocalAbsoluteTonalElevation.current + 2.dp
+    Box(
+        modifier = Modifier
+            .padding(5.dp)
+            .aspectRatio(ratio = 1f)
+            .clip(RoundedCornerShape(25.dp))
+            .background(MaterialTheme.colorScheme.surfaceColorAtElevation(absoluteElevation))
+            .clickable {
+                uriHandler.openUri(contributor.url)
+            }
+    ) {
+        GlideImage(
+            imageModel = contributor.avatar,
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .padding(top = 5.dp)
+                .size(60.dp)
+                .clip(RoundedCornerShape(26.dp)),
+            previewPlaceholder = R.drawable.error_avatar
+        )
+        Text(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 4.dp),
+            text = contributor.name,
+            maxLines = 1,
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            overflow = TextOverflow.Ellipsis
+        )
     }
 }
 
 @Preview
 @Composable
 fun CreditScreen() {
-    Credits {
-    }
+
 }
