@@ -19,10 +19,10 @@ import android.graphics.Bitmap
 import android.media.MediaMetadata
 import android.media.session.MediaSessionManager
 import com.blankj.utilcode.util.AppUtils
-import com.my.kizzy.domain.use_case.get_current_data.SharedRpc
+import com.my.kizzy.data.preference.Prefs
 import com.my.kizzy.data.rpc.RpcImage
 import com.my.kizzy.domain.services.NotificationListener
-import com.my.kizzy.data.preference.Prefs
+import com.my.kizzy.domain.use_case.get_current_data.SharedRpc
 import kizzy.gateway.entities.presence.Timestamps
 
 fun getCurrentlyPlayingMedia(context: Context): SharedRpc {
@@ -38,8 +38,8 @@ fun getCurrentlyPlayingMedia(context: Context): SharedRpc {
         val metadata = mediaController.metadata
         val title = metadata?.getString(MediaMetadata.METADATA_KEY_TITLE)
         val appName = AppUtils.getAppName(mediaController.packageName)
-        val author =  if (Prefs[Prefs.MEDIA_RPC_ARTIST_NAME, false]) metadata?.getString(
-            getArtistOrAuthor(metadata)) else null
+        val author = if (Prefs[Prefs.MEDIA_RPC_ARTIST_NAME, false])
+            getArtistOrAuthor(metadata) else null
         val bitmap = getCoverArt(metadata)
         val duration = metadata?.getLong(MediaMetadata.METADATA_KEY_DURATION)
         duration?.let {
@@ -84,7 +84,7 @@ fun getCoverArt(metadata: MediaMetadata?): Bitmap? {
 fun getArtistOrAuthor(metadata: MediaMetadata?): String? {
     return if (metadata!!.getString(MediaMetadata.METADATA_KEY_ARTIST) != null) "by " + metadata.getString(
         MediaMetadata.METADATA_KEY_ARTIST
-    ) else if (metadata.getString(MediaMetadata.METADATA_KEY_ARTIST) != null) "by " + metadata.getString(
+    ) else if (metadata.getString(MediaMetadata.METADATA_KEY_AUTHOR) != null) "by " + metadata.getString(
         MediaMetadata.METADATA_KEY_ARTIST
     ) else null
 }
