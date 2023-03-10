@@ -18,7 +18,6 @@ object AppDependencies {
     const val material3 = "androidx.compose.material3:material3:${Versions.material3Version}"
     const val windowSizeClass = "androidx.compose.material3:material3-window-size-class:${Versions.material3Version}"
     const val lifecycleRuntimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.ktxLifecycleVersion}"
-    const val cardView = "androidx.cardview:cardview:1.0.0"
     const val androidxMaterial = "com.google.android.material:material:${Versions.androidxMaterialVersion}"
 
     const val KotlinXCoroutine = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.KotlinXCoroutine}"
