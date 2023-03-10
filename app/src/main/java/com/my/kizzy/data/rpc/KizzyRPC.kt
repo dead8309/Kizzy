@@ -41,6 +41,7 @@ class KizzyRPC(
     private var type: Int = 0
     private var buttons = ArrayList<String>()
     private var buttonUrl = ArrayList<String>()
+    private var url: String? = null
 
     fun closeRPC() {
         discordWebSocket.close()
@@ -214,6 +215,15 @@ class KizzyRPC(
         url?.let { buttonUrl.add(it) }
         return this
     }
+    /**
+     * Streaming Url
+     * @param url The streaming type currently only supports Twitch and YouTube.
+     * Only https://twitch.tv/ and https://youtube.com/ urls will work
+     */
+    fun setStreamUrl(url: String?): KizzyRPC {
+        this.url = url
+        return this
+    }
 
     suspend fun build() {
         presence = Presence(
@@ -235,7 +245,8 @@ class KizzyRPC(
                     ).takeIf { largeImage != null || smallImage != null },
                     buttons = buttons.takeIf { buttons.size > 0 },
                     metadata = Metadata(buttonUrls = buttonUrl).takeIf { buttonUrl.size > 0 },
-                    applicationId = Constants.APPLICATION_ID.takeIf { buttons.size > 0 }
+                    applicationId = Constants.APPLICATION_ID.takeIf { buttons.size > 0 },
+                    url = url
                 )
             ),
             afk = true,

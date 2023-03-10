@@ -20,5 +20,7 @@ data class Activity(
     @SerializedName("metadata")
     val metadata: Metadata? = null,
     @SerializedName("application_id")
-    val applicationId: String? = null
+    val applicationId: String? = null,
+    @SerializedName("url")
+    val url: String? = null
 )
