@@ -82,6 +82,8 @@
     <string name="activity_large_text">活動大標題</string>
     <string name="activity_small_text">活動小標題</string>
     <string name="contributors">Contributors</string>
+    <string name="stream_url">Stream Url</string>
+    <string name="stream_url_info">Only https://twitch.tv/ and https://youtube.com/ urls will work.</string>
 
 
 </resources>

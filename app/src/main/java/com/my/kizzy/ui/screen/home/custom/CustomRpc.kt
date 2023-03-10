@@ -179,7 +179,8 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
                     largeText = largeImgText,
                     smallImg = smallImg,
                     smallText = smallImgText,
-                    type = type
+                    type = type,
+                    url = url
                 )
 
                 if (showLoadDialog) {
@@ -201,6 +202,7 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
                         smallImg = it.smallImg
                         smallImgText = it.smallText
                         type = it.type
+                        url = it.url
                     }
                 } else if (showSaveDialog) {
                     SaveConfig(
@@ -494,6 +496,28 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
                                 )
                             }
                         }
+                    }
+                    item {
+                            AnimatedVisibility(visible = type == "1") {
+                                val streamUrlInfoText = stringResource(id = R.string.stream_url_info)
+                                RpcField(
+                                    value = url,
+                                    label = R.string.stream_url,
+                                    trailingIcon = {
+                                        Icon(imageVector = Icons.Default.Info,
+                                            contentDescription = null,
+                                            modifier = Modifier.clickable {
+                                                scope.launch {
+                                                    snackBarHostState.showSnackbar(
+                                                        message = streamUrlInfoText
+                                                    )
+                                                }
+                                            })
+                                    }
+                                ) {
+                                    url = it
+                                }
+                            }
                         Spacer(modifier = Modifier.size(100.dp))
                     }
                 }

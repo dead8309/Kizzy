@@ -31,5 +31,7 @@ data class RpcIntent(
     @SerializedName("large_text")
     val largeText: String = "",
     @SerializedName("small_text")
-    val smallText: String = ""
+    val smallText: String = "",
+    @SerializedName("url")
+    val url: String = ""
 )

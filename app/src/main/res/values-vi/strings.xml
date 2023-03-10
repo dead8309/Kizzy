@@ -82,4 +82,6 @@
     <string name="activity_large_text">Văn bản hoạt động lớn</string>
     <string name="activity_small_text">Văn bản hoạt động nhỏ</string>
     <string name="contributors">Contributors</string>
+    <string name="stream_url">Stream Url</string>
+    <string name="stream_url_info">Only https://twitch.tv/ and https://youtube.com/ urls will work.</string>
 </resources>
