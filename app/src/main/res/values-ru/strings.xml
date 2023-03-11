@@ -78,10 +78,10 @@
     <string name="user_data_policy">Данное приложение не собирает никакие пользовательские данные</string>
     <string name="setup_desc">Перед тем, как идти дальше, рекомендуется выполнить все необходимые действия, чтобы все функции приложения работали исправно.</string>
     <string name="permission_granted">Предоставлено</string>
-    <string name="permission_not_granted">Не предоставлено. Нажмите, чтобы разрешить</string>
+    <string name="permission_not_granted">Не предоставлено, нажмите, чтобы разрешить</string>
     <string name="activity_large_text">Большой текст активности</string>
     <string name="activity_small_text">Малый текст активности</string>
-    <string name="contributors">Contributors</string>
-    <string name="stream_url">Stream Url</string>
-    <string name="stream_url_info">Only https://twitch.tv/ and https://youtube.com/ urls will work.</string>
+    <string name="contributors">Вкладчики</string>
+    <string name="stream_url">Ссылка на эфир</string>
+    <string name="stream_url_info">Будут работать только ссылки на Twitch и YouTube.</string>
 </resources>
