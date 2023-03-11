@@ -13,4 +13,5 @@
     <locale android:name="it" />
     <locale android:name="fil" />
     <locale android:name="fr" />
+    <locale android:name="ceb" />
 </locale-config>

@@ -16,5 +16,6 @@
     <string name="locale_it" translatable="false">Italian</string>
     <string name="locale_fil" translatable="false">Filipino</string>
     <string name="locale_fr" translatable="false">French</string>
+    <string name="locale_ceb" translatable="false">Cebuano (Binisaya)</string>
     <!-- Until here -->
 </resources>
