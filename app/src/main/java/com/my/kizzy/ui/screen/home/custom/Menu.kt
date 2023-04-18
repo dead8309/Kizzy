@@ -10,8 +10,6 @@
  *
  */
 
-@file:Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
-
 package com.my.kizzy.ui.screen.home.custom
 
 import android.content.Context
@@ -112,7 +110,7 @@ fun Context.handleUriResult(uri: Uri?, onSuccess: (json: String) -> Unit) {
     if (uri == null)
         return
     val fileName = this.getFileName(uri)
-    if (fileName == null || !fileName.endsWith(".json"))
+    if (!fileName.endsWith(".json"))
         return
 
     val file = File(this.cacheDir, "tmp.json")

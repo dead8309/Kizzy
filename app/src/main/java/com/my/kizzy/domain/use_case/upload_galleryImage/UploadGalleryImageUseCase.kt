@@ -27,19 +27,16 @@ class UploadGalleryImageUseCase @Inject constructor(
     suspend operator fun invoke(uri: Uri): String? {
         return try {
             val filename = context.getFileName(uri)
-            val file = filename?.let { File(context.cacheDir, it) }
-            if (file != null) {
-                val inputStream = context.contentResolver.openInputStream(uri)
-                inputStream?.use { input ->
-                    file.outputStream().use { out ->
-                        input.copyTo(out)
-                    }
+            val file = File(context.cacheDir, filename)
+            val inputStream = context.contentResolver.openInputStream(uri)
+            inputStream?.use { input ->
+                file.outputStream().use { out ->
+                    input.copyTo(out)
                 }
-                file.deleteOnExit()
-                kizzyRepository.uploadImage(file)
-            } else
-                null
-        } catch (ex: Exception){
+            }
+            file.deleteOnExit()
+            kizzyRepository.uploadImage(file)
+        } catch (ex: Exception) {
             null
         }
     }

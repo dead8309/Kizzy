@@ -47,7 +47,7 @@ fun ImagePicker(
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia()
     ) {
-        Log.logger.d("file:"+it?.let { it1 -> context.getFileName(it1).toString() },it.toString())
+        Log.logger.d("file:"+it?.let { it1 -> context.getFileName(it1) },it.toString())
         imageUri.value = it
     }
     if (visible){

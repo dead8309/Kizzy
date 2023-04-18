@@ -20,13 +20,13 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.net.Uri
-import android.provider.OpenableColumns
 import android.util.DisplayMetrics
+import android.webkit.MimeTypeMap
 import com.blankj.utilcode.util.AppUtils
 import com.google.gson.Gson
+import com.my.kizzy.data.preference.Prefs
 import com.my.kizzy.data.remote.ApiResponse
 import com.my.kizzy.data.remote.User
-import com.my.kizzy.data.preference.Prefs
 import com.my.kizzy.data.rpc.RpcImage
 import retrofit2.Response
 import java.io.File
@@ -96,17 +96,14 @@ fun String.toRpcImage(): RpcImage {
             RpcImage.ExternalImage(this)
 }
 
-fun Context.getFileName(uri: Uri): String? = when(uri.scheme) {
-    ContentResolver.SCHEME_CONTENT -> getContentFileName(uri)
-    else -> uri.path?.let(::File)?.name
-}
+fun Context.getFileName(uri: Uri): String = "temp_file.${getFileExtension(this,uri)}"
 
-private fun Context.getContentFileName(uri: Uri): String? = runCatching {
-    contentResolver.query(uri, null, null, null, null)?.use { cursor ->
-        cursor.moveToFirst()
-        return@use cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME).let(cursor::getString)
+private fun getFileExtension(context: Context, uri: Uri): String? =
+    if (uri.scheme == ContentResolver.SCHEME_CONTENT) {
+        MimeTypeMap.getSingleton().getExtensionFromMimeType(context.contentResolver.getType(uri))
+    } else {
+        uri.path?.let { MimeTypeMap.getFileExtensionFromUrl(Uri.fromFile(File(it)).toString()) }
     }
-}.getOrNull()
 
 fun Gson.fromJson(value: String): User? {
     return when {
