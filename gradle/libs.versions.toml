@@ -1,0 +1,103 @@
+[versions]
+# project level
+gradle = "7.4.1"
+kotlin = "1.8.0"
+
+# app level
+accompanist = "0.25.1"
+accompanist-flow-layout = "0.28.0"
+accompanist-permission = "0.26.2-beta"
+activity-compose = "1.5.1"
+android-svg = "1.4"
+androidx-material = "1.8.0"
+app-compat = "1.7.0-alpha01"
+blankj-utilcodex = "1.31.0"
+coil = "2.1.0"
+compose = "1.4.0-alpha01"
+compose-compiler = "1.4.0"
+compose-navigation = "2.5.1"
+core-ktx = "1.8.0"
+crashx = "v6.0.19"
+glide = "1.6.1"
+gson = "2.9.1"
+hilt = "2.44"
+ktor = "2.2.1"
+kotlinx-coroutine = "1.6.4"
+lifecycle-ktx = "2.5.1"
+material3 = "1.0.1"
+mmkv = "1.2.14"
+okhttp = "4.9.3"
+retrofit = "2.9.0"
+
+[libraries]
+
+# Androidx
+core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
+lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle-ktx" }
+app-compat = { module = "androidx.appcompat:appcompat", version.ref = "app-compat" }
+androidx-material = { module = "com.google.android.material:material", version.ref = "androidx-material" }
+kotlinx-coroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutine" }
+activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
+compose-navigation = { module = "androidx.navigation:navigation-compose", version.ref = "compose-navigation" }
+
+# Material3
+material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
+material3-windows-size = { module = "androidx.compose.material3:material3-window-size-class", version.ref = "material3" }
+
+# Compose
+compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
+compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
+material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
+
+# Accompanist
+accompanist-animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist" }
+accompanist-systemUiController = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
+accompanist-permission = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist-permission" }
+accompanist-flowLayout = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "accompanist-flow-layout" }
+
+# Hilt
+hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+
+# gradle plugins
+android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+
+# Ktor
+ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
+ktor-websockets = { module = "io.ktor:ktor-client-websockets", version.ref = "ktor" }
+ktor-gson = { module = "io.ktor:ktor-serialization-gson", version.ref = "ktor" }
+
+# Retrofit
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-gson-converter = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+
+# OkHttp
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+okhttp-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
+
+# Third-party libraries
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+glide = { module = "com.github.skydoves:landscapist-glide", version.ref = "glide" }
+blankj-utilcodex = { module = "com.blankj:utilcodex", version.ref = "blankj-utilcodex" }
+crashx = { module = "com.github.TutorialsAndroid:crashx", version.ref = "crashx" }
+mmkv = { module = "com.tencent:mmkv", version.ref = "mmkv" }
+coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+coil-svg = { module = "io.coil-kt:coil-svg", version.ref = "coil" }
+android-svg = { module = "com.caverock:androidsvg-aar", version.ref = "android-svg" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "gradle" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+
+[bundles]
+network-okhttp = ["okhttp", "okhttp-interceptor"]
+network-retrofit = ["retrofit", "retrofit-gson-converter"]
+network-ktor = ["ktor-core", "ktor-client-cio", "ktor-gson", "ktor-websockets"]
+compose-accompanist = ["accompanist-flowLayout","accompanist-animation","accompanist-systemUiController","accompanist-permission"]
+
