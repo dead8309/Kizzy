@@ -53,6 +53,8 @@ accompanist-animation = { module = "com.google.accompanist:accompanist-navigatio
 accompanist-systemUiController = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 accompanist-permission = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
 accompanist-flowLayout = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "accompanist" }
+accompanist-pager-layouts = { group = "com.google.accompanist", name = "accompanist-pager", version.ref = "accompanist" }
+accompanist-pager-indicators = { group = "com.google.accompanist", name = "accompanist-pager-indicators", version.ref = "accompanist" }
 
 # Hilt
 hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
@@ -88,6 +90,7 @@ android-svg = { module = "com.caverock:androidsvg-aar", version.ref = "android-s
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "gradle" }
+android-library = { id = "com.android.library", version.ref = "gradle" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
@@ -97,5 +100,12 @@ kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 network-okhttp = ["okhttp", "okhttp-interceptor"]
 network-retrofit = ["retrofit", "retrofit-gson-converter"]
 network-ktor = ["ktor-core", "ktor-client-cio", "ktor-gson", "ktor-websockets"]
-compose-accompanist = ["accompanist-flowLayout","accompanist-animation","accompanist-systemUiController","accompanist-permission"]
+compose-accompanist = [
+    "accompanist-flowLayout",
+    "accompanist-animation",
+    "accompanist-systemUiController",
+    "accompanist-permission",
+    "accompanist-pager-indicators",
+    "accompanist-pager-layouts"
+]
 

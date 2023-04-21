@@ -8,7 +8,6 @@ import com.blankj.utilcode.util.DeviceUtils
 import com.developer.crashx.CrashActivity
 import com.my.kizzy.data.utils.LocalDarkTheme
 import com.my.kizzy.data.utils.LocalDynamicColorSwitch
-import com.my.kizzy.data.utils.LocalSeedColor
 import com.my.kizzy.ui.screen.crash.CrashScreen
 import com.my.kizzy.ui.theme.KizzyTheme
 
@@ -21,7 +20,6 @@ class CrashHandler : ComponentActivity() {
             KizzyTheme(
                 darkTheme = LocalDarkTheme.current.isDarkTheme(),
                 isHighContrastModeEnabled = LocalDarkTheme.current.isHighContrastModeEnabled,
-                seedColor = LocalSeedColor.current,
                 isDynamicColorEnabled = LocalDynamicColorSwitch.current,
             ){
                 CrashScreen(trace = report.buildCrashLog())

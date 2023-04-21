@@ -118,6 +118,8 @@ See [Contribute for Translation](https://github.com/dead8309/Kizzy/issues/2#issu
 
 ✨ [Xbox-Rich-Presence-Discord](https://github.com/MrCoolAndroid/Xbox-Rich-Presence-Discord) for Xbox games data
 
+✨ [Monet](https://github.com/Kyant0/Monet) for Material3 palettes
+
 ## Licence 
 **Kizzy** is an open source project under the GNU GPL 3.0 Open Source License ①, which allows you to use, reference, and modify the source code of **Kizzy** for free, but does not allow the modified and derived code to be distributed and sold as closed-source commercial software. For details, please see the full GNU GPL 3.0 Open Source License ②.
 

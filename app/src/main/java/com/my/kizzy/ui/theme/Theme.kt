@@ -16,9 +16,8 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.android.material.color.DynamicColors
-import com.my.kizzy.ui.theme.ColorScheme.colorSchemeFromColor
+import com.kyant.monet.dynamicColorScheme
 import com.my.kizzy.data.utils.LocalDynamicColorSwitch
-import com.my.kizzy.data.utils.LocalSeedColor
 
 private tailrec fun Context.findWindow(): Window? =
     when (this) {
@@ -31,7 +30,6 @@ private tailrec fun Context.findWindow(): Window? =
 fun getColorScheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     isHighContrastModeEnabled: Boolean = false,
-    seedColor: Int = LocalSeedColor.current,
     isDynamicColorEnabled: Boolean = LocalDynamicColorSwitch.current,
 ): ColorScheme {
     val colorScheme = when {
@@ -43,7 +41,7 @@ fun getColorScheme(
                 dynamicLightColorScheme(context)
             }
         }
-        else -> colorSchemeFromColor(seedColor, darkTheme)
+        else -> dynamicColorScheme(!darkTheme)
     }.run {
         if (isHighContrastModeEnabled && darkTheme) copy(
             surface = Color.Black,
@@ -57,14 +55,12 @@ fun getColorScheme(
 fun KizzyTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     isHighContrastModeEnabled: Boolean = false,
-    seedColor: Int,
     isDynamicColorEnabled: Boolean,
     content: @Composable () -> Unit
 ) {
     val colorScheme = getColorScheme(
         darkTheme,
         isHighContrastModeEnabled,
-        seedColor,
         isDynamicColorEnabled,
     )
     val window = LocalView.current.context.findWindow()

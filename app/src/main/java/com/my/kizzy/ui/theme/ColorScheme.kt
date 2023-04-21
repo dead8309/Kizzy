@@ -3,90 +3,29 @@
  */
 package com.my.kizzy.ui.theme
 
-import androidx.compose.material3.ColorScheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
-import androidx.compose.ui.graphics.Color
-import material.io.color.scheme.Scheme.dark
-import material.io.color.scheme.Scheme.light
+import androidx.compose.runtime.Composable
+import com.my.kizzy.data.utils.LocalDarkTheme
 
-object ColorScheme {
-    const val DEFAULT_SEED_COLOR = 0xFFAF92F1.toInt()
+const val DEFAULT_SEED_COLOR = 0xFFAF92F1.toInt()
 
-    fun colorSchemeFromColor(
-        color: Int = DEFAULT_SEED_COLOR,
-        isDarkTheme: Boolean = false
-    ): ColorScheme {
-        return if (isDarkTheme) darkColorSchemeFromColor(color) else lightColorSchemeFromColor(color)
+@Composable
+fun Number.autoDark(isDarkTheme: Boolean = LocalDarkTheme.current.isDarkTheme()): Double =
+    if (!isDarkTheme) this.toDouble()
+    else when (this.toDouble()) {
+        10.0 -> 99.0
+        20.0 -> 95.0
+        25.0 -> 90.0
+        30.0 -> 90.0
+        40.0 -> 80.0
+        50.0 -> 60.0
+        60.0 -> 50.0
+        70.0 -> 40.0
+        80.0 -> 40.0
+        90.0 -> 30.0
+        95.0 -> 20.0
+        98.0 -> 10.0
+        99.0 -> 10.0
+        100.0 -> 20.0
+        else -> this.toDouble()
     }
 
-    private fun lightColorSchemeFromColor(color: Int = DEFAULT_SEED_COLOR): ColorScheme {
-        val lightScheme = light(color)!!
-        with(lightScheme) {
-            return lightColorScheme(
-                primary = Color(primary),
-                onPrimary = Color(onPrimary),
-                primaryContainer = Color(primaryContainer),
-                onPrimaryContainer = Color(onPrimaryContainer),
-                secondary = Color(secondary),
-                onSecondary = Color(onSecondary),
-                secondaryContainer = Color(secondaryContainer),
-                onSecondaryContainer = Color(onSecondaryContainer),
-                tertiary = Color(tertiary),
-                onTertiary = Color(onTertiary),
-                tertiaryContainer = Color(tertiaryContainer),
-                onTertiaryContainer = Color(onTertiaryContainer),
-                error = Color(error),
-                errorContainer = Color(errorContainer),
-                onError = Color(onError),
-                onErrorContainer = Color(onErrorContainer),
-                background = Color(background),
-                onBackground = Color(onBackground),
-                surface = Color(surface),
-                onSurface = Color(onSurface),
-                surfaceVariant = Color(surfaceVariant),
-                onSurfaceVariant = Color(onSurfaceVariant),
-                outline = Color(outline),
-                outlineVariant = Color(outlineVariant),
-                inverseOnSurface = Color(inverseOnSurface),
-                inverseSurface = Color(inverseSurface),
-                inversePrimary = Color(inversePrimary),
-            )
-        }
-    }
-
-    private fun darkColorSchemeFromColor(color: Int = DEFAULT_SEED_COLOR): ColorScheme {
-        val darkScheme = dark(color)!!
-        with(darkScheme) {
-            return darkColorScheme(
-                primary = Color(primary),
-                onPrimary = Color(onPrimary),
-                primaryContainer = Color(primaryContainer),
-                onPrimaryContainer = Color(onPrimaryContainer),
-                secondary = Color(secondary),
-                onSecondary = Color(onSecondary),
-                secondaryContainer = Color(secondaryContainer),
-                onSecondaryContainer = Color(onSecondaryContainer),
-                tertiary = Color(tertiary),
-                onTertiary = Color(onTertiary),
-                tertiaryContainer = Color(tertiaryContainer),
-                onTertiaryContainer = Color(onTertiaryContainer),
-                error = Color(error),
-                errorContainer = Color(errorContainer),
-                onError = Color(onError),
-                onErrorContainer = Color(onErrorContainer),
-                background = Color(background),
-                onBackground = Color(onBackground),
-                surface = Color(surface),
-                onSurface = Color(onSurface),
-                surfaceVariant = Color(surfaceVariant),
-                onSurfaceVariant = Color(onSurfaceVariant),
-                outline = Color(outline),
-                outlineVariant = Color(outlineVariant),
-                inverseOnSurface = Color(inverseOnSurface),
-                inverseSurface = Color(inverseSurface),
-                inversePrimary = Color(inversePrimary),
-            )
-        }
-    }
-}

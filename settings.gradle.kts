@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":color")
+
+
 /*
 *
 *  ******************************************************************
@@ -27,5 +30,5 @@ dependencyResolutionManagement {
     }
 }
 
-include(":app", ":color", ":gateway")
+include(":app", ":gateway")
 rootProject.name = "Kizzy"

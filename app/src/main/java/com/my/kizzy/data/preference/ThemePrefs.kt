@@ -15,9 +15,10 @@ package com.my.kizzy.data.preference
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
+import com.kyant.monet.PaletteStyle
 import com.my.kizzy.App
 import com.my.kizzy.R
-import com.my.kizzy.ui.theme.ColorScheme
+import com.my.kizzy.ui.theme.DEFAULT_SEED_COLOR
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -27,7 +28,14 @@ import kotlinx.coroutines.launch
 data class AppSettings(
     val darkTheme: DarkThemePreference = DarkThemePreference(),
     val isDynamicColorEnabled: Boolean = false,
-    val seedColor: Int = ColorScheme.DEFAULT_SEED_COLOR
+    val seedColor: Int = DEFAULT_SEED_COLOR,
+    val paletteStyleIndex: Int = 0
+)
+val palettesMap = mapOf(
+    0 to PaletteStyle.TonalSpot,
+    1 to PaletteStyle.Spritz,
+    2 to PaletteStyle.FruitSalad,
+    3 to PaletteStyle.Vibrant,
 )
 
 private val mutableAppSettingsStateFlow = MutableStateFlow(
@@ -37,7 +45,8 @@ private val mutableAppSettingsStateFlow = MutableStateFlow(
             isHighContrastModeEnabled = Prefs[Prefs.HIGH_CONTRAST, false]
         ),
         isDynamicColorEnabled = Prefs[Prefs.DYNAMIC_COLOR, false],
-        seedColor = Prefs[Prefs.THEME_COLOR, ColorScheme.DEFAULT_SEED_COLOR]
+        seedColor = Prefs[Prefs.THEME_COLOR, DEFAULT_SEED_COLOR],
+        paletteStyleIndex = Prefs[Prefs.PALETTE_STYLE, 0]
     )
 )
 val AppSettingsStateFlow = mutableAppSettingsStateFlow.asStateFlow()
@@ -59,12 +68,14 @@ fun modifyDarkThemePreference(
     }
 }
 
-fun modifyThemeSeedColor(colorArgb: Int) {
+fun modifyThemeSeedColor(colorArgb: Int, paletteStyleIndex: Int) {
     App.applicationScope.launch(Dispatchers.IO) {
         mutableAppSettingsStateFlow.update {
-            it.copy(seedColor = colorArgb)
+            it.copy(seedColor = colorArgb,
+            paletteStyleIndex = paletteStyleIndex)
         }
         Prefs[Prefs.THEME_COLOR] = colorArgb
+        Prefs[Prefs.PALETTE_STYLE] = paletteStyleIndex
     }
 }
 

@@ -18,7 +18,11 @@ import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -30,24 +34,30 @@ import coil.size.Precision
 import coil.size.Scale
 import coil.size.Size
 import com.caverock.androidsvg.SVG
+import com.kyant.monet.LocalTonalPalettes
+import com.kyant.monet.TonalPalettes
 import com.my.kizzy.data.utils.LocalDarkTheme
-import com.my.kizzy.data.utils.LocalSeedColor
 import com.my.kizzy.ui.svg.parseDynamicColor
 
 @Composable
 fun DynamicSVGImage(
     modifier: Modifier = Modifier,
     contentDescription: String,
-    svgString: String
+    svgString: String,
+    tonalPalettes: TonalPalettes = LocalTonalPalettes.current,
+    isDarkTheme: Boolean = LocalDarkTheme.current.isDarkTheme()
+
 ) {
-    val useDarkTheme = LocalDarkTheme.current.isDarkTheme()
-    val seed = LocalSeedColor.current
     var size by remember { mutableStateOf(IntSize.Zero) }
-    val pic by remember(useDarkTheme, seed, size) {
+    val pic by remember(size, isDarkTheme, tonalPalettes) {
         mutableStateOf(
             PictureDrawable(
-                SVG.getFromString(svgString.parseDynamicColor(seed, useDarkTheme))
-                    .renderToPicture(size.width, size.height)
+                SVG.getFromString(
+                    svgString.parseDynamicColor(
+                        tonalPalettes = tonalPalettes,
+                        isDarkTheme = isDarkTheme
+                    )
+                ).renderToPicture(size.width, size.height)
             )
         )
     }
