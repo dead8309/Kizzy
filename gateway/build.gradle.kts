@@ -1,14 +1,13 @@
 plugins {
     id("java-library")
-    kotlin("jvm")
+    alias(libs.plugins.kotlin.jvm)
 }
-repositories {
-    mavenCentral()
-}
+
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 dependencies{
-    implementation (AppDependencies.GatewayLibraries)
+    implementation (libs.kotlinx.coroutine)
+    implementation (libs.bundles.network.ktor)
 }

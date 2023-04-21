@@ -1,24 +1,25 @@
 @file:Suppress("UnstableApiUsage")
 
 import com.android.build.api.dsl.ApplicationDefaultConfig
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    id("com.android.application")
-    kotlin("android")
-    id("dagger.hilt.android.plugin")
-    kotlin("kapt")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.hilt)
 }
 
 android {
     namespace = "com.my.kizzy"
 
-    compileSdk = AppConfig.compileSdk
+    compileSdk = 33
     defaultConfig {
         applicationId = "com.my.kizzy"
-        minSdk = AppConfig.minSdk
-        targetSdk = AppConfig.targetSdk
-        versionCode = AppConfig.versionCode
-        versionName = AppConfig.versionName
+        minSdk = 26
+        targetSdk = 33
+        versionCode = 4
+        versionName = "4.4"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -41,13 +42,13 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JvmTarget.JVM_1_8.target
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.0"
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
     packagingOptions {
         resources {
@@ -59,14 +60,35 @@ android {
 dependencies {
     implementation(project(":color"))
     implementation(project(":gateway"))
-    debugImplementation("androidx.compose.ui:ui-tooling:${Versions.compose_version}")
-    implementation(AppDependencies.AppLibraries)
-    kapt(AppDependencies.HiltCompiler)
+    debugImplementation(libs.compose.ui.tooling)
+    implementation(libs.compose.ui.tooling.preview)
+    implementation(libs.compose.ui)
+    kapt(libs.hilt.compiler)
+    implementation(libs.coil)
+    implementation(libs.coil.svg)
+    implementation(libs.android.svg)
+    implementation(libs.app.compat)
+    implementation(libs.mmkv)
+    implementation(libs.core.ktx)
+    implementation(libs.material3)
+    implementation(libs.material3.windows.size)
+    implementation(libs.lifecycle.runtime)
+    implementation(libs.activity.compose)
+    implementation(libs.androidx.material)
+    implementation(libs.compose.navigation)
+    implementation(libs.material.icons.extended)
+    implementation(libs.gson)
+    implementation(libs.glide)
+    implementation(libs.blankj.utilcodex)
+    implementation(libs.crashx)
+    implementation(libs.hilt)
+    implementation(libs.bundles.compose.accompanist)
+    implementation(libs.bundles.network.okhttp)
+    implementation(libs.bundles.network.retrofit)
 }
 
 fun ApplicationDefaultConfig.buildConfigFieldFromGradleProperty(fieldName: String,gradlePropertyName: String) {
     val propertyValue = project.properties[gradlePropertyName] as? String
     checkNotNull(propertyValue) { "Gradle property $gradlePropertyName is null" }
-
     buildConfigField("String", fieldName, propertyValue)
 }
