@@ -4,9 +4,7 @@ gradle = "8.0.0"
 kotlin = "1.8.0"
 
 # app level
-accompanist = "0.25.1"
-accompanist-flow-layout = "0.28.0"
-accompanist-permission = "0.31.0-alpha"
+accompanist = "0.31.0-alpha"
 activity-compose = "1.7.1"
 android-svg = "1.4"
 androidx-material = "1.8.0"
@@ -53,8 +51,8 @@ material-icons-extended = { module = "androidx.compose.material:material-icons-e
 # Accompanist
 accompanist-animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist" }
 accompanist-systemUiController = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
-accompanist-permission = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist-permission" }
-accompanist-flowLayout = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "accompanist-flow-layout" }
+accompanist-permission = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
+accompanist-flowLayout = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "accompanist" }
 
 # Hilt
 hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
