@@ -115,10 +115,8 @@ fun Appearance(
                 }
                 Spacer(modifier = Modifier.height(24.dp))
 
-                val pagerState =
-                    rememberPagerState(
-                        initialPage = colorList.indexOf(Color(LocalSeedColor.current))
-                            .run { if (equals(-1)) 1 else this })
+                val pagerState = rememberPagerState(initialPage = colorList.indexOf(Color(LocalSeedColor.current))
+                        .run { if (equals(-1)) 1 else this })
                 HorizontalPager(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -207,16 +205,17 @@ fun RowScope.ColorButton(
                 showDialog = false
         })
     ColorButtonImpl(
-        modifier = modifier.then(
-            if (custom)
-            Modifier.clickable { showDialog = true }
-            else Modifier),
+        modifier = modifier,
         tonalPalettes = tonalPalettes,
         cardColor = 95.autoDark(LocalDarkTheme.current.isDarkTheme()).n2,
         isSelected = { isSelect }
     ) {
-        switchDynamicColor(enabled = false)
-        modifyThemeSeedColor(color.toArgb(), index)
+        if (custom) {
+            showDialog = true
+        } else {
+            switchDynamicColor(enabled = false)
+            modifyThemeSeedColor(color.toArgb(), index)
+        }
     }
 
 }
