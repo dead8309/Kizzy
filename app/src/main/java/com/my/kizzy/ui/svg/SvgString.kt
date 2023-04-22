@@ -14,24 +14,24 @@ package com.my.kizzy.ui.svg
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import material.io.color.palettes.CorePalette
+import com.kyant.monet.TonalPalettes
 
-fun String.parseDynamicColor(color: Int,isDarkTheme: Boolean): String =
+fun String.parseDynamicColor(
+    tonalPalettes: TonalPalettes,
+    isDarkTheme: Boolean): String =
     replace("fill=\"(.+?)\"".toRegex()) {
-        val corePalette: CorePalette = CorePalette.of(color)
         val value = it.groupValues[1]
         if (value.startsWith("#")) return@replace it.value
         try {
             val (scheme, tone) = value.split("(?<=\\d)(?=\\D)|(?=\\d)(?<=\\D)".toRegex())
-            val argb: Int = when (scheme) {
-                "p" -> corePalette.a1.tone(tone.toInt().autoToDarkTone(isDarkTheme))
-                "s" -> corePalette.a2.tone(tone.toInt().autoToDarkTone(isDarkTheme))
-                "t" -> corePalette.a3.tone(tone.toInt().autoToDarkTone(isDarkTheme))
-                "n" -> corePalette.n1.tone(tone.toInt().autoToDarkTone(isDarkTheme))
-                "nv" -> corePalette.n2.tone(tone.toInt().autoToDarkTone(isDarkTheme))
-                "e" -> corePalette.error.tone(tone.toInt().autoToDarkTone(isDarkTheme))
-                else -> Color.Transparent.toArgb()
-            }
+            val argb = when (scheme) {
+                "p" -> tonalPalettes accent1 tone.autoToDarkTone(isDarkTheme)
+                "s" -> tonalPalettes accent2 tone.autoToDarkTone(isDarkTheme)
+                "t" -> tonalPalettes accent3 tone.autoToDarkTone(isDarkTheme)
+                "n" -> tonalPalettes neutral1 tone.autoToDarkTone(isDarkTheme)
+                "nv" -> tonalPalettes neutral2 tone.autoToDarkTone(isDarkTheme)
+                else -> Color.Transparent
+            }.toArgb()
         "fill=\"${String.format("#%06X", 0xFFFFFF and argb)}\""
         } catch (e: Exception) {
             e.printStackTrace()
@@ -39,22 +39,22 @@ fun String.parseDynamicColor(color: Int,isDarkTheme: Boolean): String =
         }
     }
 
-internal fun Int.autoToDarkTone(isDarkTheme: Boolean): Int =
-    if (!isDarkTheme) this
-    else when (this) {
-        10 -> 99
-        20 -> 95
-        25 -> 90
-        30 -> 90
-        40 -> 80
-        50 -> 60
-        60 -> 50
-        70 -> 40
-        80 -> 40
-        90 -> 30
-        95 -> 20
-        98 -> 10
-        99 -> 10
-        100 -> 20
-        else -> this
+internal fun String.autoToDarkTone(isDarkTheme: Boolean): Double =
+    if (!isDarkTheme) this.toDouble()
+    else when (this.toDouble()) {
+        10.0 -> 99.0
+        20.0 -> 95.0
+        25.0 -> 90.0
+        30.0 -> 90.0
+        40.0 -> 80.0
+        50.0 -> 60.0
+        60.0 -> 50.0
+        70.0 -> 40.0
+        80.0 -> 40.0
+        90.0 -> 30.0
+        95.0 -> 20.0
+        98.0 -> 10.0
+        99.0 -> 10.0
+        100.0 -> 20.0
+        else -> this.toDouble()
     }

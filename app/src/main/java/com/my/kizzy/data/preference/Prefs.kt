@@ -103,4 +103,6 @@ object Prefs {
     const val IS_FIRST_LAUNCHED = "is_first_launched"
     const val CUSTOM_ACTIVITY_TYPE = "custom_activity_type"
     const val SHOW_LOGS_IN_COMPACT_MODE = "logs_compact_mode"
+
+    const val PALETTE_STYLE = "palette_style"
 }

@@ -44,13 +44,15 @@ const val seal = "https://github.com/JunkFood02/Seal"
 const val materialColor = "https://github.com/material-foundation/material-color-utilities"
 const val nintendoRepo = "https://github.com/ninstar/Rich-Presence-U"
 const val XboxRpc = "https://github.com/MrCoolAndroid/Xbox-Rich-Presence-Discord"
+const val monet = "https://github.com/Kyant0/Monet"
 
 val creditsList = listOf(
     Credit("Read You", GPL_V3, readYou),
     Credit("Seal", GPL_V3, seal),
     Credit("material-color-utilities", APACHE_V2, materialColor),
     Credit("Rich-Presence-U", GPL_V3, nintendoRepo),
-    Credit("Xbox-Rich-Presence-Discord", MIT, XboxRpc)
+    Credit("Xbox-Rich-Presence-Discord", MIT, XboxRpc),
+    Credit("Monet", APACHE_V2, monet)
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
