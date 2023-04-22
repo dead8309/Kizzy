@@ -81,10 +81,10 @@
     <string name="permission_not_granted">İzin Verilmedi, İzin Vermek İçin Tıkla</string>
     <string name="activity_large_text">Aktivite Büyük Yazısı</string>
     <string name="activity_small_text">Aktivite Küçük Yazısı</string>
-    <string name="contributors">Contributors</string>
-    <string name="stream_url">Stream Url</string>
-    <string name="stream_url_info">Only https://twitch.tv/ and https://youtube.com/ urls will work.</string>
-    <string name="activity_button_max_character">Max character limit is 31</string>
+    <string name="contributors">Katkıda Bulunanlar</string>
+    <string name="stream_url">Yayın URL\'si</string>
+    <string name="stream_url_info">Yalnızca https://twitch.tv/ ve https://youtube.com/ bağlantıları çalışır.</string>
+    <string name="activity_button_max_character">En fazla 31 karakter kullanılabilir</string>
 
 
 </resources>
