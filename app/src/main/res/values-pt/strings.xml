@@ -84,5 +84,6 @@
     <string name="contributors">Contributors</string>
     <string name="stream_url">Stream Url</string>
     <string name="stream_url_info">Only https://twitch.tv/ and https://youtube.com/ urls will work.</string>
+    <string name="activity_button_max_character">Max character limit is 31</string>
 
 </resources>

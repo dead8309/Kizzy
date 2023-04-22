@@ -26,7 +26,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -35,17 +34,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.google.gson.Gson
 import com.my.kizzy.R
+import com.my.kizzy.data.preference.Prefs
 import com.my.kizzy.data.utils.Constants
-import com.my.kizzy.ui.components.dialog.SingleChoiceItem
+import com.my.kizzy.data.utils.Constants.MAX_ALLOWED_CHARACTER_LENGTH
+import com.my.kizzy.data.utils.Log
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.SettingItem
 import com.my.kizzy.ui.components.Subtitle
+import com.my.kizzy.ui.components.dialog.SingleChoiceItem
 import com.my.kizzy.ui.components.preference.PreferenceSwitch
 import com.my.kizzy.ui.screen.home.custom.RpcField
-import com.my.kizzy.data.utils.Log
-import com.my.kizzy.data.preference.Prefs
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RpcSettings(onBackPressed: () -> Boolean) {
     val context = LocalContext.current
@@ -199,7 +199,9 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                     Column {
                         RpcField(
                             value = rpcButtons.button1,
-                            label = R.string.activity_button1_text
+                            label = R.string.activity_button1_text,
+                            isError = rpcButtons.button1.length >= MAX_ALLOWED_CHARACTER_LENGTH,
+                            errorMessage = stringResource(R.string.activity_button_max_character)
                         ) {
                             rpcButtons = rpcButtons.copy(button1 = it)
                         }
@@ -213,7 +215,9 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                         }
                         RpcField(
                             value = rpcButtons.button2,
-                            label = R.string.activity_button2_text
+                            label = R.string.activity_button2_text,
+                            isError = rpcButtons.button2.length >= MAX_ALLOWED_CHARACTER_LENGTH,
+                            errorMessage = stringResource(R.string.activity_button_max_character)
                         ) {
                             rpcButtons = rpcButtons.copy(button2 = it)
                         }

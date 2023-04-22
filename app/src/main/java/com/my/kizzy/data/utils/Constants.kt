@@ -31,4 +31,5 @@ object Constants {
     const val DND = "dnd"
     const val APP_DIRECTORY = "App Directory"
     const val DOWNLOADS_DIRECTORY = "Downloads Directory"
+    const val MAX_ALLOWED_CHARACTER_LENGTH = 32
 }

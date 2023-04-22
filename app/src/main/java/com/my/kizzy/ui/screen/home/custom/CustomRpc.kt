@@ -35,21 +35,23 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.gson.Gson
 import com.my.kizzy.R
+import com.my.kizzy.data.preference.Prefs
 import com.my.kizzy.data.remote.User
+import com.my.kizzy.data.utils.AppUtils
+import com.my.kizzy.data.utils.Constants.MAX_ALLOWED_CHARACTER_LENGTH
 import com.my.kizzy.domain.services.AppDetectionService
 import com.my.kizzy.domain.services.CustomRpcService
 import com.my.kizzy.domain.services.ExperimentalRpc
 import com.my.kizzy.domain.services.MediaRpcService
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.SwitchBar
-import com.my.kizzy.data.utils.AppUtils
-import com.my.kizzy.data.preference.Prefs
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -338,7 +340,9 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
 
                     item {
                         RpcField(
-                            value = button1, label = R.string.activity_button1_text
+                            value = button1, label = R.string.activity_button1_text,
+                            isError = button1.length >= MAX_ALLOWED_CHARACTER_LENGTH,
+                            errorMessage = stringResource(R.string.activity_button_max_character)
                         ) {
                             button1 = it
                         }
@@ -355,7 +359,9 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
 
                     item {
                         RpcField(
-                            value = button2, label = R.string.activity_button2_text
+                            value = button2, label = R.string.activity_button2_text,
+                            isError = button2.length >= MAX_ALLOWED_CHARACTER_LENGTH,
+                            errorMessage = stringResource(R.string.activity_button_max_character)
                         ) {
                             button2 = it
                         }
@@ -534,14 +540,19 @@ fun RpcField(
     enabled: Boolean = true,
     trailingIcon: @Composable (() -> Unit)? = null,
     @StringRes label: Int,
+    isError: Boolean = false,
+    errorMessage: String = "",
     keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
     content: @Composable (() -> Unit) = {},
     onValueChange: (String) -> Unit = {}
 ) {
-    Column {
-        TextField(modifier = Modifier
+    Column(
+        modifier = Modifier
             .fillMaxWidth()
-            .padding(10.dp),
+            .padding(10.dp)
+    ) {
+        TextField(modifier = Modifier
+            .fillMaxWidth(),
             value = value,
             onValueChange = {
                 onValueChange(it)
@@ -549,8 +560,17 @@ fun RpcField(
             enabled = enabled,
             label = { Text(stringResource(id = label)) },
             keyboardOptions = keyboardOptions,
-            trailingIcon = trailingIcon
+            trailingIcon = trailingIcon,
+            isError = isError
         )
+         AnimatedVisibility(visible = isError) {
+            Text(
+                text = errorMessage,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.End,
+                color = MaterialTheme.colorScheme.error
+            )
+        }
         content()
     }
 }

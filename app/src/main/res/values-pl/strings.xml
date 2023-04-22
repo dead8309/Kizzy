@@ -84,5 +84,6 @@
     <string name="contributors">Współautorzy</string>
     <string name="stream_url">Url Strumienia</string>
     <string name="stream_url_info">Tylko https://twitch.tv/ i https://youtube.com/ adresy URL będą działać.</string>
+    <string name="activity_button_max_character">Max character limit is 31</string>
 
 </resources>
