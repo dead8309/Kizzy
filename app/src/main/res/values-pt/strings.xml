@@ -14,7 +14,7 @@
     <string name="activity_button2_url">Url do Botão 2</string>
     <string name="activity_large_image">Grande imagem da atividade</string>
     <string name="activity_small_image">Pequena imagem da atividade</string>
-    <string name="activity_type">Tipo de atividade</string>
+    <string name="activity_type">Tipo da atividade</string>
     <string name="load_config">Carregar configuração</string>
     <string name="save_config">Salvar configuração</string>
     <string name="delete_configs">Deletar configuração</string>
@@ -79,11 +79,11 @@
     <string name="setup_desc">Antes de prosseguir, é recomendável executar as ações necessárias para garantir que todos os recursos do aplicativo funcionem.</string>
     <string name="permission_granted">Garantido</string>
     <string name="permission_not_granted">Não Garantido, Clique para Permitir</string>
-    <string name="activity_large_text">Activity Large Text</string>
-    <string name="activity_small_text">Activity Small Text</string>
-    <string name="contributors">Contributors</string>
-    <string name="stream_url">Stream Url</string>
-    <string name="stream_url_info">Only https://twitch.tv/ and https://youtube.com/ urls will work.</string>
-    <string name="activity_button_max_character">Max character limit is 31</string>
+    <string name="activity_large_text">Texto da atividade Grande</string>
+    <string name="activity_small_text">Texto da atividade Pequena</string>
+    <string name="contributors">Contribuidores</string>
+    <string name="stream_url">Link da Transmissão</string>
+    <string name="stream_url_info">Apenas URLs como https://twitch.tv/ e https://youtube.com/ irão funcionar.</string>
+    <string name="activity_button_max_character">O limite máximo de caracteres é 31</string>
 
 </resources>
