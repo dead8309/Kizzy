@@ -19,10 +19,10 @@ import android.graphics.Bitmap
 import android.media.MediaMetadata
 import android.media.session.MediaSessionManager
 import com.blankj.utilcode.util.AppUtils
-import com.my.kizzy.preference.Prefs
 import com.my.kizzy.data.rpc.RpcImage
-import com.my.kizzy.domain.services.NotificationListener
+import com.my.kizzy.data.services.NotificationListener
 import com.my.kizzy.domain.use_case.get_current_data.SharedRpc
+import com.my.kizzy.preference.Prefs
 import kizzy.gateway.entities.presence.Timestamps
 
 fun getCurrentlyPlayingMedia(context: Context): SharedRpc {

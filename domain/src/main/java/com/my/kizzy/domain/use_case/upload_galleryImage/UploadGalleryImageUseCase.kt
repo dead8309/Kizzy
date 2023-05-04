@@ -12,28 +12,15 @@
 
 package com.my.kizzy.domain.use_case.upload_galleryImage
 
-import android.content.Context
-import android.net.Uri
 import com.my.kizzy.domain.repository.KizzyRepository
-import com.my.kizzy.data.utils.getFileName
-import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import javax.inject.Inject
 
 class UploadGalleryImageUseCase @Inject constructor(
-    private val kizzyRepository: KizzyRepository,
-    @ApplicationContext private val context: Context
+    private val kizzyRepository: KizzyRepository
 ) {
-    suspend operator fun invoke(uri: Uri): String? {
+    suspend operator fun invoke(file: File): String? {
         return try {
-            val filename = context.getFileName(uri)
-            val file = File(context.cacheDir, filename)
-            val inputStream = context.contentResolver.openInputStream(uri)
-            inputStream?.use { input ->
-                file.outputStream().use { out ->
-                    input.copyTo(out)
-                }
-            }
             file.deleteOnExit()
             kizzyRepository.uploadImage(file)
         } catch (ex: Exception) {

@@ -26,8 +26,15 @@ material3 = "1.0.1"
 mmkv = "1.2.14"
 okhttp = "4.9.3"
 retrofit = "2.9.0"
+junit = "4.13.2"
+androidx-test-ext-junit = "1.1.5"
+espresso-core = "3.5.1"
+javax = "1"
 
 [libraries]
+
+# Javax
+javax = { module = "javax.inject:javax.inject", version.ref = "javax" }
 
 # Androidx
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
@@ -87,6 +94,9 @@ mmkv = { module = "com.tencent:mmkv", version.ref = "mmkv" }
 coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 coil-svg = { module = "io.coil-kt:coil-svg", version.ref = "coil" }
 android-svg = { module = "com.caverock:androidsvg-aar", version.ref = "android-svg" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "gradle" }

@@ -53,6 +53,7 @@ dependencies {
     implementation(projects.gateway)
     implementation(projects.common.preference)
     implementation(projects.common.strings)
+    implementation(projects.domain)
 
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.tooling.preview)

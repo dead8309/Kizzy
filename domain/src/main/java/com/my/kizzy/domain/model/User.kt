@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.data.remote
+package com.my.kizzy.domain.model
 
 import com.google.gson.annotations.SerializedName
 
