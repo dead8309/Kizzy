@@ -1,8 +1,4 @@
 @file:Suppress("UnstableApiUsage")
-
-include(":color")
-
-
 /*
 *
 *  ******************************************************************
@@ -29,6 +25,6 @@ dependencyResolutionManagement {
         maven("https://jitpack.io")
     }
 }
-
-include(":app", ":gateway")
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+include(":app", ":gateway",":color",":common:preference",":common:strings")
 rootProject.name = "Kizzy"

@@ -49,8 +49,11 @@ android {
     packagingOptions.resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
 }
 dependencies {
-    implementation(project(":color"))
-    implementation(project(":gateway"))
+    implementation(projects.color)
+    implementation(projects.gateway)
+    implementation(projects.common.preference)
+    implementation(projects.common.strings)
+
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.ui)
@@ -59,7 +62,6 @@ dependencies {
     implementation(libs.coil.svg)
     implementation(libs.android.svg)
     implementation(libs.app.compat)
-    implementation(libs.mmkv)
     implementation(libs.core.ktx)
     implementation(libs.material3)
     implementation(libs.material3.windows.size)
