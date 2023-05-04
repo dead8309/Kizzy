@@ -16,8 +16,8 @@ import com.my.kizzy.data.utils.Constants
 import com.my.kizzy.domain.repository.KizzyRepository
 import com.my.kizzy.domain.use_case.get_current_data.SharedRpc
 import com.my.kizzy.data.utils.Log.logger
-import com.my.kizzy.data.preference.Prefs
-import com.my.kizzy.data.preference.Prefs.CUSTOM_ACTIVITY_TYPE
+import com.my.kizzy.preference.Prefs
+import com.my.kizzy.preference.Prefs.CUSTOM_ACTIVITY_TYPE
 import kizzy.gateway.DiscordWebSocket
 import kizzy.gateway.entities.presence.*
 import kotlinx.coroutines.isActive

@@ -23,7 +23,7 @@ import androidx.appcompat.view.ContextThemeWrapper
 import androidx.compose.runtime.mutableStateOf
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.my.kizzy.R
-import com.my.kizzy.data.preference.Prefs
+import com.my.kizzy.preference.Prefs
 import com.my.kizzy.data.utils.AppUtils
 
 class KizzyTileService : TileService() {

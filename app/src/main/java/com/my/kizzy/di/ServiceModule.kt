@@ -15,7 +15,7 @@ package com.my.kizzy.di
 import com.my.kizzy.domain.repository.KizzyRepository
 import com.my.kizzy.data.rpc.KizzyRPC
 import com.my.kizzy.data.utils.Log
-import com.my.kizzy.data.preference.Prefs
+import com.my.kizzy.preference.Prefs
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

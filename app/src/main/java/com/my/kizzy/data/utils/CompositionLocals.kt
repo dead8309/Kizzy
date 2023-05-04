@@ -25,9 +25,9 @@ import androidx.compose.ui.graphics.Color
 import com.kyant.monet.LocalTonalPalettes
 import com.kyant.monet.PaletteStyle
 import com.kyant.monet.TonalPalettes.Companion.toTonalPalettes
-import com.my.kizzy.data.preference.AppSettingsStateFlow
-import com.my.kizzy.data.preference.DarkThemePreference
-import com.my.kizzy.data.preference.palettesMap
+import com.my.kizzy.preference.AppSettingsStateFlow
+import com.my.kizzy.preference.DarkThemePreference
+import com.my.kizzy.preference.palettesMap
 import com.my.kizzy.ui.theme.DEFAULT_SEED_COLOR
 
 val LocalDarkTheme = compositionLocalOf { DarkThemePreference() }

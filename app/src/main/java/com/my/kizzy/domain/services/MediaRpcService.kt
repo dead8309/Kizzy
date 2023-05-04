@@ -20,9 +20,9 @@ import android.os.PowerManager
 import android.os.PowerManager.WakeLock
 import com.google.gson.Gson
 import com.my.kizzy.R
-import com.my.kizzy.data.preference.Prefs
-import com.my.kizzy.data.preference.Prefs.MEDIA_RPC_ENABLE_TIMESTAMPS
-import com.my.kizzy.data.preference.Prefs.TOKEN
+import com.my.kizzy.preference.Prefs
+import com.my.kizzy.preference.Prefs.MEDIA_RPC_ENABLE_TIMESTAMPS
+import com.my.kizzy.preference.Prefs.TOKEN
 import com.my.kizzy.data.rpc.KizzyRPC
 import com.my.kizzy.data.utils.Constants
 import com.my.kizzy.data.utils.Log.logger
@@ -43,7 +43,6 @@ class MediaRpcService : Service() {
 
     private var wakeLock: WakeLock? = null
 
-    @Suppress("DEPRECATION")
     @SuppressLint("WakelockTimeout")
     override fun onCreate() {
         super.onCreate()

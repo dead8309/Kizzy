@@ -22,7 +22,7 @@ import com.my.kizzy.domain.use_case.get_current_data.AppTracker
 import com.my.kizzy.data.rpc.KizzyRPC
 import com.my.kizzy.ui.screen.settings.rpc_settings.RpcButtons
 import com.my.kizzy.data.utils.Log.logger
-import com.my.kizzy.data.preference.Prefs
+import com.my.kizzy.preference.Prefs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel

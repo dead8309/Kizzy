@@ -28,7 +28,7 @@ import com.my.kizzy.data.utils.Constants
 import com.my.kizzy.data.rpc.KizzyRPC
 import com.my.kizzy.data.rpc.RpcImage
 import com.my.kizzy.ui.screen.settings.rpc_settings.RpcButtons
-import com.my.kizzy.data.preference.Prefs
+import com.my.kizzy.preference.Prefs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import java.util.*
