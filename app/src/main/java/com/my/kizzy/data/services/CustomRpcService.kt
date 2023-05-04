@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.domain.services
+package com.my.kizzy.data.services
 
 import android.annotation.SuppressLint
 import android.app.*

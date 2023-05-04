@@ -13,11 +13,12 @@
 package com.my.kizzy.data.repository
 
 import com.my.kizzy.data.remote.ApiService
-import com.my.kizzy.data.remote.Contributor
-import com.my.kizzy.data.remote.GamesResponse
-import com.my.kizzy.data.remote.User
-import com.my.kizzy.domain.repository.KizzyRepository
+import com.my.kizzy.data.remote.toGame
 import com.my.kizzy.data.utils.toImageAsset
+import com.my.kizzy.domain.model.Contributor
+import com.my.kizzy.domain.model.Game
+import com.my.kizzy.domain.model.User
+import com.my.kizzy.domain.repository.KizzyRepository
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -41,8 +42,8 @@ class KizzyRepositoryImpl @Inject constructor(
         return api.uploadImage(part).toImageAsset()
     }
 
-    override suspend fun getGames(): List<GamesResponse> {
-        return api.getGames()
+    override suspend fun getGames(): List<Game> {
+        return api.getGames().map { it.toGame() }
     }
 
     override suspend fun getUser(userid: String): User {

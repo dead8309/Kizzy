@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="17">
+    <bytecodeTargetLevel target="11">
+      <module name="Kizzy.app" target="17" />
+      <module name="Kizzy.color" target="17" />
       <module name="Kizzy.color.main" target="11" />
       <module name="Kizzy.color.test" target="11" />
+      <module name="Kizzy.common.preference" target="17" />
       <module name="Kizzy.common.res.main" target="11" />
       <module name="Kizzy.common.res.test" target="11" />
-      <module name="Kizzy.gateway.main" target="11" />
-      <module name="Kizzy.gateway.test" target="11" />
+      <module name="Kizzy.common.strings" target="17" />
+      <module name="Kizzy.gateway" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>

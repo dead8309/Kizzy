@@ -12,7 +12,7 @@
 
 @file:Suppress("DEPRECATION")
 
-package com.my.kizzy.domain.services
+package com.my.kizzy.data.services
 
 import android.app.*
 import android.app.usage.UsageStats

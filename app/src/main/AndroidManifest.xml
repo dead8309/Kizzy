@@ -16,7 +16,8 @@
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
     <uses-permission
@@ -57,14 +58,14 @@
             android:exported="false" />
 
         <service
-            android:name="com.my.kizzy.domain.services.AppDetectionService"
+            android:name="com.my.kizzy.data.services.AppDetectionService"
             android:exported="false" />
         <service
-            android:name="com.my.kizzy.domain.services.MediaRpcService"
+            android:name="com.my.kizzy.data.services.MediaRpcService"
             android:exported="false"
             android:foregroundServiceType="mediaPlayback" />
         <service
-            android:name="com.my.kizzy.domain.services.NotificationListener"
+            android:name="com.my.kizzy.data.services.NotificationListener"
             android:exported="false"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" >
             <intent-filter>
@@ -72,7 +73,7 @@
             </intent-filter>
         </service>
         <service
-            android:name="com.my.kizzy.domain.services.CustomRpcService"
+            android:name="com.my.kizzy.data.services.CustomRpcService"
             android:exported="false" >
         </service>
 
@@ -85,11 +86,11 @@
                 android:value="true" />
         </service>
 
-        <service android:name=".domain.services.ExperimentalRpc"
+        <service android:name=".data.services.ExperimentalRpc"
             android:exported="false"/>
 
         <service
-            android:name=".domain.services.KizzyTileService"
+            android:name=".data.services.KizzyTileService"
             android:icon="@drawable/ic_tile_play"
             android:label="@string/qs_tile_label"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"

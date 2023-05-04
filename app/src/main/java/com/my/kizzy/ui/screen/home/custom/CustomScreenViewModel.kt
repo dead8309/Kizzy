@@ -54,7 +54,7 @@ class CustomScreenViewModel @Inject constructor(
 
     fun uploadImage(uri: Uri, result: (String) -> Unit) {
         viewModelScope.launch {
-            uploadGalleryImageUseCase(uri)?.let { result(it.drop(3)) }
+           // uploadGalleryImageUseCase(uri)?.let { result(it.drop(3)) }
         }
     }
 }

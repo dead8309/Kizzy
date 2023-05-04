@@ -12,10 +12,10 @@
 
 package com.my.kizzy.ui.screen.profile.user
 
-import com.my.kizzy.data.remote.User
+import com.my.kizzy.domain.model.User
 
 data class UserState(
-val user: User? = null,
-val error: String = "",
-val loading: Boolean = false
+    val user: User? = null,
+    val error: String = "",
+    val loading: Boolean = false
 )

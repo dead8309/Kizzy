@@ -34,12 +34,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.my.kizzy.R
-import com.my.kizzy.data.remote.User
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.ui.screen.home.custom.RpcIntent
 import com.my.kizzy.ui.screen.profile.user.Base
 import com.my.kizzy.ui.theme.DISCORD_LIGHT_DARK
 import com.my.kizzy.data.utils.Constants
+import com.my.kizzy.domain.model.User
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.delay
 
@@ -197,7 +197,7 @@ fun ProfileText(
     style: TextStyle,
     bold: Boolean = true,
 ) {
-    if (text != null && text.isNotEmpty()) {
+    if (!text.isNullOrEmpty()) {
         Text(
             text = text,
             style = if (!bold) style

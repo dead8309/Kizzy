@@ -17,9 +17,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
-import com.my.kizzy.domain.model.Resource
-import com.my.kizzy.data.remote.User
-import com.my.kizzy.domain.use_case.get_user.GetUserUseCase
+import com.my.kizzy.domain.model.User
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.preference.Prefs.USER_DATA
 import com.my.kizzy.preference.Prefs.USER_ID
@@ -30,7 +28,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
-    private val getUserUseCase: GetUserUseCase
+    private val getUserUseCase: com.my.kizzy.domain.use_case.get_user.GetUserUseCase
 ): ViewModel() {
 
     private val _state = mutableStateOf(UserState())
@@ -42,18 +40,18 @@ class UserViewModel @Inject constructor(
      private fun getUser(){
         getUserUseCase(Prefs[USER_ID,""]).onEach { result ->
             when(result){
-                is Resource.Success -> {
+                is com.my.kizzy.domain.model.Resource.Success -> {
                     _state.value = UserState(user = result.data)
                     Prefs[USER_DATA] = Gson().toJson(result.data)
                 }
-                is Resource.Error -> {
+                is com.my.kizzy.domain.model.Resource.Error -> {
                     val user = Gson().fromJson(Prefs[USER_DATA,"{}"], User::class.java)
                     _state.value = UserState(
                         error = result.message?: "An unexpected error occurred",
                         user = user
                     )
                 }
-                is Resource.Loading -> {
+                is com.my.kizzy.domain.model.Resource.Loading -> {
                     _state.value = UserState(loading = true)
                 }
             }

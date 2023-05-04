@@ -39,10 +39,10 @@ import com.google.gson.Gson
 import com.my.kizzy.R
 import com.my.kizzy.data.utils.Constants
 import com.my.kizzy.domain.model.Game
-import com.my.kizzy.domain.services.AppDetectionService
-import com.my.kizzy.domain.services.CustomRpcService
-import com.my.kizzy.domain.services.ExperimentalRpc
-import com.my.kizzy.domain.services.MediaRpcService
+import com.my.kizzy.data.services.AppDetectionService
+import com.my.kizzy.data.services.CustomRpcService
+import com.my.kizzy.data.services.ExperimentalRpc
+import com.my.kizzy.data.services.MediaRpcService
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.SearchBar
 import com.my.kizzy.ui.components.SwitchBar

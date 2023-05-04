@@ -14,7 +14,7 @@ package com.my.kizzy.ui.screen.settings.about
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.my.kizzy.data.remote.Contributor
+import com.my.kizzy.domain.model.Contributor
 import com.my.kizzy.domain.model.Resource
 import com.my.kizzy.domain.use_case.get_contributors.GetContributorsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,7 +27,8 @@ import javax.inject.Inject
 class CreditsScreenViewModel @Inject constructor(
     private val getContributorsUseCase: GetContributorsUseCase
 ): ViewModel() {
-    val contributors: MutableStateFlow<Resource<List<Contributor>>> = MutableStateFlow(Resource.Loading())
+    val contributors: MutableStateFlow<Resource<List<Contributor>>> = MutableStateFlow(
+        Resource.Loading())
 
     init {
         getContributors()

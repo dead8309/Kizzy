@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.domain.services
+package com.my.kizzy.data.services
 
 import android.app.*
 import android.content.Intent
@@ -18,7 +18,6 @@ import android.os.IBinder
 import com.google.gson.GsonBuilder
 import com.my.kizzy.R
 import com.my.kizzy.data.utils.Constants
-import com.my.kizzy.domain.use_case.get_current_data.AppTracker
 import com.my.kizzy.data.rpc.KizzyRPC
 import com.my.kizzy.ui.screen.settings.rpc_settings.RpcButtons
 import com.my.kizzy.data.utils.Log.logger
@@ -38,7 +37,7 @@ class ExperimentalRpc: Service() {
     lateinit var scope: CoroutineScope
 
     @Inject
-    lateinit var appTracker: AppTracker
+    lateinit var appTracker: com.my.kizzy.domain.use_case.get_current_data.AppTracker
 
     @Inject
     lateinit var kizzyRPC: KizzyRPC

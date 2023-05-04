@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/common/preference" />
             <option value="$PROJECT_DIR$/common/strings" />
+            <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/gateway" />
           </set>
         </option>

@@ -24,7 +24,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kizzy.strings.R
-import com.my.kizzy.data.remote.Contributor
 import com.my.kizzy.domain.model.Resource
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.CreditItem
@@ -137,7 +136,7 @@ fun Credits(viewModel: CreditsScreenViewModel,onBackPressed: () -> Unit) {
 }
 
 @Composable
-fun ContributorItem(contributor: Contributor) {
+fun ContributorItem(contributor: com.my.kizzy.domain.model.Contributor) {
     val uriHandler = LocalUriHandler.current
     val absoluteElevation = LocalAbsoluteTonalElevation.current + 2.dp
     Box(

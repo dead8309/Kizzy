@@ -11,6 +11,7 @@
  */
 package com.my.kizzy.data.remote
 
+import com.my.kizzy.domain.model.User
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -30,5 +31,5 @@ interface ApiService {
     suspend fun getUser(@Path("userid") userid: String): User
 
     @GET("contributors")
-    suspend fun getContributors(): List<Contributor>
+    suspend fun getContributors(): List<com.my.kizzy.domain.model.Contributor>
 }

@@ -26,8 +26,8 @@ import com.blankj.utilcode.util.AppUtils
 import com.google.gson.Gson
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.data.remote.ApiResponse
-import com.my.kizzy.data.remote.User
 import com.my.kizzy.data.rpc.RpcImage
+import com.my.kizzy.domain.model.User
 import retrofit2.Response
 import java.io.File
 import java.io.FileOutputStream
