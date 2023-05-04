@@ -18,19 +18,17 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-import com.my.kizzy.data.preference.Prefs
-import com.my.kizzy.data.preference.getLanguageConfig
 import com.my.kizzy.data.utils.*
+import com.my.kizzy.preference.Prefs
+import com.my.kizzy.preference.getLanguageConfig
 import com.my.kizzy.ui.Routes
 import com.my.kizzy.ui.animatedComposable
+import com.my.kizzy.ui.screen.home.Home
 import com.my.kizzy.ui.screen.home.apps.AppsRPC
 import com.my.kizzy.ui.screen.home.console_games.GamesScreen
 import com.my.kizzy.ui.screen.home.console_games.GamesViewModel
 import com.my.kizzy.ui.screen.home.custom.CustomRPC
 import com.my.kizzy.ui.screen.home.custom.CustomScreenViewModel
-import com.my.kizzy.ui.screen.home.Home
-import com.my.kizzy.ui.screen.settings.logs.LogScreen
-import com.my.kizzy.ui.screen.settings.logs.LogsViewModel
 import com.my.kizzy.ui.screen.home.media.MediaRPC
 import com.my.kizzy.ui.screen.home.media.hasNotificationAccess
 import com.my.kizzy.ui.screen.profile.login.LoginScreen
@@ -40,14 +38,14 @@ import com.my.kizzy.ui.screen.settings.about.About
 import com.my.kizzy.ui.screen.settings.about.Credits
 import com.my.kizzy.ui.screen.settings.about.CreditsScreenViewModel
 import com.my.kizzy.ui.screen.settings.language.Language
+import com.my.kizzy.ui.screen.settings.logs.LogScreen
+import com.my.kizzy.ui.screen.settings.logs.LogsViewModel
 import com.my.kizzy.ui.screen.settings.rpc_settings.RpcSettings
 import com.my.kizzy.ui.screen.settings.style.Appearance
 import com.my.kizzy.ui.screen.settings.style.DarkThemePreferences
 import com.my.kizzy.ui.screen.startup.StartUp
 import com.my.kizzy.ui.theme.KizzyTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
@@ -203,9 +201,7 @@ class MainActivity : AppCompatActivity() {
             val localeListCompat =
                 if (locale.isEmpty()) LocaleListCompat.getEmptyLocaleList()
                 else LocaleListCompat.forLanguageTags(locale)
-            App.applicationScope.launch(Dispatchers.Main) {
-                AppCompatDelegate.setApplicationLocales(localeListCompat)
-            }
+            AppCompatDelegate.setApplicationLocales(localeListCompat)
         }
     }
 }

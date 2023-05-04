@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.data.preference
+package com.my.kizzy.preference
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

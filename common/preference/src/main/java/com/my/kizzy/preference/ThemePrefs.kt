@@ -10,21 +10,21 @@
  *
  */
 
-package com.my.kizzy.data.preference
+package com.my.kizzy.preference
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.kyant.monet.PaletteStyle
-import com.my.kizzy.App
-import com.my.kizzy.R
-import com.my.kizzy.ui.theme.DEFAULT_SEED_COLOR
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import com.kizzy.strings.R
 
+// TODO get seed color from colorscheme.kt
+const val DEFAULT_SEED_COLOR =  0xFFAF92F1.toInt()
 data class AppSettings(
     val darkTheme: DarkThemePreference = DarkThemePreference(),
     val isDynamicColorEnabled: Boolean = false,
@@ -54,7 +54,7 @@ fun modifyDarkThemePreference(
     darkThemeValue: Int = AppSettingsStateFlow.value.darkTheme.darkThemeValue,
     isHighContrastModeEnabled: Boolean = AppSettingsStateFlow.value.darkTheme.isHighContrastModeEnabled
 ) {
-    App.applicationScope.launch(Dispatchers.IO) {
+    PreferenceApp.applicationScope.launch(Dispatchers.IO) {
         mutableAppSettingsStateFlow.update {
             it.copy(
                 darkTheme = AppSettingsStateFlow.value.darkTheme.copy(
@@ -69,7 +69,7 @@ fun modifyDarkThemePreference(
 }
 
 fun modifyThemeSeedColor(colorArgb: Int, paletteStyleIndex: Int) {
-    App.applicationScope.launch(Dispatchers.IO) {
+    PreferenceApp.applicationScope.launch(Dispatchers.IO) {
         mutableAppSettingsStateFlow.update {
             it.copy(seedColor = colorArgb,
             paletteStyleIndex = paletteStyleIndex)
@@ -80,7 +80,7 @@ fun modifyThemeSeedColor(colorArgb: Int, paletteStyleIndex: Int) {
 }
 
 fun switchDynamicColor(enabled: Boolean = !mutableAppSettingsStateFlow.value.isDynamicColorEnabled) {
-    App.applicationScope.launch(Dispatchers.IO) {
+    PreferenceApp.applicationScope.launch(Dispatchers.IO) {
         mutableAppSettingsStateFlow.update {
             it.copy(isDynamicColorEnabled = enabled)
         }

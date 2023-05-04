@@ -10,13 +10,13 @@
  *
  */
 
-package com.my.kizzy.data.preference
+package com.my.kizzy.preference
 
 import android.os.Build
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.core.os.LocaleListCompat
-import com.my.kizzy.R
+import com.kizzy.strings.R
 
 // Languages Index number
 const val SYSTEM_DEFAULT = 0
