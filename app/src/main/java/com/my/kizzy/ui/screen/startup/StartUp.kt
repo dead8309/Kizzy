@@ -39,12 +39,12 @@ import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.gson.Gson
-import com.my.kizzy.R
+import com.kizzy.strings.R
 import com.my.kizzy.data.remote.User
 import com.my.kizzy.ui.components.Subtitle
-import com.my.kizzy.data.preference.Prefs
-import com.my.kizzy.data.preference.getLanguageDesc
-import com.my.kizzy.data.preference.languages
+import com.my.kizzy.preference.Prefs
+import com.my.kizzy.preference.getLanguageDesc
+import com.my.kizzy.preference.languages
 import com.my.kizzy.data.utils.fromJson
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)

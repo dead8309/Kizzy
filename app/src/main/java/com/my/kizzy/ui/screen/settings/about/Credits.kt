@@ -23,7 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.my.kizzy.R
+import com.kizzy.strings.R
 import com.my.kizzy.data.remote.Contributor
 import com.my.kizzy.domain.model.Resource
 import com.my.kizzy.ui.components.BackButton
@@ -157,7 +157,7 @@ fun ContributorItem(contributor: Contributor) {
                 .padding(top = 5.dp)
                 .size(60.dp)
                 .clip(RoundedCornerShape(26.dp)),
-            previewPlaceholder = R.drawable.error_avatar
+            previewPlaceholder = com.my.kizzy.R.drawable.error_avatar
         )
         Text(
             modifier = Modifier

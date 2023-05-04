@@ -19,7 +19,7 @@ import androidx.core.content.FileProvider
 import com.blankj.utilcode.util.FileIOUtils
 import com.blankj.utilcode.util.FileUtils
 import com.my.kizzy.BuildConfig
-import com.my.kizzy.R
+import com.kizzy.strings.R
 import java.io.File
 import kotlin.system.exitProcess
 

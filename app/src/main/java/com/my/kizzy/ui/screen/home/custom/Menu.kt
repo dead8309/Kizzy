@@ -33,9 +33,9 @@ import androidx.compose.ui.window.Dialog
 import com.blankj.utilcode.util.FileIOUtils
 import com.blankj.utilcode.util.FileUtils
 import com.google.gson.GsonBuilder
-import com.my.kizzy.R
+import com.kizzy.strings.R
 import com.my.kizzy.data.remote.User
-import com.my.kizzy.data.preference.Prefs
+import com.my.kizzy.preference.Prefs
 import com.my.kizzy.ui.components.BrowseFilesButton
 import com.my.kizzy.ui.components.dialog.MultiChoiceItem
 import com.my.kizzy.ui.components.dialog.SingleChoiceItem

@@ -33,7 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.my.kizzy.BuildConfig
-import com.my.kizzy.R
+import com.kizzy.strings.R
 import com.my.kizzy.data.remote.User
 import com.my.kizzy.domain.services.KizzyTileService
 import com.my.kizzy.ui.components.Subtitle
@@ -132,7 +132,7 @@ fun SettingsDrawer(
                 item {
                     SettingsItemCard(
                         title = "Discord",
-                        icon = ImageVector.vectorResource(id = R.drawable.ic_discord)
+                        icon = ImageVector.vectorResource(id = com.my.kizzy.R.drawable.ic_discord)
                     ) {
                         //Discord Server Link
                         uriHandler.openUri(chips.first().url)
@@ -178,7 +178,7 @@ fun RequestQsTile() {
                     KizzyTileService::class.java
                 ),
                 label,
-                android.graphics.drawable.Icon.createWithResource(ctx, R.drawable.ic_tile_play),
+                android.graphics.drawable.Icon.createWithResource(ctx, com.my.kizzy.R.drawable.ic_tile_play),
                 {},
             ) {}
         }
@@ -240,8 +240,8 @@ fun ProfileCardSmall(
                     modifier = Modifier
                         .size(50.dp)
                         .clip(CircleShape),
-                    error = ImageBitmap.imageResource(id = R.drawable.error_avatar),
-                    previewPlaceholder = R.drawable.error_avatar
+                    error = ImageBitmap.imageResource(id = com.my.kizzy.R.drawable.error_avatar),
+                    previewPlaceholder = com.my.kizzy.R.drawable.error_avatar
                 )
                 Text(
                     modifier = Modifier

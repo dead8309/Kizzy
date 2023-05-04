@@ -50,7 +50,7 @@ import com.my.kizzy.ui.components.shimmer.AnimatedShimmer
 import com.my.kizzy.ui.components.shimmer.ShimmerGamesScreen
 import com.my.kizzy.ui.screen.home.custom.RpcIntent
 import com.my.kizzy.data.utils.AppUtils
-import com.my.kizzy.data.preference.Prefs
+import com.my.kizzy.preference.Prefs
 import com.skydoves.landscapist.glide.GlideImage
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -108,7 +108,7 @@ fun GamesScreen(
             if (state.success) {
                 Column(Modifier.fillMaxSize().padding(padding)) {
                     SwitchBar(
-                        title = stringResource(id = R.string.enable_console_rpc),
+                        title = stringResource(id = com.kizzy.strings.R.string.enable_console_rpc),
                         isChecked = isConsoleRpcRunning
                     ) {
                         isConsoleRpcRunning = !isConsoleRpcRunning

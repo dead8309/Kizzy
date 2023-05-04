@@ -43,8 +43,8 @@ import com.my.kizzy.ui.Routes
 import com.my.kizzy.ui.screen.profile.user.Base
 import com.my.kizzy.ui.screen.settings.SettingsDrawer
 import com.my.kizzy.data.utils.AppUtils
-import com.my.kizzy.data.preference.Prefs
-import com.my.kizzy.data.preference.Prefs.USER_DATA
+import com.my.kizzy.preference.Prefs
+import com.my.kizzy.preference.Prefs.USER_DATA
 import com.my.kizzy.data.utils.fromJson
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.launch
@@ -206,7 +206,7 @@ fun Home(
             topBar = {
                 LargeTopAppBar(title = {
                     Text(
-                        text = stringResource(id = R.string.welcome) + ", ${user?.username ?: ""}",
+                        text = stringResource(id = com.kizzy.strings.R.string.welcome) + ", ${user?.username ?: ""}",
                         style = MaterialTheme.typography.headlineLarge,
                     )
                 }, navigationIcon = {
@@ -249,7 +249,7 @@ fun Home(
                 item {
                     ChipSection()
                     Text(
-                        text = stringResource(id = R.string.features),
+                        text = stringResource(id = com.kizzy.strings.R.string.features),
                         style = MaterialTheme.typography.headlineMedium,
                         modifier = Modifier.padding(start = 15.dp)
                     )
@@ -336,8 +336,8 @@ fun Features(
                         ) {
                             if (homeItems[i].showSwitch) {
                                 Text(
-                                    text = if (homeItems[i].isChecked) stringResource(id = R.string.android_on)
-                                    else stringResource(id = R.string.android_off),
+                                    text = if (homeItems[i].isChecked) stringResource(id = com.kizzy.strings.R.string.android_on)
+                                    else stringResource(id = com.kizzy.strings.R.string.android_off),
                                     style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W600),
                                     color = if (homeItems[i].isChecked) MaterialTheme.colorScheme.onPrimaryContainer
                                     else MaterialTheme.colorScheme.onSecondaryContainer

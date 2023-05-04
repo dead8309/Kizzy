@@ -41,8 +41,8 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.gson.Gson
-import com.my.kizzy.R
-import com.my.kizzy.data.preference.Prefs
+import com.kizzy.strings.R
+import com.my.kizzy.preference.Prefs
 import com.my.kizzy.data.remote.User
 import com.my.kizzy.data.utils.AppUtils
 import com.my.kizzy.data.utils.Constants.MAX_ALLOWED_CHARACTER_LENGTH
@@ -153,7 +153,7 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
                                     },
                                     leadingIcon = {
                                         Icon(
-                                            painter = painterResource(id = R.drawable.ic_rpc_placeholder),
+                                            painter = painterResource(id = com.my.kizzy.R.drawable.ic_rpc_placeholder),
                                             contentDescription = null,
                                             modifier = Modifier.size(
                                                 Icons.Default.Delete.defaultWidth,

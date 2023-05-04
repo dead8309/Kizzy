@@ -23,11 +23,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.my.kizzy.R
-import com.my.kizzy.data.preference.DarkThemePreference.Companion.FOLLOW_SYSTEM
-import com.my.kizzy.data.preference.DarkThemePreference.Companion.OFF
-import com.my.kizzy.data.preference.DarkThemePreference.Companion.ON
-import com.my.kizzy.data.preference.modifyDarkThemePreference
+import com.kizzy.strings.R
+import com.my.kizzy.preference.DarkThemePreference.Companion.FOLLOW_SYSTEM
+import com.my.kizzy.preference.DarkThemePreference.Companion.OFF
+import com.my.kizzy.preference.DarkThemePreference.Companion.ON
+import com.my.kizzy.preference.modifyDarkThemePreference
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.Subtitle
 import com.my.kizzy.ui.components.preference.PreferenceSingleChoiceItem

@@ -32,7 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import com.my.kizzy.R
+import com.kizzy.strings.R
 import com.my.kizzy.domain.services.AppDetectionService
 import com.my.kizzy.domain.services.CustomRpcService
 import com.my.kizzy.domain.services.ExperimentalRpc
@@ -41,7 +41,7 @@ import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.preference.PreferencesHint
 import com.my.kizzy.ui.components.SwitchBar
 import com.my.kizzy.data.utils.AppUtils
-import com.my.kizzy.data.preference.Prefs
+import com.my.kizzy.preference.Prefs
 import com.my.kizzy.data.utils.hasUsageAccess
 
 @SuppressLint("MutableCollectionMutableState")

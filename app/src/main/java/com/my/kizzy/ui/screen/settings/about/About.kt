@@ -12,7 +12,7 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.my.kizzy.BuildConfig
-import com.my.kizzy.R
+import com.kizzy.strings.R
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.preference.PreferencesHint
 import com.my.kizzy.ui.components.SettingItem

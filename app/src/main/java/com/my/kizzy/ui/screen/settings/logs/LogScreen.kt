@@ -38,7 +38,7 @@ import com.my.kizzy.ui.components.SearchBar
 import com.my.kizzy.ui.theme.LogColors.color
 import com.my.kizzy.data.utils.Log.logger
 import com.my.kizzy.data.utils.LogEvent
-import com.my.kizzy.data.preference.Prefs
+import com.my.kizzy.preference.Prefs
 import kizzy.gateway.entities.LogLevel.*
 import java.text.DateFormat
 import java.util.*

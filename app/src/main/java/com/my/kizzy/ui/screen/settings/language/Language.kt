@@ -7,11 +7,17 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.my.kizzy.MainActivity
-import com.my.kizzy.R
-import com.my.kizzy.data.preference.*
+import com.kizzy.strings.R
+import com.my.kizzy.preference.*
+import com.my.kizzy.preference.Prefs
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.preference.PreferenceSingleChoiceItem
-import com.my.kizzy.data.preference.Prefs.LANGUAGE
+import com.my.kizzy.preference.Prefs.LANGUAGE
+import com.my.kizzy.preference.SYSTEM_DEFAULT
+import com.my.kizzy.preference.getLanguageConfig
+import com.my.kizzy.preference.getLanguageDesc
+import com.my.kizzy.preference.getLanguageNumber
+import com.my.kizzy.preference.languages
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -32,13 +32,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.my.kizzy.R
+import com.kizzy.strings.R
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.screen.profile.user.getUserInfo
 import com.my.kizzy.ui.theme.DISCORD_GREY
 import com.my.kizzy.data.utils.Log
-import com.my.kizzy.data.preference.Prefs
-import com.my.kizzy.data.preference.Prefs.TOKEN
+import com.my.kizzy.preference.Prefs
+import com.my.kizzy.preference.Prefs.TOKEN
 import kotlinx.coroutines.launch
 
 const val JS_SNIPPET =
@@ -86,7 +86,7 @@ fun LoginScreen(
                 enabled = !showProgress
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_discord),
+                    painter = painterResource(id = com.my.kizzy.R.drawable.ic_discord),
                     tint = Color.Unspecified,
                     contentDescription = "discord_login",
                     modifier = Modifier.padding(end = 5.dp)
