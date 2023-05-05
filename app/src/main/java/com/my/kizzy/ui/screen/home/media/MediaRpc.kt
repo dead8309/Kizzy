@@ -31,19 +31,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.kizzy.strings.R
-import com.my.kizzy.data.services.AppDetectionService
-import com.my.kizzy.data.services.CustomRpcService
-import com.my.kizzy.data.services.ExperimentalRpc
-import com.my.kizzy.data.services.MediaRpcService
+import com.my.kizzy.services.AppDetectionService
+import com.my.kizzy.services.CustomRpcService
+import com.my.kizzy.services.ExperimentalRpc
+import com.my.kizzy.services.MediaRpcService
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.preference.PreferencesHint
 import com.my.kizzy.ui.components.SwitchBar
 import com.my.kizzy.ui.components.preference.PreferenceSwitch
-import com.my.kizzy.data.utils.AppUtils
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.preference.Prefs.MEDIA_RPC_APP_ICON
 import com.my.kizzy.preference.Prefs.MEDIA_RPC_ARTIST_NAME
 import com.my.kizzy.preference.Prefs.MEDIA_RPC_ENABLE_TIMESTAMPS
+import com.my.kizzy.utils.AppUtils
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

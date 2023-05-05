@@ -14,8 +14,8 @@ package com.my.kizzy.ui.screen.settings.logs
 
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
-import com.my.kizzy.data.utils.Log.logger
-import com.my.kizzy.data.utils.LogEvent
+import com.my.kizzy.utils.Log.logger
+import com.my.kizzy.utils.LogEvent
 import com.my.kizzy.preference.Prefs
 
 class LogsViewModel: ViewModel() {

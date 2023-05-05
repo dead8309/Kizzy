@@ -12,14 +12,14 @@
 
 @file:Suppress("DEPRECATION")
 
-package com.my.kizzy.data.utils
+package com.my.kizzy.utils
 
 import android.app.ActivityManager
 import android.content.Context
-import com.my.kizzy.data.services.AppDetectionService
-import com.my.kizzy.data.services.CustomRpcService
-import com.my.kizzy.data.services.ExperimentalRpc
-import com.my.kizzy.data.services.MediaRpcService
+import com.my.kizzy.services.AppDetectionService
+import com.my.kizzy.services.CustomRpcService
+import com.my.kizzy.services.ExperimentalRpc
+import com.my.kizzy.services.MediaRpcService
 import javax.inject.Singleton
 
 @Singleton

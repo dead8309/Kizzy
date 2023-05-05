@@ -33,16 +33,16 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.kizzy.strings.R
-import com.my.kizzy.data.services.AppDetectionService
-import com.my.kizzy.data.services.CustomRpcService
-import com.my.kizzy.data.services.ExperimentalRpc
-import com.my.kizzy.data.services.MediaRpcService
-import com.my.kizzy.ui.components.BackButton
-import com.my.kizzy.ui.components.preference.PreferencesHint
-import com.my.kizzy.ui.components.SwitchBar
-import com.my.kizzy.data.utils.AppUtils
+import com.my.kizzy.services.AppDetectionService
+import com.my.kizzy.services.CustomRpcService
+import com.my.kizzy.services.ExperimentalRpc
+import com.my.kizzy.services.MediaRpcService
+import com.my.kizzy.utils.AppUtils
+import com.my.kizzy.utils.hasUsageAccess
 import com.my.kizzy.preference.Prefs
-import com.my.kizzy.data.utils.hasUsageAccess
+import com.my.kizzy.ui.components.BackButton
+import com.my.kizzy.ui.components.SwitchBar
+import com.my.kizzy.ui.components.preference.PreferencesHint
 
 @SuppressLint("MutableCollectionMutableState")
 @OptIn(ExperimentalMaterial3Api::class)

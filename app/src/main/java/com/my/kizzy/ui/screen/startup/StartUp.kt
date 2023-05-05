@@ -44,7 +44,7 @@ import com.my.kizzy.ui.components.Subtitle
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.preference.getLanguageDesc
 import com.my.kizzy.preference.languages
-import com.my.kizzy.data.utils.fromJson
+import com.my.kizzy.utils.fromJson
 import com.my.kizzy.domain.model.User
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)

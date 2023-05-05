@@ -33,12 +33,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.kizzy.strings.R
+import com.my.kizzy.utils.Log.logger
+import com.my.kizzy.preference.Prefs
+import com.my.kizzy.preference.Prefs.TOKEN
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.screen.profile.user.getUserInfo
 import com.my.kizzy.ui.theme.DISCORD_GREY
-import com.my.kizzy.data.utils.Log
-import com.my.kizzy.preference.Prefs
-import com.my.kizzy.preference.Prefs.TOKEN
 import kotlinx.coroutines.launch
 
 const val JS_SNIPPET =
@@ -66,10 +66,10 @@ fun LoginScreen(
             TopAppBar(title = { },
                 navigationIcon = { BackButton { onBackPressed() } })
         }
-    ) {
+    ) { paddingValues ->
         Box(
             modifier = Modifier
-                .padding(it)
+                .padding(paddingValues)
                 .fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
@@ -129,7 +129,7 @@ fun LoginScreen(
                                 showProgress = true
                                 scope.launch {
                                     getUserInfo(message, onInfoSaved = {
-                                        Log.logger.d("Login Screen","Login Completed")
+                                        logger.d("Login Screen","Login Completed")
                                         onCompleted()
                                     })
                                 }

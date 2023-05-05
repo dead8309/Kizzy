@@ -42,10 +42,10 @@ import com.kyant.monet.a3
 import com.kyant.monet.n2
 import com.kyant.monet.toColor
 import com.kizzy.strings.R
-import com.my.kizzy.data.utils.LocalDarkTheme
-import com.my.kizzy.data.utils.LocalDynamicColorSwitch
-import com.my.kizzy.data.utils.LocalPaletteStyleIndex
-import com.my.kizzy.data.utils.LocalSeedColor
+import com.my.kizzy.utils.LocalDarkTheme
+import com.my.kizzy.utils.LocalDynamicColorSwitch
+import com.my.kizzy.utils.LocalPaletteStyleIndex
+import com.my.kizzy.utils.LocalSeedColor
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.preference.Prefs.CUSTOM_THEME_COLOR
 import com.my.kizzy.preference.modifyThemeSeedColor
@@ -115,7 +115,8 @@ fun Appearance(
                 }
                 Spacer(modifier = Modifier.height(24.dp))
 
-                val pagerState = rememberPagerState(initialPage = colorList.indexOf(Color(LocalSeedColor.current))
+                val pagerState = rememberPagerState(initialPage = colorList.indexOf(Color(
+                    LocalSeedColor.current))
                         .run { if (equals(-1)) 1 else this })
                 HorizontalPager(
                     modifier = Modifier

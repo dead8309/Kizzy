@@ -10,17 +10,18 @@
  *
  */
 
-package com.my.kizzy.data.services
+package com.my.kizzy.services
 
 import android.app.*
 import android.content.Intent
 import android.os.IBinder
 import com.google.gson.GsonBuilder
 import com.my.kizzy.R
-import com.my.kizzy.data.utils.Constants
+import com.my.kizzy.data.get_current_data.AppTracker
+import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.rpc.KizzyRPC
 import com.my.kizzy.ui.screen.settings.rpc_settings.RpcButtons
-import com.my.kizzy.data.utils.Log.logger
+import com.my.kizzy.utils.Log.logger
 import com.my.kizzy.preference.Prefs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -37,7 +38,7 @@ class ExperimentalRpc: Service() {
     lateinit var scope: CoroutineScope
 
     @Inject
-    lateinit var appTracker: com.my.kizzy.domain.use_case.get_current_data.AppTracker
+    lateinit var appTracker: AppTracker
 
     @Inject
     lateinit var kizzyRPC: KizzyRPC
@@ -75,8 +76,8 @@ class ExperimentalRpc: Service() {
                         setName(collectedData.name)
                         setStartTimestamps(System.currentTimeMillis())
                         setStatus(Constants.DND)
-                        setLargeImage(collectedData.large_image)
-                        setSmallImage(collectedData.small_image)
+                        setLargeImage(collectedData.largeImage)
+                        setSmallImage(collectedData.smallImage)
                         if (Prefs[Prefs.USE_RPC_BUTTONS, false]) {
                             with(rpcButtons) {
                                 setButton1(button1.takeIf { it.isNotEmpty() })

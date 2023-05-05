@@ -13,7 +13,7 @@
 /**
  * source: https://github.com/JunkFood02/Seal
  */
-package com.my.kizzy.data.utils
+package com.my.kizzy.utils
 
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable

@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.data.utils
+package com.my.kizzy.utils
 
 import android.annotation.SuppressLint
 import android.icu.text.SimpleDateFormat

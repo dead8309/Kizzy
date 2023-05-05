@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.data.services
+package com.my.kizzy.services
 
 import android.annotation.SuppressLint
 import android.app.*
@@ -20,13 +20,13 @@ import android.os.PowerManager
 import android.os.PowerManager.WakeLock
 import com.google.gson.Gson
 import com.my.kizzy.R
+import com.my.kizzy.data.get_current_data.media.GetCurrentPlayingMedia
+import com.my.kizzy.data.rpc.Constants
+import com.my.kizzy.data.rpc.KizzyRPC
+import com.my.kizzy.utils.Log.logger
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.preference.Prefs.MEDIA_RPC_ENABLE_TIMESTAMPS
 import com.my.kizzy.preference.Prefs.TOKEN
-import com.my.kizzy.data.rpc.KizzyRPC
-import com.my.kizzy.data.utils.Constants
-import com.my.kizzy.data.utils.Log.logger
-import com.my.kizzy.domain.use_case.get_current_data.get_media.getCurrentlyPlayingMedia
 import com.my.kizzy.ui.screen.settings.rpc_settings.RpcButtons
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
@@ -40,6 +40,9 @@ class MediaRpcService : Service() {
 
     @Inject
     lateinit var scope: CoroutineScope
+
+    @Inject
+    lateinit var getCurrentPlayingMedia: GetCurrentPlayingMedia
 
     private var wakeLock: WakeLock? = null
 
@@ -55,7 +58,7 @@ class MediaRpcService : Service() {
         scope.launch {
             while (isActive) {
                 val enableTimestamps = Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS, false]
-                val playingMedia = getCurrentlyPlayingMedia(this@MediaRpcService)
+                val playingMedia = getCurrentPlayingMedia()
                 getNotificationManager()?.notify(
                     NOTIFICATION_ID,
                     getNotification(playingMedia.details?:"")
@@ -69,8 +72,8 @@ class MediaRpcService : Service() {
                             name = playingMedia.name.ifEmpty { "YouTube" },
                             details = playingMedia.details,
                             state = playingMedia.state,
-                            large_image = playingMedia.large_image,
-                            small_image = playingMedia.small_image,
+                            large_image = playingMedia.largeImage,
+                            small_image = playingMedia.smallImage,
                             enableTimestamps = enableTimestamps,
                             time = time
                         )

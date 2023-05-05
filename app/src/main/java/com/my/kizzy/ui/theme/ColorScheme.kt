@@ -4,7 +4,7 @@
 package com.my.kizzy.ui.theme
 
 import androidx.compose.runtime.Composable
-import com.my.kizzy.data.utils.LocalDarkTheme
+import com.my.kizzy.utils.LocalDarkTheme
 
 const val DEFAULT_SEED_COLOR = 0xFFAF92F1.toInt()
 

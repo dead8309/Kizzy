@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.data.services
+package com.my.kizzy.services
 
 import android.annotation.SuppressLint
 import android.app.*
@@ -20,10 +20,9 @@ import android.os.PowerManager
 import android.os.PowerManager.WakeLock
 import com.google.gson.Gson
 import com.my.kizzy.R
-import com.my.kizzy.data.utils.Constants
-import com.my.kizzy.data.rpc.KizzyRPC
+import com.my.kizzy.data.rpc.Constants
+import com.my.kizzy.utils.toRpcImage
 import com.my.kizzy.ui.screen.home.custom.RpcIntent
-import com.my.kizzy.data.utils.toRpcImage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
@@ -36,7 +35,7 @@ class CustomRpcService : Service() {
     private var wakeLock: WakeLock? = null
 
     @Inject
-    lateinit var kizzyRPC: KizzyRPC
+    lateinit var kizzyRPC: com.my.kizzy.data.rpc.KizzyRPC
 
     @Inject
     lateinit var scope: CoroutineScope

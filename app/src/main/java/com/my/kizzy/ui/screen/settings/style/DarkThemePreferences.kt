@@ -32,7 +32,7 @@ import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.Subtitle
 import com.my.kizzy.ui.components.preference.PreferenceSingleChoiceItem
 import com.my.kizzy.ui.components.preference.PreferenceSwitch
-import com.my.kizzy.data.utils.LocalDarkTheme
+import com.my.kizzy.utils.LocalDarkTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

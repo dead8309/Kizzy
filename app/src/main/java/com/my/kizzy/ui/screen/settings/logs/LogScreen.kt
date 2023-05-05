@@ -36,8 +36,8 @@ import androidx.compose.ui.unit.sp
 import com.my.kizzy.ui.components.KSwitch
 import com.my.kizzy.ui.components.SearchBar
 import com.my.kizzy.ui.theme.LogColors.color
-import com.my.kizzy.data.utils.Log.logger
-import com.my.kizzy.data.utils.LogEvent
+import com.my.kizzy.utils.Log.logger
+import com.my.kizzy.utils.LogEvent
 import com.my.kizzy.preference.Prefs
 import kizzy.gateway.entities.LogLevel.*
 import java.text.DateFormat

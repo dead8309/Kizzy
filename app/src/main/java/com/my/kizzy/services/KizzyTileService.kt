@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.data.services
+package com.my.kizzy.services
 
 import android.app.Dialog
 import android.content.Context
@@ -23,8 +23,8 @@ import androidx.appcompat.view.ContextThemeWrapper
 import androidx.compose.runtime.mutableStateOf
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.my.kizzy.R
+import com.my.kizzy.utils.AppUtils
 import com.my.kizzy.preference.Prefs
-import com.my.kizzy.data.utils.AppUtils
 
 class KizzyTileService : TileService() {
     override fun onClick() {

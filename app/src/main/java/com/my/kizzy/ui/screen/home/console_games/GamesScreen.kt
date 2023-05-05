@@ -37,20 +37,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.gson.Gson
 import com.my.kizzy.R
-import com.my.kizzy.data.utils.Constants
+import com.my.kizzy.data.rpc.Constants
+import com.my.kizzy.services.AppDetectionService
+import com.my.kizzy.services.CustomRpcService
+import com.my.kizzy.services.ExperimentalRpc
+import com.my.kizzy.services.MediaRpcService
+import com.my.kizzy.utils.AppUtils
 import com.my.kizzy.domain.model.Game
-import com.my.kizzy.data.services.AppDetectionService
-import com.my.kizzy.data.services.CustomRpcService
-import com.my.kizzy.data.services.ExperimentalRpc
-import com.my.kizzy.data.services.MediaRpcService
+import com.my.kizzy.preference.Prefs
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.SearchBar
 import com.my.kizzy.ui.components.SwitchBar
 import com.my.kizzy.ui.components.shimmer.AnimatedShimmer
 import com.my.kizzy.ui.components.shimmer.ShimmerGamesScreen
 import com.my.kizzy.ui.screen.home.custom.RpcIntent
-import com.my.kizzy.data.utils.AppUtils
-import com.my.kizzy.preference.Prefs
 import com.skydoves.landscapist.glide.GlideImage
 
 @OptIn(ExperimentalMaterial3Api::class)

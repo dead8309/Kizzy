@@ -35,15 +35,15 @@ import androidx.compose.ui.window.DialogProperties
 import com.google.gson.Gson
 import com.kizzy.strings.R
 import com.my.kizzy.preference.Prefs
-import com.my.kizzy.data.utils.Constants
-import com.my.kizzy.data.utils.Constants.MAX_ALLOWED_CHARACTER_LENGTH
-import com.my.kizzy.data.utils.Log
+import com.my.kizzy.data.rpc.Constants
+import com.my.kizzy.data.rpc.Constants.MAX_ALLOWED_CHARACTER_LENGTH
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.SettingItem
 import com.my.kizzy.ui.components.Subtitle
 import com.my.kizzy.ui.components.dialog.SingleChoiceItem
 import com.my.kizzy.ui.components.preference.PreferenceSwitch
 import com.my.kizzy.ui.screen.home.custom.RpcField
+import com.my.kizzy.utils.Log
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

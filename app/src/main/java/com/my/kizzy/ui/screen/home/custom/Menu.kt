@@ -34,9 +34,9 @@ import com.blankj.utilcode.util.FileIOUtils
 import com.blankj.utilcode.util.FileUtils
 import com.google.gson.GsonBuilder
 import com.kizzy.strings.R
-import com.my.kizzy.data.utils.Constants
-import com.my.kizzy.data.utils.Log
-import com.my.kizzy.data.utils.getFileName
+import com.my.kizzy.data.rpc.Constants
+import com.my.kizzy.utils.Log.logger
+import com.my.kizzy.utils.getFileName
 import com.my.kizzy.domain.model.User
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.ui.components.BrowseFilesButton
@@ -95,7 +95,7 @@ fun LoadConfig(
                            selected = false
                        ) {
                            onDismiss()
-                           Log.logger.d("Directory",dir.absolutePath)
+                           logger.d("Directory",dir.absolutePath)
                            FileIOUtils.readFile2String(File(dir,file)).also {
                                onConfigSelected(it.stringToData())
                            }

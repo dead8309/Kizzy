@@ -18,7 +18,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-import com.my.kizzy.data.utils.*
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.preference.getLanguageConfig
 import com.my.kizzy.ui.Routes
@@ -45,6 +44,10 @@ import com.my.kizzy.ui.screen.settings.style.Appearance
 import com.my.kizzy.ui.screen.settings.style.DarkThemePreferences
 import com.my.kizzy.ui.screen.startup.StartUp
 import com.my.kizzy.ui.theme.KizzyTheme
+import com.my.kizzy.utils.LocalDarkTheme
+import com.my.kizzy.utils.LocalDynamicColorSwitch
+import com.my.kizzy.utils.SettingsProvider
+import com.my.kizzy.utils.hasUsageAccess
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
 

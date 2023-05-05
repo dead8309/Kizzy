@@ -10,9 +10,8 @@
  *
  */
 
-package com.my.kizzy.data.services
+package com.my.kizzy.services
 
 import android.service.notification.NotificationListenerService
 
-class NotificationListener: NotificationListenerService() {
-}
+class NotificationListener: NotificationListenerService()

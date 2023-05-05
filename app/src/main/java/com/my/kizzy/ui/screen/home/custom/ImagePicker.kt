@@ -30,9 +30,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.my.kizzy.R
+import com.my.kizzy.utils.Log.logger
+import com.my.kizzy.utils.getFileName
 import com.my.kizzy.ui.components.BrowseFilesButton
-import com.my.kizzy.data.utils.Log
-import com.my.kizzy.data.utils.getFileName
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
@@ -47,7 +47,7 @@ fun ImagePicker(
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia()
     ) {
-        Log.logger.d("file:"+it?.let { it1 -> context.getFileName(it1) },it.toString())
+        logger.d("file:"+it?.let { it1 -> context.getFileName(it1) },it.toString())
         imageUri.value = it
     }
     if (visible){
