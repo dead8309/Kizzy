@@ -19,6 +19,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.blankj.utilcode.util.UriUtils
 import com.my.kizzy.domain.use_case.upload_galleryImage.UploadGalleryImageUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -54,7 +55,11 @@ class CustomScreenViewModel @Inject constructor(
 
     fun uploadImage(uri: Uri, result: (String) -> Unit) {
         viewModelScope.launch {
-           // uploadGalleryImageUseCase(uri)?.let { result(it.drop(3)) }
+            UriUtils.uri2File(uri)?.let { file ->
+                uploadGalleryImageUseCase(file)?.let {
+                    result(it.drop(3))
+                }
+            }
         }
     }
 }
