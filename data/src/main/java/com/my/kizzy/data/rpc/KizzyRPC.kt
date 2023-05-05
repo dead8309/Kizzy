@@ -12,14 +12,15 @@
 
 package com.my.kizzy.data.rpc
 
-import com.my.kizzy.data.utils.Constants
 import com.my.kizzy.domain.repository.KizzyRepository
-import com.my.kizzy.domain.use_case.get_current_data.SharedRpc
-import com.my.kizzy.data.utils.Log.logger
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.preference.Prefs.CUSTOM_ACTIVITY_TYPE
 import kizzy.gateway.DiscordWebSocket
-import kizzy.gateway.entities.presence.*
+import kizzy.gateway.entities.presence.Activity
+import kizzy.gateway.entities.presence.Assets
+import kizzy.gateway.entities.presence.Metadata
+import kizzy.gateway.entities.presence.Presence
+import kizzy.gateway.entities.presence.Timestamps
 import kotlinx.coroutines.isActive
 
 class KizzyRPC(
@@ -257,8 +258,8 @@ class KizzyRPC(
     }
 
     private suspend fun connectToWebSocket() {
-        if (!isUserTokenValid())
-            logger.e("KizzyRPC","Token Seems to be invalid, Please Login if you haven't")
+       // if (!isUserTokenValid())
+          //  logger.e("KizzyRPC","Token Seems to be invalid, Please Login if you haven't")
         discordWebSocket.connect()
         discordWebSocket.sendActivity(presence)
     }
@@ -295,24 +296,24 @@ class KizzyRPC(
         )
     }
 
-    suspend fun updateRPC(sharedRpc: SharedRpc) {
+    suspend fun updateRPC(commonRpc: CommonRpc) {
         if (!discordWebSocket.isActive) return
         var time = Timestamps(start = startTimestamps)
-        if (sharedRpc.time != null)
-            Timestamps(end = sharedRpc.time.end, start = sharedRpc.time.start).also { time = it }
+        if (commonRpc.time != null)
+            Timestamps(end = commonRpc.time.end, start = commonRpc.time.start).also { time = it }
         discordWebSocket.sendActivity(
             Presence(
                 activities = listOf(
                     Activity(
-                        name = sharedRpc.name,
-                        details = sharedRpc.details?.takeIf { it.isNotEmpty() },
-                        state = sharedRpc.state?.takeIf { it.isNotEmpty() },
+                        name = commonRpc.name,
+                        details = commonRpc.details?.takeIf { it.isNotEmpty() },
+                        state = commonRpc.state?.takeIf { it.isNotEmpty() },
                         type = Prefs[CUSTOM_ACTIVITY_TYPE, 0],
                         timestamps = time,
                         assets = Assets(
-                                largeImage = sharedRpc.large_image?.resolveImage(kizzyRepository),
-                                smallImage = sharedRpc.small_image?.resolveImage(kizzyRepository)
-                            ).takeIf { sharedRpc.large_image != null || sharedRpc.small_image != null },
+                                largeImage = commonRpc.largeImage?.resolveImage(kizzyRepository),
+                                smallImage = commonRpc.smallImage?.resolveImage(kizzyRepository)
+                            ).takeIf { commonRpc.largeImage != null || commonRpc.smallImage != null },
                         buttons = buttons.takeIf { buttons.size > 0 },
                         metadata = Metadata(buttonUrls = buttonUrl).takeIf { buttonUrl.size > 0 },
                         applicationId = Constants.APPLICATION_ID.takeIf { buttons.size > 0 }

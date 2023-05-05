@@ -14,7 +14,7 @@ package com.my.kizzy.data.remote
 
 
 import com.google.gson.annotations.SerializedName
-import com.my.kizzy.data.utils.Constants
+import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.domain.model.Game
 
 data class GamesResponse(

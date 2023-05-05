@@ -26,5 +26,5 @@ dependencyResolutionManagement {
     }
 }
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-include(":app", ":gateway",":color",":common:preference",":common:strings",":domain")
+include(":app", ":gateway",":color",":common:preference",":common:strings",":domain",":data")
 rootProject.name = "Kizzy"

@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.data.utils
+package com.my.kizzy.data.rpc
 
 object Constants {
     const val NINTENDO_LINK =
