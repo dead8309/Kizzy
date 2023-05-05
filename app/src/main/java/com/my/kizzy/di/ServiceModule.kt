@@ -12,14 +12,17 @@
 
 package com.my.kizzy.di
 
+import android.content.ComponentName
+import android.content.Context
+import com.my.kizzy.utils.Log.logger
 import com.my.kizzy.domain.repository.KizzyRepository
-import com.my.kizzy.data.rpc.KizzyRPC
-import com.my.kizzy.data.utils.Log
 import com.my.kizzy.preference.Prefs
+import com.my.kizzy.services.NotificationListener
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ServiceComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kizzy.gateway.DiscordWebSocket
 import kizzy.gateway.DiscordWebSocketImpl
 import kizzy.gateway.entities.LogLevel
@@ -36,10 +39,10 @@ object ServiceModule {
             override fun log(message: Any?, logLevel: LogLevel) {
                 super.log(message, logLevel)
                 when (logLevel) {
-                    LogLevel.INFO -> Log.logger.i("Gateway", message.toString())
-                    LogLevel.DEBUG -> Log.logger.d("Gateway", message.toString())
-                    LogLevel.WARN -> Log.logger.w("Gateway", message.toString())
-                    LogLevel.ERROR -> Log.logger.e("Gateway", message.toString())
+                    LogLevel.INFO -> logger.i("Gateway", message.toString())
+                    LogLevel.DEBUG -> logger.d("Gateway", message.toString())
+                    LogLevel.WARN -> logger.w("Gateway", message.toString())
+                    LogLevel.ERROR -> logger.e("Gateway", message.toString())
                 }
             }
         }
@@ -48,10 +51,14 @@ object ServiceModule {
     fun provideKizzyRpc(
         kizzyRepository: KizzyRepository,
         discordWebSocket: DiscordWebSocket
-    ) = KizzyRPC(Prefs[Prefs.TOKEN, ""],kizzyRepository,discordWebSocket)
+    ) = com.my.kizzy.data.rpc.KizzyRPC(Prefs[Prefs.TOKEN, ""], kizzyRepository, discordWebSocket)
 
     @Provides
     fun providesCoroutineScope(): CoroutineScope {
         return CoroutineScope(SupervisorJob() + Dispatchers.IO)
     }
+    @Provides
+    fun providesComponentName(
+        @ApplicationContext context: Context
+    ) = ComponentName(context,NotificationListener::class.java)
 }
