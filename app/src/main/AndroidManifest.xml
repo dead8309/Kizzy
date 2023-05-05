@@ -58,14 +58,14 @@
             android:exported="false" />
 
         <service
-            android:name="com.my.kizzy.data.services.AppDetectionService"
+            android:name="com.my.kizzy.services.AppDetectionService"
             android:exported="false" />
         <service
-            android:name="com.my.kizzy.data.services.MediaRpcService"
+            android:name="com.my.kizzy.services.MediaRpcService"
             android:exported="false"
             android:foregroundServiceType="mediaPlayback" />
         <service
-            android:name="com.my.kizzy.data.services.NotificationListener"
+            android:name="com.my.kizzy.services.NotificationListener"
             android:exported="false"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" >
             <intent-filter>
@@ -73,7 +73,7 @@
             </intent-filter>
         </service>
         <service
-            android:name="com.my.kizzy.data.services.CustomRpcService"
+            android:name="com.my.kizzy.services.CustomRpcService"
             android:exported="false" >
         </service>
 
@@ -86,11 +86,11 @@
                 android:value="true" />
         </service>
 
-        <service android:name=".data.services.ExperimentalRpc"
+        <service android:name=".services.ExperimentalRpc"
             android:exported="false"/>
 
         <service
-            android:name=".data.services.KizzyTileService"
+            android:name=".services.KizzyTileService"
             android:icon="@drawable/ic_tile_play"
             android:label="@string/qs_tile_label"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"

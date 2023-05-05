@@ -6,10 +6,12 @@
       <module name="Kizzy.color" target="17" />
       <module name="Kizzy.color.main" target="11" />
       <module name="Kizzy.color.test" target="11" />
+      <module name="Kizzy.common.logger" target="17" />
       <module name="Kizzy.common.preference" target="17" />
       <module name="Kizzy.common.res.main" target="11" />
       <module name="Kizzy.common.res.test" target="11" />
       <module name="Kizzy.common.strings" target="17" />
+      <module name="Kizzy.data" target="17" />
       <module name="Kizzy.gateway" target="17" />
     </bytecodeTargetLevel>
   </component>
