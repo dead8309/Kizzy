@@ -34,6 +34,7 @@ android {
 }
 
 dependencies {
+    implementation (projects.theme)
     implementation (libs.compose.ui)
     implementation (libs.material3)
     implementation (projects.color)
