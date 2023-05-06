@@ -12,45 +12,13 @@
 
 package com.my.kizzy.utils
 
-import android.icu.text.SimpleDateFormat
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.surfaceColorAtElevation
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.dp
 import com.my.kizzy.domain.interfaces.Logger
 import com.my.kizzy.domain.model.LogEvent
 import com.my.kizzy.domain.model.LogLevel
-import com.my.kizzy.ui.theme.LogColors.color
-
-@Composable
-fun LogEvent.annotated() = buildAnnotatedString {
-    withStyle(
-        style = SpanStyle(
-            color = MaterialTheme.colorScheme.onBackground,
-            background = level.color().copy(0.4f)
-        )
-    ) {
-        append(" ${level.name[0]} ")
-    }
-    withStyle(
-        style = SpanStyle(
-            fontWeight = FontWeight.ExtraBold,
-            background = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
-        )
-    ) {
-        append(SimpleDateFormat("h:mm:ssa").format(createdAt))
-    }
-    append(" $tag: $text")
-}
 
 class KLogger: Logger {
-    var isEnabled = false
     private val logs = mutableStateListOf<LogEvent>()
     fun getLogs(): SnapshotStateList<LogEvent> {
         return logs
@@ -77,9 +45,8 @@ class KLogger: Logger {
     }
 
     private fun addToLog(level: LogLevel, tag: String, event: String) {
-        if (!isEnabled) return
         synchronized(logs) {
-            if (logs.size > 1000) {
+            if (logs.size > 300) {
                 logs.removeFirst()
             }
             val log = LogEvent(level, tag, event, System.currentTimeMillis())
