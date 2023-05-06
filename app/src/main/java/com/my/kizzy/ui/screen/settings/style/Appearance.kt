@@ -54,11 +54,11 @@ import com.my.kizzy.ui.components.preference.PreferenceSwitch
 import com.my.kizzy.ui.svg.DynamicSVGImage
 import com.my.kizzy.ui.svg.PALETTE
 import com.my.kizzy.ui.theme.DEFAULT_SEED_COLOR
+import com.my.kizzy.ui.theme.LocalDarkTheme
+import com.my.kizzy.ui.theme.LocalDynamicColorSwitch
+import com.my.kizzy.ui.theme.LocalPaletteStyleIndex
+import com.my.kizzy.ui.theme.LocalSeedColor
 import com.my.kizzy.ui.theme.autoDark
-import com.my.kizzy.utils.LocalDarkTheme
-import com.my.kizzy.utils.LocalDynamicColorSwitch
-import com.my.kizzy.utils.LocalPaletteStyleIndex
-import com.my.kizzy.utils.LocalSeedColor
 
 val colorList = listOf(
     Color(DEFAULT_SEED_COLOR),

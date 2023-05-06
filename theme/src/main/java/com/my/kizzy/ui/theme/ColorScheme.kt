@@ -1,10 +1,21 @@
+/*
+ *
+ *  ******************************************************************
+ *  *  * Copyright (C) 2022
+ *  *  * ColorScheme.kt is part of Kizzy
+ *  *  *  and can not be copied and/or distributed without the express
+ *  *  * permission of yzziK(Vaibhav)
+ *  *  *****************************************************************
+ *
+ *
+ */
+
 /**
  * source: https://github.com/JunkFood02/Seal
  */
 package com.my.kizzy.ui.theme
 
 import androidx.compose.runtime.Composable
-import com.my.kizzy.utils.LocalDarkTheme
 
 const val DEFAULT_SEED_COLOR = 0xFFAF92F1.toInt()
 

@@ -36,7 +36,7 @@ import coil.size.Size
 import com.caverock.androidsvg.SVG
 import com.kyant.monet.LocalTonalPalettes
 import com.kyant.monet.TonalPalettes
-import com.my.kizzy.utils.LocalDarkTheme
+import com.my.kizzy.ui.theme.LocalDarkTheme
 
 @Composable
 fun DynamicSVGImage(

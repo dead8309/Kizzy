@@ -1,3 +1,15 @@
+/*
+ *
+ *  ******************************************************************
+ *  *  * Copyright (C) 2022
+ *  *  * Theme.kt is part of Kizzy
+ *  *  *  and can not be copied and/or distributed without the express
+ *  *  * permission of yzziK(Vaibhav)
+ *  *  *****************************************************************
+ *
+ *
+ */
+
 package com.my.kizzy.ui.theme
 
 import android.app.Activity
@@ -17,7 +29,6 @@ import androidx.core.view.WindowCompat
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.android.material.color.DynamicColors
 import com.kyant.monet.dynamicColorScheme
-import com.my.kizzy.utils.LocalDynamicColorSwitch
 
 private tailrec fun Context.findWindow(): Window? =
     when (this) {

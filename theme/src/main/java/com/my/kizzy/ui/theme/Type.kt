@@ -1,3 +1,15 @@
+/*
+ *
+ *  ******************************************************************
+ *  *  * Copyright (C) 2022
+ *  *  * Type.kt is part of Kizzy
+ *  *  *  and can not be copied and/or distributed without the express
+ *  *  * permission of yzziK(Vaibhav)
+ *  *  *****************************************************************
+ *
+ *
+ */
+
 package com.my.kizzy.ui.theme
 
 import androidx.compose.material3.Typography
@@ -7,7 +19,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.my.kizzy.R
 
 val googleSansDisplay: FontFamily = FontFamily(
         Font(
@@ -66,7 +77,7 @@ val AppTypography = Typography(
                 fontWeight = FontWeight.W400,
                 fontSize = 57.sp,
                 lineHeight = 64.sp,
-                letterSpacing = -0.25.sp,
+                letterSpacing = (-0.25).sp,
         ),
         displayMedium = TextStyle(
                 fontFamily = googleSansDisplay,

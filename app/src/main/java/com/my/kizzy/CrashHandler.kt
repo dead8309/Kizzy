@@ -6,10 +6,10 @@ import androidx.activity.compose.setContent
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.DeviceUtils
 import com.developer.crashx.CrashActivity
-import com.my.kizzy.utils.LocalDarkTheme
-import com.my.kizzy.utils.LocalDynamicColorSwitch
 import com.my.kizzy.ui.screen.crash.CrashScreen
 import com.my.kizzy.ui.theme.KizzyTheme
+import com.my.kizzy.ui.theme.LocalDarkTheme
+import com.my.kizzy.ui.theme.LocalDynamicColorSwitch
 
 class CrashHandler : ComponentActivity() {
 

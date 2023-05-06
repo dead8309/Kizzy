@@ -34,6 +34,7 @@ include(
     ":common:strings",
     ":domain",
     ":data",
-    ":common:components"
+    ":common:components",
+    ":theme"
 )
 rootProject.name = "Kizzy"

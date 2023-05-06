@@ -44,9 +44,9 @@ import com.my.kizzy.ui.screen.settings.style.Appearance
 import com.my.kizzy.ui.screen.settings.style.DarkThemePreferences
 import com.my.kizzy.ui.screen.startup.StartUp
 import com.my.kizzy.ui.theme.KizzyTheme
-import com.my.kizzy.utils.LocalDarkTheme
-import com.my.kizzy.utils.LocalDynamicColorSwitch
-import com.my.kizzy.utils.SettingsProvider
+import com.my.kizzy.ui.theme.LocalDarkTheme
+import com.my.kizzy.ui.theme.LocalDynamicColorSwitch
+import com.my.kizzy.ui.theme.SettingsProvider
 import com.my.kizzy.utils.hasUsageAccess
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking

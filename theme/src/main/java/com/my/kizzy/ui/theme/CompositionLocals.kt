@@ -13,7 +13,7 @@
 /**
  * source: https://github.com/JunkFood02/Seal
  */
-package com.my.kizzy.utils
+package com.my.kizzy.ui.theme
 
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
@@ -28,7 +28,6 @@ import com.kyant.monet.TonalPalettes.Companion.toTonalPalettes
 import com.my.kizzy.preference.AppSettingsStateFlow
 import com.my.kizzy.preference.DarkThemePreference
 import com.my.kizzy.preference.palettesMap
-import com.my.kizzy.ui.theme.DEFAULT_SEED_COLOR
 
 val LocalDarkTheme = compositionLocalOf { DarkThemePreference() }
 val LocalSeedColor = compositionLocalOf { DEFAULT_SEED_COLOR }
