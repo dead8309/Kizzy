@@ -42,12 +42,12 @@ import com.my.kizzy.ui.screen.settings.logs.LogsViewModel
 import com.my.kizzy.ui.screen.settings.rpc_settings.RpcSettings
 import com.my.kizzy.ui.screen.settings.style.Appearance
 import com.my.kizzy.ui.screen.settings.style.DarkThemePreferences
-import com.my.kizzy.ui.screen.startup.StartUp
 import com.my.kizzy.ui.theme.KizzyTheme
 import com.my.kizzy.ui.theme.LocalDarkTheme
 import com.my.kizzy.ui.theme.LocalDynamicColorSwitch
 import com.my.kizzy.ui.theme.SettingsProvider
 import com.my.kizzy.data.utils.hasUsageAccess
+import com.my.kizzy.feature_startup.StartUp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
 

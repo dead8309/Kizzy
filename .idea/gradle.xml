@@ -19,6 +19,7 @@
             <option value="$PROJECT_DIR$/common/strings" />
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/domain" />
+            <option value="$PROJECT_DIR$/feature_startup" />
             <option value="$PROJECT_DIR$/gateway" />
             <option value="$PROJECT_DIR$/theme" />
           </set>

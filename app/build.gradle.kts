@@ -57,6 +57,7 @@ dependencies {
     implementation(projects.data)
     implementation(projects.common.components)
     implementation(projects.theme)
+    implementation (projects.featureStartup)
 
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.tooling.preview)

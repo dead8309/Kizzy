@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.ui.screen.startup
+package com.my.kizzy.feature_startup
 
 import android.Manifest.permission.POST_NOTIFICATIONS
 import android.content.Intent

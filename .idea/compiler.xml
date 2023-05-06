@@ -13,6 +13,7 @@
       <module name="Kizzy.common.res.test" target="11" />
       <module name="Kizzy.common.strings" target="17" />
       <module name="Kizzy.data" target="17" />
+      <module name="Kizzy.feature_startup" target="17" />
       <module name="Kizzy.gateway" target="17" />
       <module name="Kizzy.theme" target="17" />
     </bytecodeTargetLevel>
