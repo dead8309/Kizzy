@@ -21,7 +21,7 @@ import android.os.PowerManager.WakeLock
 import com.google.gson.Gson
 import com.my.kizzy.R
 import com.my.kizzy.data.rpc.Constants
-import com.my.kizzy.utils.toRpcImage
+import com.my.kizzy.data.utils.toRpcImage
 import com.my.kizzy.ui.screen.home.custom.RpcIntent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope

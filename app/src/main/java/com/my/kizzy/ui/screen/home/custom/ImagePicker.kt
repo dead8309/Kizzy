@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.my.kizzy.R
 import com.my.kizzy.utils.Log.logger
-import com.my.kizzy.utils.getFileName
+import com.my.kizzy.data.utils.getFileName
 import com.my.kizzy.ui.components.BrowseFilesButton
 import com.skydoves.landscapist.glide.GlideImage
 

@@ -38,7 +38,7 @@ import com.my.kizzy.services.CustomRpcService
 import com.my.kizzy.services.ExperimentalRpc
 import com.my.kizzy.services.MediaRpcService
 import com.my.kizzy.utils.AppUtils
-import com.my.kizzy.utils.fromJson
+import com.my.kizzy.data.utils.fromJson
 import com.my.kizzy.ui.components.KSwitch
 import com.my.kizzy.ui.Routes
 import com.my.kizzy.ui.screen.profile.user.Base

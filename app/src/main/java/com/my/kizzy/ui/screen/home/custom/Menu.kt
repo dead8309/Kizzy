@@ -36,7 +36,7 @@ import com.google.gson.GsonBuilder
 import com.kizzy.strings.R
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.utils.Log.logger
-import com.my.kizzy.utils.getFileName
+import com.my.kizzy.data.utils.getFileName
 import com.my.kizzy.domain.model.User
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.ui.components.BrowseFilesButton

@@ -38,7 +38,7 @@ import com.my.kizzy.services.CustomRpcService
 import com.my.kizzy.services.ExperimentalRpc
 import com.my.kizzy.services.MediaRpcService
 import com.my.kizzy.utils.AppUtils
-import com.my.kizzy.utils.hasUsageAccess
+import com.my.kizzy.data.utils.hasUsageAccess
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.SwitchBar
