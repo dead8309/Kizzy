@@ -33,13 +33,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.my.kizzy.domain.model.LogEvent
 import com.my.kizzy.ui.components.KSwitch
 import com.my.kizzy.ui.components.SearchBar
 import com.my.kizzy.ui.theme.LogColors.color
 import com.my.kizzy.utils.Log.logger
-import com.my.kizzy.utils.LogEvent
 import com.my.kizzy.preference.Prefs
-import kizzy.gateway.entities.LogLevel.*
+import com.my.kizzy.utils.annotated
 import java.text.DateFormat
 import java.util.*
 
@@ -73,7 +73,7 @@ fun LogScreen(viewModel: LogsViewModel) {
             ) { i, it ->
                 if (viewModel.showCompat.value)
                     Text(
-                        text = it.annotated,
+                        text = it.annotated(),
                         style = MaterialTheme.typography.labelMedium.copy(
                             color = if (i % 2 == 0)
                                 MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f) else MaterialTheme.typography.labelMedium.color

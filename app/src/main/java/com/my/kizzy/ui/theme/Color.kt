@@ -1,7 +1,7 @@
 package com.my.kizzy.ui.theme
 
 import androidx.compose.ui.graphics.Color
-import kizzy.gateway.entities.LogLevel
+import com.my.kizzy.domain.model.LogLevel
 
 //Dark Theme
 val DarkBlueBg = Color(0xFF3C45A5)
