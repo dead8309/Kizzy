@@ -22,12 +22,10 @@ val DISCORD_LIGHT_DARK = Color(0xFF282b30)
 val DISCORD_GREY = Color(0xFF36393e)
 
 object LogColors{
-    val error= android.graphics.Color.parseColor("#F44336")
-    val info= android.graphics.Color.parseColor("#4CAF50")
-    val warn= android.graphics.Color.parseColor("#FFC107")
-    val debug= android.graphics.Color.parseColor("#2196F3")
-    val default= android.graphics.Color.parseColor("#9C27B0")
-
+    private val error= android.graphics.Color.parseColor("#F44336")
+    private val info= android.graphics.Color.parseColor("#4CAF50")
+    private val warn= android.graphics.Color.parseColor("#FFC107")
+    private val debug= android.graphics.Color.parseColor("#2196F3")
     fun LogLevel.color() = Color(when(this){
         LogLevel.INFO -> info
         LogLevel.DEBUG -> debug

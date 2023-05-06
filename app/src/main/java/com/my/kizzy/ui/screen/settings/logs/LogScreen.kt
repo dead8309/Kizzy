@@ -28,19 +28,24 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.my.kizzy.domain.model.LogEvent
+import com.my.kizzy.preference.Prefs
 import com.my.kizzy.ui.components.KSwitch
 import com.my.kizzy.ui.components.SearchBar
 import com.my.kizzy.ui.theme.LogColors.color
 import com.my.kizzy.utils.Log.logger
-import com.my.kizzy.preference.Prefs
-import com.my.kizzy.utils.annotated
 import java.text.DateFormat
+import java.time.Instant
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -219,6 +224,32 @@ fun LogsCard(logEvent: LogEvent) {
             .height(10.dp)
             .fillMaxWidth()
     )
+}
+
+@Composable
+fun LogEvent.annotated() = buildAnnotatedString {
+    withStyle(
+        style = SpanStyle(
+            color = MaterialTheme.colorScheme.onBackground,
+            background = level.color().copy(0.4f)
+        )
+    ) {
+        append(" ${level.name[0]} ")
+    }
+    withStyle(
+        style = SpanStyle(
+            fontWeight = FontWeight.ExtraBold,
+            background = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
+        )
+    ) {
+        append(
+            DateTimeFormatter
+                .ofPattern("h:mm:ssa", Locale.getDefault()).format(
+                    Instant.ofEpochMilli(createdAt)
+                )
+        )
+    }
+    append(" $tag: $text")
 }
 
 @Preview

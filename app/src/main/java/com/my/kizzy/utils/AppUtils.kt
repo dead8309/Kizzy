@@ -58,6 +58,5 @@ object Log {
     var logger = KLogger.getInstance()!!
     fun init() {
         KLogger.init()
-        logger.isEnabled = true
     }
 }
