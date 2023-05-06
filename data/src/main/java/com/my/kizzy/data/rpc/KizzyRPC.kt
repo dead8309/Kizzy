@@ -12,6 +12,7 @@
 
 package com.my.kizzy.data.rpc
 
+import com.my.kizzy.domain.interfaces.Logger
 import com.my.kizzy.domain.repository.KizzyRepository
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.preference.Prefs.CUSTOM_ACTIVITY_TYPE
@@ -26,7 +27,8 @@ import kotlinx.coroutines.isActive
 class KizzyRPC(
     private val token: String,
     private val kizzyRepository: KizzyRepository,
-    private val discordWebSocket: DiscordWebSocket
+    private val discordWebSocket: DiscordWebSocket,
+    private val logger: Logger
 ) {
     private lateinit var presence: Presence
     private var activityName: String? = null
@@ -256,10 +258,12 @@ class KizzyRPC(
         )
         connectToWebSocket()
     }
-
     private suspend fun connectToWebSocket() {
-       // if (!isUserTokenValid())
-          //  logger.e("KizzyRPC","Token Seems to be invalid, Please Login if you haven't")
+        if (!isUserTokenValid())
+            logger.e(
+                tag = "KizzyRPC",
+                event = "Token Seems to be invalid, Please Login if you haven't"
+            )
         discordWebSocket.connect()
         discordWebSocket.sendActivity(presence)
     }

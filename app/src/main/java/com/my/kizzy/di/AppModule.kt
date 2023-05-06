@@ -15,8 +15,10 @@ package com.my.kizzy.di
 import com.my.kizzy.BuildConfig
 import com.my.kizzy.data.remote.ApiService
 import com.my.kizzy.data.repository.KizzyRepositoryImpl
+import com.my.kizzy.domain.interfaces.Logger
 import com.my.kizzy.utils.Log.logger
 import com.my.kizzy.domain.repository.KizzyRepository
+import com.my.kizzy.utils.KLogger
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -65,4 +67,7 @@ object AppModule {
     ): KizzyRepository{
         return KizzyRepositoryImpl(apiService)
     }
+
+    @Provides
+    fun providesLogger(): Logger = KLogger()
 }
