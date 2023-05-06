@@ -31,6 +31,7 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.rememberPagerState
 import com.google.android.material.color.DynamicColors
+import com.kizzy.strings.R
 import com.kyant.monet.Hct
 import com.kyant.monet.LocalTonalPalettes
 import com.kyant.monet.PaletteStyle
@@ -41,24 +42,23 @@ import com.kyant.monet.a2
 import com.kyant.monet.a3
 import com.kyant.monet.n2
 import com.kyant.monet.toColor
-import com.kizzy.strings.R
-import com.my.kizzy.utils.LocalDarkTheme
-import com.my.kizzy.utils.LocalDynamicColorSwitch
-import com.my.kizzy.utils.LocalPaletteStyleIndex
-import com.my.kizzy.utils.LocalSeedColor
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.preference.Prefs.CUSTOM_THEME_COLOR
 import com.my.kizzy.preference.modifyThemeSeedColor
 import com.my.kizzy.preference.palettesMap
 import com.my.kizzy.preference.switchDynamicColor
 import com.my.kizzy.ui.components.BackButton
-import com.my.kizzy.ui.components.DynamicSVGImage
 import com.my.kizzy.ui.components.SettingItem
 import com.my.kizzy.ui.components.dialog.TextFieldDialog
 import com.my.kizzy.ui.components.preference.PreferenceSwitch
+import com.my.kizzy.ui.svg.DynamicSVGImage
 import com.my.kizzy.ui.svg.PALETTE
 import com.my.kizzy.ui.theme.DEFAULT_SEED_COLOR
 import com.my.kizzy.ui.theme.autoDark
+import com.my.kizzy.utils.LocalDarkTheme
+import com.my.kizzy.utils.LocalDynamicColorSwitch
+import com.my.kizzy.utils.LocalPaletteStyleIndex
+import com.my.kizzy.utils.LocalSeedColor
 
 val colorList = listOf(
     Color(DEFAULT_SEED_COLOR),

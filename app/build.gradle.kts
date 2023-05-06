@@ -55,6 +55,7 @@ dependencies {
     implementation(projects.common.strings)
     implementation(projects.domain)
     implementation(projects.data)
+    implementation(projects.common.components)
 
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.tooling.preview)

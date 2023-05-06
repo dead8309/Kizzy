@@ -33,6 +33,7 @@ include(
     ":common:preference",
     ":common:strings",
     ":domain",
-    ":data"
+    ":data",
+    ":common:components"
 )
 rootProject.name = "Kizzy"

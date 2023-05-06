@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.ui.components
+package com.my.kizzy.ui.svg
 
 import android.graphics.drawable.PictureDrawable
 import androidx.annotation.DrawableRes
@@ -37,7 +37,6 @@ import com.caverock.androidsvg.SVG
 import com.kyant.monet.LocalTonalPalettes
 import com.kyant.monet.TonalPalettes
 import com.my.kizzy.utils.LocalDarkTheme
-import com.my.kizzy.ui.svg.parseDynamicColor
 
 @Composable
 fun DynamicSVGImage(

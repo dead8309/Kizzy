@@ -10,13 +10,6 @@
  *
  */
 
-/**
- * Copyright (C) 2021 Kyant0
- *
- * @link https://github.com/Kyant0/MusicYou
- * @author Kyant0
- */
-
 package com.my.kizzy.ui.components
 
 import androidx.compose.animation.animateColorAsState
