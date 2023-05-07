@@ -54,7 +54,7 @@ fun modifyDarkThemePreference(
     darkThemeValue: Int = AppSettingsStateFlow.value.darkTheme.darkThemeValue,
     isHighContrastModeEnabled: Boolean = AppSettingsStateFlow.value.darkTheme.isHighContrastModeEnabled
 ) {
-    PreferenceApp.applicationScope.launch(Dispatchers.IO) {
+    PreferenceConfig.applicationScope.launch(Dispatchers.IO) {
         mutableAppSettingsStateFlow.update {
             it.copy(
                 darkTheme = AppSettingsStateFlow.value.darkTheme.copy(
@@ -69,7 +69,7 @@ fun modifyDarkThemePreference(
 }
 
 fun modifyThemeSeedColor(colorArgb: Int, paletteStyleIndex: Int) {
-    PreferenceApp.applicationScope.launch(Dispatchers.IO) {
+    PreferenceConfig.applicationScope.launch(Dispatchers.IO) {
         mutableAppSettingsStateFlow.update {
             it.copy(seedColor = colorArgb,
             paletteStyleIndex = paletteStyleIndex)
@@ -80,7 +80,7 @@ fun modifyThemeSeedColor(colorArgb: Int, paletteStyleIndex: Int) {
 }
 
 fun switchDynamicColor(enabled: Boolean = !mutableAppSettingsStateFlow.value.isDynamicColorEnabled) {
-    PreferenceApp.applicationScope.launch(Dispatchers.IO) {
+    PreferenceConfig.applicationScope.launch(Dispatchers.IO) {
         mutableAppSettingsStateFlow.update {
             it.copy(isDynamicColorEnabled = enabled)
         }

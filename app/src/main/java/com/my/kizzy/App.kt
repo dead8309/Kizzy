@@ -1,21 +1,21 @@
 package com.my.kizzy
 
-import com.developer.crashx.config.CrashConfig
+import android.app.Application
 import com.google.android.material.color.DynamicColors
+import com.my.kizzy.feature_crash_handler.CrashHandlerConfig
+import com.my.kizzy.preference.PreferenceConfig
 import com.my.kizzy.utils.AppUtils
 import com.my.kizzy.utils.Log
-import com.my.kizzy.preference.PreferenceApp
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class App: PreferenceApp() {
+class App: Application() {
 
     override fun onCreate() {
         super.onCreate()
         DynamicColors.applyToActivitiesIfAvailable(this)
-        CrashConfig.Builder.create()
-            .errorActivity(CrashHandler::class.java)
-            .apply()
+        CrashHandlerConfig.apply()
+        PreferenceConfig.apply(this)
         Log.init()
         AppUtils.init(this)
     }

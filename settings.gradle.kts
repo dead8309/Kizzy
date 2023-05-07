@@ -1,18 +1,4 @@
 @file:Suppress("UnstableApiUsage")
-
-include(":feature_startup")
-
-/*
-*
-*  ******************************************************************
-*  *  * Copyright (C) 2022
-*  *  * settings.gradle.kts is part of Kizzy
-*  *  *  and can not be copied and/or distributed without the express
-*  *  * permission of yzziK(Vaibhav)
-*  *  *****************************************************************
-*
-*
-*/
 pluginManagement {
     repositories {
         google()
@@ -38,6 +24,8 @@ include(
     ":domain",
     ":data",
     ":common:components",
-    ":theme"
+    ":theme",
+    ":feature_crash_handler",
+    ":feature_startup"
 )
 rootProject.name = "Kizzy"
