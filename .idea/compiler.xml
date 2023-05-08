@@ -15,6 +15,7 @@
       <module name="Kizzy.data" target="17" />
       <module name="Kizzy.feature_about" target="17" />
       <module name="Kizzy.feature_crash_handler" target="17" />
+      <module name="Kizzy.feature_logs" target="17" />
       <module name="Kizzy.feature_profile" target="17" />
       <module name="Kizzy.feature_settings" target="17" />
       <module name="Kizzy.feature_startup" target="17" />
