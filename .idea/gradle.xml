@@ -20,9 +20,12 @@
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/feature_about" />
+            <option value="$PROJECT_DIR$/feature_apps_rpc" />
             <option value="$PROJECT_DIR$/feature_crash_handler" />
             <option value="$PROJECT_DIR$/feature_logs" />
+            <option value="$PROJECT_DIR$/feature_media_rpc" />
             <option value="$PROJECT_DIR$/feature_profile" />
+            <option value="$PROJECT_DIR$/feature_rpc_base" />
             <option value="$PROJECT_DIR$/feature_settings" />
             <option value="$PROJECT_DIR$/feature_startup" />
             <option value="$PROJECT_DIR$/gateway" />

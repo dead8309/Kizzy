@@ -10,9 +10,8 @@
  *
  */
 
-package com.my.kizzy.ui.screen.home.media
+package com.my.kizzy.feature_media_rpc
 
-import android.content.Context
 import android.content.Intent
 import android.provider.Settings
 import androidx.compose.animation.AnimatedVisibility
@@ -32,10 +31,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.kizzy.strings.R
 import com.my.kizzy.feature_rpc_base.AppUtils
-import com.my.kizzy.feature_rpc_base.services.AppDetectionService
-import com.my.kizzy.feature_rpc_base.services.CustomRpcService
-import com.my.kizzy.feature_rpc_base.services.ExperimentalRpc
 import com.my.kizzy.feature_rpc_base.services.MediaRpcService
+import com.my.kizzy.feature_rpc_base.startServiceAndStopOthers
+import com.my.kizzy.feature_rpc_base.stopService
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.preference.Prefs.MEDIA_RPC_APP_ICON
 import com.my.kizzy.preference.Prefs.MEDIA_RPC_ARTIST_NAME
@@ -91,13 +89,8 @@ fun MediaRPC(onBackPressed: () -> Unit) {
             ) {
                 mediarpcRunning = !mediarpcRunning
                 when (mediarpcRunning) {
-                    true -> {
-                        context.stopService(Intent(context, AppDetectionService::class.java))
-                        context.stopService(Intent(context, CustomRpcService::class.java))
-                        context.stopService(Intent(context, ExperimentalRpc::class.java))
-                        context.startService(Intent(context, MediaRpcService::class.java))
-                    }
-                    false -> context.stopService(Intent(context, MediaRpcService::class.java))
+                    true -> context.startServiceAndStopOthers<MediaRpcService>()
+                    false -> context.stopService<MediaRpcService>()
                 }
             }
             LazyColumn {
@@ -134,11 +127,4 @@ fun MediaRPC(onBackPressed: () -> Unit) {
             }
         }
     }
-}
-
-fun Context.hasNotificationAccess(): Boolean {
-    val enabledNotificationListeners = Settings.Secure.getString(
-        this.contentResolver, "enabled_notification_listeners"
-    )
-    return enabledNotificationListeners != null && enabledNotificationListeners.contains(this.packageName)
 }

@@ -22,8 +22,11 @@ import com.my.kizzy.data.utils.hasUsageAccess
 import com.my.kizzy.feature_about.about.About
 import com.my.kizzy.feature_about.about.Credits
 import com.my.kizzy.feature_about.about.CreditsScreenViewModel
+import com.my.kizzy.feature_apps_rpc.AppsRPC
 import com.my.kizzy.feature_logs.LogScreen
 import com.my.kizzy.feature_logs.LogsViewModel
+import com.my.kizzy.feature_media_rpc.MediaRPC
+import com.my.kizzy.feature_media_rpc.hasNotificationAccess
 import com.my.kizzy.feature_profile.UserViewModel
 import com.my.kizzy.feature_profile.ui.login.LoginScreen
 import com.my.kizzy.feature_profile.ui.user.UserScreen
@@ -37,13 +40,10 @@ import com.my.kizzy.preference.getLanguageConfig
 import com.my.kizzy.ui.Routes
 import com.my.kizzy.ui.animatedComposable
 import com.my.kizzy.ui.screen.home.Home
-import com.my.kizzy.ui.screen.home.apps.AppsRPC
 import com.my.kizzy.ui.screen.home.console_games.GamesScreen
 import com.my.kizzy.ui.screen.home.console_games.GamesViewModel
 import com.my.kizzy.ui.screen.home.custom.CustomRPC
 import com.my.kizzy.ui.screen.home.custom.CustomScreenViewModel
-import com.my.kizzy.ui.screen.home.media.MediaRPC
-import com.my.kizzy.ui.screen.home.media.hasNotificationAccess
 import com.my.kizzy.ui.theme.KizzyTheme
 import com.my.kizzy.ui.theme.LocalDarkTheme
 import com.my.kizzy.ui.theme.LocalDynamicColorSwitch
@@ -125,7 +125,12 @@ class MainActivity : AppCompatActivity() {
                         navController.navigate(it)
                     }
                 }
-                animatedComposable(Routes.APPS_DETECTION) { AppsRPC(onBackPressed = { navController.popBackStack() }) }
+                animatedComposable(Routes.APPS_DETECTION) {
+                    AppsRPC(
+                        onBackPressed = { navController.popBackStack() },
+                        hasUsageAccess = usageAccessStatus.value
+                    )
+                }
                 animatedComposable(Routes.CUSTOM_RPC) {
                     val viewModel: CustomScreenViewModel by viewModels()
                     CustomRPC(onBackPressed = { navController.popBackStack() },viewModel)
