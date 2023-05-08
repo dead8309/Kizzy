@@ -15,6 +15,10 @@ package com.my.kizzy.domain.model
 import com.google.gson.annotations.SerializedName
 
 data class User(
+    @SerializedName("bio")
+    val bio: String? = "",
+    @SerializedName("nitro")
+    val nitro: Boolean? = false,
     @SerializedName("accent_color")
     val accentColor: Int?,
     @SerializedName("avatar")
