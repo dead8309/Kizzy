@@ -39,7 +39,6 @@ import com.my.kizzy.services.KizzyTileService
 import com.my.kizzy.domain.model.User
 import com.my.kizzy.ui.components.Subtitle
 import com.my.kizzy.ui.screen.home.chips
-import com.my.kizzy.ui.screen.settings.about.app_home_page
 import com.skydoves.landscapist.glide.GlideImage
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -126,7 +125,7 @@ fun SettingsDrawer(
                         title = "FAQ",
                         icon = Icons.Rounded.HelpOutline
                     ) {
-                        uriHandler.openUri("$app_home_page/#FAQ")
+                        uriHandler.openUri("https://kizzy.vercel.app/#FAQ")
                     }
                 }
                 item {
