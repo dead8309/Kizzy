@@ -22,7 +22,7 @@ import com.google.gson.Gson
 import com.my.kizzy.R
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.utils.toRpcImage
-import com.my.kizzy.ui.screen.home.custom.RpcIntent
+import com.my.kizzy.domain.model.RpcConfig
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
@@ -31,7 +31,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class CustomRpcService : Service() {
-    private var rpcData: RpcIntent? = null
+    private var rpcData: RpcConfig? = null
     private var wakeLock: WakeLock? = null
 
     @Inject
@@ -48,7 +48,7 @@ class CustomRpcService : Service() {
         else {
             val string = intent?.getStringExtra("RPC")
             string?.let {
-                rpcData = Gson().fromJson(it, RpcIntent::class.java)
+                rpcData = Gson().fromJson(it, RpcConfig::class.java)
             }
 
             val channel = NotificationChannel(

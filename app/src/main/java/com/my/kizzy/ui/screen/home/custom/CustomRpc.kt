@@ -44,6 +44,7 @@ import com.google.gson.Gson
 import com.kizzy.strings.R
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.data.rpc.Constants.MAX_ALLOWED_CHARACTER_LENGTH
+import com.my.kizzy.domain.model.RpcConfig
 import com.my.kizzy.services.AppDetectionService
 import com.my.kizzy.services.CustomRpcService
 import com.my.kizzy.services.ExperimentalRpc
@@ -166,7 +167,7 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
                     })
             }) { padding ->
             Column(modifier = Modifier.padding(padding)) {
-                val rpc = RpcIntent(
+                val rpc = RpcConfig(
                     name = name,
                     details = details,
                     state = state,

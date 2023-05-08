@@ -1,7 +1,8 @@
-package com.my.kizzy.ui.screen.home.custom
+package com.my.kizzy.domain.model
 import com.google.gson.annotations.SerializedName
 
-data class RpcIntent(
+// data class used for saving/loading/previewing rpc in the app
+data class RpcConfig(
     @SerializedName("button1")
     val button1: String = "",
     @SerializedName("button1link")

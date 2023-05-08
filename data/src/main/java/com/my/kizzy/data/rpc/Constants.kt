@@ -24,12 +24,11 @@ object Constants {
     const val NINTENDO_3DS = "Nintendo-3DS"
     const val WII_U = "Wii-U"
     const val XBOX = "Xbox"
-    const val NITRO_ICON = "https://cdn.discordapp.com/attachments/948828217312178227/1041053075567284295/nitro.png"
-    const val USER_BANNER = "https://discord.com/assets/97ac61a0b98fd6f01b4de370c9ccdb56.png"
     const val APPLICATION_ID = "962990036020756480"
     const val ONLINE = "online"
     const val DND = "dnd"
     const val APP_DIRECTORY = "App Directory"
     const val DOWNLOADS_DIRECTORY = "Downloads Directory"
     const val MAX_ALLOWED_CHARACTER_LENGTH = 32
+    const val DISCORD_CDN_BASE = "https://cdn.discordapp.com"
 }

@@ -33,6 +33,7 @@ import com.google.accompanist.flowlayout.SizeMode
 import com.google.gson.Gson
 import com.my.kizzy.BuildConfig
 import com.my.kizzy.R
+import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.services.AppDetectionService
 import com.my.kizzy.services.CustomRpcService
 import com.my.kizzy.services.ExperimentalRpc
@@ -41,7 +42,6 @@ import com.my.kizzy.utils.AppUtils
 import com.my.kizzy.data.utils.fromJson
 import com.my.kizzy.ui.components.KSwitch
 import com.my.kizzy.ui.Routes
-import com.my.kizzy.ui.screen.profile.user.Base
 import com.my.kizzy.ui.screen.settings.SettingsDrawer
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.preference.Prefs.USER_DATA
@@ -59,8 +59,8 @@ fun Home(
     val user: User? = Gson().fromJson(Prefs[USER_DATA, ""])
     val avatar = user?.let { _user ->
         _user.avatar?.let {
-            if (it.startsWith("a_")) "$Base/avatars/${_user.id}/${it}.gif"
-            else "$Base/avatars/${_user.id}/${it}.png"
+            if (it.startsWith("a_")) "${Constants.DISCORD_CDN_BASE}/avatars/${_user.id}/${it}.gif"
+            else "${Constants.DISCORD_CDN_BASE}/avatars/${_user.id}/${it}.png"
         }
     }
     val ctx = LocalContext.current

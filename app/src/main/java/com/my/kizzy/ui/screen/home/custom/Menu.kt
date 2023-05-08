@@ -35,14 +35,15 @@ import com.blankj.utilcode.util.FileUtils
 import com.google.gson.GsonBuilder
 import com.kizzy.strings.R
 import com.my.kizzy.data.rpc.Constants
-import com.my.kizzy.utils.Log.logger
 import com.my.kizzy.data.utils.getFileName
+import com.my.kizzy.domain.model.RpcConfig
 import com.my.kizzy.domain.model.User
+import com.my.kizzy.feature_profile.ui.component.ProfileCard
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.ui.components.BrowseFilesButton
 import com.my.kizzy.ui.components.dialog.MultiChoiceItem
 import com.my.kizzy.ui.components.dialog.SingleChoiceItem
-import com.my.kizzy.ui.screen.profile.user.component.ProfileCard
+import com.my.kizzy.utils.Log.logger
 import java.io.File
 import java.io.FilenameFilter
 
@@ -65,7 +66,7 @@ else{
 @Composable
 fun LoadConfig(
     onDismiss: () -> Unit,
-    onConfigSelected: (RpcIntent) -> Unit
+    onConfigSelected: (RpcConfig) -> Unit
 ) {
     val ctx = LocalContext.current
     val dir = ctx.dir()
@@ -129,7 +130,7 @@ fun Context.handleUriResult(uri: Uri?, onSuccess: (json: String) -> Unit) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SaveConfig(
-    rpc: RpcIntent,
+    rpc: RpcConfig,
     onDismiss: () -> Unit,
     onSaved: (String) -> Unit
 ) {
@@ -234,15 +235,15 @@ fun DeleteConfig(
         }
     )
 }
-fun RpcIntent.dataToString(): String {
+fun RpcConfig.dataToString(): String {
     return gson.toJson(this)
 }
 
-fun String.stringToData(): RpcIntent {
+fun String.stringToData(): RpcConfig {
     return try {
-        gson.fromJson(this, RpcIntent::class.java)
+        gson.fromJson(this, RpcConfig::class.java)
     } catch (ex: Exception) {
-        RpcIntent()
+        RpcConfig()
     }
 }
 
@@ -250,14 +251,15 @@ fun String.stringToData(): RpcIntent {
 @Composable
 fun PreviewDialog(
     user: User,
-    rpc: RpcIntent? = null,
+    rpc: RpcConfig? = null,
     onDismiss: () -> Unit
 ) {
     Dialog(onDismissRequest = {
         onDismiss()
     }) {
         ProfileCard(
-            user = user, padding = 0.dp, rpcData = rpc,
+            user = user, padding = 0.dp,
+            rpcConfig = rpc,
             type = rpc?.type.getType(rpc?.name),
             showTs = false
         )

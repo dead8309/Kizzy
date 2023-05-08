@@ -44,13 +44,13 @@ import com.my.kizzy.services.ExperimentalRpc
 import com.my.kizzy.services.MediaRpcService
 import com.my.kizzy.utils.AppUtils
 import com.my.kizzy.domain.model.Game
+import com.my.kizzy.domain.model.RpcConfig
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.SearchBar
 import com.my.kizzy.ui.components.SwitchBar
 import com.my.kizzy.ui.components.shimmer.AnimatedShimmer
 import com.my.kizzy.ui.components.shimmer.ShimmerGamesScreen
-import com.my.kizzy.ui.screen.home.custom.RpcIntent
 import com.skydoves.landscapist.glide.GlideImage
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -154,7 +154,7 @@ fun GamesScreen(
                             ) { info ->
                                 selected = game.game_title
                                 val string = Gson().toJson(
-                                    RpcIntent(
+                                    RpcConfig(
                                         name = info.platform,
                                         details = info.game_title,
                                         timeatampsStart = System.currentTimeMillis().toString(),

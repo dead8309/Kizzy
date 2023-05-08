@@ -17,22 +17,31 @@ import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BrokenImage
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import com.my.kizzy.R
-import com.my.kizzy.utils.Log.logger
 import com.my.kizzy.data.utils.getFileName
 import com.my.kizzy.ui.components.BrowseFilesButton
+import com.my.kizzy.utils.Log.logger
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
@@ -67,7 +76,6 @@ fun ImagePicker(
     }
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun UploadDialog(
     image: MutableState<Uri?>,
@@ -115,7 +123,6 @@ fun UploadDialog(
                             imageModel = image.value,
                             contentDescription = "",
                             modifier = Modifier.size(200.dp),
-                            previewPlaceholder = R.drawable.editing_rpc_pencil,
                             error = Icons.Default.BrokenImage
                         )
                     }

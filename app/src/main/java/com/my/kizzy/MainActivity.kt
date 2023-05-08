@@ -30,9 +30,6 @@ import com.my.kizzy.ui.screen.home.custom.CustomRPC
 import com.my.kizzy.ui.screen.home.custom.CustomScreenViewModel
 import com.my.kizzy.ui.screen.home.media.MediaRPC
 import com.my.kizzy.ui.screen.home.media.hasNotificationAccess
-import com.my.kizzy.ui.screen.profile.login.LoginScreen
-import com.my.kizzy.ui.screen.profile.user.UserScreen
-import com.my.kizzy.ui.screen.profile.user.UserViewModel
 import com.my.kizzy.ui.screen.settings.about.About
 import com.my.kizzy.ui.screen.settings.about.Credits
 import com.my.kizzy.ui.screen.settings.about.CreditsScreenViewModel
@@ -47,6 +44,9 @@ import com.my.kizzy.ui.theme.LocalDarkTheme
 import com.my.kizzy.ui.theme.LocalDynamicColorSwitch
 import com.my.kizzy.ui.theme.SettingsProvider
 import com.my.kizzy.data.utils.hasUsageAccess
+import com.my.kizzy.feature_profile.UserViewModel
+import com.my.kizzy.feature_profile.ui.login.LoginScreen
+import com.my.kizzy.feature_profile.ui.user.UserScreen
 import com.my.kizzy.feature_startup.StartUp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
@@ -137,15 +137,17 @@ class MainActivity : AppCompatActivity() {
                     }
                     if (loggedIn) {
                         val viewModel: UserViewModel by viewModels()
-                        UserScreen(viewModel = viewModel) {
-                            navController.popBackStack()
-                        }
+                        UserScreen(
+                            state = viewModel.state.value,
+                            onBackPressed = navController::popBackStack
+                        )
                     } else {
-                        LoginScreen(onBackPressed = {
-                            navController.popBackStack()
-                        }, onCompleted = {
-                            loggedIn = true
-                        })
+                       LoginScreen(
+                           onBackPressed = navController::popBackStack,
+                           onCompleted = {
+                               loggedIn = true
+                           },
+                       )
                     }
                 }
                 animatedComposable(Routes.CONSOLE_RPC) {
