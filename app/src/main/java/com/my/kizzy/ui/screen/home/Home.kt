@@ -37,18 +37,18 @@ import com.my.kizzy.R
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.utils.fromJson
 import com.my.kizzy.domain.model.User
+import com.my.kizzy.feature_rpc_base.AppUtils
+import com.my.kizzy.feature_rpc_base.services.AppDetectionService
+import com.my.kizzy.feature_rpc_base.services.CustomRpcService
+import com.my.kizzy.feature_rpc_base.services.ExperimentalRpc
+import com.my.kizzy.feature_rpc_base.services.KizzyTileService
+import com.my.kizzy.feature_rpc_base.services.MediaRpcService
 import com.my.kizzy.feature_settings.SettingsDrawer
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.preference.Prefs.USER_DATA
-import com.my.kizzy.services.AppDetectionService
-import com.my.kizzy.services.CustomRpcService
-import com.my.kizzy.services.ExperimentalRpc
-import com.my.kizzy.services.KizzyTileService
-import com.my.kizzy.services.MediaRpcService
 import com.my.kizzy.ui.Routes
 import com.my.kizzy.ui.components.ChipSection
 import com.my.kizzy.ui.components.KSwitch
-import com.my.kizzy.utils.AppUtils
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.launch
 

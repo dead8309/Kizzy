@@ -12,7 +12,7 @@
 
 @file:Suppress("DEPRECATION")
 
-package com.my.kizzy.ui.screen.home.apps
+package com.my.kizzy.feature_apps_rpc
 
 
 import android.annotation.SuppressLint
@@ -33,12 +33,10 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.kizzy.strings.R
-import com.my.kizzy.services.AppDetectionService
-import com.my.kizzy.services.CustomRpcService
-import com.my.kizzy.services.ExperimentalRpc
-import com.my.kizzy.services.MediaRpcService
-import com.my.kizzy.utils.AppUtils
-import com.my.kizzy.data.utils.hasUsageAccess
+import com.my.kizzy.feature_rpc_base.AppUtils
+import com.my.kizzy.feature_rpc_base.services.AppDetectionService
+import com.my.kizzy.feature_rpc_base.startServiceAndStopOthers
+import com.my.kizzy.feature_rpc_base.stopService
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.SwitchBar
@@ -47,12 +45,14 @@ import com.my.kizzy.ui.components.preference.PreferencesHint
 @SuppressLint("MutableCollectionMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppsRPC(onBackPressed: () -> Unit) {
+fun AppsRPC(
+    onBackPressed: () -> Unit,
+    hasUsageAccess: Boolean,
+) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
         rememberTopAppBarState(),
         canScroll = { true })
     val ctx = LocalContext.current
-    var hasUsageAccess by remember { mutableStateOf(ctx.hasUsageAccess()) }
     var serviceEnabled by remember { mutableStateOf(AppUtils.appDetectionRunning()) }
     var apps by remember { mutableStateOf(getInstalledApps(ctx)) }
 
@@ -86,9 +86,9 @@ fun AppsRPC(onBackPressed: () -> Unit) {
                             description = stringResource(id = R.string.usage_access_desc),
                             icon = Icons.Default.AppsOutage,
                         ) {
-                            when (ctx.hasUsageAccess()) {
-                                true -> hasUsageAccess = !hasUsageAccess
+                            when (hasUsageAccess) {
                                 false -> ctx.startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
+                                else -> Unit
                             }
                         }
                     }
@@ -102,12 +102,9 @@ fun AppsRPC(onBackPressed: () -> Unit) {
                         serviceEnabled = !serviceEnabled
                         when (serviceEnabled) {
                             true -> {
-                                ctx.stopService(Intent(ctx, MediaRpcService::class.java))
-                                ctx.stopService(Intent(ctx, CustomRpcService::class.java))
-                                ctx.stopService(Intent(ctx, ExperimentalRpc::class.java))
-                                ctx.startService(Intent(ctx, AppDetectionService::class.java))
+                                ctx.startServiceAndStopOthers<AppDetectionService>()
                             }
-                            false -> ctx.stopService(Intent(ctx, AppDetectionService::class.java))
+                            false -> ctx.stopService<AppDetectionService>()
                         }
 
                     }

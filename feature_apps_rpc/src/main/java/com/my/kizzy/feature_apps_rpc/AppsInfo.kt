@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.ui.screen.home.apps
+package com.my.kizzy.feature_apps_rpc
 
 data class AppsInfo(
     val name: String,

@@ -43,15 +43,15 @@ import com.kizzy.strings.R
 import com.my.kizzy.data.rpc.Constants.MAX_ALLOWED_CHARACTER_LENGTH
 import com.my.kizzy.domain.model.RpcConfig
 import com.my.kizzy.domain.model.User
+import com.my.kizzy.feature_rpc_base.AppUtils
+import com.my.kizzy.feature_rpc_base.services.AppDetectionService
+import com.my.kizzy.feature_rpc_base.services.CustomRpcService
+import com.my.kizzy.feature_rpc_base.services.ExperimentalRpc
+import com.my.kizzy.feature_rpc_base.services.MediaRpcService
 import com.my.kizzy.preference.Prefs
-import com.my.kizzy.services.AppDetectionService
-import com.my.kizzy.services.CustomRpcService
-import com.my.kizzy.services.ExperimentalRpc
-import com.my.kizzy.services.MediaRpcService
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.RpcField
 import com.my.kizzy.ui.components.SwitchBar
-import com.my.kizzy.utils.AppUtils
 import kotlinx.coroutines.launch
 import java.util.*
 

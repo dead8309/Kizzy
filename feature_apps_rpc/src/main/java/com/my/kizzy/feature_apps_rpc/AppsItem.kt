@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.ui.screen.home.apps
+package com.my.kizzy.feature_apps_rpc
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*

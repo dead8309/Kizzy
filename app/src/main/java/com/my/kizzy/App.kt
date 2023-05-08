@@ -5,7 +5,7 @@ import com.google.android.material.color.DynamicColors
 import com.my.kizzy.feature_crash_handler.CrashHandlerConfig
 import com.my.kizzy.feature_logs.LoggerProvider
 import com.my.kizzy.preference.PreferenceConfig
-import com.my.kizzy.utils.AppUtils
+import com.my.kizzy.feature_rpc_base.AppUtils
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
