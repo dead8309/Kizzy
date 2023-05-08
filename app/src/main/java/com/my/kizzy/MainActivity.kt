@@ -30,9 +30,9 @@ import com.my.kizzy.ui.screen.home.custom.CustomRPC
 import com.my.kizzy.ui.screen.home.custom.CustomScreenViewModel
 import com.my.kizzy.ui.screen.home.media.MediaRPC
 import com.my.kizzy.ui.screen.home.media.hasNotificationAccess
-import com.my.kizzy.ui.screen.settings.about.About
-import com.my.kizzy.ui.screen.settings.about.Credits
-import com.my.kizzy.ui.screen.settings.about.CreditsScreenViewModel
+import com.my.kizzy.feature_about.about.About
+import com.my.kizzy.feature_about.about.Credits
+import com.my.kizzy.feature_about.about.CreditsScreenViewModel
 import com.my.kizzy.ui.screen.settings.language.Language
 import com.my.kizzy.ui.screen.settings.logs.LogScreen
 import com.my.kizzy.ui.screen.settings.logs.LogsViewModel
@@ -192,9 +192,12 @@ class MainActivity : AppCompatActivity() {
                 }
                 animatedComposable(Routes.CREDITS) {
                     val viewModel: CreditsScreenViewModel by viewModels()
-                    Credits(viewModel) {
-                        navController.popBackStack()
-                    }
+                    Credits(
+                        state = viewModel.creditScreenState.collectAsState().value,
+                        onBackPressed = {
+                            navController.popBackStack()
+                        }
+                    )
                 }
             }
         }

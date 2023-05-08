@@ -1,4 +1,16 @@
-package com.my.kizzy.ui.screen.settings.about
+/*
+ *
+ *  ******************************************************************
+ *  *  * Copyright (C) 2022
+ *  *  * About.kt is part of Kizzy
+ *  *  *  and can not be copied and/or distributed without the express
+ *  *  * permission of yzziK(Vaibhav)
+ *  *  *****************************************************************
+ *
+ *
+ */
+
+package com.my.kizzy.feature_about.about
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -11,11 +23,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.my.kizzy.BuildConfig
 import com.kizzy.strings.R
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.preference.PreferencesHint
 import com.my.kizzy.ui.components.SettingItem
+import com.my.kizzy.feature_about.BuildConfig
 
 
 

@@ -1,7 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-include(":feature_profile")
-
 pluginManagement {
     repositories {
         google()
@@ -29,6 +27,8 @@ include(
     ":common:components",
     ":theme",
     ":feature_crash_handler",
-    ":feature_startup"
+    ":feature_startup",
+    ":feature_profile",
+    ":feature_about",
 )
 rootProject.name = "Kizzy"

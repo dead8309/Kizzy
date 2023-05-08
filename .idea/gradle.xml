@@ -19,6 +19,7 @@
             <option value="$PROJECT_DIR$/common/strings" />
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/domain" />
+            <option value="$PROJECT_DIR$/feature_about" />
             <option value="$PROJECT_DIR$/feature_crash_handler" />
             <option value="$PROJECT_DIR$/feature_profile" />
             <option value="$PROJECT_DIR$/feature_startup" />

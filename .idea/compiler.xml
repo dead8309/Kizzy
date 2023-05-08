@@ -13,6 +13,7 @@
       <module name="Kizzy.common.res.test" target="11" />
       <module name="Kizzy.common.strings" target="17" />
       <module name="Kizzy.data" target="17" />
+      <module name="Kizzy.feature_about" target="17" />
       <module name="Kizzy.feature_crash_handler" target="17" />
       <module name="Kizzy.feature_profile" target="17" />
       <module name="Kizzy.feature_startup" target="17" />
