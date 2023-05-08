@@ -26,6 +26,7 @@ import com.kyant.monet.LocalTonalPalettes
 import com.kyant.monet.PaletteStyle
 import com.kyant.monet.TonalPalettes.Companion.toTonalPalettes
 import com.my.kizzy.preference.AppSettingsStateFlow
+import com.my.kizzy.preference.DEFAULT_SEED_COLOR
 import com.my.kizzy.preference.DarkThemePreference
 import com.my.kizzy.preference.palettesMap
 

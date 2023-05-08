@@ -17,8 +17,6 @@ package com.my.kizzy.ui.theme
 
 import androidx.compose.runtime.Composable
 
-const val DEFAULT_SEED_COLOR = 0xFFAF92F1.toInt()
-
 @Composable
 fun Number.autoDark(isDarkTheme: Boolean = LocalDarkTheme.current.isDarkTheme()): Double =
     if (!isDarkTheme) this.toDouble()
