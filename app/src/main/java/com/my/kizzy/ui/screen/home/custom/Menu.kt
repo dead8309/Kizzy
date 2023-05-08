@@ -43,7 +43,6 @@ import com.my.kizzy.preference.Prefs
 import com.my.kizzy.ui.components.BrowseFilesButton
 import com.my.kizzy.ui.components.dialog.MultiChoiceItem
 import com.my.kizzy.ui.components.dialog.SingleChoiceItem
-import com.my.kizzy.utils.Log.logger
 import java.io.File
 import java.io.FilenameFilter
 
@@ -96,7 +95,6 @@ fun LoadConfig(
                            selected = false
                        ) {
                            onDismiss()
-                           logger.d("Directory",dir.absolutePath)
                            FileIOUtils.readFile2String(File(dir,file)).also {
                                onConfigSelected(it.stringToData())
                            }

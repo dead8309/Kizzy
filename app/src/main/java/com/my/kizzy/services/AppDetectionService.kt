@@ -27,8 +27,8 @@ import com.my.kizzy.R
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.rpc.KizzyRPC
 import com.my.kizzy.data.rpc.RpcImage
+import com.my.kizzy.feature_settings.rpc_settings.RpcButtons
 import com.my.kizzy.preference.Prefs
-import com.my.kizzy.ui.screen.settings.rpc_settings.RpcButtons
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import java.util.*
@@ -72,7 +72,7 @@ class AppDetectionService : Service() {
             val pendingIntent: PendingIntent = PendingIntent.getService(this,
                 0,stopIntent,PendingIntent.FLAG_IMMUTABLE)
             val rpcButtonsString = Prefs[Prefs.RPC_BUTTONS_DATA,"{}"]
-            val rpcButtons = Gson().fromJson(rpcButtonsString,RpcButtons::class.java)
+            val rpcButtons = Gson().fromJson(rpcButtonsString, RpcButtons::class.java)
             scope.launch {
                 while (isActive) {
                     val usageStatsManager =

@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.utils
+package com.my.kizzy.feature_logs
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList

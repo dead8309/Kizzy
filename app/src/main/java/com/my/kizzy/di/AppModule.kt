@@ -17,7 +17,7 @@ import com.my.kizzy.data.remote.ApiService
 import com.my.kizzy.data.repository.KizzyRepositoryImpl
 import com.my.kizzy.domain.interfaces.Logger
 import com.my.kizzy.domain.repository.KizzyRepository
-import com.my.kizzy.utils.Log.logger
+import com.my.kizzy.feature_logs.LoggerProvider.logger
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,7 +33,9 @@ import java.util.concurrent.TimeUnit
 @InstallIn(SingletonComponent::class)
 object AppModule {
     @Provides
-    fun providesOkHttpClient(): OkHttpClient {
+    fun providesOkHttpClient(
+        logger: Logger
+    ): OkHttpClient {
         val builder = OkHttpClient.Builder()
         builder.addInterceptor(HttpLoggingInterceptor {
                 logger.d("Retrofit",it)

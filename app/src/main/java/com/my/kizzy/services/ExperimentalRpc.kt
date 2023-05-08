@@ -20,8 +20,8 @@ import com.my.kizzy.R
 import com.my.kizzy.data.get_current_data.AppTracker
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.rpc.KizzyRPC
-import com.my.kizzy.ui.screen.settings.rpc_settings.RpcButtons
-import com.my.kizzy.utils.Log.logger
+import com.my.kizzy.domain.interfaces.Logger
+import com.my.kizzy.feature_settings.rpc_settings.RpcButtons
 import com.my.kizzy.preference.Prefs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -42,6 +42,9 @@ class ExperimentalRpc: Service() {
 
     @Inject
     lateinit var kizzyRPC: KizzyRPC
+
+    @Inject
+    lateinit var logger: Logger
 
     private val gson = GsonBuilder().setPrettyPrinting().create()
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {

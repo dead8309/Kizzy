@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.ui.screen.settings.logs
+package com.my.kizzy.feature_logs
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -34,7 +34,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.my.kizzy.domain.model.LogEvent
@@ -42,7 +41,6 @@ import com.my.kizzy.preference.Prefs
 import com.my.kizzy.ui.components.KSwitch
 import com.my.kizzy.ui.components.SearchBar
 import com.my.kizzy.ui.theme.LogColors.color
-import com.my.kizzy.utils.Log.logger
 import java.text.DateFormat
 import java.time.Instant
 import java.time.format.DateTimeFormatter
@@ -145,7 +143,7 @@ fun ToolBar(viewModel: LogsViewModel) {
                     DropdownMenuItem(
                         text = { Text("Clear") },
                         onClick = {
-                            logger.clear()
+                            viewModel.clearLogs()
                             menuClicked = false
                         }
                     )
@@ -250,10 +248,4 @@ fun LogEvent.annotated() = buildAnnotatedString {
         )
     }
     append(" $tag: $text")
-}
-
-@Preview
-@Composable
-fun TestLogs() {
-    ToolBar(viewModel = LogsViewModel())
 }

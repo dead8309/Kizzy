@@ -10,14 +10,14 @@
  *
  */
 
-package com.my.kizzy.ui.screen.settings.logs
+package com.my.kizzy.feature_logs
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import com.my.kizzy.domain.model.LogEvent
+import com.my.kizzy.feature_logs.LoggerProvider.logger
 import com.my.kizzy.preference.Prefs
-import com.my.kizzy.utils.Log.logger
 
 class LogsViewModel: ViewModel() {
     val filterStrings = mutableStateOf("")
@@ -41,4 +41,5 @@ class LogsViewModel: ViewModel() {
     private fun LogEvent.matches(filter: String): Boolean {
         return this.text.contains(filter,ignoreCase = true) || this.tag.contains(filter,ignoreCase = true)
     }
+    fun clearLogs() = logger.clear()
 }

@@ -12,7 +12,6 @@
 
 package com.my.kizzy.ui.screen.home.custom
 
-//
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -36,12 +35,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import com.my.kizzy.data.utils.getFileName
 import com.my.kizzy.ui.components.BrowseFilesButton
-import com.my.kizzy.utils.Log.logger
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
@@ -51,12 +47,10 @@ fun ImagePicker(
     showProgress: Boolean,
     onImageSelected: (uri: Uri) -> Unit,
 ) {
-    val context = LocalContext.current
     val imageUri = remember { mutableStateOf<Uri?>(null) }
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia()
     ) {
-        logger.d("file:"+it?.let { it1 -> context.getFileName(it1) },it.toString())
         imageUri.value = it
     }
     if (visible){

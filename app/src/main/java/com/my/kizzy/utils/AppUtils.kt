@@ -53,10 +53,3 @@ object AppUtils {
         return false
     }
 }
-
-object Log {
-    var logger = KLogger.getInstance()!!
-    fun init() {
-        KLogger.init()
-    }
-}

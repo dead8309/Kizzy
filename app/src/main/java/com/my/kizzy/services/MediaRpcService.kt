@@ -23,11 +23,11 @@ import com.my.kizzy.R
 import com.my.kizzy.data.get_current_data.media.GetCurrentPlayingMedia
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.rpc.KizzyRPC
-import com.my.kizzy.utils.Log.logger
+import com.my.kizzy.domain.interfaces.Logger
+import com.my.kizzy.feature_settings.rpc_settings.RpcButtons
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.preference.Prefs.MEDIA_RPC_ENABLE_TIMESTAMPS
 import com.my.kizzy.preference.Prefs.TOKEN
-import com.my.kizzy.ui.screen.settings.rpc_settings.RpcButtons
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import javax.inject.Inject
@@ -43,6 +43,9 @@ class MediaRpcService : Service() {
 
     @Inject
     lateinit var getCurrentPlayingMedia: GetCurrentPlayingMedia
+
+    @Inject
+    lateinit var logger: Logger
 
     private var wakeLock: WakeLock? = null
 

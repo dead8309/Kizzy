@@ -30,6 +30,7 @@ include(
     ":feature_startup",
     ":feature_profile",
     ":feature_about",
-    ":feature_settings"
+    ":feature_settings",
+    ":feature_logs"
 )
 rootProject.name = "Kizzy"

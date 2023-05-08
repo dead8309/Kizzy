@@ -62,6 +62,7 @@ dependencies {
     implementation (projects.featureProfile)
     implementation (projects.featureAbout)
     implementation (projects.featureSettings)
+    implementation (projects.featureLogs)
 
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.tooling.preview)
