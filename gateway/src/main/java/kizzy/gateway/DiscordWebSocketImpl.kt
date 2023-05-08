@@ -16,10 +16,11 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlin.coroutines.CoroutineContext
 import kotlin.time.Duration.Companion.milliseconds
+import com.my.kizzy.domain.interfaces.NoOpLogger
 
 open class DiscordWebSocketImpl(
     private val token: String,
-    private val logger: Logger
+    private val logger: Logger = NoOpLogger
 ) : DiscordWebSocket {
     private val gatewayUrl = "wss://gateway.discord.gg/?v=10&encoding=json"
     private var websocket: DefaultClientWebSocketSession? = null
