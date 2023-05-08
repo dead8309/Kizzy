@@ -1,4 +1,4 @@
-package com.my.kizzy.ui.screen.home
+package com.my.kizzy.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

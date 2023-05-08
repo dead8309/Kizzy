@@ -18,7 +18,6 @@ import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -35,24 +34,24 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.gson.Gson
 import com.kizzy.strings.R
-import com.my.kizzy.preference.Prefs
 import com.my.kizzy.data.rpc.Constants.MAX_ALLOWED_CHARACTER_LENGTH
 import com.my.kizzy.domain.model.RpcConfig
+import com.my.kizzy.domain.model.User
+import com.my.kizzy.preference.Prefs
 import com.my.kizzy.services.AppDetectionService
 import com.my.kizzy.services.CustomRpcService
 import com.my.kizzy.services.ExperimentalRpc
 import com.my.kizzy.services.MediaRpcService
-import com.my.kizzy.utils.AppUtils
-import com.my.kizzy.domain.model.User
 import com.my.kizzy.ui.components.BackButton
+import com.my.kizzy.ui.components.RpcField
 import com.my.kizzy.ui.components.SwitchBar
+import com.my.kizzy.utils.AppUtils
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -530,49 +529,6 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
                 }
             }
         }
-    }
-}
-
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun RpcField(
-    value: String,
-    enabled: Boolean = true,
-    trailingIcon: @Composable (() -> Unit)? = null,
-    @StringRes label: Int,
-    isError: Boolean = false,
-    errorMessage: String = "",
-    keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-    content: @Composable (() -> Unit) = {},
-    onValueChange: (String) -> Unit = {}
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(10.dp)
-    ) {
-        TextField(modifier = Modifier
-            .fillMaxWidth(),
-            value = value,
-            onValueChange = {
-                onValueChange(it)
-            },
-            enabled = enabled,
-            label = { Text(stringResource(id = label)) },
-            keyboardOptions = keyboardOptions,
-            trailingIcon = trailingIcon,
-            isError = isError
-        )
-         AnimatedVisibility(visible = isError) {
-            Text(
-                text = errorMessage,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.End,
-                color = MaterialTheme.colorScheme.error
-            )
-        }
-        content()
     }
 }
 
