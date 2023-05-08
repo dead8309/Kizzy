@@ -18,6 +18,18 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import com.my.kizzy.data.utils.hasUsageAccess
+import com.my.kizzy.feature_about.about.About
+import com.my.kizzy.feature_about.about.Credits
+import com.my.kizzy.feature_about.about.CreditsScreenViewModel
+import com.my.kizzy.feature_profile.UserViewModel
+import com.my.kizzy.feature_profile.ui.login.LoginScreen
+import com.my.kizzy.feature_profile.ui.user.UserScreen
+import com.my.kizzy.feature_settings.language.Language
+import com.my.kizzy.feature_settings.rpc_settings.RpcSettings
+import com.my.kizzy.feature_settings.style.Appearance
+import com.my.kizzy.feature_settings.style.DarkThemePreferences
+import com.my.kizzy.feature_startup.StartUp
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.preference.getLanguageConfig
 import com.my.kizzy.ui.Routes
@@ -30,24 +42,12 @@ import com.my.kizzy.ui.screen.home.custom.CustomRPC
 import com.my.kizzy.ui.screen.home.custom.CustomScreenViewModel
 import com.my.kizzy.ui.screen.home.media.MediaRPC
 import com.my.kizzy.ui.screen.home.media.hasNotificationAccess
-import com.my.kizzy.feature_about.about.About
-import com.my.kizzy.feature_about.about.Credits
-import com.my.kizzy.feature_about.about.CreditsScreenViewModel
-import com.my.kizzy.ui.screen.settings.language.Language
 import com.my.kizzy.ui.screen.settings.logs.LogScreen
 import com.my.kizzy.ui.screen.settings.logs.LogsViewModel
-import com.my.kizzy.ui.screen.settings.rpc_settings.RpcSettings
-import com.my.kizzy.ui.screen.settings.style.Appearance
-import com.my.kizzy.ui.screen.settings.style.DarkThemePreferences
 import com.my.kizzy.ui.theme.KizzyTheme
 import com.my.kizzy.ui.theme.LocalDarkTheme
 import com.my.kizzy.ui.theme.LocalDynamicColorSwitch
 import com.my.kizzy.ui.theme.SettingsProvider
-import com.my.kizzy.data.utils.hasUsageAccess
-import com.my.kizzy.feature_profile.UserViewModel
-import com.my.kizzy.feature_profile.ui.login.LoginScreen
-import com.my.kizzy.feature_profile.ui.user.UserScreen
-import com.my.kizzy.feature_startup.StartUp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
 
@@ -157,9 +157,10 @@ class MainActivity : AppCompatActivity() {
                     }, viewModel)
                 }
                 animatedComposable(Routes.LANGUAGES) {
-                    Language(onBackPressed = {
-                        navController.popBackStack()
-                    })
+                    Language(
+                        onBackPressed = { navController.popBackStack() },
+                        updateLocaleLanguage = MainActivity::setLanguage
+                    )
                 }
                 animatedComposable(Routes.STYLE_AND_APPEARANCE) {
                     Appearance(onBackPressed = {

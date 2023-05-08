@@ -16,6 +16,7 @@
       <module name="Kizzy.feature_about" target="17" />
       <module name="Kizzy.feature_crash_handler" target="17" />
       <module name="Kizzy.feature_profile" target="17" />
+      <module name="Kizzy.feature_settings" target="17" />
       <module name="Kizzy.feature_startup" target="17" />
       <module name="Kizzy.gateway" target="17" />
       <module name="Kizzy.theme" target="17" />

@@ -10,10 +10,9 @@
  *
  */
 
-package com.my.kizzy.ui.svg
+package com.my.kizzy.feature_settings.style.svg
 
 import android.graphics.drawable.PictureDrawable
-import androidx.annotation.DrawableRes
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
@@ -72,7 +71,8 @@ fun DynamicSVGImage(
     ) {
         Crossfade(targetState = pic, label = "svg") {
             SvgImage(
-                contentDescription = contentDescription, data = it, placeholder = null, error = null
+                contentDescription = contentDescription,
+                data = it
             )
         }
     }
@@ -86,15 +86,11 @@ fun SvgImage(
     scale: Scale = Scale.FIT,
     precision: Precision = Precision.AUTOMATIC,
     contentScale: ContentScale = ContentScale.Fit,
-    contentDescription: String = "",
-    @DrawableRes placeholder: Int? = com.my.kizzy.R.drawable.ic_hourglass_empty_black,
-    @DrawableRes error: Int? = com.my.kizzy.R.drawable.broken_image,
+    contentDescription: String = ""
 ) {
     Image(
         painter = rememberAsyncImagePainter(
             ImageRequest.Builder(LocalContext.current).data(data = data).apply(block = fun ImageRequest.Builder.() {
-                if (placeholder != null) placeholder(placeholder)
-                if (error != null) error(error)
                 crossfade(true)
                 scale(scale)
                 precision(precision)

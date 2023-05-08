@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.ui.screen.settings.rpc_settings
+package com.my.kizzy.feature_settings.rpc_settings
 
 import android.os.Build
 import android.widget.Toast
@@ -38,12 +38,11 @@ import com.my.kizzy.preference.Prefs
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.rpc.Constants.MAX_ALLOWED_CHARACTER_LENGTH
 import com.my.kizzy.ui.components.BackButton
+import com.my.kizzy.ui.components.RpcField
 import com.my.kizzy.ui.components.SettingItem
 import com.my.kizzy.ui.components.Subtitle
 import com.my.kizzy.ui.components.dialog.SingleChoiceItem
 import com.my.kizzy.ui.components.preference.PreferenceSwitch
-import com.my.kizzy.ui.screen.home.custom.RpcField
-import com.my.kizzy.utils.Log
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -182,7 +181,6 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 confirmButton = {
                     TextButton(onClick = {
                         Prefs[Prefs.RPC_BUTTONS_DATA] = Gson().toJson(rpcButtons)
-                        Log.logger.d("Gson", rpcButtons.toString())
                         showButtonsConfigDialog = false
                     }
                     ) {

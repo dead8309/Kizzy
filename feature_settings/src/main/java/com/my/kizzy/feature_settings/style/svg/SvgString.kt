@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.ui.svg
+package com.my.kizzy.feature_settings.style.svg
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb

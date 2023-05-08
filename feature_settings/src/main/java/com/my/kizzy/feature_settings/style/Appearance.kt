@@ -1,6 +1,6 @@
 @file:Suppress("DEPRECATION")
 
-package com.my.kizzy.ui.screen.settings.style
+package com.my.kizzy.feature_settings.style
 
 /**
  * source: https://github.com/JunkFood02/Seal
@@ -42,6 +42,9 @@ import com.kyant.monet.a2
 import com.kyant.monet.a3
 import com.kyant.monet.n2
 import com.kyant.monet.toColor
+import com.my.kizzy.feature_settings.style.svg.DynamicSVGImage
+import com.my.kizzy.feature_settings.style.svg.PALETTE
+import com.my.kizzy.preference.DEFAULT_SEED_COLOR
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.preference.Prefs.CUSTOM_THEME_COLOR
 import com.my.kizzy.preference.modifyThemeSeedColor
@@ -51,9 +54,6 @@ import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.SettingItem
 import com.my.kizzy.ui.components.dialog.TextFieldDialog
 import com.my.kizzy.ui.components.preference.PreferenceSwitch
-import com.my.kizzy.ui.svg.DynamicSVGImage
-import com.my.kizzy.ui.svg.PALETTE
-import com.my.kizzy.ui.theme.DEFAULT_SEED_COLOR
 import com.my.kizzy.ui.theme.LocalDarkTheme
 import com.my.kizzy.ui.theme.LocalDynamicColorSwitch
 import com.my.kizzy.ui.theme.LocalPaletteStyleIndex

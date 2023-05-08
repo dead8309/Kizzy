@@ -1,6 +1,7 @@
 package com.my.kizzy.ui.screen.home
 
 import android.annotation.SuppressLint
+import android.content.ComponentName
 import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -34,18 +35,20 @@ import com.google.gson.Gson
 import com.my.kizzy.BuildConfig
 import com.my.kizzy.R
 import com.my.kizzy.data.rpc.Constants
+import com.my.kizzy.data.utils.fromJson
+import com.my.kizzy.domain.model.User
+import com.my.kizzy.feature_settings.SettingsDrawer
+import com.my.kizzy.preference.Prefs
+import com.my.kizzy.preference.Prefs.USER_DATA
 import com.my.kizzy.services.AppDetectionService
 import com.my.kizzy.services.CustomRpcService
 import com.my.kizzy.services.ExperimentalRpc
+import com.my.kizzy.services.KizzyTileService
 import com.my.kizzy.services.MediaRpcService
-import com.my.kizzy.utils.AppUtils
-import com.my.kizzy.data.utils.fromJson
-import com.my.kizzy.ui.components.KSwitch
 import com.my.kizzy.ui.Routes
-import com.my.kizzy.ui.screen.settings.SettingsDrawer
-import com.my.kizzy.preference.Prefs
-import com.my.kizzy.preference.Prefs.USER_DATA
-import com.my.kizzy.domain.model.User
+import com.my.kizzy.ui.components.ChipSection
+import com.my.kizzy.ui.components.KSwitch
+import com.my.kizzy.utils.AppUtils
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.launch
 
@@ -182,6 +185,8 @@ fun Home(
             ModalDrawerSheet(modifier = Modifier.width(300.dp)) {
                 SettingsDrawer(
                     user = user,
+                    showKizzyQuickieRequestItem = !KizzyTileService.tileAdded.value,
+                    componentName = ComponentName(ctx,KizzyTileService::class.java),
                     navigateToProfile = {
                         navigateTo(Routes.PROFILE)
                     },

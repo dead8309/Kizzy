@@ -2,7 +2,7 @@
  * ReadYou: https://github.com/Ashinch/ReadYou
  */
 
-package com.my.kizzy.ui.svg
+package com.my.kizzy.feature_settings.style.svg
 
 val PALETTE
     get() = """

@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.ui.screen.settings.style
+package com.my.kizzy.feature_settings.style
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding

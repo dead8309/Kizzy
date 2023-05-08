@@ -1,5 +1,4 @@
-package com.my.kizzy.ui.screen.settings
-
+package com.my.kizzy.feature_settings
 import android.app.StatusBarManager
 import android.content.ComponentName
 import android.os.Build
@@ -32,19 +31,19 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.my.kizzy.BuildConfig
 import com.kizzy.strings.R
 import com.my.kizzy.data.rpc.Constants
-import com.my.kizzy.services.KizzyTileService
 import com.my.kizzy.domain.model.User
 import com.my.kizzy.ui.components.Subtitle
-import com.my.kizzy.ui.screen.home.chips
+import com.my.kizzy.ui.components.chips
 import com.skydoves.landscapist.glide.GlideImage
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsDrawer(
     user: User?,
+    showKizzyQuickieRequestItem: Boolean,
+    componentName: ComponentName,
     navigateToProfile: () -> Unit,
     navigateToStyleAndAppearance: () -> Unit,
     navigateToLanguages: () -> Unit,
@@ -131,7 +130,7 @@ fun SettingsDrawer(
                 item {
                     SettingsItemCard(
                         title = "Discord",
-                        icon = ImageVector.vectorResource(id = com.my.kizzy.R.drawable.ic_discord)
+                        icon = ImageVector.vectorResource(id = com.my.kizzy.feature_settings.R.drawable.ic_discord)
                     ) {
                         //Discord Server Link
                         uriHandler.openUri(chips.first().url)
@@ -146,7 +145,10 @@ fun SettingsDrawer(
                     }
                 }
                 item {
-                    RequestQsTile()
+                    RequestQsTile(
+                        visible = showKizzyQuickieRequestItem,
+                        componentName = componentName
+                    )
                 }
             }
             if (user != null){
@@ -157,13 +159,16 @@ fun SettingsDrawer(
 }
 
 @Composable
-fun RequestQsTile() {
+fun RequestQsTile(
+    visible: Boolean = true,
+    componentName: ComponentName
+) {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
     val ctx = LocalContext.current
     val label = stringResource(R.string.qs_tile_label)
     val statusBarManager: StatusBarManager = ctx.getSystemService(StatusBarManager::class.java)
     AnimatedVisibility(
-        visible = !KizzyTileService.tileAdded.value,
+        visible = visible,
         exit = fadeOut(tween(800))
     ){
         SettingsItemCard(
@@ -172,12 +177,9 @@ fun RequestQsTile() {
             selected = true,
         ) {
             statusBarManager.requestAddTileService(
-                ComponentName(
-                    ctx,
-                    KizzyTileService::class.java
-                ),
+                componentName,
                 label,
-                android.graphics.drawable.Icon.createWithResource(ctx, com.my.kizzy.R.drawable.ic_tile_play),
+                android.graphics.drawable.Icon.createWithResource(ctx, com.my.kizzy.feature_settings.R.drawable.ic_tile_play),
                 {},
             ) {}
         }
@@ -239,8 +241,8 @@ fun ProfileCardSmall(
                     modifier = Modifier
                         .size(50.dp)
                         .clip(CircleShape),
-                    error = ImageBitmap.imageResource(id = com.my.kizzy.R.drawable.error_avatar),
-                    previewPlaceholder = com.my.kizzy.R.drawable.error_avatar
+                    error = ImageBitmap.imageResource(id = com.my.kizzy.feature_settings.R.drawable.error_avatar),
+                    previewPlaceholder = com.my.kizzy.feature_settings.R.drawable.error_avatar
                 )
                 Text(
                     modifier = Modifier
@@ -271,6 +273,8 @@ fun SettingsDrawerPreview() {
         .fillMaxSize()
         .background(Color.LightGray)){
         SettingsDrawer(
+            showKizzyQuickieRequestItem = false,
+            componentName = ComponentName("",""),
             user = null,
             navigateToProfile = {},
             navigateToStyleAndAppearance = {},

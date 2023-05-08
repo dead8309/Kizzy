@@ -61,6 +61,7 @@ dependencies {
     implementation (projects.featureCrashHandler)
     implementation (projects.featureProfile)
     implementation (projects.featureAbout)
+    implementation (projects.featureSettings)
 
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.tooling.preview)
