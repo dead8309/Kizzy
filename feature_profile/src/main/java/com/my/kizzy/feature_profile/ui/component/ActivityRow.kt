@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.ui.screen.profile.user.component
+package com.my.kizzy.feature_profile.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -25,15 +25,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.my.kizzy.R
-import com.my.kizzy.ui.screen.home.custom.RpcIntent
+import com.my.kizzy.domain.model.RpcConfig
 import com.my.kizzy.ui.theme.DarkBlueBg
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
 fun ActivityRow(
     elapsed: Int,
-    rpcData: RpcIntent?,
+    rpcConfig: RpcConfig?,
     showTs: Boolean,
     special: String?
 ) {
@@ -54,12 +53,12 @@ fun ActivityRow(
                 contentAlignment = Alignment.Center
             ) {
                 GlideImage(
-                    imageModel = if (rpcData?.largeImg?.startsWith("attachments") == true) "https://media.discordapp.net/${rpcData.largeImg}" else
-                        rpcData?.largeImg,
-                    error = painterResource(id =  R.drawable.editing_rpc_pencil),
-                    previewPlaceholder = R.drawable.editing_rpc_pencil,
+                    imageModel = if (rpcConfig?.largeImg?.startsWith("attachments") == true) "https://media.discordapp.net/${rpcConfig.largeImg}" else
+                        rpcConfig?.largeImg,
+                    error = painterResource(id =  com.my.kizzy.feature_profile.R.drawable.editing_rpc_pencil),
+                    previewPlaceholder = com.my.kizzy.feature_profile.R.drawable.editing_rpc_pencil,
                     contentDescription = null,
-                    modifier = if (!rpcData?.largeImg.isNullOrEmpty())
+                    modifier = if (!rpcConfig?.largeImg.isNullOrEmpty())
                         Modifier
                             .size(70.dp)
                             .clip(RoundedCornerShape(15.dp))
@@ -68,15 +67,15 @@ fun ActivityRow(
                             .size(48.dp)
                             .background(DarkBlueBg, RoundedCornerShape(15.dp))
                 )
-                if (!rpcData?.smallImg.isNullOrEmpty()) {
+                if (!rpcConfig?.smallImg.isNullOrEmpty()) {
                     GlideImage(
                         imageModel =
-                        if (rpcData?.smallImg?.startsWith("attachments") == true)
-                            "https://media.discordapp.net/${rpcData.largeImg}"
+                        if (rpcConfig?.smallImg?.startsWith("attachments") == true)
+                            "https://media.discordapp.net/${rpcConfig.largeImg}"
                         else
-                            rpcData?.smallImg,
-                        error = painterResource(id = R.drawable.ic_rpc_placeholder),
-                        previewPlaceholder = R.drawable.ic_rpc_placeholder,
+                            rpcConfig?.smallImg,
+                        error = painterResource(id = com.my.kizzy.feature_profile.R.drawable.ic_rpc_placeholder),
+                        previewPlaceholder = com.my.kizzy.feature_profile.R.drawable.ic_rpc_placeholder,
                         contentDescription = null,
                         modifier = Modifier
                             .size(30.dp)
@@ -87,7 +86,7 @@ fun ActivityRow(
             }
             Column {
                 ProfileText(
-                    text = rpcData?.name.takeIf { !it.isNullOrEmpty() }?:"User Profile",
+                    text = rpcConfig?.name.takeIf { !it.isNullOrEmpty() }?:"User Profile",
                     style = MaterialTheme.typography.titleSmall
                         .copy(
                             fontFamily = FontFamily.Monospace,
@@ -95,7 +94,7 @@ fun ActivityRow(
                         )
                 )
                 ProfileText(
-                    text = rpcData?.details,
+                    text = rpcConfig?.details,
                     style = MaterialTheme.typography.titleSmall
                         .copy(
                             fontFamily = FontFamily.Monospace,
@@ -103,7 +102,7 @@ fun ActivityRow(
                         )
                 )
                 ProfileText(
-                    text = rpcData?.state,
+                    text = rpcConfig?.state,
                     style = MaterialTheme.typography.titleSmall
                         .copy(
                             fontFamily = FontFamily.Monospace,
@@ -124,9 +123,9 @@ fun ActivityRow(
         }
         if (showTs)
             ProfileButton(label = "Special Button", link = special)
-        if (rpcData != null) {
-            ProfileButton(label = rpcData.button1, link = rpcData.button1link )
-            ProfileButton(label = rpcData.button2, link = rpcData.button2link )
+        if (rpcConfig != null) {
+            ProfileButton(label = rpcConfig.button1, link = rpcConfig.button1link )
+            ProfileButton(label = rpcConfig.button2, link = rpcConfig.button2link )
         }
 
     }

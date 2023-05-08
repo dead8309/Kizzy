@@ -10,16 +10,33 @@
  *
  */
 
-package com.my.kizzy.ui.screen.profile.user.component
+package com.my.kizzy.feature_profile.ui.component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,15 +50,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.my.kizzy.R
-import com.my.kizzy.preference.Prefs
-import com.my.kizzy.ui.screen.home.custom.RpcIntent
-import com.my.kizzy.ui.screen.profile.user.Base
-import com.my.kizzy.ui.theme.DISCORD_LIGHT_DARK
-import com.my.kizzy.data.rpc.Constants
+import com.my.kizzy.domain.model.RpcConfig
 import com.my.kizzy.domain.model.User
+import com.my.kizzy.feature_profile.R
+import com.my.kizzy.feature_profile.ui.user.Base
+import com.my.kizzy.ui.theme.DISCORD_LIGHT_DARK
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.delay
+
+const val NITRO_ICON = "https://cdn.discordapp.com/attachments/948828217312178227/1041053075567284295/nitro.png"
+const val USER_BANNER = "https://discord.com/assets/97ac61a0b98fd6f01b4de370c9ccdb56.png"
 
 @Composable
 fun ProfileCard(
@@ -50,7 +68,7 @@ fun ProfileCard(
     backgroundColors: List<Color> = listOf(Color(0xFFC2C0FA), Color(0xFFFADAF0)),
     padding: Dp = 30.dp,
     type: String = "USING KIZZY RICH PRESENCE",
-    rpcData: RpcIntent? = null,
+    rpcConfig: RpcConfig? = null,
     showTs: Boolean = true
 ) {
     var elapsed by remember {
@@ -99,7 +117,7 @@ fun ProfileCard(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(120.dp),
-                    imageModel = banner ?: Constants.USER_BANNER,
+                    imageModel = banner ?: USER_BANNER,
                     previewPlaceholder = R.drawable.ic_profile_banner
                 )
 
@@ -127,9 +145,9 @@ fun ProfileCard(
                         .clip(RoundedCornerShape(12.dp))
                         .background(Color.White)
                 ) {
-                    if (Prefs[Prefs.USER_NITRO, false]) {
+                    if (user.nitro == true) {
                         GlideImage(
-                            imageModel = Constants.NITRO_ICON,
+                            imageModel = NITRO_ICON,
                             previewPlaceholder = R.drawable.editing_rpc_pencil,
                             modifier = Modifier
                                 .size(40.dp)
@@ -171,18 +189,17 @@ fun ProfileCard(
                     style = MaterialTheme.typography.titleSmall
                 )
                 ProfileText(
-                    text = Prefs[Prefs.USER_BIO, ""],
+                    text = user.bio,
                     style = MaterialTheme.typography.bodyMedium,
                     bold = false
                 )
-
                 ProfileText(
                     text = type,
                     style = MaterialTheme.typography.titleSmall
                 )
                 ActivityRow(
                     elapsed = elapsed,
-                    rpcData = rpcData,
+                    rpcConfig = rpcConfig,
                     showTs = showTs,
                     special = user.special
                 )

@@ -20,6 +20,7 @@
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/feature_crash_handler" />
+            <option value="$PROJECT_DIR$/feature_profile" />
             <option value="$PROJECT_DIR$/feature_startup" />
             <option value="$PROJECT_DIR$/gateway" />
             <option value="$PROJECT_DIR$/theme" />

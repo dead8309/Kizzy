@@ -1,16 +1,27 @@
-package com.my.kizzy.ui.screen.profile.user
+/*
+ *
+ *  ******************************************************************
+ *  *  * Copyright (C) 2022
+ *  *  * UserInfo.kt is part of Kizzy
+ *  *  *  and can not be copied and/or distributed without the express
+ *  *  * permission of yzziK(Vaibhav)
+ *  *  *****************************************************************
+ *
+ *
+ */
+
+package com.my.kizzy.feature_profile
 
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.preference.Prefs.USER_BIO
 import com.my.kizzy.preference.Prefs.USER_ID
 import com.my.kizzy.preference.Prefs.USER_NITRO
-import com.my.kizzy.utils.KLogger
 import kizzy.gateway.DiscordWebSocket
 import kizzy.gateway.DiscordWebSocketImpl
 import kizzy.gateway.entities.Payload
 
 suspend fun getUserInfo(token: String, onInfoSaved: () -> Unit) {
-    val discordWebSocket: DiscordWebSocket = object: DiscordWebSocketImpl(token,KLogger()){
+    val discordWebSocket: DiscordWebSocket = object: DiscordWebSocketImpl(token){
         override fun Payload.handleDispatch() {
             if (this.t.toString() == "READY"){
                 val data = (this.d as Map<*, *>?)!!["user"] as Map<*, *>?

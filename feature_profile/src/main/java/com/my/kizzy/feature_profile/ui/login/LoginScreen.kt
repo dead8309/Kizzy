@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.ui.screen.profile.login
+package com.my.kizzy.feature_profile.ui.login
 
 import android.annotation.SuppressLint
 import android.view.View
@@ -30,14 +30,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.kizzy.strings.R
-import com.my.kizzy.utils.Log.logger
+import com.my.kizzy.feature_profile.getUserInfo
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.preference.Prefs.TOKEN
 import com.my.kizzy.ui.components.BackButton
-import com.my.kizzy.ui.screen.profile.user.getUserInfo
 import com.my.kizzy.ui.theme.DISCORD_GREY
 import kotlinx.coroutines.launch
 
@@ -86,7 +86,7 @@ fun LoginScreen(
                 enabled = !showProgress
             ) {
                 Icon(
-                    painter = painterResource(id = com.my.kizzy.R.drawable.ic_discord),
+                    painter = painterResource(id = com.my.kizzy.feature_profile.R.drawable.ic_discord),
                     tint = Color.Unspecified,
                     contentDescription = "discord_login",
                     modifier = Modifier.padding(end = 5.dp)
@@ -129,7 +129,6 @@ fun LoginScreen(
                                 showProgress = true
                                 scope.launch {
                                     getUserInfo(message, onInfoSaved = {
-                                        logger.d("Login Screen","Login Completed")
                                         onCompleted()
                                     })
                                 }
@@ -143,4 +142,12 @@ fun LoginScreen(
             }
         }
     }
+}
+@Preview
+@Composable
+fun LoginScreenPreview() {
+    LoginScreen(
+        onCompleted = {},
+        onBackPressed = {}
+    )
 }

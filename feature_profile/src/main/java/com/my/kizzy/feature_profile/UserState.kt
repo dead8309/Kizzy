@@ -10,12 +10,12 @@
  *
  */
 
-package com.my.kizzy.ui.screen.profile.user
+package com.my.kizzy.feature_profile
 
 import com.my.kizzy.domain.model.User
 
-data class UserState(
-    val user: User? = null,
-    val error: String = "",
-    val loading: Boolean = false
-)
+sealed interface UserState {
+    object Loading: UserState
+    class Error(val error: String,val user: User?): UserState
+    class LoadingCompleted(val user: User?): UserState
+}

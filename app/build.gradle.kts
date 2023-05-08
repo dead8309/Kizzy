@@ -59,6 +59,7 @@ dependencies {
     implementation(projects.theme)
     implementation (projects.featureStartup)
     implementation (projects.featureCrashHandler)
+    implementation (projects.featureProfile)
 
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.tooling.preview)

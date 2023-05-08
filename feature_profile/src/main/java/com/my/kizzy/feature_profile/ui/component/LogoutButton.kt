@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.ui.screen.profile.user.component
+package com.my.kizzy.feature_profile.ui.component
 
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
