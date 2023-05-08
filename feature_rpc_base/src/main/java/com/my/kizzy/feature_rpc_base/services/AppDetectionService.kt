@@ -12,7 +12,7 @@
 
 @file:Suppress("DEPRECATION")
 
-package com.my.kizzy.services
+package com.my.kizzy.feature_rpc_base.services
 
 import android.app.*
 import android.app.usage.UsageStats
@@ -23,10 +23,10 @@ import android.os.IBinder
 import com.blankj.utilcode.util.AppUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.my.kizzy.R
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.rpc.KizzyRPC
 import com.my.kizzy.data.rpc.RpcImage
+import com.my.kizzy.feature_rpc_base.R
 import com.my.kizzy.feature_settings.rpc_settings.RpcButtons
 import com.my.kizzy.preference.Prefs
 import dagger.hilt.android.AndroidEntryPoint

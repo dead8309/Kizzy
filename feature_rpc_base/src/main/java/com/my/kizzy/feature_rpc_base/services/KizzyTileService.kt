@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.services
+package com.my.kizzy.feature_rpc_base.services
 
 import android.app.Dialog
 import android.content.Context
@@ -22,8 +22,8 @@ import android.service.quicksettings.TileService
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.compose.runtime.mutableStateOf
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.my.kizzy.R
-import com.my.kizzy.utils.AppUtils
+import com.my.kizzy.feature_rpc_base.AppUtils
+import com.my.kizzy.feature_rpc_base.R
 import com.my.kizzy.preference.Prefs
 
 class KizzyTileService : TileService() {

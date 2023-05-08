@@ -10,17 +10,17 @@
  *
  */
 
-package com.my.kizzy.services
+package com.my.kizzy.feature_rpc_base.services
 
 import android.app.*
 import android.content.Intent
 import android.os.IBinder
 import com.google.gson.GsonBuilder
-import com.my.kizzy.R
 import com.my.kizzy.data.get_current_data.AppTracker
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.rpc.KizzyRPC
 import com.my.kizzy.domain.interfaces.Logger
+import com.my.kizzy.feature_rpc_base.R
 import com.my.kizzy.feature_settings.rpc_settings.RpcButtons
 import com.my.kizzy.preference.Prefs
 import dagger.hilt.android.AndroidEntryPoint

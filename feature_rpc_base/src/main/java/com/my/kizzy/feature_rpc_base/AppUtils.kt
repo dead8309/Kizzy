@@ -10,16 +10,14 @@
  *
  */
 
-@file:Suppress("DEPRECATION")
-
-package com.my.kizzy.utils
+package com.my.kizzy.feature_rpc_base
 
 import android.app.ActivityManager
 import android.content.Context
-import com.my.kizzy.services.AppDetectionService
-import com.my.kizzy.services.CustomRpcService
-import com.my.kizzy.services.ExperimentalRpc
-import com.my.kizzy.services.MediaRpcService
+import com.my.kizzy.feature_rpc_base.services.AppDetectionService
+import com.my.kizzy.feature_rpc_base.services.CustomRpcService
+import com.my.kizzy.feature_rpc_base.services.ExperimentalRpc
+import com.my.kizzy.feature_rpc_base.services.MediaRpcService
 import javax.inject.Singleton
 
 @Singleton

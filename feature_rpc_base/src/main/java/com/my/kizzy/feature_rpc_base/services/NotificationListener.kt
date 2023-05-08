@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.services
+package com.my.kizzy.feature_rpc_base.services
 
 import android.service.notification.NotificationListenerService
 

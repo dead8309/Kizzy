@@ -17,8 +17,8 @@ import android.content.Context
 import com.my.kizzy.data.rpc.KizzyRPC
 import com.my.kizzy.domain.interfaces.Logger
 import com.my.kizzy.domain.repository.KizzyRepository
+import com.my.kizzy.feature_rpc_base.services.NotificationListener
 import com.my.kizzy.preference.Prefs
-import com.my.kizzy.services.NotificationListener
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -53,5 +53,5 @@ object ServiceModule {
     @Provides
     fun providesComponentName(
         @ApplicationContext context: Context
-    ) = ComponentName(context,NotificationListener::class.java)
+    ) = ComponentName(context, NotificationListener::class.java)
 }
