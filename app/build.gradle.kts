@@ -17,8 +17,8 @@ android {
         applicationId = "com.my.kizzy"
         minSdk = 26
         targetSdk = 33
-        versionCode = 4
-        versionName = "4.4"
+        versionCode = libs.versions.version.code.get().toInt()
+        versionName = libs.versions.version.name.get()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -60,6 +60,7 @@ dependencies {
     implementation (projects.featureStartup)
     implementation (projects.featureCrashHandler)
     implementation (projects.featureProfile)
+    implementation (projects.featureAbout)
 
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.tooling.preview)
