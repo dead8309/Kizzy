@@ -42,6 +42,7 @@ import com.my.kizzy.feature_rpc_base.services.AppDetectionService
 import com.my.kizzy.feature_rpc_base.services.CustomRpcService
 import com.my.kizzy.feature_rpc_base.services.ExperimentalRpc
 import com.my.kizzy.feature_rpc_base.services.MediaRpcService
+import com.my.kizzy.feature_rpc_base.stopService
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.SearchBar
@@ -56,6 +57,7 @@ fun GamesScreen(
     onBackPressed: () -> Unit,
     onEvent: (UiEvent) -> Unit,
     state: GamesState,
+    serviceEnabled: Boolean,
     isSearchBarVisible: Boolean
 ) {
     var selected by remember {
@@ -64,7 +66,7 @@ fun GamesScreen(
 
     val context = LocalContext.current
     var isConsoleRpcRunning by remember {
-        mutableStateOf(false/*AppUtils.customRpcRunning()*/)
+        mutableStateOf(serviceEnabled)
     }
     var searchText by remember { mutableStateOf("") }
 
@@ -149,34 +151,13 @@ fun GamesScreen(
                                     if (intent.hasExtra("RPC")) {
                                         Prefs[Prefs.LAST_RUN_CONSOLE_RPC] =
                                             intent.getStringExtra("RPC")
-                                        context.stopService(
-                                            Intent(
-                                                context,
-                                                AppDetectionService::class.java
-                                            )
-                                        )
-                                        context.stopService(
-                                            Intent(
-                                                context,
-                                                MediaRpcService::class.java
-                                            )
-                                        )
-                                        context.stopService(
-                                            Intent(
-                                                context,
-                                                ExperimentalRpc::class.java
-                                            )
-                                        )
+                                        context.stopService<AppDetectionService>()
+                                        context.stopService<MediaRpcService>()
+                                        context.stopService<ExperimentalRpc>()
                                         context.startService(intent)
                                     }
                                 }
-
-                                false -> context.stopService(
-                                    Intent(
-                                        context,
-                                        CustomRpcService::class.java
-                                    )
-                                )
+                                false -> context.stopService<CustomRpcService>()
                             }
                         }
                         LazyColumn {
@@ -305,7 +286,8 @@ fun GamesScreenPreview() {
         onEvent = {},
         onBackPressed = {},
         state = GamesState.Loading,
-        isSearchBarVisible = false
+        isSearchBarVisible = false,
+        serviceEnabled = false
     )
 }
 @Preview
@@ -315,7 +297,8 @@ fun GamesScreenPreview2() {
         onEvent = {},
         onBackPressed = {},
         state = GamesState.Error("No Internet Connection"),
-        isSearchBarVisible = false
+        isSearchBarVisible = false,
+        serviceEnabled = false
     )
 }
 @Preview
@@ -327,7 +310,8 @@ fun GamesScreenPreview3() {
         state = GamesState.Success(
             games = fakeGames
         ),
-        isSearchBarVisible = false
+        isSearchBarVisible = false,
+        serviceEnabled = false
     )
 }
 @Preview
@@ -337,7 +321,8 @@ fun GamesScreenPreview4() {
         onEvent = {},
         onBackPressed = {},
         state = GamesState.Loading,
-        isSearchBarVisible = true
+        isSearchBarVisible = true,
+        serviceEnabled = true
     )
 }
 @Preview
@@ -347,7 +332,8 @@ fun GamesScreenPreview5() {
         onEvent = {},
         onBackPressed = {},
         state = GamesState.Error("No Internet Connection"),
-        isSearchBarVisible = true
+        isSearchBarVisible = true,
+        serviceEnabled = true
     )
 }
 @Preview
@@ -357,6 +343,7 @@ fun GamesScreenPreview6() {
         onEvent = {},
         onBackPressed = {},
         state = GamesState.Success(games = fakeGames),
-        isSearchBarVisible = true
+        isSearchBarVisible = true,
+        serviceEnabled = true
     )
 }
