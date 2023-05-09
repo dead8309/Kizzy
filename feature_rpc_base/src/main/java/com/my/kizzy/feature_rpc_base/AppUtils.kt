@@ -10,6 +10,8 @@
  *
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.my.kizzy.feature_rpc_base
 
 import android.app.ActivityManager
