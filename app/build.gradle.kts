@@ -67,6 +67,7 @@ dependencies {
     implementation (projects.featureAppsRpc)
     implementation (projects.featureMediaRpc)
     implementation (projects.featureConsoleRpc)
+    implementation (projects.featureCustomRpc)
 
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.tooling.preview)

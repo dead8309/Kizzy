@@ -25,6 +25,8 @@ import com.my.kizzy.feature_about.about.CreditsScreenViewModel
 import com.my.kizzy.feature_apps_rpc.AppsRPC
 import com.my.kizzy.feature_console_rpc.GamesScreen
 import com.my.kizzy.feature_console_rpc.GamesViewModel
+import com.my.kizzy.feature_custom_rpc.CustomRPC
+import com.my.kizzy.feature_custom_rpc.CustomScreenViewModel
 import com.my.kizzy.feature_logs.LogScreen
 import com.my.kizzy.feature_logs.LogsViewModel
 import com.my.kizzy.feature_media_rpc.MediaRPC
@@ -43,8 +45,6 @@ import com.my.kizzy.preference.getLanguageConfig
 import com.my.kizzy.ui.Routes
 import com.my.kizzy.ui.animatedComposable
 import com.my.kizzy.ui.screen.home.Home
-import com.my.kizzy.ui.screen.home.custom.CustomRPC
-import com.my.kizzy.ui.screen.home.custom.CustomScreenViewModel
 import com.my.kizzy.ui.theme.KizzyTheme
 import com.my.kizzy.ui.theme.LocalDarkTheme
 import com.my.kizzy.ui.theme.LocalDynamicColorSwitch

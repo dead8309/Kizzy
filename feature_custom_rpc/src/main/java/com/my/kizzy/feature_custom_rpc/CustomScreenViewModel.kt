@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.ui.screen.home.custom
+package com.my.kizzy.feature_custom_rpc
 
 import android.annotation.SuppressLint
 import android.net.Uri

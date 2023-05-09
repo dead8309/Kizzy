@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.ui.screen.home.custom
+package com.my.kizzy.feature_custom_rpc
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
@@ -48,6 +48,7 @@ import com.my.kizzy.feature_rpc_base.services.AppDetectionService
 import com.my.kizzy.feature_rpc_base.services.CustomRpcService
 import com.my.kizzy.feature_rpc_base.services.ExperimentalRpc
 import com.my.kizzy.feature_rpc_base.services.MediaRpcService
+import com.my.kizzy.feature_rpc_base.stopService
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.RpcField
@@ -153,7 +154,7 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
                                     },
                                     leadingIcon = {
                                         Icon(
-                                            painter = painterResource(id = com.my.kizzy.R.drawable.ic_rpc_placeholder),
+                                            painter = painterResource(id = com.my.kizzy.feature_custom_rpc.R.drawable.ic_rpc_placeholder),
                                             contentDescription = null,
                                             modifier = Modifier.size(
                                                 Icons.Default.Delete.defaultWidth,
@@ -242,28 +243,16 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
                             isCustomRpcEnabled = !isCustomRpcEnabled
                             when (isCustomRpcEnabled) {
                                 true -> {
-                                    context.stopService(
-                                        Intent(
-                                            context, AppDetectionService::class.java
-                                        )
-                                    )
-                                    context.stopService(
-                                        Intent(
-                                            context, MediaRpcService::class.java
-                                        )
-                                    )
-                                    context.stopService(Intent(context, ExperimentalRpc::class.java))
+                                    context.stopService<AppDetectionService>()
+                                    context.stopService<MediaRpcService>()
+                                    context.stopService<ExperimentalRpc>()
                                     val intent = Intent(context, CustomRpcService::class.java)
                                     val string = Gson().toJson(rpc)
                                     intent.putExtra("RPC", string)
                                     Prefs[Prefs.LAST_RUN_CUSTOM_RPC] = string
                                     context.startService(intent)
                                 }
-                                false -> context.stopService(
-                                    Intent(
-                                        context, CustomRpcService::class.java
-                                    )
-                                )
+                                false -> context.stopService<CustomRpcService>()
                             }
                         }
                     }

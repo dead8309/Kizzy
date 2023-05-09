@@ -23,6 +23,7 @@
             <option value="$PROJECT_DIR$/feature_apps_rpc" />
             <option value="$PROJECT_DIR$/feature_console_rpc" />
             <option value="$PROJECT_DIR$/feature_crash_handler" />
+            <option value="$PROJECT_DIR$/feature_custom_rpc" />
             <option value="$PROJECT_DIR$/feature_logs" />
             <option value="$PROJECT_DIR$/feature_media_rpc" />
             <option value="$PROJECT_DIR$/feature_profile" />
