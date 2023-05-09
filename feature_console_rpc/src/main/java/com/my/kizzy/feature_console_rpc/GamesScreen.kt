@@ -38,7 +38,6 @@ import androidx.compose.ui.unit.sp
 import com.google.gson.Gson
 import com.my.kizzy.domain.model.Game
 import com.my.kizzy.domain.model.RpcConfig
-import com.my.kizzy.feature_rpc_base.AppUtils
 import com.my.kizzy.feature_rpc_base.services.AppDetectionService
 import com.my.kizzy.feature_rpc_base.services.CustomRpcService
 import com.my.kizzy.feature_rpc_base.services.ExperimentalRpc
@@ -65,7 +64,7 @@ fun GamesScreen(
 
     val context = LocalContext.current
     var isConsoleRpcRunning by remember {
-        mutableStateOf(AppUtils.customRpcRunning())
+        mutableStateOf(false/*AppUtils.customRpcRunning()*/)
     }
     var searchText by remember { mutableStateOf("") }
 
@@ -95,7 +94,7 @@ fun GamesScreen(
                     }
                 },
                 actions = {
-                        if(isSearchBarVisible) {
+                        if(!isSearchBarVisible) {
                             IconButton(onClick = { onEvent(UiEvent.OpenSearchBar) }) {
                                 Icon(Icons.Default.Search, "search")
                             }
@@ -238,7 +237,8 @@ fun SingleChoiceGameItem(
                     imageModel = game.large_image,
                     modifier = Modifier
                         .size(80.dp)
-                        .clip(RoundedCornerShape(15.dp))
+                        .clip(RoundedCornerShape(15.dp)),
+                    previewPlaceholder = com.my.kizzy.feature_rpc_base.R.drawable.ic_console_games
                 )
                 androidx.compose.animation.AnimatedVisibility(
                     visible = selected,
@@ -277,7 +277,8 @@ fun SingleChoiceGameItem(
                 imageModel = game.small_image,
                 modifier = Modifier
                     .size(40.dp)
-                    .clip(CircleShape)
+                    .clip(CircleShape),
+                previewPlaceholder = com.my.kizzy.feature_rpc_base.R.drawable.ic_console_games
             )
         }
     }
