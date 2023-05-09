@@ -10,14 +10,15 @@
  *
  */
 
-package com.my.kizzy.ui.screen.home.console_games
+package com.my.kizzy.feature_console_rpc
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.my.kizzy.domain.model.Resource
 import com.my.kizzy.domain.model.Game
+import com.my.kizzy.domain.model.Resource
 import com.my.kizzy.domain.use_case.get_games.GetGamesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -30,9 +31,9 @@ import javax.inject.Inject
 @HiltViewModel
 class GamesViewModel @Inject constructor(
     private val getGamesUseCase: GetGamesUseCase
-): ViewModel() {
+) : ViewModel() {
 
-   private val _state = mutableStateOf(GamesState())
+    private val _state: MutableState<GamesState> = mutableStateOf(GamesState.Loading)
     val state: State<GamesState> = _state
     private val games = mutableListOf<Game>()
     val isSearchBarVisible = mutableStateOf(false)
@@ -43,41 +44,52 @@ class GamesViewModel @Inject constructor(
         getGames()
     }
 
-    fun getGames(){
+    private fun getGames() {
         getGamesUseCase().onEach { result ->
-            when(result){
+            when (result) {
                 is Resource.Success -> {
-                    _state.value = GamesState(games = result.data?: emptyList(), success = true)
-                    games.addAll(result.data?: emptyList())
+                    _state.value = GamesState.Success(games = result.data ?: emptyList())
+                    games.addAll(result.data ?: emptyList())
                 }
+
                 is Resource.Error -> {
-                    _state.value = GamesState(
-                        error = result.message?: "An unexpected error occurred"
+                    _state.value = GamesState.Error(
+                        error = result.message ?: "An unexpected error occurred"
                     )
                 }
+
                 is Resource.Loading -> {
-                    _state.value = GamesState(isLoading = true)
+                    _state.value = GamesState.Loading
                 }
             }
         }.launchIn(viewModelScope)
     }
-    fun onSearch(query: String){
-                _state.value = _state.value.copy(searchText = query)
-                searchJob?.cancel()
-                searchJob = viewModelScope.launch {
-                    delay(500)
-                    searchForGame(query)
-                }
+
+    fun onUiEvent(uiEvent: UiEvent) {
+        when (uiEvent) {
+            UiEvent.CloseSearchBar -> isSearchBarVisible.value = false
+            UiEvent.OpenSearchBar -> isSearchBarVisible.value = true
+            is UiEvent.Search -> onSearch(uiEvent.query)
+            UiEvent.TryAgain -> getGames()
+        }
     }
 
-   private fun searchForGame(query: String) = if (query == "")
-       _state.value = _state.value.copy(games = games)
-   else {
-       val newList = games.filter {
-           it.game_title.contains(query, ignoreCase = true)
-       }
-       _state.value =_state.value.copy(games = newList)
-   }
+    private fun onSearch(query: String) {
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch {
+            delay(500)
+            searchForGame(query)
+        }
+    }
+
+    private fun searchForGame(query: String) = if (query == "")
+        _state.value = GamesState.Success(games = games)
+    else {
+        val newList = games.filter {
+            it.game_title.contains(query, ignoreCase = true)
+        }
+        _state.value = GamesState.Success(games = newList)
+    }
 }
 
 

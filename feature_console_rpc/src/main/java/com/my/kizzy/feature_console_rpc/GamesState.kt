@@ -10,14 +10,12 @@
  *
  */
 
-package com.my.kizzy.ui.screen.home.console_games
+package com.my.kizzy.feature_console_rpc
 
 import com.my.kizzy.domain.model.Game
 
-data class GamesState(
-    val isLoading: Boolean = false,
-    val games: List<Game> = emptyList(),
-    val error: String = "",
-    val searchText: String = "",
-    val success: Boolean = false
-)
+sealed interface GamesState {
+    object Loading: GamesState
+    class Success(val games: List<Game>): GamesState
+    class Error(val error: String): GamesState
+}

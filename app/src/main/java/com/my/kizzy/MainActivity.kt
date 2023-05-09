@@ -23,6 +23,8 @@ import com.my.kizzy.feature_about.about.About
 import com.my.kizzy.feature_about.about.Credits
 import com.my.kizzy.feature_about.about.CreditsScreenViewModel
 import com.my.kizzy.feature_apps_rpc.AppsRPC
+import com.my.kizzy.feature_console_rpc.GamesScreen
+import com.my.kizzy.feature_console_rpc.GamesViewModel
 import com.my.kizzy.feature_logs.LogScreen
 import com.my.kizzy.feature_logs.LogsViewModel
 import com.my.kizzy.feature_media_rpc.MediaRPC
@@ -40,8 +42,6 @@ import com.my.kizzy.preference.getLanguageConfig
 import com.my.kizzy.ui.Routes
 import com.my.kizzy.ui.animatedComposable
 import com.my.kizzy.ui.screen.home.Home
-import com.my.kizzy.ui.screen.home.console_games.GamesScreen
-import com.my.kizzy.ui.screen.home.console_games.GamesViewModel
 import com.my.kizzy.ui.screen.home.custom.CustomRPC
 import com.my.kizzy.ui.screen.home.custom.CustomScreenViewModel
 import com.my.kizzy.ui.theme.KizzyTheme
@@ -157,9 +157,12 @@ class MainActivity : AppCompatActivity() {
                 }
                 animatedComposable(Routes.CONSOLE_RPC) {
                     val viewModel: GamesViewModel by viewModels()
-                    GamesScreen(onBackPressed = {
-                        navController.popBackStack()
-                    }, viewModel)
+                    GamesScreen(
+                        onBackPressed = { navController.popBackStack() },
+                        onEvent = { viewModel.onUiEvent(it) },
+                        isSearchBarVisible = viewModel.isSearchBarVisible.value,
+                        state = viewModel.state.value
+                    )
                 }
                 animatedComposable(Routes.LANGUAGES) {
                     Language(
