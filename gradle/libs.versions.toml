@@ -21,6 +21,7 @@ crashx = "v6.0.19"
 glide = "1.6.1"
 gson = "2.10"
 hilt = "2.44"
+hilt-navigation = "1.0.0"
 ktor = "2.2.1"
 kotlinx-coroutine = "1.6.4"
 lifecycle-ktx = "2.6.1"
@@ -58,7 +59,7 @@ compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview"
 material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
 
 # Accompanist
-accompanist-animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist" }
+accompanist-navigation-animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist" }
 accompanist-systemUiController = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 accompanist-permission = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
 accompanist-flowLayout = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "accompanist" }
@@ -68,6 +69,7 @@ accompanist-pager-indicators = { group = "com.google.accompanist", name = "accom
 # Hilt
 hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation" }
 
 # gradle plugins
 android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
@@ -114,7 +116,7 @@ network-retrofit = ["retrofit", "retrofit-gson-converter"]
 network-ktor = ["ktor-core", "ktor-client-cio", "ktor-gson", "ktor-websockets"]
 compose-accompanist = [
     "accompanist-flowLayout",
-    "accompanist-animation",
+    "accompanist-navigation-animation",
     "accompanist-systemUiController",
     "accompanist-permission",
     "accompanist-pager-indicators",

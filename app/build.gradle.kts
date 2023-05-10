@@ -69,6 +69,8 @@ dependencies {
     implementation (projects.featureConsoleRpc)
     implementation (projects.featureCustomRpc)
     implementation (projects.featureHome)
+    implementation (projects.common.navigation)
+    implementation (libs.hilt.navigation)
 
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.tooling.preview)
