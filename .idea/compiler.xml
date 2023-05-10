@@ -8,6 +8,7 @@
       <module name="Kizzy.color.test" target="11" />
       <module name="Kizzy.common.components" target="17" />
       <module name="Kizzy.common.logger" target="17" />
+      <module name="Kizzy.common.navigation" target="17" />
       <module name="Kizzy.common.preference" target="17" />
       <module name="Kizzy.common.res.main" target="11" />
       <module name="Kizzy.common.res.test" target="11" />

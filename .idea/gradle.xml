@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/color" />
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/common/components" />
+            <option value="$PROJECT_DIR$/common/navigation" />
             <option value="$PROJECT_DIR$/common/preference" />
             <option value="$PROJECT_DIR$/common/strings" />
             <option value="$PROJECT_DIR$/data" />

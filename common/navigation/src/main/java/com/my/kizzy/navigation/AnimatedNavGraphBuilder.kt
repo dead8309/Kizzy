@@ -1,4 +1,4 @@
-package com.my.kizzy.ui
+package com.my.kizzy.navigation
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
