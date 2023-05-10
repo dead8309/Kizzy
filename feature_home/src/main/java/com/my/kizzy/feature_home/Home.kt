@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import com.my.kizzy.domain.model.User
 import com.my.kizzy.feature_rpc_base.services.KizzyTileService
 import com.my.kizzy.feature_settings.SettingsDrawer
+import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.ChipSection
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.launch
@@ -78,7 +79,7 @@ fun Home(
             topBar = {
                 LargeTopAppBar(title = {
                     Text(
-                        text = stringResource(id = com.kizzy.strings.R.string.welcome) + ", ${user?.username ?: ""}",
+                        text = stringResource(id = R.string.welcome) + ", ${user?.username ?: ""}",
                         style = MaterialTheme.typography.headlineLarge,
                     )
                 }, navigationIcon = {
@@ -121,7 +122,7 @@ fun Home(
                 item {
                     ChipSection()
                     Text(
-                        text = stringResource(id = com.kizzy.strings.R.string.features),
+                        text = stringResource(id = R.string.features),
                         style = MaterialTheme.typography.headlineMedium,
                         modifier = Modifier.padding(start = 15.dp)
                     )

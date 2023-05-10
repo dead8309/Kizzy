@@ -19,11 +19,10 @@ import android.os.IBinder
 import android.os.PowerManager
 import android.os.PowerManager.WakeLock
 import com.google.gson.Gson
-
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.utils.toRpcImage
 import com.my.kizzy.domain.model.RpcConfig
-import com.my.kizzy.feature_rpc_base.R
+import com.my.kizzy.resources.R
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel

@@ -44,6 +44,7 @@ import com.my.kizzy.feature_rpc_base.services.ExperimentalRpc
 import com.my.kizzy.feature_rpc_base.services.MediaRpcService
 import com.my.kizzy.feature_rpc_base.stopService
 import com.my.kizzy.preference.Prefs
+import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.SearchBar
 import com.my.kizzy.ui.components.SwitchBar
@@ -142,7 +143,7 @@ fun GamesScreen(
                 is GamesState.Success -> {
                     Column(Modifier.fillMaxSize().padding(padding)) {
                         SwitchBar(
-                            title = stringResource(id = com.kizzy.strings.R.string.enable_console_rpc),
+                            title = stringResource(id = R.string.enable_console_rpc),
                             isChecked = isConsoleRpcRunning
                         ) {
                             isConsoleRpcRunning = !isConsoleRpcRunning
@@ -219,7 +220,7 @@ fun SingleChoiceGameItem(
                     modifier = Modifier
                         .size(80.dp)
                         .clip(RoundedCornerShape(15.dp)),
-                    previewPlaceholder = com.my.kizzy.feature_rpc_base.R.drawable.ic_console_games
+                    previewPlaceholder = R.drawable.ic_console_games
                 )
                 androidx.compose.animation.AnimatedVisibility(
                     visible = selected,
@@ -259,7 +260,7 @@ fun SingleChoiceGameItem(
                 modifier = Modifier
                     .size(40.dp)
                     .clip(CircleShape),
-                previewPlaceholder = com.my.kizzy.feature_rpc_base.R.drawable.ic_console_games
+                previewPlaceholder = R.drawable.ic_console_games
             )
         }
     }

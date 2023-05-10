@@ -27,6 +27,7 @@ import com.my.kizzy.feature_rpc_base.startServiceAndStopOthers
 import com.my.kizzy.feature_rpc_base.stopService
 import com.my.kizzy.navigation.Routes
 import com.my.kizzy.preference.Prefs
+import com.my.kizzy.resources.R
 
 @Composable
 fun provideFeatures(

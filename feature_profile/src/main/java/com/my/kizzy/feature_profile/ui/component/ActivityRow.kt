@@ -13,7 +13,13 @@
 package com.my.kizzy.feature_profile.ui.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -26,6 +32,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.my.kizzy.domain.model.RpcConfig
+import com.my.kizzy.resources.R
 import com.my.kizzy.ui.theme.DarkBlueBg
 import com.skydoves.landscapist.glide.GlideImage
 
@@ -55,8 +62,8 @@ fun ActivityRow(
                 GlideImage(
                     imageModel = if (rpcConfig?.largeImg?.startsWith("attachments") == true) "https://media.discordapp.net/${rpcConfig.largeImg}" else
                         rpcConfig?.largeImg,
-                    error = painterResource(id =  com.my.kizzy.feature_profile.R.drawable.editing_rpc_pencil),
-                    previewPlaceholder = com.my.kizzy.feature_profile.R.drawable.editing_rpc_pencil,
+                    error = painterResource(id =  R.drawable.editing_rpc_pencil),
+                    previewPlaceholder = R.drawable.editing_rpc_pencil,
                     contentDescription = null,
                     modifier = if (!rpcConfig?.largeImg.isNullOrEmpty())
                         Modifier
@@ -74,8 +81,8 @@ fun ActivityRow(
                             "https://media.discordapp.net/${rpcConfig.largeImg}"
                         else
                             rpcConfig?.smallImg,
-                        error = painterResource(id = com.my.kizzy.feature_profile.R.drawable.ic_rpc_placeholder),
-                        previewPlaceholder = com.my.kizzy.feature_profile.R.drawable.ic_rpc_placeholder,
+                        error = painterResource(id = R.drawable.ic_rpc_placeholder),
+                        previewPlaceholder = R.drawable.ic_rpc_placeholder,
                         contentDescription = null,
                         modifier = Modifier
                             .size(30.dp)

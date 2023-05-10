@@ -23,7 +23,7 @@ import com.my.kizzy.data.get_current_data.media.GetCurrentPlayingMedia
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.rpc.KizzyRPC
 import com.my.kizzy.domain.interfaces.Logger
-import com.my.kizzy.feature_rpc_base.R
+import com.my.kizzy.resources.R
 import com.my.kizzy.feature_settings.rpc_settings.RpcButtons
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.preference.Prefs.MEDIA_RPC_ENABLE_TIMESTAMPS

@@ -34,6 +34,7 @@ dependencies {
     implementation (libs.gson)
     implementation (libs.blankj.utilcodex)
     implementation (projects.common.preference)
+    implementation (projects.common.resources)
     implementation (projects.featureSettings)
     implementation (projects.domain)
     implementation (projects.data)

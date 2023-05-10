@@ -52,7 +52,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.my.kizzy.domain.model.RpcConfig
 import com.my.kizzy.domain.model.User
-import com.my.kizzy.feature_profile.R
+import com.my.kizzy.resources.R
 import com.my.kizzy.ui.theme.DISCORD_LIGHT_DARK
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.delay
@@ -104,7 +104,7 @@ fun ProfileCard(
                         .fillMaxWidth()
                         .height(120.dp),
                     imageModel = user.getBannerImage() ?: USER_BANNER,
-                    previewPlaceholder = R.drawable.ic_profile_banner
+                    previewPlaceholder = R.drawable.broken_image
                 )
 
                 GlideImage(
@@ -134,7 +134,7 @@ fun ProfileCard(
                     if (user.nitro == true) {
                         GlideImage(
                             imageModel = NITRO_ICON,
-                            previewPlaceholder = R.drawable.editing_rpc_pencil,
+                            previewPlaceholder = R.drawable.broken_image,
                             modifier = Modifier
                                 .size(40.dp)
                                 .padding(5.dp)
@@ -144,7 +144,7 @@ fun ProfileCard(
                         it.forEach { badge ->
                             GlideImage(
                                 imageModel = badge.icon,
-                                previewPlaceholder = R.drawable.editing_rpc_pencil,
+                                previewPlaceholder = R.drawable.broken_image,
                                 modifier = Modifier
                                     .size(40.dp)
                                     .padding(5.dp)

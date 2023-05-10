@@ -20,9 +20,9 @@ import com.my.kizzy.data.get_current_data.AppTracker
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.rpc.KizzyRPC
 import com.my.kizzy.domain.interfaces.Logger
-import com.my.kizzy.feature_rpc_base.R
 import com.my.kizzy.feature_settings.rpc_settings.RpcButtons
 import com.my.kizzy.preference.Prefs
+import com.my.kizzy.resources.R
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel

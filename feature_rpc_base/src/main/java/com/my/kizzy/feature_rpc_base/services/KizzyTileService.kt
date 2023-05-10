@@ -23,8 +23,8 @@ import androidx.appcompat.view.ContextThemeWrapper
 import androidx.compose.runtime.mutableStateOf
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.my.kizzy.feature_rpc_base.AppUtils
-import com.my.kizzy.feature_rpc_base.R
 import com.my.kizzy.preference.Prefs
+import com.my.kizzy.resources.R
 
 class KizzyTileService : TileService() {
     override fun onClick() {
@@ -61,7 +61,7 @@ class KizzyTileService : TileService() {
 
     private fun createRpcChoosingDialog(ctx: Context): Dialog {
         val rpc = arrayOf("Apps Rpc", "Media Rpc", "Experimental Rpc")
-        return MaterialAlertDialogBuilder(ContextThemeWrapper(ctx, R.style.MyTileDialogTheme))
+        return MaterialAlertDialogBuilder(ContextThemeWrapper(ctx, com.my.kizzy.feature_rpc_base.R.style.MyTileDialogTheme))
             .setTitle("Select a Rpc")
             .setSingleChoiceItems(rpc, -1) { dialog, which ->
                 when (which) {

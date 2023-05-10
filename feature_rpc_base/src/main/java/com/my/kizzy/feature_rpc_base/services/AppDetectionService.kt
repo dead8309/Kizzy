@@ -26,7 +26,7 @@ import com.google.gson.reflect.TypeToken
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.rpc.KizzyRPC
 import com.my.kizzy.data.rpc.RpcImage
-import com.my.kizzy.feature_rpc_base.R
+import com.my.kizzy.resources.R
 import com.my.kizzy.feature_settings.rpc_settings.RpcButtons
 import com.my.kizzy.preference.Prefs
 import dagger.hilt.android.AndroidEntryPoint
