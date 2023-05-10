@@ -32,7 +32,7 @@ import androidx.compose.ui.window.Dialog
 import com.blankj.utilcode.util.FileIOUtils
 import com.blankj.utilcode.util.FileUtils
 import com.google.gson.GsonBuilder
-import com.kizzy.strings.R
+import com.my.kizzy.resources.R
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.utils.getFileName
 import com.my.kizzy.domain.model.RpcConfig

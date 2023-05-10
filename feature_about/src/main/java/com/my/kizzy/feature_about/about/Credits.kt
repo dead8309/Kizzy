@@ -34,8 +34,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.kizzy.strings.R
 import com.my.kizzy.domain.model.Contributor
+import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.CreditItem
 import com.my.kizzy.ui.components.Subtitle
@@ -163,7 +163,7 @@ fun ContributorItem(contributor: Contributor) {
                 .padding(top = 5.dp)
                 .size(60.dp)
                 .clip(RoundedCornerShape(26.dp)),
-            previewPlaceholder = com.my.kizzy.feature_about.R.drawable.error_avatar
+            previewPlaceholder = R.drawable.error_avatar
         )
         Text(
             modifier = Modifier

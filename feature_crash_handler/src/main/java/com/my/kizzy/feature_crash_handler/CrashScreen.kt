@@ -31,7 +31,7 @@ import androidx.core.app.ShareCompat
 import androidx.core.content.FileProvider
 import com.blankj.utilcode.util.FileIOUtils
 import com.blankj.utilcode.util.FileUtils
-import com.kizzy.strings.R
+import com.my.kizzy.resources.R
 import java.io.File
 import kotlin.system.exitProcess
 

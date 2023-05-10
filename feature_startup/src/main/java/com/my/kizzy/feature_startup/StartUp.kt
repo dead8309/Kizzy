@@ -39,7 +39,7 @@ import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.gson.Gson
-import com.kizzy.strings.R
+import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.Subtitle
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.preference.getLanguageDesc

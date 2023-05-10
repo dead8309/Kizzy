@@ -31,8 +31,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.kizzy.strings.R
 import com.my.kizzy.domain.model.User
+import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.Subtitle
 import com.my.kizzy.ui.components.chips
 import com.skydoves.landscapist.glide.GlideImage
@@ -129,7 +129,7 @@ fun SettingsDrawer(
                 item {
                     SettingsItemCard(
                         title = "Discord",
-                        icon = ImageVector.vectorResource(id = com.my.kizzy.feature_settings.R.drawable.ic_discord)
+                        icon = ImageVector.vectorResource(id = R.drawable.ic_discord)
                     ) {
                         //Discord Server Link
                         uriHandler.openUri(chips.first().url)
@@ -178,7 +178,7 @@ fun RequestQsTile(
             statusBarManager.requestAddTileService(
                 componentName,
                 label,
-                android.graphics.drawable.Icon.createWithResource(ctx, com.my.kizzy.feature_settings.R.drawable.ic_tile_play),
+                android.graphics.drawable.Icon.createWithResource(ctx, R.drawable.ic_tile_play),
                 {},
             ) {}
         }
@@ -240,8 +240,8 @@ fun ProfileCardSmall(
                     modifier = Modifier
                         .size(50.dp)
                         .clip(CircleShape),
-                    error = ImageBitmap.imageResource(id = com.my.kizzy.feature_settings.R.drawable.error_avatar),
-                    previewPlaceholder = com.my.kizzy.feature_settings.R.drawable.error_avatar
+                    error = ImageBitmap.imageResource(id = R.drawable.error_avatar),
+                    previewPlaceholder = R.drawable.error_avatar
                 )
                 Text(
                     modifier = Modifier

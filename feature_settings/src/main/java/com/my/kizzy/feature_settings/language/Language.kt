@@ -6,7 +6,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.kizzy.strings.R
+import com.my.kizzy.resources.R
 import com.my.kizzy.preference.*
 import com.my.kizzy.preference.Prefs.LANGUAGE
 import com.my.kizzy.ui.components.BackButton

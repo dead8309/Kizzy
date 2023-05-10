@@ -33,10 +33,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.kizzy.strings.R
 import com.my.kizzy.feature_profile.getUserInfo
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.preference.Prefs.TOKEN
+import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.theme.DISCORD_GREY
 import kotlinx.coroutines.launch
@@ -86,7 +86,7 @@ fun LoginScreen(
                 enabled = !showProgress
             ) {
                 Icon(
-                    painter = painterResource(id = com.my.kizzy.feature_profile.R.drawable.ic_discord),
+                    painter = painterResource(id = R.drawable.ic_discord),
                     tint = Color.Unspecified,
                     contentDescription = "discord_login",
                     modifier = Modifier.padding(end = 5.dp)

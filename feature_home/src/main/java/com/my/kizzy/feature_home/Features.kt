@@ -40,7 +40,7 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
 import com.google.accompanist.flowlayout.SizeMode
-import com.kizzy.strings.R
+import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.KSwitch
 
 @Composable

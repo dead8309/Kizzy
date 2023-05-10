@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import com.kizzy.strings.R
+import com.my.kizzy.resources.R
 
 // TODO get seed color from colorscheme.kt
 const val DEFAULT_SEED_COLOR =  0xFFAF92F1.toInt()

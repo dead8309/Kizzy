@@ -33,7 +33,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.google.gson.Gson
-import com.kizzy.strings.R
+import com.my.kizzy.resources.R
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.rpc.Constants.MAX_ALLOWED_CHARACTER_LENGTH

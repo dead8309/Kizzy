@@ -16,7 +16,7 @@ import android.os.Build
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.core.os.LocaleListCompat
-import com.kizzy.strings.R
+import com.my.kizzy.resources.R
 
 // Languages Index number
 const val SYSTEM_DEFAULT = 0

@@ -29,7 +29,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import com.kizzy.strings.R
+import com.my.kizzy.resources.R
 import com.my.kizzy.feature_rpc_base.AppUtils
 import com.my.kizzy.feature_rpc_base.services.MediaRpcService
 import com.my.kizzy.feature_rpc_base.startServiceAndStopOthers

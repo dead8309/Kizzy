@@ -31,7 +31,7 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.rememberPagerState
 import com.google.android.material.color.DynamicColors
-import com.kizzy.strings.R
+import com.my.kizzy.resources.R
 import com.kyant.monet.Hct
 import com.kyant.monet.LocalTonalPalettes
 import com.kyant.monet.PaletteStyle
