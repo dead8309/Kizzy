@@ -47,7 +47,7 @@ dependencies {
     implementation (libs.glide)
     implementation (projects.common.components)
     implementation (projects.common.preference)
-    implementation (projects.common.strings)
+    implementation (projects.common.resources)
     implementation (projects.domain)
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.tooling.preview)

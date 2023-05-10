@@ -39,7 +39,7 @@ dependencies {
     implementation (libs.material3)
     implementation (libs.compose.ui)
     implementation (projects.common.preference)
-    implementation (projects.common.strings)
+    implementation (projects.common.resources)
     implementation (projects.common.components)
     implementation (projects.theme)
     implementation (projects.domain)

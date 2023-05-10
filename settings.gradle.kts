@@ -21,7 +21,7 @@ include(
     ":gateway",
     ":color",
     ":common:preference",
-    ":common:strings",
+    ":common:resources",
     ":domain",
     ":data",
     ":common:components",

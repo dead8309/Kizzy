@@ -38,7 +38,7 @@ dependencies {
     implementation (libs.compose.ui)
     implementation(libs.material3)
     implementation (libs.material.icons.extended)
-    implementation(projects.common.strings)
+    implementation(projects.common.resources)
     implementation (libs.accompanist.permission)
     implementation(projects.data)
     implementation(projects.domain)

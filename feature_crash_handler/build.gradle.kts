@@ -43,6 +43,6 @@ dependencies {
     implementation (libs.material.icons.extended)
     implementation (libs.material3)
     implementation (projects.theme)
-    implementation (projects.common.strings)
+    implementation (projects.common.resources)
     implementation (projects.common.preference)
 }

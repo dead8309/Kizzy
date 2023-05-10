@@ -44,7 +44,7 @@ dependencies {
     implementation(libs.glide)
     implementation(projects.common.components)
     implementation(projects.common.preference)
-    implementation(projects.common.strings)
+    implementation(projects.common.resources)
     implementation(projects.domain)
     implementation(projects.data)
     implementation(projects.featureRpcBase)

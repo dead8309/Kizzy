@@ -37,7 +37,7 @@ android {
 }
 
 dependencies {
-    implementation (projects.common.strings)
+    implementation (projects.common.resources)
     implementation (projects.common.components)
     implementation (projects.domain)
     implementation (libs.glide)

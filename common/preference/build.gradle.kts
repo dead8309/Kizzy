@@ -37,7 +37,7 @@ android {
 
 dependencies {
     implementation(projects.color)
-    implementation(projects.common.strings)
+    implementation(projects.common.resources)
     implementation(libs.material3)
     implementation(libs.mmkv)
     implementation(libs.gson)

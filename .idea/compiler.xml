@@ -12,7 +12,7 @@
       <module name="Kizzy.common.preference" target="17" />
       <module name="Kizzy.common.res.main" target="11" />
       <module name="Kizzy.common.res.test" target="11" />
-      <module name="Kizzy.common.strings" target="17" />
+      <module name="Kizzy.common.resources" target="17" />
       <module name="Kizzy.data" target="17" />
       <module name="Kizzy.feature_about" target="17" />
       <module name="Kizzy.feature_apps_rpc" target="17" />

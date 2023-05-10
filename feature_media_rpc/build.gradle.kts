@@ -35,7 +35,7 @@ dependencies {
     implementation(projects.featureRpcBase)
     implementation(projects.common.components)
     implementation(projects.common.preference)
-    implementation(projects.common.strings)
+    implementation(projects.common.resources)
     implementation(libs.compose.ui)
     implementation(libs.material.icons.extended)
     implementation(libs.material3)

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.kizzy.strings"
+    namespace = "com.my.kizzy.resources"
     compileSdk = 33
 
     defaultConfig {

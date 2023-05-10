@@ -42,7 +42,7 @@ dependencies {
     implementation (projects.featureSettings)
     implementation (projects.common.preference)
     implementation (projects.common.components)
-    implementation (projects.common.strings)
+    implementation (projects.common.resources)
     implementation (projects.common.navigation)
     implementation (libs.glide)
 }

@@ -41,6 +41,6 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling.preview)
     implementation (libs.android.svg)
     implementation (libs.coil)
-    implementation(projects.common.strings)
+    implementation(projects.common.resources)
     implementation (libs.material.icons.extended)
 }

@@ -52,7 +52,7 @@ dependencies {
     implementation(projects.color)
     implementation(projects.gateway)
     implementation(projects.common.preference)
-    implementation(projects.common.strings)
+    implementation(projects.common.resources)
     implementation(projects.domain)
     implementation(projects.data)
     implementation(projects.common.components)

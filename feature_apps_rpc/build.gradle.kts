@@ -40,5 +40,5 @@ dependencies {
     implementation(projects.featureRpcBase)
     implementation (libs.material.icons.extended)
     implementation (projects.common.preference)
-    implementation (projects.common.strings)
+    implementation (projects.common.resources)
 }
