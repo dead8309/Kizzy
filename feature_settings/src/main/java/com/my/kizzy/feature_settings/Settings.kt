@@ -32,7 +32,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kizzy.strings.R
-import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.domain.model.User
 import com.my.kizzy.ui.components.Subtitle
 import com.my.kizzy.ui.components.chips
@@ -237,7 +236,7 @@ fun ProfileCardSmall(
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
                 GlideImage(
-                    imageModel = "${Constants.DISCORD_CDN_BASE}/avatars/${user?.id}/${user?.avatar}.png",
+                    imageModel = user?.getAvatarImage(),
                     modifier = Modifier
                         .size(50.dp)
                         .clip(CircleShape),

@@ -53,7 +53,6 @@ import androidx.compose.ui.unit.dp
 import com.my.kizzy.domain.model.RpcConfig
 import com.my.kizzy.domain.model.User
 import com.my.kizzy.feature_profile.R
-import com.my.kizzy.feature_profile.ui.user.Base
 import com.my.kizzy.ui.theme.DISCORD_LIGHT_DARK
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.delay
@@ -100,29 +99,16 @@ fun ProfileCard(
     ) {
         if (user != null) {
             Box {
-                val avatar = user.avatar?.let {
-                    if (it.startsWith("a_"))
-                        "$Base/avatars/${user.id}/${it}.gif"
-                    else
-                        "$Base/avatars/${user.id}/${it}.png"
-                }
-                val banner = user.banner?.let {
-                    if (it.startsWith("a_"))
-                        "$Base/banners/${user.id}/${it}.gif"
-                    else
-                        "$Base/banners/${user.id}/${it}.png"
-                }
-
                 GlideImage(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(120.dp),
-                    imageModel = banner ?: USER_BANNER,
+                    imageModel = user.getBannerImage() ?: USER_BANNER,
                     previewPlaceholder = R.drawable.ic_profile_banner
                 )
 
                 GlideImage(
-                    imageModel = avatar,
+                    imageModel = user.getAvatarImage(),
                     placeHolder = ImageBitmap.imageResource(id = R.drawable.error_avatar),
                     error = ImageBitmap.imageResource(id = R.drawable.error_avatar),
                     contentDescription = null,

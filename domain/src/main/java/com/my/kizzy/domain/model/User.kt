@@ -43,7 +43,22 @@ data class User(
     val special: String?,
     @SerializedName("verified")
     val verified: Boolean
-)
+) {
+    private val discordCdnBase = "https://cdn.discordapp.com"
+    fun getAvatarImage(): String {
+        return if (avatar?.startsWith("a_") == true)
+            "${discordCdnBase}/avatars/${id}/${avatar}.gif"
+        else
+            "${discordCdnBase}/avatars/${id}/${avatar}.png"
+    }
+    fun getBannerImage(): String? {
+        if (banner.isNullOrEmpty()) return null
+        return if (banner.startsWith("a_"))
+            "$discordCdnBase/banners/${id}/${banner}.gif"
+        else
+            "$discordCdnBase/banners/${id}/${banner}.png"
+    }
+}
 
 data class Badge(
     @SerializedName("icon")
