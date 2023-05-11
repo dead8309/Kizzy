@@ -14,6 +14,8 @@ package com.my.kizzy
 
 import android.annotation.SuppressLint
 import android.content.ComponentName
+import androidx.activity.ComponentActivity
+import androidx.activity.viewModels
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -24,7 +26,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.gson.Gson
@@ -60,7 +61,7 @@ import com.my.kizzy.preference.Prefs
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun Kizzy() {
+internal fun ComponentActivity.Kizzy() {
     Scaffold()
     {
         val navController = rememberAnimatedNavController()
@@ -123,7 +124,7 @@ fun Kizzy() {
                 )
             }
             animatedComposable(Routes.CUSTOM_RPC) {
-                val viewModel = hiltViewModel<CustomScreenViewModel>()
+                val viewModel by viewModels<CustomScreenViewModel>()
                 CustomRPC(onBackPressed = { navController.popBackStack() },viewModel)
             }
             animatedComposable(Routes.MEDIA_RPC) { MediaRPC(onBackPressed = { navController.popBackStack() }) }
@@ -132,7 +133,7 @@ fun Kizzy() {
                     mutableStateOf(Prefs[Prefs.TOKEN, ""].isNotEmpty())
                 }
                 if (loggedIn) {
-                    val viewModel = hiltViewModel<UserViewModel>()
+                    val viewModel by viewModels<UserViewModel>()
                     UserScreen(
                         state = viewModel.state.value,
                         onBackPressed = navController::popBackStack
@@ -147,7 +148,7 @@ fun Kizzy() {
                 }
             }
             animatedComposable(Routes.CONSOLE_RPC) {
-                val viewModel = hiltViewModel<GamesViewModel>()
+                val viewModel by viewModels<GamesViewModel>()
                 GamesScreen(
                     onBackPressed = { navController.popBackStack() },
                     onEvent = { viewModel.onUiEvent(it) },
@@ -178,7 +179,7 @@ fun Kizzy() {
                 RpcSettings { navController.popBackStack() }
             }
             animatedComposable(Routes.LOGS_SCREEN){
-                val viewModel = hiltViewModel<LogsViewModel>()
+                val viewModel by viewModels<LogsViewModel>()
                 LogScreen(viewModel)
             }
             animatedComposable(Routes.ABOUT) {
@@ -192,7 +193,7 @@ fun Kizzy() {
                 )
             }
             animatedComposable(Routes.CREDITS) {
-                val viewModel = hiltViewModel<CreditsScreenViewModel>()
+                val viewModel by viewModels<CreditsScreenViewModel>()
                 Credits(
                     state = viewModel.creditScreenState.collectAsState().value,
                     onBackPressed = {

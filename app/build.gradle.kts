@@ -75,7 +75,6 @@ dependencies {
     implementation (libs.gson)
 
     // Hilt
-    implementation (libs.hilt.navigation)
     kapt (libs.hilt.compiler)
     implementation (libs.hilt)
 
