@@ -72,7 +72,6 @@ fun LogScreen(viewModel: LogsViewModel) {
         ) {
             itemsIndexed(
                 logs,// viewModel.logs,
-                key = { _, log -> log.hashCode() }
             ) { i, it ->
                 if (viewModel.showCompat.value)
                     Text(
