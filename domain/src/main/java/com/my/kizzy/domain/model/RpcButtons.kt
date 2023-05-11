@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.feature_settings.rpc_settings
+package com.my.kizzy.domain.model
 
 import com.google.gson.annotations.SerializedName
 
