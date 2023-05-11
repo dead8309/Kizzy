@@ -49,14 +49,11 @@ android {
     packagingOptions.resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
 }
 dependencies {
-    implementation(projects.color)
-    implementation(projects.gateway)
-    implementation(projects.common.preference)
-    implementation(projects.common.resources)
-    implementation(projects.domain)
-    implementation(projects.data)
-    implementation(projects.common.components)
-    implementation(projects.theme)
+    implementation (projects.gateway)
+    implementation (projects.domain)
+    implementation (projects.data)
+
+    implementation (projects.theme)
     implementation (projects.featureStartup)
     implementation (projects.featureCrashHandler)
     implementation (projects.featureProfile)
@@ -69,31 +66,24 @@ dependencies {
     implementation (projects.featureConsoleRpc)
     implementation (projects.featureCustomRpc)
     implementation (projects.featureHome)
+    implementation (projects.common.preference)
     implementation (projects.common.navigation)
-    implementation (libs.hilt.navigation)
 
-    debugImplementation(libs.compose.ui.tooling)
-    implementation(libs.compose.ui.tooling.preview)
-    implementation(libs.compose.ui)
-    kapt(libs.hilt.compiler)
-    implementation(libs.coil)
-    implementation(libs.coil.svg)
-    implementation(libs.android.svg)
-    implementation(libs.app.compat)
-    implementation(libs.core.ktx)
-    implementation(libs.material3)
-    implementation(libs.material3.windows.size)
-    implementation(libs.lifecycle.runtime)
-    implementation(libs.activity.compose)
-    implementation(libs.androidx.material)
-    implementation(libs.compose.navigation)
-    implementation(libs.material.icons.extended)
-    implementation(libs.gson)
-    implementation(libs.glide)
-    implementation(libs.blankj.utilcodex)
-    implementation(libs.crashx)
-    implementation(libs.hilt)
-    implementation(libs.bundles.compose.accompanist)
+    // Extras
+    implementation (libs.app.compat)
+    implementation (libs.accompanist.navigation.animation)
+    implementation (libs.gson)
+
+    // Hilt
+    implementation (libs.hilt.navigation)
+    kapt (libs.hilt.compiler)
+    implementation (libs.hilt)
+
+    // Material
+    implementation (libs.material3)
+    implementation (libs.androidx.material)
+    implementation (libs.material3.windows.size)
+
     implementation(libs.bundles.network.okhttp)
     implementation(libs.bundles.network.retrofit)
 }
