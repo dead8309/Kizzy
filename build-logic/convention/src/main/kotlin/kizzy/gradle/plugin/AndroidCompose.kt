@@ -17,13 +17,13 @@ internal fun Project.configureAndroidCompose(
         }
 
         composeOptions {
-            kotlinCompilerExtensionVersion = libs.findVersion("compose-compiler").get().toString()
+            kotlinCompilerExtensionVersion = libs.findVersion("compose.compiler").get().toString()
         }
 
         dependencies {
-            val composeUi = libs.findLibrary("compose-ui").get()
-            val composeUiTooling = libs.findLibrary("compose-ui-tooling").get()
-            val composeUiToolingPreview = libs.findLibrary("compose-ui-tooling-preview").get()
+            val composeUi = libs.findLibrary("compose.ui").get()
+            val composeUiTooling = libs.findLibrary("compose.ui.tooling").get()
+            val composeUiToolingPreview = libs.findLibrary("compose-ui.tooling.preview").get()
             add("implementation",composeUi)
             add("debugImplementation",composeUiTooling)
             add("debugImplementation",composeUiToolingPreview)
