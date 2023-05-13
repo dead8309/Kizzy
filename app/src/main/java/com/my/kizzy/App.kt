@@ -1,31 +1,22 @@
 package com.my.kizzy
 
 import android.app.Application
-import com.developer.crashx.config.CrashConfig
 import com.google.android.material.color.DynamicColors
-import com.my.kizzy.data.utils.AppUtils
-import com.my.kizzy.data.utils.Log
-import com.tencent.mmkv.MMKV
+import com.my.kizzy.feature_crash_handler.CrashHandlerConfig
+import com.my.kizzy.feature_logs.LoggerProvider
+import com.my.kizzy.preference.PreferenceConfig
+import com.my.kizzy.feature_rpc_base.AppUtils
 import dagger.hilt.android.HiltAndroidApp
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
 
 @HiltAndroidApp
 class App: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        MMKV.initialize(this)
-        applicationScope = CoroutineScope(SupervisorJob())
         DynamicColors.applyToActivitiesIfAvailable(this)
-        CrashConfig.Builder.create()
-            .errorActivity(CrashHandler::class.java)
-            .apply()
-        Log.init()
+        CrashHandlerConfig.apply()
+        PreferenceConfig.apply(this)
+        LoggerProvider.init()
         AppUtils.init(this)
-    }
-
-    companion object{
-        lateinit var applicationScope: CoroutineScope
     }
 }
