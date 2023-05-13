@@ -3,19 +3,16 @@
 import com.android.build.api.dsl.ApplicationDefaultConfig
 
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kapt)
-    alias(libs.plugins.hilt)
+    id("kizzy.android.application")
+    id("kizzy.android.application.compose")
+    id("kizzy.android.hilt")
 }
 
 android {
     namespace = "com.my.kizzy"
 
-    compileSdk = 33
     defaultConfig {
         applicationId = "com.my.kizzy"
-        minSdk = 26
         targetSdk = 33
         versionCode = libs.versions.version.code.get().toInt()
         versionName = libs.versions.version.name.get()
@@ -25,27 +22,12 @@ android {
         }
         buildConfigFieldFromGradleProperty("BASE_URL","BASE_URL")
     }
-
     buildTypes {
-        getByName("release") {
-            isMinifyEnabled = true
+        release {
             isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
-    }
+
     packagingOptions.resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
 }
 dependencies {
@@ -74,9 +56,6 @@ dependencies {
     implementation (libs.accompanist.navigation.animation)
     implementation (libs.gson)
 
-    // Hilt
-    kapt (libs.hilt.compiler)
-    implementation (libs.hilt)
 
     // Material
     implementation (libs.material3)

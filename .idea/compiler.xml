@@ -3,6 +3,9 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="11">
       <module name="Kizzy.app" target="17" />
+      <module name="Kizzy.buildSrc" target="17" />
+      <module name="Kizzy.buildSrc.main" target="17" />
+      <module name="Kizzy.buildSrc.test" target="17" />
       <module name="Kizzy.color" target="17" />
       <module name="Kizzy.color.main" target="11" />
       <module name="Kizzy.color.test" target="11" />

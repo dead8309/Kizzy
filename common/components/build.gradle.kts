@@ -1,45 +1,18 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    id("kizzy.android.library")
+    id("kizzy.android.library.compose")
 }
 
 android {
     namespace = "com.my.kizzy.ui.components"
-    compileSdk = 33
-
-    defaultConfig {
-        minSdk = 26
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
-    }
 }
 
 dependencies {
     implementation (projects.theme)
-    implementation (libs.compose.ui)
     implementation (libs.material3)
     implementation (projects.color)
-    debugImplementation(libs.compose.ui.tooling.preview)
     implementation (libs.android.svg)
     implementation (libs.coil)
-    implementation(projects.common.resources)
+    implementation (projects.common.resources)
     implementation (libs.material.icons.extended)
 }
