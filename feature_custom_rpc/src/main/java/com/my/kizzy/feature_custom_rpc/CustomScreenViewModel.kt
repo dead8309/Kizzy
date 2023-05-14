@@ -52,6 +52,8 @@ class CustomScreenViewModel @Inject constructor(
     var showSaveDialog by mutableStateOf(false)
     var showDeleteDialog by mutableStateOf(false)
     var showPreviewDialog by mutableStateOf(false)
+    var showStartTimeStampsPickerDialog by mutableStateOf(false)
+    var showStopTimeStampsPickerDialog by mutableStateOf(false)
 
     fun uploadImage(uri: Uri, result: (String) -> Unit) {
         viewModelScope.launch {

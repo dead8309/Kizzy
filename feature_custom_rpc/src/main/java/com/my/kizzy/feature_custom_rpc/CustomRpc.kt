@@ -13,9 +13,6 @@
 package com.my.kizzy.feature_custom_rpc
 
 import android.annotation.SuppressLint
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.compose.animation.AnimatedVisibility
@@ -230,6 +227,18 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
                     PreviewDialog(user = user, rpc, onDismiss = {
                         showPreviewDialog = false
                     })
+                } else if (showStartTimeStampsPickerDialog) {
+                    DateTimePickerDialog(
+                        onDismiss = { showStartTimeStampsPickerDialog = !showStartTimeStampsPickerDialog }
+                    ) {
+                        startTimestamps = it.toString()
+                    }
+                } else if (showStopTimeStampsPickerDialog) {
+                    DateTimePickerDialog(
+                        onDismiss = { showStopTimeStampsPickerDialog = !showStopTimeStampsPickerDialog }
+                    ) {
+                        stopTimestamps = it.toString()
+                    }
                 }
 
                 LazyColumn(
@@ -289,11 +298,7 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
                                 Icon(imageVector = Icons.Default.EditCalendar,
                                     contentDescription = null,
                                     modifier = Modifier.clickable {
-                                        timestampsPicker(
-                                            context = context
-                                        ) {
-                                            startTimestamps = it.toString()
-                                        }
+                                        showStartTimeStampsPickerDialog = !showStartTimeStampsPickerDialog
                                     })
                             }) {
                             startTimestamps = it
@@ -308,11 +313,7 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
                                 Icon(imageVector = Icons.Default.EditCalendar,
                                     contentDescription = null,
                                     modifier = Modifier.clickable {
-                                        timestampsPicker(
-                                            context = context
-                                        ) {
-                                            stopTimestamps = it.toString()
-                                        }
+                                        showStopTimeStampsPickerDialog = !showStopTimeStampsPickerDialog
                                     })
                             }) {
                             stopTimestamps = it
@@ -519,24 +520,6 @@ fun CustomRPC(onBackPressed: () -> Unit, viewModel: CustomScreenViewModel) {
             }
         }
     }
-}
-
-fun timestampsPicker(context: Context, onTimeSet: (Long) -> Unit) {
-    val currentDate = Calendar.getInstance()
-    val time = Calendar.getInstance()
-
-    DatePickerDialog(
-        context, { _, year, month, day ->
-            time.set(year, month, day)
-            TimePickerDialog(
-                context, { _, hourOfDay, minute ->
-                    time.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                    time.set(Calendar.MINUTE, minute)
-                    onTimeSet(time.time.time)
-                }, currentDate[Calendar.HOUR_OF_DAY], currentDate[Calendar.MINUTE], false
-            ).show()
-        }, currentDate[Calendar.YEAR], currentDate[Calendar.MONTH], currentDate[Calendar.DATE]
-    ).show()
 }
 
 @Composable
