@@ -44,7 +44,7 @@ import com.my.kizzy.feature_home.provideFeatures
 import com.my.kizzy.feature_logs.LogScreen
 import com.my.kizzy.feature_logs.LogsViewModel
 import com.my.kizzy.feature_media_rpc.MediaRPC
-import com.my.kizzy.feature_profile.UserViewModel
+import com.my.kizzy.feature_profile.ui.user.UserViewModel
 import com.my.kizzy.feature_profile.ui.login.LoginScreen
 import com.my.kizzy.feature_profile.ui.user.UserScreen
 import com.my.kizzy.feature_rpc_base.AppUtils
