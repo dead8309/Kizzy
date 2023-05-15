@@ -26,7 +26,7 @@ internal fun Project.configureAndroidCompose(
             val composeUiToolingPreview = libs.findLibrary("compose-ui.tooling.preview").get()
             add("implementation",composeUi)
             add("debugImplementation",composeUiTooling)
-            add("debugImplementation",composeUiToolingPreview)
+            add("implementation",composeUiToolingPreview)
         }
     }
 }
