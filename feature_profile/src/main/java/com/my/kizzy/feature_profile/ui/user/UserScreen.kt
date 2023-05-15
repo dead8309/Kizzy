@@ -21,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.my.kizzy.domain.model.User
-import com.my.kizzy.feature_profile.UserState
 import com.my.kizzy.feature_profile.ui.component.Logout
 import com.my.kizzy.feature_profile.ui.component.ProfileCard
 import com.my.kizzy.feature_profile.ui.component.ProfileNetworkError
@@ -29,9 +28,6 @@ import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.shimmer.AnimatedShimmer
 import com.my.kizzy.ui.components.shimmer.ShimmerProfileCard
 import kotlinx.coroutines.launch
-
-const val Base = "https://cdn.discordapp.com"
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

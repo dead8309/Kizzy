@@ -2,7 +2,7 @@
  *
  *  ******************************************************************
  *  *  * Copyright (C) 2022
- *  *  * UserState.kt is part of Kizzy
+ *  *  * LoginUiState.kt is part of Kizzy
  *  *  *  and can not be copied and/or distributed without the express
  *  *  * permission of yzziK(Vaibhav)
  *  *  *****************************************************************
@@ -10,12 +10,10 @@
  *
  */
 
-package com.my.kizzy.feature_profile
+package com.my.kizzy.feature_profile.ui.login
 
-import com.my.kizzy.domain.model.User
-
-sealed interface UserState {
-    object Loading: UserState
-    class Error(val error: String,val user: User?): UserState
-    class LoadingCompleted(val user: User?): UserState
+sealed interface LoginUiState {
+    object InitialState: LoginUiState
+    object OnLoginClicked: LoginUiState
+    object OnLoginCompleted: LoginUiState
 }

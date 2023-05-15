@@ -13,32 +13,20 @@
 package com.my.kizzy.feature_profile.ui.login
 
 import android.annotation.SuppressLint
-import android.view.View
-import android.view.ViewGroup
-import android.webkit.JsResult
-import android.webkit.WebChromeClient
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
 import com.my.kizzy.feature_profile.getUserInfo
+import com.my.kizzy.feature_profile.ui.component.DiscordLoginButton
+import com.my.kizzy.feature_profile.ui.component.DiscordLoginWebView
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.preference.Prefs.TOKEN
-import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.BackButton
-import com.my.kizzy.ui.theme.DISCORD_GREY
 import kotlinx.coroutines.launch
 
 const val JS_SNIPPET =
@@ -51,14 +39,12 @@ fun LoginScreen(
     onCompleted: () -> Unit,
     onBackPressed: () -> Unit
 ) {
-    var showWebView by remember {
-        mutableStateOf(false)
-    }
-    var showProgress by remember {
-        mutableStateOf(false)
-    }
+    var buttonEnabledState by remember { mutableStateOf(false) }
+    var uiState: LoginUiState by remember { mutableStateOf(LoginUiState.InitialState) }
     val scope = rememberCoroutineScope()
-    val url = "https://discord.com/login"
+    val modalBottomSheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true
+    )
     Scaffold(
         modifier = Modifier
             .fillMaxSize(),
@@ -73,76 +59,43 @@ fun LoginScreen(
                 .fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            if (showProgress) {
-                CircularProgressIndicator()
-            }
-            ElevatedButton(
-                onClick = { showWebView = true },
-                colors = ButtonDefaults.elevatedButtonColors(
-                    containerColor = DISCORD_GREY,
-                    contentColor = Color.White.copy(alpha = 0.8f)
-                ),
-                shape = RoundedCornerShape(12.dp),
-                enabled = !showProgress
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_discord),
-                    tint = Color.Unspecified,
-                    contentDescription = "discord_login",
-                    modifier = Modifier.padding(end = 5.dp)
-                )
-                Text(text = stringResource(id = R.string.login_with_discord))
-            }
-            if (showWebView) {
-
-                AndroidView(factory = {
-                    WebView(it).apply {
-                        layoutParams = ViewGroup.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.MATCH_PARENT
-                        )
-                        webViewClient = object : WebViewClient() {
-
-                            @Deprecated("Deprecated in Java")
-                            override fun shouldOverrideUrlLoading(
-                                webView: WebView,
-                                url: String,
-                            ): Boolean {
-                                stopLoading()
-                                if (url.endsWith("/app")) {
-                                    loadUrl(JS_SNIPPET)
-                                    visibility = View.GONE
-                                }
-                                return false
+            when (uiState) {
+                LoginUiState.InitialState -> {}
+                LoginUiState.OnLoginClicked -> {
+                    ModalBottomSheet(
+                        onDismissRequest = {
+                            uiState = LoginUiState.InitialState
+                        },
+                        sheetState = modalBottomSheetState,
+                        dragHandle = {
+                            BottomSheetDefaults.DragHandle()
+                        },
+                    ) {
+                        DiscordLoginWebView {
+                            Prefs[TOKEN] = it
+                            scope.launch {
+                                modalBottomSheetState.hide()
+                                uiState = LoginUiState.OnLoginCompleted
+                                getUserInfo(it, onInfoSaved = {
+                                    onCompleted()
+                                })
                             }
                         }
-                        settings.javaScriptEnabled = true
-                        settings.domStorageEnabled = true
-                        webChromeClient = object : WebChromeClient() {
-                            override fun onJsAlert(
-                                view: WebView,
-                                url: String,
-                                message: String,
-                                result: JsResult,
-                            ): Boolean {
-                                Prefs[TOKEN] = message
-                                showProgress = true
-                                scope.launch {
-                                    getUserInfo(message, onInfoSaved = {
-                                        onCompleted()
-                                    })
-                                }
-                                visibility = View.GONE
-                                return true
-                            }
-                        }
-                        loadUrl(url)
                     }
-                })
+                }
+                LoginUiState.OnLoginCompleted -> {
+                    buttonEnabledState = !buttonEnabledState
+                    CircularProgressIndicator()
+                }
             }
+            DiscordLoginButton(
+                onClick = { uiState = LoginUiState.OnLoginClicked },
+                enabled = !buttonEnabledState
+            )
         }
     }
 }
+
 @Preview
 @Composable
 fun LoginScreenPreview() {

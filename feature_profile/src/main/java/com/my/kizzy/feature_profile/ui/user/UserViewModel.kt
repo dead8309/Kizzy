@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.feature_profile
+package com.my.kizzy.feature_profile.ui.user
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
@@ -42,7 +42,12 @@ class UserViewModel @Inject constructor(
         getUserUseCase(Prefs[Prefs.USER_ID,""]).onEach { result ->
             when(result){
                 is Resource.Success -> {
-                    _state.value = UserState.LoadingCompleted(user = result.data?.copy(bio = Prefs[Prefs.USER_BIO], nitro = Prefs[Prefs.USER_NITRO]))
+                    _state.value = UserState.LoadingCompleted(
+                        user = result.data?.copy(
+                            bio = Prefs[Prefs.USER_BIO],
+                            nitro = Prefs[Prefs.USER_NITRO]
+                        )
+                    )
                     Prefs[Prefs.USER_DATA] = Gson().toJson(result.data)
                 }
                 is Resource.Error -> {
