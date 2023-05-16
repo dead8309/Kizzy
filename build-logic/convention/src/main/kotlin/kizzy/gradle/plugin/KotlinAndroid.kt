@@ -42,7 +42,7 @@ internal fun Project.configureKotlinAndroid(
                 */
                 proguardFiles(
                     getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
+                    "${rootProject.rootDir.absolutePath}/app/proguard-rules.pro"
                 )
             }
         }
