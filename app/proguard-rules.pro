@@ -30,3 +30,6 @@
 }
 -keep class com.my.kizzy.ui.screen.nintendo.* { <fields>; }
 -keep class com.my.kizzy.rpc.* { <fields>; }
+
+# slf4j error during build
+-dontwarn org.slf4j.impl.StaticLoggerBinder
