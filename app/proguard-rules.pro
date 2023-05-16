@@ -28,8 +28,12 @@
   @com.google.gson.annotations.SerializedName <fields>;
 
 }
--keep class com.my.kizzy.ui.screen.nintendo.* { <fields>; }
--keep class com.my.kizzy.rpc.* { <fields>; }
+-keep class com.my.kizzy.domain.model.* { <fields>; }
 
 # slf4j error during build
 -dontwarn org.slf4j.impl.StaticLoggerBinder
+
+# Waiting for new retrofit release to remove these rules
+-keep,allowobfuscation,allowshrinking interface retrofit2.Call
+-keep,allowobfuscation,allowshrinking class retrofit2.Response
+-keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation
