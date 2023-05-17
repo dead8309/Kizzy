@@ -28,7 +28,12 @@
   @com.google.gson.annotations.SerializedName <fields>;
 
 }
+
+# Keep Domain data classes
 -keep class com.my.kizzy.domain.model.* { <fields>; }
+
+# Keep Gateway data classes
+-keep class kizzy.gateway.entities.** { <fields>; }
 
 # slf4j error during build
 -dontwarn org.slf4j.impl.StaticLoggerBinder
