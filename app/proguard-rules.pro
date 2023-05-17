@@ -30,7 +30,10 @@
 }
 
 # Keep Domain data classes
--keep class com.my.kizzy.domain.model.* { <fields>; }
+-keep class com.my.kizzy.domain.model.** { <fields>; }
+
+# Keep Data data classes
+-keep class com.my.kizzy.data.remote.** { <fields>; }
 
 # Keep Gateway data classes
 -keep class kizzy.gateway.entities.** { <fields>; }
