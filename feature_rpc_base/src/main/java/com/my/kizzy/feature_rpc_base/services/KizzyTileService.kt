@@ -14,6 +14,7 @@ package com.my.kizzy.feature_rpc_base.services
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.Icon
 import android.os.Build
 import android.service.quicksettings.Tile
@@ -22,8 +23,6 @@ import androidx.appcompat.view.ContextThemeWrapper
 import androidx.compose.runtime.mutableStateOf
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.my.kizzy.feature_rpc_base.AppUtils
-import com.my.kizzy.feature_rpc_base.startService
-import com.my.kizzy.feature_rpc_base.stopService
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.resources.R
 
@@ -33,9 +32,9 @@ class KizzyTileService : TileService() {
         val ctx = this
         when (qsTile.state) {
             Tile.STATE_ACTIVE -> {
-                ctx.stopService<AppDetectionService>()
-                ctx.stopService<MediaRpcService>()
-                ctx.stopService<ExperimentalRpc>()
+                ctx.stopService(Intent(ctx, AppDetectionService::class.java))
+                ctx.stopService(Intent(ctx, MediaRpcService::class.java))
+                ctx.stopService(Intent(ctx, ExperimentalRpc::class.java))
             }
             Tile.STATE_INACTIVE -> {
                 showDialog(createRpcChoosingDialog(ctx))
@@ -67,13 +66,13 @@ class KizzyTileService : TileService() {
             .setSingleChoiceItems(rpc, -1) { dialog, which ->
                 when (which) {
                     0 -> {
-                        ctx.startService<AppDetectionService>()
+                        ctx.startService(Intent(ctx, AppDetectionService::class.java))
                     }
                     1 -> {
-                        ctx.startService<MediaRpcService>()
+                        ctx.startService(Intent(ctx, MediaRpcService::class.java))
                     }
                     2 -> {
-                        ctx.startService<ExperimentalRpc>()
+                        ctx.startService(Intent(ctx, ExperimentalRpc::class.java))
                     }
                     else -> {}
                 }

@@ -32,12 +32,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import com.my.kizzy.resources.R
 import com.my.kizzy.feature_rpc_base.AppUtils
 import com.my.kizzy.feature_rpc_base.services.AppDetectionService
-import com.my.kizzy.feature_rpc_base.startServiceAndStopOthers
-import com.my.kizzy.feature_rpc_base.stopService
+import com.my.kizzy.feature_rpc_base.services.CustomRpcService
+import com.my.kizzy.feature_rpc_base.services.ExperimentalRpc
+import com.my.kizzy.feature_rpc_base.services.MediaRpcService
 import com.my.kizzy.preference.Prefs
+import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.SwitchBar
 import com.my.kizzy.ui.components.preference.PreferencesHint
@@ -102,9 +103,12 @@ fun AppsRPC(
                         serviceEnabled = !serviceEnabled
                         when (serviceEnabled) {
                             true -> {
-                                ctx.startServiceAndStopOthers<AppDetectionService>()
+                                ctx.stopService(Intent(ctx, MediaRpcService::class.java))
+                                ctx.stopService(Intent(ctx, CustomRpcService::class.java))
+                                ctx.stopService(Intent(ctx, ExperimentalRpc::class.java))
+                                ctx.startService(Intent(ctx, AppDetectionService::class.java))
                             }
-                            false -> ctx.stopService<AppDetectionService>()
+                            false -> ctx.stopService(Intent(ctx, AppDetectionService::class.java))
                         }
 
                     }

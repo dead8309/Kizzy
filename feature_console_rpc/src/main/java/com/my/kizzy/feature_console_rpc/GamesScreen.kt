@@ -42,7 +42,6 @@ import com.my.kizzy.feature_rpc_base.services.AppDetectionService
 import com.my.kizzy.feature_rpc_base.services.CustomRpcService
 import com.my.kizzy.feature_rpc_base.services.ExperimentalRpc
 import com.my.kizzy.feature_rpc_base.services.MediaRpcService
-import com.my.kizzy.feature_rpc_base.stopService
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.BackButton
@@ -152,13 +151,33 @@ fun GamesScreen(
                                     if (intent.hasExtra("RPC")) {
                                         Prefs[Prefs.LAST_RUN_CONSOLE_RPC] =
                                             intent.getStringExtra("RPC")
-                                        context.stopService<AppDetectionService>()
-                                        context.stopService<MediaRpcService>()
-                                        context.stopService<ExperimentalRpc>()
+                                        context.stopService(
+                                            Intent(
+                                                context,
+                                                AppDetectionService::class.java
+                                            )
+                                        )
+                                        context.stopService(
+                                            Intent(
+                                                context,
+                                                MediaRpcService::class.java
+                                            )
+                                        )
+                                        context.stopService(
+                                            Intent(
+                                                context,
+                                                ExperimentalRpc::class.java
+                                            )
+                                        )
                                         context.startService(intent)
                                     }
                                 }
-                                false -> context.stopService<CustomRpcService>()
+                                false -> context.stopService(
+                                    Intent(
+                                        context,
+                                        CustomRpcService::class.java
+                                    )
+                                )
                             }
                         }
                         LazyColumn {

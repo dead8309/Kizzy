@@ -29,15 +29,16 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import com.my.kizzy.resources.R
 import com.my.kizzy.feature_rpc_base.AppUtils
+import com.my.kizzy.feature_rpc_base.services.AppDetectionService
+import com.my.kizzy.feature_rpc_base.services.CustomRpcService
+import com.my.kizzy.feature_rpc_base.services.ExperimentalRpc
 import com.my.kizzy.feature_rpc_base.services.MediaRpcService
-import com.my.kizzy.feature_rpc_base.startServiceAndStopOthers
-import com.my.kizzy.feature_rpc_base.stopService
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.preference.Prefs.MEDIA_RPC_APP_ICON
 import com.my.kizzy.preference.Prefs.MEDIA_RPC_ARTIST_NAME
 import com.my.kizzy.preference.Prefs.MEDIA_RPC_ENABLE_TIMESTAMPS
+import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.SwitchBar
 import com.my.kizzy.ui.components.preference.PreferenceSwitch
@@ -47,7 +48,7 @@ import com.my.kizzy.ui.components.preference.PreferencesHint
 @Composable
 fun MediaRPC(onBackPressed: () -> Unit) {
     val context = LocalContext.current
-    var mediarpcRunning by remember { mutableStateOf(AppUtils.mediaRpcRunning()) }
+    var mediaRpcRunning by remember { mutableStateOf(AppUtils.mediaRpcRunning()) }
     var isArtistEnabled by remember { mutableStateOf(Prefs[MEDIA_RPC_ARTIST_NAME, false]) }
     var isAppIconEnabled by remember { mutableStateOf(Prefs[MEDIA_RPC_APP_ICON, false]) }
     var isTimestampsEnabled by remember { mutableStateOf(Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS, false]) }
@@ -84,13 +85,18 @@ fun MediaRPC(onBackPressed: () -> Unit) {
             }
             SwitchBar(
                 title = stringResource(id = R.string.enable_mediaRpc),
-                isChecked = mediarpcRunning,
+                isChecked = mediaRpcRunning,
                 enabled = hasNotificationAccess
             ) {
-                mediarpcRunning = !mediarpcRunning
-                when (mediarpcRunning) {
-                    true -> context.startServiceAndStopOthers<MediaRpcService>()
-                    false -> context.stopService<MediaRpcService>()
+                mediaRpcRunning = !mediaRpcRunning
+                when (mediaRpcRunning) {
+                    true -> {
+                        context.stopService(Intent(context, AppDetectionService::class.java))
+                        context.stopService(Intent(context, CustomRpcService::class.java))
+                        context.stopService(Intent(context, ExperimentalRpc::class.java))
+                        context.startService(Intent(context, MediaRpcService::class.java))
+                    }
+                    false -> context.stopService(Intent(context, MediaRpcService::class.java))
                 }
             }
             LazyColumn {
