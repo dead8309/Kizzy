@@ -49,8 +49,10 @@ fun KTextField(
 
     TextField(
         modifier = Modifier.focusRequester(focusRequester),
-        colors = TextFieldDefaults.textFieldColors(
-            containerColor = Color.Transparent,
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Color.Transparent,
+            unfocusedContainerColor = Color.Transparent,
+            disabledContainerColor = Color.Transparent,
         ),
         maxLines = 1,
         enabled = !readOnly,

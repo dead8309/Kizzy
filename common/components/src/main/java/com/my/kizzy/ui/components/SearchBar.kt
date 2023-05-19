@@ -52,9 +52,14 @@ fun SearchBar(
                 RoundedCornerShape(200.dp)
             ),
         decorationBox = { innerTextField ->
-            TextFieldDefaults.TextFieldDecorationBox(
+            val containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(5.dp)
+            TextFieldDefaults.DecorationBox(
                 value = text,
                 innerTextField = innerTextField,
+                enabled = true,
+                singleLine = true,
+                visualTransformation = VisualTransformation.None,
+                interactionSource = remember { MutableInteractionSource() },
                 placeholder = { Text(placeholder) },
                 trailingIcon = {
                     IconButton(onClick = {
@@ -69,21 +74,19 @@ fun SearchBar(
                         )
                     }
                 },
-                singleLine = true,
-                enabled = true,
-                interactionSource = remember { MutableInteractionSource() },
-                visualTransformation = VisualTransformation.None,
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = containerColor,
+                    unfocusedContainerColor = containerColor,
+                    disabledContainerColor = containerColor,
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                ),
                 contentPadding = PaddingValues(
                     start = 14.dp,
                     end = 12.dp,
                     top = 10.dp,
                     bottom = 10.dp
                 ),
-                colors = TextFieldDefaults.textFieldColors(
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent,
-                    containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(5.dp)
-                )
             )
         }
     )
