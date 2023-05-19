@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.feature_custom_rpc
+package com.my.kizzy.feature_custom_rpc.components
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
