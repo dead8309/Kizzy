@@ -12,6 +12,8 @@
 
 package com.my.kizzy.feature_logs
 
+import android.annotation.SuppressLint
+import android.icu.text.SimpleDateFormat
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -42,11 +44,8 @@ import com.my.kizzy.ui.components.KSwitch
 import com.my.kizzy.ui.components.SearchBar
 import com.my.kizzy.ui.theme.LogColors.color
 import java.text.DateFormat
-import java.time.Instant
-import java.time.format.DateTimeFormatter
 import java.util.*
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LogScreen(viewModel: LogsViewModel) {
     val lazyListState = rememberLazyListState()
@@ -223,6 +222,7 @@ fun LogsCard(logEvent: LogEvent) {
     )
 }
 
+@SuppressLint("SimpleDateFormat")
 @Composable
 fun LogEvent.annotated() = buildAnnotatedString {
     withStyle(
@@ -239,12 +239,7 @@ fun LogEvent.annotated() = buildAnnotatedString {
             background = MaterialTheme.colorScheme.surfaceColorAtElevation(4.dp)
         )
     ) {
-        append(
-            DateTimeFormatter
-                .ofPattern("h:mm:ssa", Locale.getDefault()).format(
-                    Instant.ofEpochMilli(createdAt)
-                )
-        )
+        append(SimpleDateFormat("h:mm:ssa").format(createdAt))
     }
     append(" $tag: $text")
 }
