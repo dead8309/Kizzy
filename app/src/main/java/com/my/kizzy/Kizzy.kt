@@ -125,7 +125,11 @@ internal fun ComponentActivity.Kizzy() {
             }
             animatedComposable(Routes.CUSTOM_RPC) {
                 val viewModel by viewModels<CustomScreenViewModel>()
-                CustomRPC(onBackPressed = { navController.popBackStack() },viewModel)
+                CustomRPC(
+                    onBackPressed = { navController.popBackStack() },
+                    state = viewModel.uiState.collectAsState().value,
+                    onEvent = viewModel::onEvent
+                )
             }
             animatedComposable(Routes.MEDIA_RPC) { MediaRPC(onBackPressed = { navController.popBackStack() }) }
             animatedComposable(Routes.PROFILE) {

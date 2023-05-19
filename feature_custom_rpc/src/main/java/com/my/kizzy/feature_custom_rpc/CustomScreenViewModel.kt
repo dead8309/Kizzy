@@ -14,15 +14,18 @@ package com.my.kizzy.feature_custom_rpc
 
 import android.annotation.SuppressLint
 import android.net.Uri
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.blankj.utilcode.util.UriUtils
 import com.my.kizzy.domain.use_case.upload_galleryImage.UploadGalleryImageUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @SuppressLint("StaticFieldLeak")
@@ -30,37 +33,104 @@ import javax.inject.Inject
 class CustomScreenViewModel @Inject constructor(
     private val uploadGalleryImageUseCase: UploadGalleryImageUseCase
 ) : ViewModel() {
-    var name by mutableStateOf("")
-    var details by mutableStateOf("")
-    var state by mutableStateOf("")
-    var startTimestamps by mutableStateOf("")
-    var stopTimestamps by mutableStateOf("")
-    var status by mutableStateOf("")
-    var button1 by mutableStateOf("")
-    var button2 by mutableStateOf("")
-    var button1Url by mutableStateOf("")
-    var button2Url by mutableStateOf("")
-    var largeImg by mutableStateOf("")
-    var smallImg by mutableStateOf("")
-    var largeImgText by mutableStateOf("")
-    var smallImgText by mutableStateOf("")
-    var type by mutableStateOf("")
-    var url by mutableStateOf("")
-    var activityTypeisExpanded by mutableStateOf(false)
-    var menuClicked by mutableStateOf(false)
-    var showLoadDialog by mutableStateOf(false)
-    var showSaveDialog by mutableStateOf(false)
-    var showDeleteDialog by mutableStateOf(false)
-    var showPreviewDialog by mutableStateOf(false)
-    var showStartTimeStampsPickerDialog by mutableStateOf(false)
-    var showStopTimeStampsPickerDialog by mutableStateOf(false)
+    private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState())
+    val uiState: StateFlow<UiState> = _uiState
+    private val uiEventChannel = Channel<UiEvent>(capacity = Channel.UNLIMITED)
 
-    fun uploadImage(uri: Uri, result: (String) -> Unit) {
+    init {
+        /*
+        TODO: Setting fields values to the previous rpc config
+            _uiState.value = _uiState.value.copy(rpcConfig = Prefs[Prefs.LAST_RUN_CUSTOM_RPC, ""]
+            .stringToData())
+        */
         viewModelScope.launch {
+            uiEventChannel.consumeAsFlow()
+                .collect { event ->
+                    processEvent(event)
+                }
+        }
+    }
+
+    private suspend fun uploadImage(uri: Uri, result: (String) -> Unit) {
             UriUtils.uri2File(uri)?.let { file ->
                 uploadGalleryImageUseCase(file)?.let {
-                    result(it.drop(3))
+                    withContext(Dispatchers.Main){
+                        result(it.drop(3))
+                    }
                 }
+            }
+    }
+    fun onEvent(event: UiEvent) {
+        viewModelScope.launch {
+            uiEventChannel.send(event)
+        }
+    }
+    private suspend fun processEvent(event: UiEvent) {
+        when (event) {
+            is UiEvent.SetFieldsFromConfig -> {
+                _uiState.value = _uiState.value.copy(rpcConfig = event.config)
+            }
+
+            UiEvent.TriggerBottomSheet -> {
+                _uiState.value =
+                    _uiState.value.copy(showBottomSheet = !_uiState.value.showBottomSheet)
+            }
+
+            UiEvent.TriggerActivityTypeDropDownMenu -> {
+                _uiState.value =
+                    _uiState.value.copy(activityTypeIsExpanded = !_uiState.value.activityTypeIsExpanded)
+            }
+
+            UiEvent.TriggerStartTimeStampsDialog -> {
+                _uiState.value =
+                    _uiState.value.copy(showStartTimeStampsPickerDialog = !_uiState.value.showStartTimeStampsPickerDialog)
+            }
+
+            UiEvent.TriggerStopTimeStampsDialog -> {
+                _uiState.value =
+                    _uiState.value.copy(showStopTimeStampsPickerDialog = !_uiState.value.showStopTimeStampsPickerDialog)
+            }
+
+            is UiEvent.UploadImage -> {
+                uploadImage(event.uri) {
+                    event.callback(it)
+                }
+            }
+
+            // Sheet Events
+            UiEvent.SheetEvent.TriggerStoragePermissionRequest -> {
+                _uiState.value = _uiState.value.copy(
+                    showStoragePermissionRequestDialog = !_uiState.value.showStoragePermissionRequestDialog,
+                    showBottomSheet = false
+                )
+            }
+
+            UiEvent.SheetEvent.TriggerDeleteDialog -> {
+                _uiState.value = _uiState.value.copy(
+                    showDeleteDialog = !_uiState.value.showDeleteDialog,
+                    showBottomSheet = false
+                )
+            }
+
+            UiEvent.SheetEvent.TriggerLoadDialog -> {
+                _uiState.value = _uiState.value.copy(
+                    showLoadDialog = !_uiState.value.showLoadDialog,
+                    showBottomSheet = false
+                )
+            }
+
+            UiEvent.SheetEvent.TriggerPreviewDialog -> {
+                _uiState.value = _uiState.value.copy(
+                    showPreviewDialog = !_uiState.value.showPreviewDialog,
+                    showBottomSheet = false
+                )
+            }
+
+            UiEvent.SheetEvent.TriggerSaveDialog -> {
+                _uiState.value = _uiState.value.copy(
+                    showSaveDialog = !_uiState.value.showSaveDialog,
+                    showBottomSheet = false
+                )
             }
         }
     }

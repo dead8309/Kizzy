@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.feature_custom_rpc
+package com.my.kizzy.feature_custom_rpc.components
 
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.DatePicker
