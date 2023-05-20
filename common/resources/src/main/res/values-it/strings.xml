@@ -7,7 +7,7 @@
     <string name="activity_state">Stato Attività</string>
     <string name="activity_start_timestamps">Tempo Trascorso</string>-
     <string name="activity_stop_timestamps">Tempo Rimanente</string>-
-    <string name="activity_status_online_idle_dnd">Stato Attività(online,inattivo,non disturbare)</string>
+    <string name="activity_status_online_idle_dnd">Stato Attività (online, inattivo, non disturbare)</string>
     <string name="activity_button1_text">Testo Pulsante 1</string>-
     <string name="activity_button2_text">Testo Pulsante 2</string>-
     <string name="activity_button1_url">URL Pulsante 1</string>-
@@ -23,9 +23,9 @@
     <string name="login_with_discord">Entra con Discord</string>
     <string name="github_readme">README</string>
     <string name="github_readme_desc">Controlla il repository su Github</string>
-    <string name="github_latest_release">"Controlla Aggiornamenti "</string>
+    <string name="github_latest_release">Controlla Aggiornamenti</string>
     <string name="github_latest_release_desc">Controlla aggiornamenti e changelog</string>
-    <string name="github_issue">Issue GitHub</string>
+    <string name="github_issue">Feedback su GitHub</string>
     <string name="github_issue_desc">Segnala un bug o una richiesta di funzionalità</string>
     <string name="credits">Crediti</string>
     <string name="credits_desc">Crediti alle librerie utilizzate e ai collaboratori</string>
@@ -42,7 +42,7 @@
     <string name="app_crashed"> è andata in crash</string>
     <string name="share_crash_logs_desc">Si prega di inviare i log nel canale Discord con il seguente stacktrace :</string>
     <string name="share_crash_logs">CONDIVIDI LOGS</string>
-    <string name="welcome">Benvenuto/a</string>
+    <string name="welcome">Benvenuto</string>
     <string name="features">Funzioni</string>
     <string name="account">Account</string>
     <string name="display">Aspetto</string>
@@ -81,8 +81,8 @@
     <string name="permission_not_granted">Non Concesso, Fare Clic per Consentire</string>
     <string name="activity_large_text">Descrizione Attività Grande</string>
     <string name="activity_small_text">Descrizione Attività Piccola</string>
-    <string name="contributors">Contributors</string>
-    <string name="stream_url">Stream Url</string>
-    <string name="stream_url_info">Only https://twitch.tv/ and https://youtube.com/ urls will work.</string>
-    <string name="activity_button_max_character">Max character limit is 31</string>
+    <string name="contributors">Collaboratori</string>
+    <string name="stream_url">URL Stream</string>
+    <string name="stream_url_info">Funzioneranno solo URL https://twitch.tv/ e https://youtube.com/</string>
+    <string name="activity_button_max_character">Il limite massimo di caratteri è 31</string>
 </resources>
