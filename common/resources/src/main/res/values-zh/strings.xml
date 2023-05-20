@@ -21,14 +21,14 @@
     <string name="preview_rpc">預覽 Rpc</string>
     <string name="select_a_config">選擇配置</string>
     <string name="login_with_discord">用Discord登入</string>
-    <string name="github_readme">README</string>
-    <string name="github_readme_desc">檢查 Github repository</string>
+    <string name="github_readme">説明</string>
+    <string name="github_readme_desc">檢查 Github 存儲庫</string>
     <string name="github_latest_release">最新版本</string>
     <string name="github_latest_release_desc">檢查新版本和更新日誌</string>
     <string name="github_issue">Github 問題</string>
     <string name="github_issue_desc">報告找到的問題與功能請求</string>
-    <string name="credits">捐款</string>
-    <string name="credits_desc">捐款給使用的資料庫和奉獻者</string>
+    <string name="credits">贊助</string>
+    <string name="credits_desc">贊助資料庫和奉獻者</string>
     <string name="enable_artist_name">啟用顯示作家名字</string>
     <string name="show_app_icon">顯示程式名字</string>
     <string name="enable_timestamps">啟用時間</string>
@@ -74,17 +74,17 @@
     <string name="primary_color_hint">例子： #666666 / 666666</string>
     <string name="android_on">開啓</string>
     <string name="android_off">關閉</string>
-    <string name="setup">Setup</string>
+    <string name="setup">設置</string>
     <string name="user_data_policy">本應用程式不會收集任何用戶資料</string>
     <string name="setup_desc">在繼續前, 請確保已授權所有必要權限已確保程式的所有功能可以正常運作</string>
     <string name="permission_granted">已授權</string>
     <string name="permission_not_granted">未授權, 點擊已授權</string>
     <string name="activity_large_text">活動大標題</string>
     <string name="activity_small_text">活動小標題</string>
-    <string name="contributors">Contributors</string>
-    <string name="stream_url">Stream Url</string>
-    <string name="stream_url_info">Only https://twitch.tv/ and https://youtube.com/ urls will work.</string>
-    <string name="activity_button_max_character">Max character limit is 31</string>
+    <string name="contributors">奉獻者</string>
+    <string name="stream_url">直播鏈接</string>
+    <string name="stream_url_info">只限 https://twitch.tv/ 及 https://youtube.com/</string>
+    <string name="activity_button_max_character">字數上限為 31</string>
 
 
 </resources>
