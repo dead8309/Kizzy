@@ -18,6 +18,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.blankj.utilcode.util.UriUtils
 import com.my.kizzy.domain.use_case.upload_galleryImage.UploadGalleryImageUseCase
+import com.my.kizzy.feature_custom_rpc.components.sheet.stringToData
+import com.my.kizzy.preference.Prefs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -38,11 +40,11 @@ class CustomScreenViewModel @Inject constructor(
     private val uiEventChannel = Channel<UiEvent>(capacity = Channel.UNLIMITED)
 
     init {
-        /*
-        TODO: Setting fields values to the previous rpc config
-            _uiState.value = _uiState.value.copy(rpcConfig = Prefs[Prefs.LAST_RUN_CUSTOM_RPC, ""]
-            .stringToData())
-        */
+        if (Prefs[Prefs.APPLY_FIELDS_FROM_LAST_RUN_RPC, false]) {
+            _uiState.value = _uiState.value.copy(
+                rpcConfig = Prefs[Prefs.LAST_RUN_CUSTOM_RPC, ""].stringToData()
+            )
+        }
         viewModelScope.launch {
             uiEventChannel.consumeAsFlow()
                 .collect { event ->
@@ -52,19 +54,21 @@ class CustomScreenViewModel @Inject constructor(
     }
 
     private suspend fun uploadImage(uri: Uri, result: (String) -> Unit) {
-            UriUtils.uri2File(uri)?.let { file ->
-                uploadGalleryImageUseCase(file)?.let {
-                    withContext(Dispatchers.Main){
-                        result(it.drop(3))
-                    }
+        UriUtils.uri2File(uri)?.let { file ->
+            uploadGalleryImageUseCase(file)?.let {
+                withContext(Dispatchers.Main) {
+                    result(it.drop(3))
                 }
             }
+        }
     }
+
     fun onEvent(event: UiEvent) {
         viewModelScope.launch {
             uiEventChannel.send(event)
         }
     }
+
     private suspend fun processEvent(event: UiEvent) {
         when (event) {
             is UiEvent.SetFieldsFromConfig -> {

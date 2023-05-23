@@ -105,4 +105,6 @@ object Prefs {
     const val SHOW_LOGS_IN_COMPACT_MODE = "logs_compact_mode"
 
     const val PALETTE_STYLE = "palette_style"
+
+    const val APPLY_FIELDS_FROM_LAST_RUN_RPC = "enable_setting_from_last_config"
 }

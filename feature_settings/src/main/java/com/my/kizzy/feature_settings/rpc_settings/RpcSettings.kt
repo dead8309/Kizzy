@@ -63,6 +63,9 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
     var showActivityTypeDialog by remember {
         mutableStateOf(false)
     }
+    var setLastRunRpcConfigOption by remember {
+        mutableStateOf(Prefs[Prefs.APPLY_FIELDS_FROM_LAST_RUN_RPC, false])
+    }
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         LargeTopAppBar(title = {
             Text(
@@ -115,6 +118,17 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                     icon = Icons.Default.Code
                 ) {
                     showActivityTypeDialog = true
+                }
+            }
+            item {
+                PreferenceSwitch(
+                    title = stringResource(R.string.set_previous_run_config_in_custom_rpc),
+                    description = stringResource(R.string.set_previous_run_config_in_custom_rpc_desc),
+                    icon = Icons.Default.Cached,
+                    isChecked = setLastRunRpcConfigOption
+                ) {
+                    setLastRunRpcConfigOption = !setLastRunRpcConfigOption
+                    Prefs[Prefs.APPLY_FIELDS_FROM_LAST_RUN_RPC] = setLastRunRpcConfigOption
                 }
             }
             item {
