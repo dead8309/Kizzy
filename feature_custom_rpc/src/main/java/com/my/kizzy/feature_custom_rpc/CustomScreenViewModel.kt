@@ -139,7 +139,10 @@ class CustomScreenViewModel @Inject constructor(
             }
 
             UiEvent.SheetEvent.ClearAllFields -> {
-                _uiState.value = _uiState.value.copy(rpcConfig = RpcConfig())
+                _uiState.value = _uiState.value.copy(
+                    rpcConfig = RpcConfig(),
+                    showBottomSheet = false
+                )
             }
         }
     }
