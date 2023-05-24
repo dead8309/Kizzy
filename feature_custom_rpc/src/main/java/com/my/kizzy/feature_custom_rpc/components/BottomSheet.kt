@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ClearAll
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.FileOpen
 import androidx.compose.material.icons.outlined.SaveAs
@@ -89,6 +90,17 @@ fun BottomSheet(onEvent: (UiEvent.SheetEvent) -> Unit,onDismiss: () -> Unit) {
                     }
                 },
                 icon = R.drawable.ic_rpc_placeholder
+            )
+
+            SheetItem(
+                title = stringResource(id = R.string.clear_all_fields),
+                onClick = {
+                    scope.launch {
+                        state.hide()
+                        onEvent(UiEvent.SheetEvent.ClearAllFields)
+                    }
+                },
+                icon = Icons.Outlined.ClearAll
             )
         }
     }
