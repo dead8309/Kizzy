@@ -488,7 +488,7 @@ private fun RpcTextFieldsColumn(
                                 })
                         }
                     ) {
-                        onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(type = it)))
+                        onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(url = it)))
                     }
                 }
                 Spacer(modifier = Modifier.size(100.dp))
