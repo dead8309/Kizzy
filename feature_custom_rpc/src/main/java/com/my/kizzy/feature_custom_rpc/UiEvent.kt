@@ -28,6 +28,7 @@ sealed interface UiEvent {
         object TriggerDeleteDialog: SheetEvent
         object TriggerPreviewDialog: SheetEvent
         object TriggerStoragePermissionRequest: SheetEvent
+        object ClearAllFields: SheetEvent
     }
 }
 

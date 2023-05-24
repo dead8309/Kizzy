@@ -17,6 +17,7 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.blankj.utilcode.util.UriUtils
+import com.my.kizzy.domain.model.RpcConfig
 import com.my.kizzy.domain.use_case.upload_galleryImage.UploadGalleryImageUseCase
 import com.my.kizzy.feature_custom_rpc.components.sheet.stringToData
 import com.my.kizzy.preference.Prefs
@@ -135,6 +136,10 @@ class CustomScreenViewModel @Inject constructor(
                     showSaveDialog = !_uiState.value.showSaveDialog,
                     showBottomSheet = false
                 )
+            }
+
+            UiEvent.SheetEvent.ClearAllFields -> {
+                _uiState.value = _uiState.value.copy(rpcConfig = RpcConfig())
             }
         }
     }
