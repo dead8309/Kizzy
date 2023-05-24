@@ -84,9 +84,9 @@
     <string name="contributors">Współautorzy</string>
     <string name="stream_url">Url Strumienia</string>
     <string name="stream_url_info">Tylko https://twitch.tv/ i https://youtube.com/ adresy URL będą działać.</string>
-    <string name="activity_button_max_character">Max character limit is 31</string>
-    <string name="set_previous_run_config_in_custom_rpc">Set Previous Run config to Custom Rpc Fields</string>
-    <string name="set_previous_run_config_in_custom_rpc_desc">Automatically set fields in custom rpc from the last run rpc</string>
-    <string name="clear_all_fields">Clear All Fields</string>
+    <string name="activity_button_max_character">Maks. liczba znaków to 31</string>
+    <string name="set_previous_run_config_in_custom_rpc">Ustaw poprzednio uruchomioną konfigurację do pól własnego RPC</string>
+    <string name="set_previous_run_config_in_custom_rpc_desc">Automatycznie wypełnij pola w własnym rpc z ostatnio uruchomionego rpc</string>
+    <string name="clear_all_fields">Wyczyść wszystkie pola</string>
 
 </resources>
