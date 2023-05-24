@@ -85,7 +85,7 @@
     <string name="stream_url">Ссылка на эфир</string>
     <string name="stream_url_info">Будут работать только ссылки на Twitch и YouTube.</string>
     <string name="activity_button_max_character">Максимальное кол-во символов - 31</string>
-    <string name="set_previous_run_config_in_custom_rpc">Установить конфигурацию предыдущего запуска в Custom RPC</string>
+    <string name="set_previous_run_config_in_custom_rpc">Установить конфигурацию предыдущего запуска в поля Custom RPC</string>
     <string name="set_previous_run_config_in_custom_rpc_desc">Автоматически установить поля в Custom RPC из последнего запуска RPC</string>
     <string name="clear_all_fields">Очистить все поля</string>
 </resources>
