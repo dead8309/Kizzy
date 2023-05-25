@@ -32,6 +32,7 @@ junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 javax = "1"
+kotlinx-serialization-json = "1.4.1"
 
 [libraries]
 
@@ -78,6 +79,9 @@ ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 ktor-websockets = { module = "io.ktor:ktor-client-websockets", version.ref = "ktor" }
 ktor-gson = { module = "io.ktor:ktor-serialization-gson", version.ref = "ktor" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
+ktor-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-kotlinx-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
 # Retrofit
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
@@ -107,6 +111,7 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 [bundles]
 network-okhttp = ["okhttp", "okhttp-interceptor"]
@@ -120,4 +125,5 @@ compose-accompanist = [
     "accompanist-pager-indicators",
     "accompanist-pager-layouts"
 ]
+network-ktor-request = ["ktor-core","ktor-client-cio","ktor-kotlinx-serialization","ktor-content-negotiation"]
 
