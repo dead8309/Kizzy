@@ -14,7 +14,8 @@ android {
 dependencies {
     implementation (libs.core.ktx)
     implementation (projects.domain)
-    implementation (libs.bundles.network.ktor.request)
+    implementation (libs.bundles.network.ktor)
+    implementation (libs.ktor.content.negotiation)
     implementation (libs.javax)
     implementation (projects.common.preference)
     implementation (projects.gateway)

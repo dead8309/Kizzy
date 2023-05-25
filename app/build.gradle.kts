@@ -61,9 +61,6 @@ dependencies {
     implementation (libs.material3)
     implementation (libs.androidx.material)
     implementation (libs.material3.windows.size)
-
-    implementation(libs.bundles.network.okhttp)
-    implementation(libs.bundles.network.retrofit)
 }
 
 fun ApplicationDefaultConfig.buildConfigFieldFromGradleProperty(fieldName: String,gradlePropertyName: String) {
