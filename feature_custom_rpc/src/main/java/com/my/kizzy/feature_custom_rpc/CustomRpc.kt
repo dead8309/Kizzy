@@ -231,7 +231,7 @@ private fun RpcTextFieldsColumn(
             }
 
             item {
-                RpcField(value = timeatampsStart,
+                RpcField(value = timestampsStart,
                     label = R.string.activity_start_timestamps,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     trailingIcon = {
@@ -249,19 +249,19 @@ private fun RpcTextFieldsColumn(
                                 onEvent(
                                     UiEvent.SetFieldsFromConfig(
                                         uiState.rpcConfig.copy(
-                                            timeatampsStart = it.toString()
+                                            timestampsStart = it.toString()
                                         )
                                     )
                                 )
                             }
                         }
                     }) {
-                    onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(timeatampsStart = it)))
+                    onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(timestampsStart = it)))
                 }
             }
 
             item {
-                RpcField(value = timeatampsStop,
+                RpcField(value = timestampsStop,
                     label = R.string.activity_stop_timestamps,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     trailingIcon = {
@@ -279,14 +279,14 @@ private fun RpcTextFieldsColumn(
                                 onEvent(
                                     UiEvent.SetFieldsFromConfig(
                                         uiState.rpcConfig.copy(
-                                            timeatampsStop = it.toString()
+                                            timestampsStop = it.toString()
                                         )
                                     )
                                 )
                             }
                         }
                     }) {
-                    onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(timeatampsStop = it)))
+                    onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(timestampsStop = it)))
                 }
             }
 

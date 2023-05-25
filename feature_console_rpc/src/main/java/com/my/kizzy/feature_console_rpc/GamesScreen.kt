@@ -191,7 +191,7 @@ fun GamesScreen(
                                         RpcConfig(
                                             name = info.platform,
                                             details = info.game_title,
-                                            timeatampsStart = System.currentTimeMillis().toString(),
+                                            timestampsStart = System.currentTimeMillis().toString(),
                                             status = "dnd",
                                             largeImg = info.large_image ?: "",
                                             smallImg = info.small_image,
