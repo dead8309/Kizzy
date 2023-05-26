@@ -23,19 +23,22 @@ import android.net.Uri
 import android.util.DisplayMetrics
 import android.webkit.MimeTypeMap
 import com.blankj.utilcode.util.AppUtils
-import com.google.gson.Gson
 import com.my.kizzy.data.remote.ApiResponse
 import com.my.kizzy.data.rpc.RpcImage
 import com.my.kizzy.domain.model.User
 import com.my.kizzy.preference.Prefs
-import retrofit2.Response
+import io.ktor.client.call.body
+import io.ktor.client.statement.HttpResponse
+import io.ktor.http.HttpStatusCode
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import java.io.File
 import java.io.FileOutputStream
 
-fun Response<ApiResponse>.toImageAsset(): String?{
+suspend fun HttpResponse.toImageAsset(): String?{
     return try {
-        if (this.isSuccessful)
-            this.body()?.id
+        if (this.status == HttpStatusCode.OK)
+            this.body<ApiResponse>().id
         else
             null
     } catch (e: Exception){
@@ -103,10 +106,10 @@ private fun getFileExtension(context: Context, uri: Uri): String? =
     } else {
         uri.path?.let { MimeTypeMap.getFileExtensionFromUrl(Uri.fromFile(File(it)).toString()) }
     }
-
-fun Gson.fromJson(value: String): User? {
+// Todo: Move this to preference module
+fun Json.fromJson(value: String): User? {
     return when {
-        value.isNotEmpty() -> this.fromJson(value, User::class.java)
+        value.isNotEmpty() -> this.decodeFromString(value)
         else -> null
     }
 }

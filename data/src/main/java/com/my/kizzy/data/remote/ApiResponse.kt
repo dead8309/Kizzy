@@ -1,8 +1,9 @@
 package com.my.kizzy.data.remote
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-
+@Serializable
 data class ApiResponse(
-    @SerializedName("id")
+    @SerialName("id")
     val id: String
 )

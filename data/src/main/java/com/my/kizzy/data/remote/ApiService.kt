@@ -11,25 +11,51 @@
  */
 package com.my.kizzy.data.remote
 
-import com.my.kizzy.domain.model.User
-import okhttp3.MultipartBody
-import retrofit2.Response
-import retrofit2.http.*
+import io.ktor.client.HttpClient
+import io.ktor.client.request.forms.MultiPartFormDataContent
+import io.ktor.client.request.forms.formData
+import io.ktor.client.request.get
+import io.ktor.client.request.parameter
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
+import io.ktor.client.request.url
+import io.ktor.http.Headers
+import io.ktor.http.HttpHeaders
+import java.io.File
+import javax.inject.Inject
 
-interface ApiService {
-    @GET("image")
-    suspend fun getImage(@Query("url") url: String): Response<ApiResponse>
+class ApiService @Inject constructor(
+    private val client: HttpClient,
+    @Base private val baseUrl: String,
+    @Discord private val discordBaseUrl: String,
+    @Github private val githubBaseUrl: String,
+) {
+    suspend fun getImage(url: String) = client.get {
+        url("$baseUrl/image")
+        parameter("url", url)
+    }
 
-    @Multipart
-    @POST("upload")
-    suspend fun uploadImage(@Part image: MultipartBody.Part): Response<ApiResponse>
+    suspend fun uploadImage(file: File) = client.post {
+        url("$baseUrl/upload")
+        setBody(MultiPartFormDataContent(
+            formData {
+                append("temp", file.readBytes(), Headers.build {
+                    append(HttpHeaders.ContentType, "image/*")
+                    append(HttpHeaders.ContentDisposition, "filename=${file.name}")
+                })
+            }
+        ))
+    }
 
-    @GET("games")
-    suspend fun getGames(): List<GamesResponse>
+    suspend fun getGames() = client.get {
+        url("$baseUrl/games")
+    }
 
-    @GET("user/{userid}")
-    suspend fun getUser(@Path("userid") userid: String): User
+    suspend fun getUser(userid: String) = client.get {
+        url("$baseUrl/user/$userid")
+    }
 
-    @GET("contributors")
-    suspend fun getContributors(): List<com.my.kizzy.domain.model.Contributor>
+    suspend fun getContributors() = client.get {
+        url("$baseUrl/contributors")
+    }
 }

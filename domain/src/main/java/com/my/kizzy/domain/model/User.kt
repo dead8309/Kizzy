@@ -12,36 +12,38 @@
 
 package com.my.kizzy.domain.model
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class User(
-    @SerializedName("bio")
+    @SerialName("bio")
     val bio: String? = "",
-    @SerializedName("nitro")
+    @SerialName("nitro")
     val nitro: Boolean? = false,
-    @SerializedName("accent_color")
+    @SerialName("accent_color")
     val accentColor: Int?,
-    @SerializedName("avatar")
+    @SerialName("avatar")
     val avatar: String?,
-    @SerializedName("avatar_decoration")
-    val avatarDecoration: Any?,
-    @SerializedName("badges")
+    @SerialName("avatar_decoration")
+    val avatarDecoration: String?,
+    @SerialName("badges")
     val badges: List<Badge>?,
-    @SerializedName("banner")
+    @SerialName("banner")
     val banner: String?,
-    @SerializedName("banner_color")
+    @SerialName("banner_color")
     val bannerColor: String?,
-    @SerializedName("discriminator")
+    @SerialName("discriminator")
     val discriminator: String?,
-    @SerializedName("id")
+    @SerialName("id")
     val id: String?,
-    @SerializedName("public_flags")
+    @SerialName("public_flags")
     val publicFlags: Int?,
-    @SerializedName("username")
+    @SerialName("username")
     val username: String?,
-    @SerializedName("special")
+    @SerialName("special")
     val special: String?,
-    @SerializedName("verified")
+    @SerialName("verified")
     val verified: Boolean
 ) {
     fun getAvatarImage(): String {
@@ -59,10 +61,11 @@ data class User(
     }
 }
 
+@Serializable
 data class Badge(
-    @SerializedName("icon")
+    @SerialName("icon")
     val icon: String,
-    @SerializedName("name")
+    @SerialName("name")
     val name: String
 )
 const val DISCORD_CDN = "https://cdn.discordapp.com"

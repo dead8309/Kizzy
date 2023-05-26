@@ -12,13 +12,15 @@
 
 package com.my.kizzy.domain.model
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Contributor(
-    @SerializedName("avatar")
+    @SerialName("avatar")
     val avatar: String = "",
-    @SerializedName("name")
+    @SerialName("name")
     val name: String = "",
-    @SerializedName("url")
+    @SerialName("url")
     val url: String = ""
 )
