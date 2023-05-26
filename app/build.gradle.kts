@@ -51,6 +51,7 @@ dependencies {
     // Extras
     implementation (libs.app.compat)
     implementation (libs.accompanist.navigation.animation)
+    implementation (libs.kotlinx.serialization.json)
 
 
     // Material
