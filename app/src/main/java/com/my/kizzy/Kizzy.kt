@@ -53,6 +53,7 @@ import com.my.kizzy.feature_startup.StartUp
 import com.my.kizzy.navigation.Routes
 import com.my.kizzy.navigation.animatedComposable
 import com.my.kizzy.preference.Prefs
+import kotlinx.serialization.json.Json
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalAnimationApi::class)
