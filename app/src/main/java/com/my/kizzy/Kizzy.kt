@@ -27,8 +27,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-import com.my.kizzy.data.utils.fromJson
-import com.my.kizzy.domain.model.User
 import com.my.kizzy.feature_about.about.About
 import com.my.kizzy.feature_about.about.Credits
 import com.my.kizzy.feature_about.about.CreditsScreenViewModel
@@ -55,7 +53,6 @@ import com.my.kizzy.feature_startup.StartUp
 import com.my.kizzy.navigation.Routes
 import com.my.kizzy.navigation.animatedComposable
 import com.my.kizzy.preference.Prefs
-import kotlinx.serialization.json.Json
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalAnimationApi::class)
@@ -85,7 +82,7 @@ internal fun ComponentActivity.Kizzy() {
                     })
             }
             animatedComposable(Routes.HOME) {
-                val user: User? = Json.fromJson(Prefs[Prefs.USER_DATA, ""])
+                val user = Prefs.getUser()
                 val ctx = LocalContext.current
                 Home(
                     features = provideFeatures(
