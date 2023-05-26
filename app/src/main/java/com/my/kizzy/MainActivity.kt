@@ -1,5 +1,8 @@
 package com.my.kizzy
 
+import android.app.AppOpsManager
+import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.compose.setContent
@@ -11,7 +14,6 @@ import androidx.compose.runtime.*
 import androidx.core.os.LocaleListCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
-import com.my.kizzy.data.utils.hasUsageAccess
 import com.my.kizzy.feature_media_rpc.hasNotificationAccess
 import com.my.kizzy.preference.getLanguageConfig
 import com.my.kizzy.ui.theme.KizzyTheme
@@ -69,6 +71,22 @@ class MainActivity : AppCompatActivity() {
                 if (locale.isEmpty()) LocaleListCompat.getEmptyLocaleList()
                 else LocaleListCompat.forLanguageTags(locale)
             AppCompatDelegate.setApplicationLocales(localeListCompat)
+        }
+
+        @Suppress("DEPRECATION")
+        fun Context.hasUsageAccess(): Boolean {
+            return try {
+                val packageManager: PackageManager = this.packageManager
+                val applicationInfo = packageManager.getApplicationInfo(this.packageName, 0)
+                val appOpsManager = this.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+                val mode = appOpsManager.checkOpNoThrow(
+                    AppOpsManager.OPSTR_GET_USAGE_STATS,
+                    applicationInfo.uid,
+                    applicationInfo.packageName)
+                mode == AppOpsManager.MODE_ALLOWED
+            } catch (e: PackageManager.NameNotFoundException) {
+                false
+            }
         }
     }
 }
