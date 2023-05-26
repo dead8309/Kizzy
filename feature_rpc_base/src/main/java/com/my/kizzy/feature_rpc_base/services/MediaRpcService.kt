@@ -18,7 +18,6 @@ import android.content.Intent
 import android.os.IBinder
 import android.os.PowerManager
 import android.os.PowerManager.WakeLock
-import com.google.gson.Gson
 import com.my.kizzy.data.get_current_data.media.GetCurrentPlayingMedia
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.rpc.KizzyRPC
@@ -30,6 +29,8 @@ import com.my.kizzy.preference.Prefs.TOKEN
 import com.my.kizzy.resources.R
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -67,7 +68,7 @@ class MediaRpcService : Service() {
                     getNotification(playingMedia.details?:"")
                 )
                 val rpcButtonsString = Prefs[Prefs.RPC_BUTTONS_DATA, "{}"]
-                val rpcButtons = Gson().fromJson(rpcButtonsString, RpcButtons::class.java)
+                val rpcButtons = Json.decodeFromString<RpcButtons>(rpcButtonsString)
                 when (kizzyRPC.isRpcRunning()) {
                     true -> {
                         logger.d("MediaRPC", "Updating Rpc")
