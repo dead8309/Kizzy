@@ -32,7 +32,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import com.google.gson.Gson
 import com.my.kizzy.resources.R
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.data.rpc.Constants
@@ -44,6 +43,9 @@ import com.my.kizzy.ui.components.SettingItem
 import com.my.kizzy.ui.components.Subtitle
 import com.my.kizzy.ui.components.dialog.SingleChoiceItem
 import com.my.kizzy.ui.components.preference.PreferenceSwitch
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -55,7 +57,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
     var useButtonConfigs by remember { mutableStateOf(Prefs[Prefs.USE_RPC_BUTTONS, false]) }
     var showButtonsConfigDialog by remember { mutableStateOf(false) }
     var rpcButtons by remember {
-        mutableStateOf(Gson().fromJson(Prefs[Prefs.RPC_BUTTONS_DATA, "{}"], RpcButtons::class.java))
+        mutableStateOf(Json.decodeFromString<RpcButtons>(Prefs[Prefs.RPC_BUTTONS_DATA, "{}"]))
     }
     var customActivityType by remember {
         mutableStateOf(Prefs[Prefs.CUSTOM_ACTIVITY_TYPE, 0].toString())
@@ -195,7 +197,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 onDismissRequest = { showButtonsConfigDialog = false },
                 confirmButton = {
                     TextButton(onClick = {
-                        Prefs[Prefs.RPC_BUTTONS_DATA] = Gson().toJson(rpcButtons)
+                        Prefs[Prefs.RPC_BUTTONS_DATA] = Json.encodeToString(rpcButtons)
                         showButtonsConfigDialog = false
                     }
                     ) {
