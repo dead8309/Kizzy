@@ -9,6 +9,7 @@ android {
 
 dependencies {
     implementation(projects.color)
+    implementation(projects.domain)
     implementation(projects.common.resources)
     implementation(libs.material3)
     implementation(libs.mmkv)

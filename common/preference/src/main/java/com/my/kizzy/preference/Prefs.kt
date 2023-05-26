@@ -12,6 +12,7 @@
 
 package com.my.kizzy.preference
 
+import com.my.kizzy.domain.model.User
 import com.tencent.mmkv.MMKV
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
@@ -62,6 +63,14 @@ object Prefs {
             enabledPackages.add(pkg)
 
         set(ENABLED_APPS, Json.encodeToString(enabledPackages))
+    }
+
+    fun getUser(): User? {
+        val userJson = get(USER_DATA,"")
+        return when {
+            userJson.isNotEmpty() -> Json.decodeFromString(userJson)
+            else -> null
+        }
     }
     //User Preferences
     const val USER_DATA = "user" //Json Data Referencing User_Data class

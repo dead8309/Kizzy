@@ -28,10 +28,7 @@ android {
     packagingOptions.resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
 }
 dependencies {
-    implementation (projects.gateway)
     implementation (projects.domain)
-    implementation (projects.data)
-
     implementation (projects.theme)
     implementation (projects.featureStartup)
     implementation (projects.featureCrashHandler)
