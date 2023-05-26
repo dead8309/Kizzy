@@ -38,7 +38,6 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
-import com.google.gson.Gson
 import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.Subtitle
 import com.my.kizzy.preference.Prefs
@@ -46,6 +45,7 @@ import com.my.kizzy.preference.getLanguageDesc
 import com.my.kizzy.preference.languages
 import com.my.kizzy.data.utils.fromJson
 import com.my.kizzy.domain.model.User
+import kotlinx.serialization.json.Json
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
 @Composable
@@ -56,7 +56,7 @@ fun StartUp(
     navigateToLogin: () -> Unit = {},
     navigateToHome: () -> Unit = {}
 ) {
-    val user: User? = Gson().fromJson(Prefs[Prefs.USER_DATA,""])
+    val user: User? = Json.fromJson(Prefs[Prefs.USER_DATA,""])
     val context = LocalContext.current
     val storagePermissionState = rememberPermissionState(
         android.Manifest.permission.WRITE_EXTERNAL_STORAGE
