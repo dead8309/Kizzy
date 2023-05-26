@@ -8,6 +8,8 @@ android {
     namespace = "com.my.kizzy.data"
     defaultConfig {
         buildConfigFieldFromGradleProperty("BASE_URL","BASE_URL")
+        buildConfigFieldFromGradleProperty("DISCORD_API_BASE_URL","DISCORD_API_URL")
+        buildConfigFieldFromGradleProperty("GITHUB_API_BASE_URL","GITHUB_API_URL")
     }
 }
 
@@ -16,6 +18,7 @@ dependencies {
     implementation (projects.domain)
     implementation (libs.bundles.network.ktor)
     implementation (libs.ktor.content.negotiation)
+    implementation (libs.ktor.logging)
     implementation (libs.javax)
     implementation (projects.common.preference)
     implementation (projects.gateway)

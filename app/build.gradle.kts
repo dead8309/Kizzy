@@ -1,7 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-import com.android.build.api.dsl.ApplicationDefaultConfig
-
 plugins {
     id("kizzy.android.application")
     id("kizzy.android.application.compose")
@@ -20,7 +18,6 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-        buildConfigFieldFromGradleProperty("BASE_URL","BASE_URL")
     }
     buildTypes {
         release {
@@ -54,17 +51,10 @@ dependencies {
     // Extras
     implementation (libs.app.compat)
     implementation (libs.accompanist.navigation.animation)
-    implementation (libs.gson)
 
 
     // Material
     implementation (libs.material3)
     implementation (libs.androidx.material)
     implementation (libs.material3.windows.size)
-}
-
-fun ApplicationDefaultConfig.buildConfigFieldFromGradleProperty(fieldName: String,gradlePropertyName: String) {
-    val propertyValue = project.properties[gradlePropertyName] as? String
-    checkNotNull(propertyValue) { "Gradle property $gradlePropertyName is null" }
-    buildConfigField("String", fieldName, propertyValue)
 }
