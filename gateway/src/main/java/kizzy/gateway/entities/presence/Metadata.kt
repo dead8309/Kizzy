@@ -1,8 +1,10 @@
 package kizzy.gateway.entities.presence
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Metadata(
-    @SerializedName("button_urls")
+    @SerialName("button_urls")
     val buttonUrls: List<String?>?
 )

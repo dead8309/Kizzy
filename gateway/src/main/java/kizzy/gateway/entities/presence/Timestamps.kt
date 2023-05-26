@@ -1,11 +1,12 @@
 package kizzy.gateway.entities.presence
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-import com.google.gson.annotations.SerializedName
-
+@Serializable
 data class Timestamps(
-    @SerializedName("end")
+    @SerialName("end")
     val end: Long? = null,
-    @SerializedName("start")
+    @SerialName("start")
     val start: Long? = null
 )

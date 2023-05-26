@@ -1,18 +1,18 @@
 package kizzy.gateway.entities
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-import com.google.gson.annotations.SerializedName
-
-
+@Serializable
 data class Identify(
-    @SerializedName("capabilities")
+    @SerialName("capabilities")
     val capabilities: Int,
-    @SerializedName("compress")
+    @SerialName("compress")
     val compress: Boolean,
-    @SerializedName("largeThreshold")
+    @SerialName("largeThreshold")
     val largeThreshold: Int,
-    @SerializedName("properties")
+    @SerialName("properties")
     val properties: Properties,
-    @SerializedName("token")
+    @SerialName("token")
     val token: String
 ){
     companion object {
@@ -29,11 +29,13 @@ data class Identify(
         )
     }
 }
+
+@Serializable
 data class Properties(
-    @SerializedName("browser")
+    @SerialName("browser")
     val browser: String,
-    @SerializedName("device")
+    @SerialName("device")
     val device: String,
-    @SerializedName("os")
+    @SerialName("os")
     val os: String
 )

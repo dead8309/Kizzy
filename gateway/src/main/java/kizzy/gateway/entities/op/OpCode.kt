@@ -1,10 +1,9 @@
 package kizzy.gateway.entities.op
 
-import com.google.gson.*
-import com.google.gson.annotations.JsonAdapter
+import kotlinx.serialization.Serializable
 
-@JsonAdapter(OpSerializer::class)
-enum class OpCodes(val value: Int) {
+@Serializable(OpCodeSerializer::class)
+enum class OpCode(val value: Int) {
     /** An event was dispatched. */
     DISPATCH(0),
 
