@@ -15,7 +15,6 @@ package com.my.kizzy.feature_rpc_base.services
 import android.app.*
 import android.content.Intent
 import android.os.IBinder
-import com.google.gson.GsonBuilder
 import com.my.kizzy.data.get_current_data.AppTracker
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.rpc.KizzyRPC
@@ -28,6 +27,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
 @Suppress("DEPRECATION")
@@ -46,7 +47,6 @@ class ExperimentalRpc: Service() {
     @Inject
     lateinit var logger: Logger
 
-    private val gson = GsonBuilder().setPrettyPrinting().create()
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent?.action.equals(ACTION_STOP_SERVICE)) stopSelf()
         else {
@@ -66,7 +66,7 @@ class ExperimentalRpc: Service() {
                 this, 0, stopIntent, PendingIntent.FLAG_IMMUTABLE
             )
             val rpcButtonsString = Prefs[Prefs.RPC_BUTTONS_DATA, "{}"]
-            val rpcButtons = gson.fromJson(rpcButtonsString, RpcButtons::class.java)
+            val rpcButtons = Json.decodeFromString<RpcButtons>(rpcButtonsString)
 
             scope.launch {
                 appTracker.getCurrentAppData().onStart {

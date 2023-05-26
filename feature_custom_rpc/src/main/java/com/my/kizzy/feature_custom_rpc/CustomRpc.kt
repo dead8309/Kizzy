@@ -29,7 +29,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.gson.Gson
 import com.my.kizzy.data.rpc.Constants.MAX_ALLOWED_CHARACTER_LENGTH
 import com.my.kizzy.domain.model.User
 import com.my.kizzy.feature_custom_rpc.components.BottomSheet
@@ -52,6 +51,8 @@ import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.RpcField
 import com.my.kizzy.ui.components.SwitchBar
 import kotlinx.coroutines.launch
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import java.util.*
 
 @Composable
@@ -113,7 +114,7 @@ fun CustomRPC(
     }
     if (state.showPreviewDialog) {
         val json = Prefs[Prefs.USER_DATA, "{}"]
-        val user = Gson().fromJson(json, User::class.java)
+        val user = Json.decodeFromString<User>(json)
         PreviewDialog(
             user = user,
             rpc = state.rpcConfig,

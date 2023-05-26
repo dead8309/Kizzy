@@ -9,7 +9,6 @@ android {
 }
 
 dependencies {
-    implementation (libs.gson)
     implementation (libs.accompanist.flowLayout)
     implementation (projects.featureRpcBase)
     implementation (projects.featureSettings)

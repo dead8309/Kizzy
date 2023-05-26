@@ -12,10 +12,10 @@ android {
 dependencies {
     implementation (libs.material.icons.extended)
     implementation(libs.accompanist.permission)
-    implementation(libs.gson)
     implementation(libs.activity.compose)
     implementation(libs.blankj.utilcodex)
     implementation(libs.glide)
+    implementation(libs.kotlinx.serialization.json)
     implementation(projects.featureRpcBase)
     implementation(projects.featureProfile)
 }

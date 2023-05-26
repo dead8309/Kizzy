@@ -35,7 +35,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.google.gson.Gson
 import com.my.kizzy.domain.model.Game
 import com.my.kizzy.domain.model.RpcConfig
 import com.my.kizzy.feature_rpc_base.services.AppDetectionService
@@ -50,6 +49,8 @@ import com.my.kizzy.ui.components.SwitchBar
 import com.my.kizzy.ui.components.shimmer.AnimatedShimmer
 import com.my.kizzy.ui.components.shimmer.ShimmerGamesScreen
 import com.skydoves.landscapist.glide.GlideImage
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -187,7 +188,7 @@ fun GamesScreen(
                                     selected = game.game_title == selected
                                 ) { info ->
                                     selected = game.game_title
-                                    val string = Gson().toJson(
+                                    val string = Json.encodeToString(
                                         RpcConfig(
                                             name = info.platform,
                                             details = info.game_title,

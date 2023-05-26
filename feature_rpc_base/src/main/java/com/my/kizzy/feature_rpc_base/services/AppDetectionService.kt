@@ -21,8 +21,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.IBinder
 import com.blankj.utilcode.util.AppUtils
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.rpc.KizzyRPC
 import com.my.kizzy.data.rpc.RpcImage
@@ -31,6 +29,8 @@ import com.my.kizzy.preference.Prefs
 import com.my.kizzy.resources.R
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import java.util.*
 import javax.inject.Inject
 
@@ -55,10 +55,7 @@ class AppDetectionService : Service() {
             context = this
             notifset = false
             val apps = Prefs[Prefs.ENABLED_APPS, "[]"]
-            val enabledPackages: ArrayList<String> = Gson().fromJson(
-                apps,
-                object : TypeToken<ArrayList<String>?>() {}.type
-            )
+            val enabledPackages: ArrayList<String> = Json.decodeFromString(apps)
             val channel = NotificationChannel(
                 CHANNEL_ID,
                 CHANNEL_NAME,
@@ -72,7 +69,7 @@ class AppDetectionService : Service() {
             val pendingIntent: PendingIntent = PendingIntent.getService(this,
                 0,stopIntent,PendingIntent.FLAG_IMMUTABLE)
             val rpcButtonsString = Prefs[Prefs.RPC_BUTTONS_DATA,"{}"]
-            val rpcButtons = Gson().fromJson(rpcButtonsString, RpcButtons::class.java)
+            val rpcButtons = Json.decodeFromString<RpcButtons>(rpcButtonsString)
             scope.launch {
                 while (isActive) {
                     val usageStatsManager =

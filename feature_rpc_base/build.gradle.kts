@@ -9,8 +9,7 @@ android {
 }
 
 dependencies {
-    implementation (libs.gson)
     implementation (libs.blankj.utilcodex)
     implementation(libs.androidx.material)
-
+    implementation(libs.kotlinx.serialization.json)
 }

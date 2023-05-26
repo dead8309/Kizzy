@@ -19,15 +19,12 @@ compose-navigation = "2.5.3"
 core-ktx = "1.10.0"
 crashx = "v6.0.19"
 glide = "1.6.1"
-gson = "2.10"
 hilt = "2.44"
 ktor = "2.2.1"
 kotlinx-coroutine = "1.6.4"
 lifecycle-ktx = "2.6.1"
 material3 = "1.2.0-alpha01"
 mmkv = "1.2.14"
-okhttp = "4.9.3"
-retrofit = "2.9.0"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
@@ -82,16 +79,7 @@ ktor-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation",
 ktor-kotlinx-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor"}
 
-# Retrofit
-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
-retrofit-gson-converter = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
-
-# OkHttp
-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
-okhttp-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
-
 # Third-party libraries
-gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 glide = { module = "com.github.skydoves:landscapist-glide", version.ref = "glide" }
 blankj-utilcodex = { module = "com.blankj:utilcodex", version.ref = "blankj-utilcodex" }
 crashx = { module = "com.github.TutorialsAndroid:crashx", version.ref = "crashx" }

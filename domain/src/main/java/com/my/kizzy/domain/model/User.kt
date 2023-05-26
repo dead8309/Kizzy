@@ -22,29 +22,29 @@ data class User(
     @SerialName("nitro")
     val nitro: Boolean? = false,
     @SerialName("accent_color")
-    val accentColor: Int?,
+    val accentColor: Int? = null,
     @SerialName("avatar")
-    val avatar: String?,
+    val avatar: String? = null,
     @SerialName("avatar_decoration")
-    val avatarDecoration: String?,
+    val avatarDecoration: String? = null,
     @SerialName("badges")
-    val badges: List<Badge>?,
+    val badges: List<Badge>? = null,
     @SerialName("banner")
-    val banner: String?,
+    val banner: String? = null,
     @SerialName("banner_color")
-    val bannerColor: String?,
+    val bannerColor: String? = null,
     @SerialName("discriminator")
-    val discriminator: String?,
+    val discriminator: String? = null,
     @SerialName("id")
-    val id: String?,
+    val id: String? = null,
     @SerialName("public_flags")
-    val publicFlags: Int?,
+    val publicFlags: Int? = null,
     @SerialName("username")
-    val username: String?,
+    val username: String? = null,
     @SerialName("special")
-    val special: String?,
+    val special: String? = null,
     @SerialName("verified")
-    val verified: Boolean
+    val verified: Boolean = false
 ) {
     fun getAvatarImage(): String {
         return if (avatar?.startsWith("a_") == true)
