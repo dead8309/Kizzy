@@ -2,7 +2,7 @@
  *
  *  ******************************************************************
  *  *  * Copyright (C) 2022
- *  *  * DataModule.kt is part of Kizzy
+ *  *  * AppModule.kt is part of Kizzy
  *  *  *  and can not be copied and/or distributed without the express
  *  *  * permission of yzziK(Vaibhav)
  *  *  *****************************************************************
@@ -10,8 +10,9 @@
  *
  */
 
-package com.my.kizzy.data
+package com.my.kizzy.data.di
 
+import com.my.kizzy.data.BuildConfig
 import com.my.kizzy.data.remote.ApiService
 import com.my.kizzy.data.remote.Base
 import com.my.kizzy.data.remote.Discord
@@ -35,7 +36,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DataModule {
+object AppModule {
     @Provides
     @Singleton
     @Base
@@ -81,7 +82,6 @@ object DataModule {
             }
         }
     }
-
 
     @Provides
     fun providesKizzyRepository(

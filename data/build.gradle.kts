@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.LibraryDefaultConfig
+
 plugins {
     id("kizzy.android.library")
     id("kizzy.android.hilt")
@@ -26,7 +28,7 @@ dependencies {
     testImplementation(libs.junit)
 }
 
-fun com.android.build.api.dsl.LibraryDefaultConfig.buildConfigFieldFromGradleProperty(fieldName: String, gradlePropertyName: String) {
+fun LibraryDefaultConfig.buildConfigFieldFromGradleProperty(fieldName: String, gradlePropertyName: String) {
     val propertyValue = project.properties[gradlePropertyName] as? String
     if (propertyValue != null) {
         buildConfigField("String", fieldName, propertyValue)
