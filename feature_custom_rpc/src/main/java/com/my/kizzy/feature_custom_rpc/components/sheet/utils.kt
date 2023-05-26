@@ -62,14 +62,18 @@ internal fun Context.handleUriResult(uri: Uri?, onSuccess: (json: String) -> Uni
         onSuccess(json)
     }
 }
-
-fun RpcConfig.dataToString(): String {
-    return Json.encodeToString(this)
+internal val json = Json {
+    ignoreUnknownKeys = true
 }
 
-fun String.stringToData(): RpcConfig {
+internal fun RpcConfig.dataToString(): String {
+    return json.encodeToString(this)
+}
+
+
+internal fun String.stringToData(): RpcConfig {
     return try {
-        return Json.decodeFromString(this)
+        return json.decodeFromString(this)
     } catch (ex: Exception) {
         RpcConfig()
     }
