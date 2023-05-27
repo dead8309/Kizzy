@@ -245,6 +245,7 @@ private fun RpcTextFieldsColumn(
                     content = {
                         if (uiState.showStartTimeStampsPickerDialog) {
                             DateTimePickerDialog(
+                                selectedDate = timestampsStart.toLongOrNull(),
                                 onDismiss = { onEvent(UiEvent.TriggerStartTimeStampsDialog) }
                             ) {
                                 onEvent(
@@ -275,6 +276,7 @@ private fun RpcTextFieldsColumn(
                     content = {
                         if (uiState.showStopTimeStampsPickerDialog) {
                             DateTimePickerDialog(
+                                selectedDate = timestampsStop.toLongOrNull(),
                                 onDismiss = { onEvent(UiEvent.TriggerStopTimeStampsDialog) }
                             ) {
                                 onEvent(
