@@ -86,7 +86,12 @@ fun Features(
                 },
             ) {
                 Box(modifier = Modifier
-                    .tooltipTrigger()
+                    .then(
+                        if (homeItems[i].tooltipText.isNotBlank()){
+                            Modifier.tooltipTrigger()
+                        } else
+                            Modifier
+                    )
                     .size(featureSize)
                     .padding(9.dp)
                     .aspectRatio(1f)
