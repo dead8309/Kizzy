@@ -66,13 +66,13 @@ class KizzyTileService : TileService() {
             .setSingleChoiceItems(rpc, -1) { dialog, which ->
                 when (which) {
                     0 -> {
-                        ctx.startService(Intent(ctx, AppDetectionService::class.java))
+                        ctx.startForegroundService(Intent(ctx, AppDetectionService::class.java))
                     }
                     1 -> {
-                        ctx.startService(Intent(ctx, MediaRpcService::class.java))
+                        ctx.startForegroundService(Intent(ctx, MediaRpcService::class.java))
                     }
                     2 -> {
-                        ctx.startService(Intent(ctx, ExperimentalRpc::class.java))
+                        ctx.startForegroundService(Intent(ctx, ExperimentalRpc::class.java))
                     }
                     else -> {}
                 }
