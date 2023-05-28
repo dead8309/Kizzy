@@ -36,7 +36,7 @@ import com.my.kizzy.feature_console_rpc.GamesViewModel
 import com.my.kizzy.feature_custom_rpc.CustomRPC
 import com.my.kizzy.feature_custom_rpc.CustomScreenViewModel
 import com.my.kizzy.feature_home.Home
-import com.my.kizzy.feature_home.provideFeatures
+import com.my.kizzy.feature_home.feature.homeFeaturesProvider
 import com.my.kizzy.feature_logs.LogScreen
 import com.my.kizzy.feature_logs.LogsViewModel
 import com.my.kizzy.feature_media_rpc.MediaRPC
@@ -53,7 +53,6 @@ import com.my.kizzy.feature_startup.StartUp
 import com.my.kizzy.navigation.Routes
 import com.my.kizzy.navigation.animatedComposable
 import com.my.kizzy.preference.Prefs
-import kotlinx.serialization.json.Json
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalAnimationApi::class)
@@ -86,7 +85,7 @@ internal fun ComponentActivity.Kizzy() {
                 val user = Prefs.getUser()
                 val ctx = LocalContext.current
                 Home(
-                    features = provideFeatures(
+                    features = homeFeaturesProvider(
                         navigateTo = { navController.navigate(it) },
                         hasUsageAccess = MainActivity.usageAccessStatus,
                         hasNotificationAccess = MainActivity.notificationListenerAccess,
