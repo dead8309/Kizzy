@@ -1,38 +1,40 @@
 package com.my.kizzy.domain.model
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 // data class used for saving/loading/previewing rpc in the app
+@Serializable
 data class RpcConfig(
-    @SerializedName("button1")
+    @SerialName("button1")
     val button1: String = "",
-    @SerializedName("button1link")
+    @SerialName("button1link")
     val button1link: String = "",
-    @SerializedName("button2")
+    @SerialName("button2")
     val button2: String = "",
-    @SerializedName("button2link")
+    @SerialName("button2link")
     val button2link: String = "",
-    @SerializedName("details")
+    @SerialName("details")
     val details: String = "",
-    @SerializedName("largeImg")
+    @SerialName("largeImg")
     val largeImg: String = "",
-    @SerializedName("name")
+    @SerialName("name")
     val name: String = "",
-    @SerializedName("smallImg")
+    @SerialName("smallImg")
     val smallImg: String = "",
-    @SerializedName("state")
+    @SerialName("state")
     val state: String = "",
-    @SerializedName("status")
+    @SerialName("status")
     val status: String = "",
-    @SerializedName("timeatampsStart")
-    val timeatampsStart: String = "",
-    @SerializedName("timeatampsStop")
-    val timeatampsStop: String = "",
-    @SerializedName("type")
+    @SerialName("timestampsStart")
+    val timestampsStart: String = "",
+    @SerialName("timestampsStop")
+    val timestampsStop: String = "",
+    @SerialName("type")
     val type: String = "",
-    @SerializedName("large_text")
+    @SerialName("large_text")
     val largeText: String = "",
-    @SerializedName("small_text")
+    @SerialName("small_text")
     val smallText: String = "",
-    @SerializedName("url")
+    @SerialName("url")
     val url: String = ""
 )

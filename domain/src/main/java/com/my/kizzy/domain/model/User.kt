@@ -12,37 +12,39 @@
 
 package com.my.kizzy.domain.model
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class User(
-    @SerializedName("bio")
+    @SerialName("bio")
     val bio: String? = "",
-    @SerializedName("nitro")
+    @SerialName("nitro")
     val nitro: Boolean? = false,
-    @SerializedName("accent_color")
-    val accentColor: Int?,
-    @SerializedName("avatar")
-    val avatar: String?,
-    @SerializedName("avatar_decoration")
-    val avatarDecoration: Any?,
-    @SerializedName("badges")
-    val badges: List<Badge>?,
-    @SerializedName("banner")
-    val banner: String?,
-    @SerializedName("banner_color")
-    val bannerColor: String?,
-    @SerializedName("discriminator")
-    val discriminator: String?,
-    @SerializedName("id")
-    val id: String?,
-    @SerializedName("public_flags")
-    val publicFlags: Int?,
-    @SerializedName("username")
-    val username: String?,
-    @SerializedName("special")
-    val special: String?,
-    @SerializedName("verified")
-    val verified: Boolean
+    @SerialName("accent_color")
+    val accentColor: Int? = null,
+    @SerialName("avatar")
+    val avatar: String? = null,
+    @SerialName("avatar_decoration")
+    val avatarDecoration: String? = null,
+    @SerialName("badges")
+    val badges: List<Badge>? = null,
+    @SerialName("banner")
+    val banner: String? = null,
+    @SerialName("banner_color")
+    val bannerColor: String? = null,
+    @SerialName("discriminator")
+    val discriminator: String? = null,
+    @SerialName("id")
+    val id: String? = null,
+    @SerialName("public_flags")
+    val publicFlags: Int? = null,
+    @SerialName("username")
+    val username: String? = null,
+    @SerialName("special")
+    val special: String? = null,
+    @SerialName("verified")
+    val verified: Boolean = false
 ) {
     fun getAvatarImage(): String {
         return if (avatar?.startsWith("a_") == true)
@@ -59,10 +61,11 @@ data class User(
     }
 }
 
+@Serializable
 data class Badge(
-    @SerializedName("icon")
+    @SerialName("icon")
     val icon: String,
-    @SerializedName("name")
+    @SerialName("name")
     val name: String
 )
 const val DISCORD_CDN = "https://cdn.discordapp.com"

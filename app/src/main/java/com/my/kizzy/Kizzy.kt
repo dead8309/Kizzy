@@ -17,7 +17,6 @@ import android.content.ComponentName
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -28,9 +27,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-import com.google.gson.Gson
-import com.my.kizzy.data.utils.fromJson
-import com.my.kizzy.domain.model.User
 import com.my.kizzy.feature_about.about.About
 import com.my.kizzy.feature_about.about.Credits
 import com.my.kizzy.feature_about.about.CreditsScreenViewModel
@@ -44,9 +40,9 @@ import com.my.kizzy.feature_home.provideFeatures
 import com.my.kizzy.feature_logs.LogScreen
 import com.my.kizzy.feature_logs.LogsViewModel
 import com.my.kizzy.feature_media_rpc.MediaRPC
-import com.my.kizzy.feature_profile.ui.user.UserViewModel
 import com.my.kizzy.feature_profile.ui.login.LoginScreen
 import com.my.kizzy.feature_profile.ui.user.UserScreen
+import com.my.kizzy.feature_profile.ui.user.UserViewModel
 import com.my.kizzy.feature_rpc_base.AppUtils
 import com.my.kizzy.feature_rpc_base.services.KizzyTileService
 import com.my.kizzy.feature_settings.language.Language
@@ -57,9 +53,10 @@ import com.my.kizzy.feature_startup.StartUp
 import com.my.kizzy.navigation.Routes
 import com.my.kizzy.navigation.animatedComposable
 import com.my.kizzy.preference.Prefs
+import kotlinx.serialization.json.Json
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalAnimationApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 internal fun ComponentActivity.Kizzy() {
     Scaffold()
@@ -86,7 +83,7 @@ internal fun ComponentActivity.Kizzy() {
                     })
             }
             animatedComposable(Routes.HOME) {
-                val user: User? = Gson().fromJson(Prefs[Prefs.USER_DATA, ""])
+                val user = Prefs.getUser()
                 val ctx = LocalContext.current
                 Home(
                     features = provideFeatures(

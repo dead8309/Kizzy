@@ -29,7 +29,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.gson.Gson
 import com.my.kizzy.data.rpc.Constants.MAX_ALLOWED_CHARACTER_LENGTH
 import com.my.kizzy.domain.model.User
 import com.my.kizzy.feature_custom_rpc.components.BottomSheet
@@ -52,6 +51,8 @@ import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.RpcField
 import com.my.kizzy.ui.components.SwitchBar
 import kotlinx.coroutines.launch
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import java.util.*
 
 @Composable
@@ -113,7 +114,7 @@ fun CustomRPC(
     }
     if (state.showPreviewDialog) {
         val json = Prefs[Prefs.USER_DATA, "{}"]
-        val user = Gson().fromJson(json, User::class.java)
+        val user = Json.decodeFromString<User>(json)
         PreviewDialog(
             user = user,
             rpc = state.rpcConfig,
@@ -231,7 +232,7 @@ private fun RpcTextFieldsColumn(
             }
 
             item {
-                RpcField(value = timeatampsStart,
+                RpcField(value = timestampsStart,
                     label = R.string.activity_start_timestamps,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     trailingIcon = {
@@ -244,24 +245,25 @@ private fun RpcTextFieldsColumn(
                     content = {
                         if (uiState.showStartTimeStampsPickerDialog) {
                             DateTimePickerDialog(
+                                selectedDate = timestampsStart.toLongOrNull(),
                                 onDismiss = { onEvent(UiEvent.TriggerStartTimeStampsDialog) }
                             ) {
                                 onEvent(
                                     UiEvent.SetFieldsFromConfig(
                                         uiState.rpcConfig.copy(
-                                            timeatampsStart = it.toString()
+                                            timestampsStart = it.toString()
                                         )
                                     )
                                 )
                             }
                         }
                     }) {
-                    onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(timeatampsStart = it)))
+                    onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(timestampsStart = it)))
                 }
             }
 
             item {
-                RpcField(value = timeatampsStop,
+                RpcField(value = timestampsStop,
                     label = R.string.activity_stop_timestamps,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     trailingIcon = {
@@ -274,19 +276,20 @@ private fun RpcTextFieldsColumn(
                     content = {
                         if (uiState.showStopTimeStampsPickerDialog) {
                             DateTimePickerDialog(
+                                selectedDate = timestampsStop.toLongOrNull(),
                                 onDismiss = { onEvent(UiEvent.TriggerStopTimeStampsDialog) }
                             ) {
                                 onEvent(
                                     UiEvent.SetFieldsFromConfig(
                                         uiState.rpcConfig.copy(
-                                            timeatampsStop = it.toString()
+                                            timestampsStop = it.toString()
                                         )
                                     )
                                 )
                             }
                         }
                     }) {
-                    onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(timeatampsStop = it)))
+                    onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(timestampsStop = it)))
                 }
             }
 

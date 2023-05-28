@@ -1,14 +1,16 @@
 package kizzy.gateway.entities.presence
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Presence(
-    @SerializedName("activities")
+    @SerialName("activities")
     val activities: List<Activity?>?,
-    @SerializedName("afk")
+    @SerialName("afk")
     val afk: Boolean? = true,
-    @SerializedName("since")
-    val since: Long? = System.currentTimeMillis(),
-    @SerializedName("status")
+    @SerialName("since")
+    val since: Long? = 0L,
+    @SerialName("status")
     val status: String? = "online"
 )

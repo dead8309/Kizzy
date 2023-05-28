@@ -12,9 +12,11 @@
 
 package com.my.kizzy.preference
 
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.my.kizzy.domain.model.User
 import com.tencent.mmkv.MMKV
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 object Prefs {
     val kv = MMKV.defaultMMKV()
@@ -48,25 +50,27 @@ object Prefs {
 
     fun isAppEnabled(packageName: String?): Boolean {
         val apps = get(ENABLED_APPS, "[]")
-        val enabledPackages: ArrayList<String> = Gson().fromJson(
-            apps,
-            object : TypeToken<ArrayList<String>?>() {}.type
-        )
+        val enabledPackages: ArrayList<String> = Json.decodeFromString(apps)
         return enabledPackages.contains(packageName)
     }
 
     fun saveToPrefs(pkg: String) {
         val apps = get(ENABLED_APPS, "[]")
-        val enabledPackages: ArrayList<String> = Gson().fromJson(
-            apps,
-            object : TypeToken<ArrayList<String>?>() {}.type
-        )
+        val enabledPackages: ArrayList<String> = Json.decodeFromString(apps)
         if (enabledPackages.contains(pkg))
             enabledPackages.remove(pkg)
         else
             enabledPackages.add(pkg)
 
-        set(ENABLED_APPS, Gson().toJson(enabledPackages))
+        set(ENABLED_APPS, Json.encodeToString(enabledPackages))
+    }
+
+    fun getUser(): User? {
+        val userJson = get(USER_DATA,"")
+        return when {
+            userJson.isNotEmpty() -> Json.decodeFromString(userJson)
+            else -> null
+        }
     }
     //User Preferences
     const val USER_DATA = "user" //Json Data Referencing User_Data class

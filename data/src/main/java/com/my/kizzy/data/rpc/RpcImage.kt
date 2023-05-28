@@ -14,25 +14,25 @@ package com.my.kizzy.data.rpc
 
 import android.content.Context
 import android.graphics.Bitmap
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.my.kizzy.domain.repository.KizzyRepository
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.data.utils.getAppInfo
 import com.my.kizzy.data.utils.toBitmap
 import com.my.kizzy.data.utils.toFile
-
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 sealed class RpcImage {
     abstract suspend fun resolveImage(repository: KizzyRepository): String?
 
-    class DiscordImage(val image: String) : RpcImage() {
+    class DiscordImage(private val image: String) : RpcImage() {
         override suspend fun resolveImage(repository: KizzyRepository): String {
             return "mp:${image}"
         }
     }
 
-    class ExternalImage(val image: String) : RpcImage() {
+    class ExternalImage(private val image: String) : RpcImage() {
         override suspend fun resolveImage(repository: KizzyRepository): String? {
             return repository.getImage(image)
         }
@@ -40,8 +40,7 @@ sealed class RpcImage {
 
     class ApplicationIcon(private val packageName: String, private val context: Context) : RpcImage() {
         val data = Prefs[Prefs.SAVED_IMAGES, "{}"]
-        private val savedImages: HashMap<String, String> = Gson().fromJson(data,
-            object : TypeToken<HashMap<String, String>>() {}.type)
+        private val savedImages: HashMap<String, String> = Json.decodeFromString(data)
 
         override suspend fun resolveImage(repository: KizzyRepository): String? {
             return if (savedImages.containsKey(packageName))
@@ -60,7 +59,7 @@ sealed class RpcImage {
             val response = repository.uploadImage(bitmap.toFile(context, "image"))
             response?.let {
                 savedImages[packageName] = it
-                Prefs[Prefs.SAVED_IMAGES] = Gson().toJson(savedImages)
+                Prefs[Prefs.SAVED_IMAGES] = Json.encodeToString(savedImages)
             }
             return response
         }
@@ -75,15 +74,14 @@ sealed class RpcImage {
         override suspend fun resolveImage(repository: KizzyRepository): String? {
             val data = Prefs[Prefs.SAVED_ARTWORK, "{}"]
             val schema = "${this.packageName}:${this.title}"
-            val savedImages = Gson().fromJson<HashMap<String, String>>(data,
-                object : TypeToken<HashMap<String, String>>() {}.type)
+            val savedImages = Json.decodeFromString<HashMap<String, String>>(data)
             return if (savedImages.containsKey(schema))
                 savedImages[schema]
             else {
                 val result = repository.uploadImage(bitmap.toFile(this.context, "art"))
                 result?.let {
                     savedImages[schema] = it
-                    Prefs[Prefs.SAVED_ARTWORK] = Gson().toJson(savedImages)
+                    Prefs[Prefs.SAVED_ARTWORK] = Json.encodeToString(savedImages)
                 }
                 result
             }

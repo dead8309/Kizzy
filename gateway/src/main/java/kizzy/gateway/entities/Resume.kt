@@ -1,12 +1,14 @@
 package kizzy.gateway.entities
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Resume(
-    @SerializedName("seq")
+    @SerialName("seq")
     val seq: Int,
-    @SerializedName("session_id")
+    @SerialName("session_id")
     val sessionId: String?,
-    @SerializedName("token")
+    @SerialName("token")
     val token: String
 )

@@ -18,7 +18,6 @@ import android.content.Intent
 import android.os.IBinder
 import android.os.PowerManager
 import android.os.PowerManager.WakeLock
-import com.google.gson.Gson
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.utils.toRpcImage
 import com.my.kizzy.domain.model.RpcConfig
@@ -27,6 +26,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -48,7 +49,7 @@ class CustomRpcService : Service() {
         else {
             val string = intent?.getStringExtra("RPC")
             string?.let {
-                rpcData = Gson().fromJson(it, RpcConfig::class.java)
+                rpcData = Json.decodeFromString(it)
             }
 
             val channel = NotificationChannel(
@@ -80,8 +81,8 @@ class CustomRpcService : Service() {
                             setState(it.state.ifEmpty { null })
                             setStatus(it.status.ifEmpty { Constants.ONLINE })
                             setType(it.type.toIntOrNull() ?: 0)
-                            setStartTimestamps(it.timeatampsStart.toLongOrNull())
-                            setStopTimestamps(it.timeatampsStop.toLongOrNull())
+                            setStartTimestamps(it.timestampsStart.toLongOrNull())
+                            setStopTimestamps(it.timestampsStop.toLongOrNull())
                             setButton1(it.button1.ifEmpty { null })
                             setButton1URL(it.button1link.ifEmpty { null })
                             setButton2(it.button2.ifEmpty { null })

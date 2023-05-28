@@ -13,16 +13,18 @@
 package com.my.kizzy.data.remote
 
 
-import com.google.gson.annotations.SerializedName
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.domain.model.Game
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class GamesResponse(
-    @SerializedName("label")
+    @SerialName("label")
     val label: String,
-    @SerializedName("link")
-    val link: String?,
-    @SerializedName("title")
+    @SerialName("link")
+    val link: String? = null,
+    @SerialName("title")
     val title: String
 )
 

@@ -16,12 +16,12 @@ import android.app.usage.UsageStats
 import android.app.usage.UsageStatsManager
 import android.content.Context
 import com.blankj.utilcode.util.AppUtils
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.my.kizzy.data.rpc.CommonRpc
 import com.my.kizzy.data.rpc.RpcImage
 import com.my.kizzy.preference.Prefs
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import java.util.Objects
 import java.util.SortedMap
 import java.util.TreeMap
@@ -38,9 +38,7 @@ class GetCurrentlyRunningApp @Inject constructor(
             UsageStatsManager.INTERVAL_DAILY, currentTimeMillis - 10000, currentTimeMillis
         )
         val apps = Prefs[Prefs.ENABLED_APPS, "[]"]
-        val enabledPackages: ArrayList<String> = Gson().fromJson(
-            apps, object : TypeToken<ArrayList<String>?>() {}.type
-        )
+        val enabledPackages: ArrayList<String> = Json.decodeFromString(apps)
         if (queryUsageStats != null && queryUsageStats.size > 1) {
             val treeMap: SortedMap<Long, UsageStats> = TreeMap()
             for (usageStats in queryUsageStats) {

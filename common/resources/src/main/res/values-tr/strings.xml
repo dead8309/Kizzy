@@ -85,9 +85,8 @@
     <string name="stream_url">Yayın URL\'si</string>
     <string name="stream_url_info">Yalnızca https://twitch.tv/ ve https://youtube.com/ bağlantıları çalışır.</string>
     <string name="activity_button_max_character">En fazla 31 karakter kullanılabilir</string>
-    <string name="set_previous_run_config_in_custom_rpc">Set Previous Run config to Custom Rpc Fields</string>
-    <string name="set_previous_run_config_in_custom_rpc_desc">Automatically set fields in custom rpc from the last run rpc</string>
-    <string name="clear_all_fields">Clear All Fields</string>
-
+    <string name="set_previous_run_config_in_custom_rpc">Özel RPC Alanlarında önceki RPC\'de çalıştırılan yapılandırmayı kullan</string>
+    <string name="set_previous_run_config_in_custom_rpc_desc">Özel RPC\'deki ayarları son çalıştırılan RPC\'den uygula</string>
+    <string name="clear_all_fields">Tüm Alanları Temizle</string>
 
 </resources>
