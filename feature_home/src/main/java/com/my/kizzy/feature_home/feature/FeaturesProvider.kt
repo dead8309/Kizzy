@@ -131,7 +131,7 @@ fun homeFeaturesProvider(
                         putExtra("RPC", lastRpc)
                     }
                     ctx.stopService(Intent(ctx, MediaRpcService::class.java))
-                    ctx.stopService(Intent(ctx, CustomRpcService::class.java))
+                    ctx.stopService(Intent(ctx, ExperimentalRpc::class.java))
                     ctx.stopService(Intent(ctx, AppDetectionService::class.java))
                     ctx.startService(intent)
                 } else {
