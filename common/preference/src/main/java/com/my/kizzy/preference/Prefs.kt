@@ -18,6 +18,7 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
+
 object Prefs {
     val kv = MMKV.defaultMMKV()
 
@@ -87,6 +88,8 @@ object Prefs {
     const val MEDIA_RPC_ARTIST_NAME = "media_rpc_artist_name"
     const val MEDIA_RPC_APP_ICON = "media_rpc_app_icon"
     const val MEDIA_RPC_ENABLE_TIMESTAMPS = "enable_timestamps"
+    const val MEDIA_RPC_INVERT_NAME_DETAILS = "media_rpc_invert_name_details"
+
 
     //Rpc Setting Preferences
     const val USE_RPC_BUTTONS = "use_saved_rpc_buttons"

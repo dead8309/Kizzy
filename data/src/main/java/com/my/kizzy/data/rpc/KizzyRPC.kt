@@ -1,15 +1,3 @@
-/*
- *
- *  ******************************************************************
- *  *  * Copyright (C) 2022
- *  *  * KizzyRPC.kt is part of Kizzy
- *  *  *  and can not be copied and/or distributed without the express
- *  *  * permission of yzziK(Vaibhav)
- *  *  *****************************************************************
- *
- *
- */
-
 package com.my.kizzy.data.rpc
 
 import com.my.kizzy.domain.interfaces.Logger
@@ -23,6 +11,7 @@ import kizzy.gateway.entities.presence.Metadata
 import kizzy.gateway.entities.presence.Presence
 import kizzy.gateway.entities.presence.Timestamps
 import kotlinx.coroutines.isActive
+import com.my.kizzy.preference.Prefs.MEDIA_RPC_INVERT_NAME_DETAILS
 
 class KizzyRPC(
     private val token: String,
@@ -45,6 +34,7 @@ class KizzyRPC(
     private var buttons = ArrayList<String>()
     private var buttonUrl = ArrayList<String>()
     private var url: String? = null
+    private var isToggleEnabled: Boolean = Prefs[MEDIA_RPC_INVERT_NAME_DETAILS, false] // Use the preference value
 
     fun closeRPC() {
         discordWebSocket.close()
@@ -55,7 +45,7 @@ class KizzyRPC(
     }
 
     /**
-     * Use Regex to check if token are valid
+     * Use Regex to check if token is valid
      * @return true if token is valid else false
      *
      * source: [#token-structure](https://gist.github.com/aydynx/5d29e903417354fd25641b98efc9d437#token-structure)
@@ -76,7 +66,7 @@ class KizzyRPC(
      * @return
      */
     fun setName(activity_name: String?): KizzyRPC {
-        this.details = activity_name
+        this.activityName = activity_name
         return this
     }
 
@@ -87,7 +77,7 @@ class KizzyRPC(
      * @return
      */
     fun setDetails(details: String?): KizzyRPC {
-        this.activityName = details
+        this.details = details
         return this
     }
 
@@ -161,7 +151,6 @@ class KizzyRPC(
      * @param type
      * @return
      */
-
     fun setType(type: Int): KizzyRPC {
         if (type in 0..5)
             this.type = type
@@ -232,9 +221,9 @@ class KizzyRPC(
         presence = Presence(
             activities = listOf(
                 Activity(
-                    name = details,
+                    name = if (isToggleEnabled) details else activityName,
                     state = state,
-                    details = activityName,
+                    details = if (isToggleEnabled) activityName else details,
                     type = type,
                     timestamps = Timestamps(
                         start = startTimestamps,
@@ -246,26 +235,36 @@ class KizzyRPC(
                         largeText = largeText,
                         smallText = smallText
                     ).takeIf { largeImage != null || smallImage != null },
-                    buttons = buttons.takeIf { buttons.size > 0 },
-                    metadata = Metadata(buttonUrls = buttonUrl).takeIf { buttonUrl.size > 0 },
-                    applicationId = Constants.APPLICATION_ID.takeIf { buttons.size > 0 },
+                    buttons = buttons.takeIf { buttons.isNotEmpty() },
+                    metadata = Metadata(buttonUrls = buttonUrl).takeIf { buttonUrl.isNotEmpty() },
+                    applicationId = Constants.APPLICATION_ID.takeIf { buttons.isNotEmpty() },
                     url = url
                 )
             ),
             afk = true,
-            since = startTimestamps.takeIf { startTimestamps != null }?: System.currentTimeMillis(),
+            since = startTimestamps ?: System.currentTimeMillis(),
             status = status
         )
+
         connectToWebSocket()
     }
+
     private suspend fun connectToWebSocket() {
-        if (!isUserTokenValid())
+        if (!isUserTokenValid()) {
             logger.e(
                 tag = "KizzyRPC",
                 event = "Token Seems to be invalid, Please Login if you haven't"
             )
-        discordWebSocket.connect()
-        discordWebSocket.sendActivity(presence)
+        } else {
+            discordWebSocket.connect()
+            sendActivity(presence)
+        }
+    }
+
+    private suspend fun sendActivity(presence: Presence) {
+        if (discordWebSocket.isActive) {
+            discordWebSocket.sendActivity(presence)
+        }
     }
 
     suspend fun updateRPC(
@@ -277,56 +276,58 @@ class KizzyRPC(
         enableTimestamps: Boolean,
         time: Long
     ) {
-        discordWebSocket.sendActivity(
-            Presence(
-                activities = listOf(
-                    Activity(name = details,
-                        details = name,
-                        state = state,
-                        type = Prefs[CUSTOM_ACTIVITY_TYPE, 0],
-                        timestamps = Timestamps(start = time).takeIf { enableTimestamps },
-                        assets = Assets(
-                            largeImage = large_image?.resolveImage(kizzyRepository),
-                            smallImage = small_image?.resolveImage(kizzyRepository)
-                        ).takeIf { large_image != null || small_image != null },
-                        buttons = buttons.takeIf { it.size > 0 },
-                        metadata = Metadata(buttonUrls = buttonUrl).takeIf { buttonUrl.size > 0 },
-                        applicationId = Constants.APPLICATION_ID.takeIf { buttons.size > 0 })
-                ),
-                afk = true,
-                since = time,
-                status = Constants.DND
-            )
+        val updatedPresence = Presence(
+            activities = listOf(
+                Activity(
+                    name = if (isToggleEnabled) details else name,
+                    details = if (isToggleEnabled) name else details,
+                    state = state,
+                    type = Prefs[CUSTOM_ACTIVITY_TYPE, 0],
+                    timestamps = Timestamps(start = time).takeIf { enableTimestamps },
+                    assets = Assets(
+                        largeImage = large_image?.resolveImage(kizzyRepository),
+                        smallImage = small_image?.resolveImage(kizzyRepository)
+                    ).takeIf { large_image != null || small_image != null },
+                    buttons = buttons.takeIf { buttons.isNotEmpty() },
+                    metadata = Metadata(buttonUrls = buttonUrl).takeIf { buttonUrl.isNotEmpty() },
+                    applicationId = Constants.APPLICATION_ID.takeIf { buttons.isNotEmpty() }
+                )
+            ),
+            afk = true,
+            since = time,
+            status = Constants.DND
         )
+        sendActivity(updatedPresence)
     }
 
     suspend fun updateRPC(commonRpc: CommonRpc) {
         if (!discordWebSocket.isActive) return
         var time = Timestamps(start = startTimestamps)
-        if (commonRpc.time != null)
+        if (commonRpc.time != null) {
             Timestamps(end = commonRpc.time.end, start = commonRpc.time.start).also { time = it }
-        discordWebSocket.sendActivity(
-            Presence(
-                activities = listOf(
-                    Activity(
-                        name = commonRpc.details,
-                        details = commonRpc.name?.takeIf { it.isNotEmpty() },
-                        state = commonRpc.state?.takeIf { it.isNotEmpty() },
-                        type = Prefs[CUSTOM_ACTIVITY_TYPE, 0],
-                        timestamps = time,
-                        assets = Assets(
-                                largeImage = commonRpc.largeImage?.resolveImage(kizzyRepository),
-                                smallImage = commonRpc.smallImage?.resolveImage(kizzyRepository)
-                            ).takeIf { commonRpc.largeImage != null || commonRpc.smallImage != null },
-                        buttons = buttons.takeIf { buttons.size > 0 },
-                        metadata = Metadata(buttonUrls = buttonUrl).takeIf { buttonUrl.size > 0 },
-                        applicationId = Constants.APPLICATION_ID.takeIf { buttons.size > 0 }
-                    )
-                ),
-                afk = true,
-                since = startTimestamps,
-                status = Constants.DND
-            )
+        }
+        val updatedPresence = Presence(
+            activities = listOf(
+                Activity(
+                    name = if (isToggleEnabled) commonRpc.details else commonRpc.name?.takeIf { it.isNotEmpty() },
+                    details = if (isToggleEnabled) commonRpc.name?.takeIf { it.isNotEmpty() } else commonRpc.details,
+                    state = commonRpc.state?.takeIf { it.isNotEmpty() },
+                    type = Prefs[CUSTOM_ACTIVITY_TYPE, 0],
+                    timestamps = time,
+                    assets = Assets(
+                        largeImage = commonRpc.largeImage?.resolveImage(kizzyRepository),
+                        smallImage = commonRpc.smallImage?.resolveImage(kizzyRepository)
+                    ).takeIf { commonRpc.largeImage != null || commonRpc.smallImage != null },
+                    buttons = buttons.takeIf { buttons.isNotEmpty() },
+                    metadata = Metadata(buttonUrls = buttonUrl).takeIf { buttonUrl.isNotEmpty() },
+                    applicationId = Constants.APPLICATION_ID.takeIf { buttons.isNotEmpty() }
+                )
+            ),
+            afk = true,
+            since = startTimestamps ?: 0L,
+            status = Constants.DND
         )
+        sendActivity(updatedPresence)
     }
+
 }
