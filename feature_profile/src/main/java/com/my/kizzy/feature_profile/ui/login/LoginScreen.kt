@@ -39,7 +39,7 @@ fun LoginScreen(
     onCompleted: () -> Unit,
     onBackPressed: () -> Unit
 ) {
-    var buttonEnabledState by remember { mutableStateOf(false) }
+    var buttonEnabledState by remember { mutableStateOf(true) }
     var uiState: LoginUiState by remember { mutableStateOf(LoginUiState.InitialState) }
     val scope = rememberCoroutineScope()
     val modalBottomSheetState = rememberModalBottomSheetState(
@@ -84,13 +84,13 @@ fun LoginScreen(
                     }
                 }
                 LoginUiState.OnLoginCompleted -> {
-                    buttonEnabledState = !buttonEnabledState
+                    buttonEnabledState = false
                     CircularProgressIndicator()
                 }
             }
             DiscordLoginButton(
                 onClick = { uiState = LoginUiState.OnLoginClicked },
-                enabled = !buttonEnabledState
+                enabled = buttonEnabledState
             )
         }
     }
