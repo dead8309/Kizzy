@@ -31,6 +31,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.my.kizzy.domain.model.User
+import com.my.kizzy.feature_home.feature.Features
+import com.my.kizzy.feature_home.feature.HomeFeature
+import com.my.kizzy.feature_home.feature.ToolTipContent
 import com.my.kizzy.feature_rpc_base.services.KizzyTileService
 import com.my.kizzy.feature_settings.SettingsDrawer
 import com.my.kizzy.resources.R
@@ -41,7 +44,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Home(
-    features: List<HomeFeatures>,
+    features: List<HomeFeature>,
     user: User?,
     componentName: ComponentName? = null,
     navigateToProfile: () -> Unit,
@@ -156,29 +159,34 @@ fun HomeScreenPreview() {
     }
 }
 val fakeFeatures = listOf(
-    HomeFeatures(
+    HomeFeature(
         title = "App Detection",
         icon = R.drawable.ic_apps,
-        shape = RoundedCornerShape(20.dp, 44.dp, 20.dp, 44.dp)
-    ), HomeFeatures(
+        shape = RoundedCornerShape(20.dp, 44.dp, 20.dp, 44.dp),
+        tooltipText = ToolTipContent.APP_DETECTION_DOCS
+    ), HomeFeature(
         title = "Media Rpc",
         icon = R.drawable.ic_media_rpc,
-        shape = RoundedCornerShape(44.dp, 20.dp, 44.dp, 20.dp)
-    ), HomeFeatures(
+        shape = RoundedCornerShape(44.dp, 20.dp, 44.dp, 20.dp),
+        tooltipText = ToolTipContent.MEDIA_RPC_DOCS
+    ), HomeFeature(
         title = "Custom Rpc",
         icon = R.drawable.ic_rpc_placeholder,
         shape = RoundedCornerShape(44.dp, 20.dp, 44.dp, 20.dp),
-    ), HomeFeatures(
+        tooltipText = ToolTipContent.CUSTOM_RPC_DOCS
+    ), HomeFeature(
         title = "Console Rpc",
         icon = R.drawable.ic_console_games,
         shape = RoundedCornerShape(20.dp, 44.dp, 20.dp, 44.dp),
+        tooltipText = ToolTipContent.CONSOLE_RPC_DOCS
     ),
-    HomeFeatures(
+    HomeFeature(
         title = "Experimental Rpc",
         icon = R.drawable.ic_dev_rpc,
         shape = RoundedCornerShape(20.dp, 44.dp, 20.dp, 44.dp),
+        tooltipText = ToolTipContent.EXPERIMENTAL_RPC_DOCS
     ),
-    HomeFeatures(
+    HomeFeature(
         title = "Coming Soon",
         icon = R.drawable.ic_info,
         shape = RoundedCornerShape(44.dp, 20.dp, 44.dp, 20.dp),
