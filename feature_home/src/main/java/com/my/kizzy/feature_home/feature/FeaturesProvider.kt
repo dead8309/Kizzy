@@ -170,7 +170,7 @@ fun homeFeaturesProvider(
                 isInvertNameDetailsEnabled = !isInvertNameDetailsEnabled
                 Prefs[MEDIA_RPC_INVERT_NAME_DETAILS] = isInvertNameDetailsEnabled
             },
-            shape = RoundedCornerShape(20.dp, 20.dp, 20.dp, 20.dp),
+            shape = RoundedCornerShape(44.dp, 20.dp, 44.dp, 20.dp),
             showSwitch = true
         ),
         HomeFeature(
