@@ -76,7 +76,7 @@ class KizzyRPC(
      * @return
      */
     fun setName(activity_name: String?): KizzyRPC {
-        this.activityName = activity_name
+        this.details = activity_name
         return this
     }
 
@@ -87,7 +87,7 @@ class KizzyRPC(
      * @return
      */
     fun setDetails(details: String?): KizzyRPC {
-        this.details = details
+        this.activityName = details
         return this
     }
 
@@ -232,9 +232,9 @@ class KizzyRPC(
         presence = Presence(
             activities = listOf(
                 Activity(
-                    name = activityName,
+                    name = details,
                     state = state,
-                    details = details,
+                    details = activityName,
                     type = type,
                     timestamps = Timestamps(
                         start = startTimestamps,
@@ -280,8 +280,8 @@ class KizzyRPC(
         discordWebSocket.sendActivity(
             Presence(
                 activities = listOf(
-                    Activity(name = name,
-                        details = details,
+                    Activity(name = details,
+                        details = name,
                         state = state,
                         type = Prefs[CUSTOM_ACTIVITY_TYPE, 0],
                         timestamps = Timestamps(start = time).takeIf { enableTimestamps },
@@ -309,8 +309,8 @@ class KizzyRPC(
             Presence(
                 activities = listOf(
                     Activity(
-                        name = commonRpc.name,
-                        details = commonRpc.details?.takeIf { it.isNotEmpty() },
+                        name = commonRpc.details,
+                        details = commonRpc.name?.takeIf { it.isNotEmpty() },
                         state = commonRpc.state?.takeIf { it.isNotEmpty() },
                         type = Prefs[CUSTOM_ACTIVITY_TYPE, 0],
                         timestamps = time,
