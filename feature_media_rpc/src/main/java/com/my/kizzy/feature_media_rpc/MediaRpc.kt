@@ -137,16 +137,16 @@ fun MediaRPC(onBackPressed: () -> Unit) {
                         Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS] = isTimestampsEnabled
                     }
                 }
-                item {
-                    PreferenceSwitch(
-                        title = stringResource(id = R.string.invert_name_details),
-                        icon = Icons.Default.Warning,
-                        isChecked = isInvertNameDetailsEnabled
-                    ) {
-                        isInvertNameDetailsEnabled = !isInvertNameDetailsEnabled
-                        Prefs[MEDIA_RPC_INVERT_NAME_DETAILS] = isInvertNameDetailsEnabled
-                    }
-                }
+                //item {
+                //    PreferenceSwitch(
+                //        title = stringResource(id = R.string.invert_name_details),
+                //        icon = Icons.Default.Warning,
+                //        isChecked = isInvertNameDetailsEnabled
+                //    ) {
+                //        isInvertNameDetailsEnabled = !isInvertNameDetailsEnabled
+                //        Prefs[MEDIA_RPC_INVERT_NAME_DETAILS] = isInvertNameDetailsEnabled
+                //    }
+               // }
             }
         }
     }
