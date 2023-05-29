@@ -38,6 +38,7 @@ import com.my.kizzy.preference.Prefs
 import com.my.kizzy.preference.Prefs.MEDIA_RPC_APP_ICON
 import com.my.kizzy.preference.Prefs.MEDIA_RPC_ARTIST_NAME
 import com.my.kizzy.preference.Prefs.MEDIA_RPC_ENABLE_TIMESTAMPS
+import com.my.kizzy.preference.Prefs.MEDIA_RPC_INVERT_NAME_DETAILS
 import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.SwitchBar
@@ -52,10 +53,10 @@ fun MediaRPC(onBackPressed: () -> Unit) {
     var isArtistEnabled by remember { mutableStateOf(Prefs[MEDIA_RPC_ARTIST_NAME, false]) }
     var isAppIconEnabled by remember { mutableStateOf(Prefs[MEDIA_RPC_APP_ICON, false]) }
     var isTimestampsEnabled by remember { mutableStateOf(Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS, false]) }
+    var isInvertNameDetailsEnabled by remember { mutableStateOf(Prefs[MEDIA_RPC_INVERT_NAME_DETAILS, false]) }
     var hasNotificationAccess by remember { mutableStateOf(context.hasNotificationAccess()) }
     Scaffold(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         topBar = {
             LargeTopAppBar(
                 title = {
@@ -68,13 +69,11 @@ fun MediaRPC(onBackPressed: () -> Unit) {
             )
         }
     ) {
-
         Column(modifier = Modifier.padding(it)) {
-            AnimatedVisibility(visible = !hasNotificationAccess
-            ) {
+            AnimatedVisibility(visible = !hasNotificationAccess) {
                 PreferencesHint(
                     title = "Permission Required",
-                    description = "Notification Access is needed for app to extract media information",
+                    description = "Notification Access is needed for the app to extract media information",
                     icon = Icons.Default.Warning,
                 ) {
                     when (context.hasNotificationAccess()) {
@@ -95,8 +94,16 @@ fun MediaRPC(onBackPressed: () -> Unit) {
                         context.stopService(Intent(context, CustomRpcService::class.java))
                         context.stopService(Intent(context, ExperimentalRpc::class.java))
                         context.startService(Intent(context, MediaRpcService::class.java))
+                        Prefs[MEDIA_RPC_ARTIST_NAME] = isArtistEnabled
+                        Prefs[MEDIA_RPC_APP_ICON] = isAppIconEnabled
+                        Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS] = isTimestampsEnabled
                     }
-                    false -> context.stopService(Intent(context, MediaRpcService::class.java))
+                    false -> {
+                        context.stopService(Intent(context, MediaRpcService::class.java))
+                        Prefs[MEDIA_RPC_ARTIST_NAME] = false
+                        Prefs[MEDIA_RPC_APP_ICON] = false
+                        Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS] = false
+                    }
                 }
             }
             LazyColumn {
@@ -104,7 +111,7 @@ fun MediaRPC(onBackPressed: () -> Unit) {
                     PreferenceSwitch(
                         title = stringResource(id = R.string.enable_artist_name),
                         icon = Icons.Default.Audiotrack,
-                        isChecked = isArtistEnabled,
+                        isChecked = isArtistEnabled
                     ) {
                         isArtistEnabled = !isArtistEnabled
                         Prefs[MEDIA_RPC_ARTIST_NAME] = isArtistEnabled
@@ -114,7 +121,7 @@ fun MediaRPC(onBackPressed: () -> Unit) {
                     PreferenceSwitch(
                         title = stringResource(id = R.string.show_app_icon),
                         icon = Icons.Default.Apps,
-                        isChecked = isAppIconEnabled,
+                        isChecked = isAppIconEnabled
                     ) {
                         isAppIconEnabled = !isAppIconEnabled
                         Prefs[MEDIA_RPC_APP_ICON] = isAppIconEnabled
@@ -124,10 +131,20 @@ fun MediaRPC(onBackPressed: () -> Unit) {
                     PreferenceSwitch(
                         title = stringResource(id = R.string.enable_timestamps),
                         icon = Icons.Default.Timer,
-                        isChecked = isTimestampsEnabled,
+                        isChecked = isTimestampsEnabled
                     ) {
                         isTimestampsEnabled = !isTimestampsEnabled
                         Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS] = isTimestampsEnabled
+                    }
+                }
+                item {
+                    PreferenceSwitch(
+                        title = stringResource(id = R.string.invert_name_details),
+                        icon = Icons.Default.Warning,
+                        isChecked = isInvertNameDetailsEnabled
+                    ) {
+                        isInvertNameDetailsEnabled = !isInvertNameDetailsEnabled
+                        Prefs[MEDIA_RPC_INVERT_NAME_DETAILS] = isInvertNameDetailsEnabled
                     }
                 }
             }
