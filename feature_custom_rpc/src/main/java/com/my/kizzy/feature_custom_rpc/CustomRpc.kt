@@ -30,6 +30,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.my.kizzy.data.rpc.Constants.MAX_ALLOWED_CHARACTER_LENGTH
+import com.my.kizzy.data.utils.uriToFile
 import com.my.kizzy.domain.model.User
 import com.my.kizzy.feature_custom_rpc.components.BottomSheet
 import com.my.kizzy.feature_custom_rpc.components.DateTimePickerDialog
@@ -366,7 +367,7 @@ private fun RpcTextFieldsColumn(
                             showProgress = showProgress
                         ) { uri ->
                             showProgress = true
-                            onEvent(UiEvent.UploadImage(uri) { result ->
+                            onEvent(UiEvent.UploadImage(context.uriToFile(uri)) { result ->
                                 showProgress = false
                                 openPickerDialog = false
                                 onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(largeImg = result)))
@@ -409,7 +410,7 @@ private fun RpcTextFieldsColumn(
                             showProgress = showProgress
                         ) { uri ->
                             showProgress = true
-                            onEvent(UiEvent.UploadImage(uri) { result ->
+                            onEvent(UiEvent.UploadImage(context.uriToFile(uri)) { result ->
                                 showProgress = false
                                 openPickerDialog = false
                                 onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(smallImg = result)))
