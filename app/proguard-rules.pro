@@ -4,6 +4,9 @@
 -dontwarn org.bouncycastle.**
 -dontwarn org.openjsse.**
 
+# Ktor Rules
+-keepclassmembers class io.ktor.http.** { *; }
+
 # Keep Domain data classes
 -keep class com.my.kizzy.domain.model.** { <fields>; }
 

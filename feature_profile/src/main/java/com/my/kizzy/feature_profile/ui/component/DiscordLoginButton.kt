@@ -32,21 +32,22 @@ internal fun DiscordLoginButton(
     onClick: () -> Unit,
     enabled: Boolean
 ) {
-    ElevatedButton(
-        onClick = onClick,
-        colors = ButtonDefaults.elevatedButtonColors(
-            containerColor = DISCORD_GREY,
-            contentColor = Color.White.copy(alpha = 0.8f)
-        ),
-        shape = RoundedCornerShape(12.dp),
-        enabled = enabled
-    ) {
-        Icon(
-            painter = painterResource(id = R.drawable.ic_discord),
-            tint = Color.Unspecified,
-            contentDescription = "discord_login",
-            modifier = Modifier.padding(end = 5.dp)
-        )
-        Text(text = stringResource(id = R.string.login_with_discord))
+    if (enabled) {
+        ElevatedButton(
+            onClick = onClick,
+            colors = ButtonDefaults.elevatedButtonColors(
+                containerColor = DISCORD_GREY,
+                contentColor = Color.White.copy(alpha = 0.8f)
+            ),
+            shape = RoundedCornerShape(12.dp)
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_discord),
+                tint = Color.Unspecified,
+                contentDescription = "discord_login",
+                modifier = Modifier.padding(end = 5.dp)
+            )
+            Text(text = stringResource(id = R.string.login_with_discord))
+        }
     }
 }

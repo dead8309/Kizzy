@@ -13,10 +13,8 @@
 package com.my.kizzy.feature_custom_rpc
 
 import android.annotation.SuppressLint
-import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.blankj.utilcode.util.UriUtils
 import com.my.kizzy.domain.model.RpcConfig
 import com.my.kizzy.domain.use_case.upload_galleryImage.UploadGalleryImageUseCase
 import com.my.kizzy.feature_custom_rpc.components.sheet.stringToData
@@ -29,6 +27,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.File
 import javax.inject.Inject
 
 @SuppressLint("StaticFieldLeak")
@@ -54,12 +53,10 @@ class CustomScreenViewModel @Inject constructor(
         }
     }
 
-    private suspend fun uploadImage(uri: Uri, result: (String) -> Unit) {
-        UriUtils.uri2File(uri)?.let { file ->
-            uploadGalleryImageUseCase(file)?.let {
-                withContext(Dispatchers.Main) {
-                    result(it.drop(3))
-                }
+    private suspend fun uploadImage(file: File, result: (String) -> Unit) {
+        uploadGalleryImageUseCase(file)?.let {
+            withContext(Dispatchers.Main) {
+                result(it.drop(3))
             }
         }
     }
@@ -97,7 +94,7 @@ class CustomScreenViewModel @Inject constructor(
             }
 
             is UiEvent.UploadImage -> {
-                uploadImage(event.uri) {
+                uploadImage(event.file) {
                     event.callback(it)
                 }
             }

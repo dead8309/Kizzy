@@ -104,3 +104,14 @@ private fun getFileExtension(context: Context, uri: Uri): String? =
     } else {
         uri.path?.let { MimeTypeMap.getFileExtensionFromUrl(Uri.fromFile(File(it)).toString()) }
     }
+
+fun Context.uriToFile(uri: Uri): File {
+    val file = File(cacheDir,getFileName(uri))
+    val inputStream = contentResolver.openInputStream(uri)
+    inputStream?.use { input ->
+        file.outputStream().use { out ->
+            input.copyTo(out)
+        }
+    }
+    return file
+}
