@@ -18,7 +18,8 @@ import com.my.kizzy.data.remote.toGame
 import com.my.kizzy.data.utils.toImageAsset
 import com.my.kizzy.domain.model.Contributor
 import com.my.kizzy.domain.model.Game
-import com.my.kizzy.domain.model.User
+import com.my.kizzy.domain.model.samsung_rpc.GalaxyPresence
+import com.my.kizzy.domain.model.user.User
 import com.my.kizzy.domain.repository.KizzyRepository
 import io.ktor.client.call.body
 import java.io.File
@@ -45,5 +46,8 @@ class KizzyRepositoryImpl @Inject constructor(
     }
     override suspend fun getContributors(): List<Contributor> {
         return api.getContributors().body()
+    }
+    override suspend fun setSamsungGalaxyPresence(galaxyPresence: GalaxyPresence,token: String) {
+        return api.setSamsungGalaxyPresence(galaxyPresence,token)
     }
 }
