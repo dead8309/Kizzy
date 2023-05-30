@@ -24,7 +24,7 @@ import com.blankj.utilcode.util.AppUtils
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.rpc.KizzyRPC
 import com.my.kizzy.data.rpc.RpcImage
-import com.my.kizzy.domain.model.RpcButtons
+import com.my.kizzy.domain.model.rpc.RpcButtons
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.resources.R
 import dagger.hilt.android.AndroidEntryPoint

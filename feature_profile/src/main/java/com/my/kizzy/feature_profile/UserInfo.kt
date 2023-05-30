@@ -12,7 +12,7 @@
 
 package com.my.kizzy.feature_profile
 
-import com.my.kizzy.domain.model.User
+import com.my.kizzy.domain.model.user.User
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.preference.Prefs.USER_BIO
 import com.my.kizzy.preference.Prefs.USER_ID

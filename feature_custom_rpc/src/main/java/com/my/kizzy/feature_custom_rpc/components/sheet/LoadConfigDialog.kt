@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.blankj.utilcode.util.FileIOUtils
-import com.my.kizzy.domain.model.RpcConfig
+import com.my.kizzy.domain.model.rpc.RpcConfig
 import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.BrowseFilesButton
 import com.my.kizzy.ui.components.dialog.SingleChoiceItem

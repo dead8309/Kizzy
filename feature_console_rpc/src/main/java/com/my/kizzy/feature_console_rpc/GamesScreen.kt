@@ -36,7 +36,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.my.kizzy.domain.model.Game
-import com.my.kizzy.domain.model.RpcConfig
+import com.my.kizzy.domain.model.rpc.RpcConfig
 import com.my.kizzy.feature_rpc_base.services.AppDetectionService
 import com.my.kizzy.feature_rpc_base.services.CustomRpcService
 import com.my.kizzy.feature_rpc_base.services.ExperimentalRpc

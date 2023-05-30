@@ -20,7 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.my.kizzy.domain.model.User
+import com.my.kizzy.domain.model.user.User
 import com.my.kizzy.feature_profile.ui.component.Logout
 import com.my.kizzy.feature_profile.ui.component.ProfileCard
 import com.my.kizzy.feature_profile.ui.component.ProfileNetworkError

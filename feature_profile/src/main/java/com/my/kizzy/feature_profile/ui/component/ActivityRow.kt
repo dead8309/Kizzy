@@ -31,7 +31,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.my.kizzy.domain.model.RpcConfig
+import com.my.kizzy.domain.model.rpc.RpcConfig
 import com.my.kizzy.resources.R
 import com.my.kizzy.ui.theme.DarkBlueBg
 import com.skydoves.landscapist.glide.GlideImage

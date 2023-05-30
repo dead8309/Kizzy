@@ -30,7 +30,7 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.my.kizzy.domain.model.User
+import com.my.kizzy.domain.model.user.User
 import com.my.kizzy.feature_home.feature.Features
 import com.my.kizzy.feature_home.feature.HomeFeature
 import com.my.kizzy.feature_home.feature.ToolTipContent

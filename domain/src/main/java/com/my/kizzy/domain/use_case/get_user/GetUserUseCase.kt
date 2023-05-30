@@ -13,7 +13,7 @@
 package com.my.kizzy.domain.use_case.get_user
 
 import com.my.kizzy.domain.model.Resource
-import com.my.kizzy.domain.model.User
+import com.my.kizzy.domain.model.user.User
 import com.my.kizzy.domain.repository.KizzyRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
