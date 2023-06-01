@@ -21,3 +21,5 @@
 
 # some unknown error
 -dontwarn java.lang.invoke.StringConcatFactory
+
+-dontwarn com.my.kizzy.resources.R$drawable
