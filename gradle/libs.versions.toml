@@ -2,7 +2,7 @@
 # project level
 gradle = "8.0.2"
 kotlin = "1.8.0"
-version-name = "4.7"
+version-name = "4.9"
 version-code ="4"
 
 # app level
@@ -105,12 +105,4 @@ kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", vers
 
 [bundles]
 network-ktor = ["ktor-core", "ktor-client-cio", "ktor-kotlinx-serialization"]
-compose-accompanist = [
-    "accompanist-flowLayout",
-    "accompanist-navigation-animation",
-    "accompanist-systemUiController",
-    "accompanist-permission",
-    "accompanist-pager-indicators",
-    "accompanist-pager-layouts"
-]
 
