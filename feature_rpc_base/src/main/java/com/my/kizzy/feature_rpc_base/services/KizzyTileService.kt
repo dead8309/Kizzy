@@ -35,6 +35,7 @@ class KizzyTileService : TileService() {
                 ctx.stopService(Intent(ctx, AppDetectionService::class.java))
                 ctx.stopService(Intent(ctx, MediaRpcService::class.java))
                 ctx.stopService(Intent(ctx, ExperimentalRpc::class.java))
+                ctx.stopService(Intent(ctx, SamsungRpcService::class.java))
             }
             Tile.STATE_INACTIVE -> {
                 showDialog(createRpcChoosingDialog(ctx))
@@ -60,7 +61,7 @@ class KizzyTileService : TileService() {
     }
 
     private fun createRpcChoosingDialog(ctx: Context): Dialog {
-        val rpc = arrayOf("Apps Rpc", "Media Rpc", "Experimental Rpc")
+        val rpc = arrayOf("Apps Rpc", "Media Rpc", "Experimental Rpc", "Samsung Rpc")
         return MaterialAlertDialogBuilder(ContextThemeWrapper(ctx, com.my.kizzy.feature_rpc_base.R.style.MyTileDialogTheme))
             .setTitle("Select a Rpc")
             .setSingleChoiceItems(rpc, -1) { dialog, which ->
@@ -73,6 +74,9 @@ class KizzyTileService : TileService() {
                     }
                     2 -> {
                         ctx.startForegroundService(Intent(ctx, ExperimentalRpc::class.java))
+                    }
+                    3 -> {
+                        ctx.startForegroundService(Intent(ctx, SamsungRpcService::class.java))
                     }
                     else -> {}
                 }
@@ -87,7 +91,7 @@ class KizzyTileService : TileService() {
             qsTile.updateTile()
             return
         }
-        when (AppUtils.appDetectionRunning() || AppUtils.mediaRpcRunning() || AppUtils.experimentalRpcRunning()) {
+        when (AppUtils.appDetectionRunning() || AppUtils.mediaRpcRunning() || AppUtils.experimentalRpcRunning() || AppUtils.samsungRpcRunning()) {
             true -> {
                 qsTile.state = Tile.STATE_ACTIVE
                 qsTile.icon = Icon.createWithResource(this, R.drawable.ic_tile_stop)
@@ -111,8 +115,10 @@ class KizzyTileService : TileService() {
             "Apps Rpc"
         else if (AppUtils.mediaRpcRunning())
             "Media Rpc"
-        else
+        else if (AppUtils.experimentalRpcRunning())
             "Experimental Rpc"
+        else
+            "Samsung Rpc"
     }
 
     companion object {

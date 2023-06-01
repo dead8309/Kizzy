@@ -102,11 +102,13 @@ class SamsungRpcService : Service() {
                     }
 
                     manager.notify(
-                        2293, Notification.Builder(this@SamsungRpcService, CHANNEL_ID)
-                            .setSmallIcon(R.drawable.ic_samsung_logo)
-                            .setContentTitle("Playing ${currentApp.name}")
-                            .addAction(R.drawable.ic_samsung_logo, "Exit", pendingIntent)
-                            .build()
+                        2293, Notification.Builder(this@SamsungRpcService, CHANNEL_ID).apply {
+                            setSmallIcon(R.drawable.ic_samsung_logo)
+                            if (currentApp.packageName.isNotEmpty()) {
+                                setContentTitle("Playing"+ currentApp.name)
+                            }
+                            addAction(R.drawable.ic_samsung_logo, "Exit", pendingIntent)
+                        }.build()
                     )
                     delay(1.minutes)
                 }
@@ -124,18 +126,7 @@ class SamsungRpcService : Service() {
     }
 
     override fun onDestroy() {
-        createGalaxyPresence(
-            packageName = lastGamePackage,
-            update = UpdateEvent.UPDATE
-        )?.let {
-            scope.launch {
-                kizzyRepository.setSamsungGalaxyPresence(
-                    it,
-                    Prefs[Prefs.TOKEN]
-                )
-                cancel()
-            }
-        }
+        scope.cancel()
         super.onDestroy()
     }
 
