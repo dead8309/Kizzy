@@ -31,7 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.my.kizzy.data.rpc.Constants.MAX_ALLOWED_CHARACTER_LENGTH
 import com.my.kizzy.data.utils.uriToFile
-import com.my.kizzy.domain.model.User
+import com.my.kizzy.domain.model.user.User
 import com.my.kizzy.feature_custom_rpc.components.BottomSheet
 import com.my.kizzy.feature_custom_rpc.components.DateTimePickerDialog
 import com.my.kizzy.feature_custom_rpc.components.ImagePicker

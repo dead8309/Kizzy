@@ -20,7 +20,7 @@ import android.os.PowerManager
 import android.os.PowerManager.WakeLock
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.utils.toRpcImage
-import com.my.kizzy.domain.model.RpcConfig
+import com.my.kizzy.domain.model.rpc.RpcConfig
 import com.my.kizzy.resources.R
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope

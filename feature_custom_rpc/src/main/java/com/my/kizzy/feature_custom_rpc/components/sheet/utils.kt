@@ -19,7 +19,7 @@ import android.os.Environment
 import com.blankj.utilcode.util.FileIOUtils
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.utils.getFileName
-import com.my.kizzy.domain.model.RpcConfig
+import com.my.kizzy.domain.model.rpc.RpcConfig
 import com.my.kizzy.preference.Prefs
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString

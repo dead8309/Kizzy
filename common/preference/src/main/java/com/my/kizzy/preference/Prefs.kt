@@ -12,7 +12,7 @@
 
 package com.my.kizzy.preference
 
-import com.my.kizzy.domain.model.User
+import com.my.kizzy.domain.model.user.User
 import com.tencent.mmkv.MMKV
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
