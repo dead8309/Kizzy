@@ -15,8 +15,8 @@ package com.my.kizzy.feature_logs
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.my.kizzy.domain.interfaces.Logger
-import com.my.kizzy.domain.model.LogEvent
-import com.my.kizzy.domain.model.LogLevel
+import com.my.kizzy.domain.model.logs.LogEvent
+import com.my.kizzy.domain.model.logs.LogLevel
 
 class KLogger: Logger {
     private val logs = mutableStateListOf<LogEvent>()

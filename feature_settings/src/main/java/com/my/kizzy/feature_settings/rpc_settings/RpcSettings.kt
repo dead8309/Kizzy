@@ -36,7 +36,7 @@ import com.my.kizzy.resources.R
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.rpc.Constants.MAX_ALLOWED_CHARACTER_LENGTH
-import com.my.kizzy.domain.model.RpcButtons
+import com.my.kizzy.domain.model.rpc.RpcButtons
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.RpcField
 import com.my.kizzy.ui.components.SettingItem

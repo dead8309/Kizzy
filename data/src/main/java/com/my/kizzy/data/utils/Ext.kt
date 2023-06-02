@@ -88,9 +88,10 @@ fun ApplicationInfo.toBitmap(context: Context): Bitmap? {
     }
     return bitmap
 }
-
-fun String.toRpcImage(): RpcImage {
-    return if (this.startsWith("attachments"))
+fun String.toRpcImage(): RpcImage? {
+    return if (this.isBlank())
+        null
+    else if (this.startsWith("attachments"))
         RpcImage.DiscordImage(this)
     else
         RpcImage.ExternalImage(this)

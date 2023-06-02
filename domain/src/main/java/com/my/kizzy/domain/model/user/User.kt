@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.domain.model
+package com.my.kizzy.domain.model.user
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -61,11 +61,4 @@ data class User(
     }
 }
 
-@Serializable
-data class Badge(
-    @SerialName("icon")
-    val icon: String,
-    @SerialName("name")
-    val name: String
-)
-const val DISCORD_CDN = "https://cdn.discordapp.com"
+private const val DISCORD_CDN = "https://cdn.discordapp.com"

@@ -12,7 +12,7 @@
 
 package com.my.kizzy.feature_custom_rpc
 
-import com.my.kizzy.domain.model.RpcConfig
+import com.my.kizzy.domain.model.rpc.RpcConfig
 import java.io.File
 
 sealed interface UiEvent {

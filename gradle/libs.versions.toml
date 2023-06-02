@@ -2,7 +2,7 @@
 # project level
 gradle = "8.0.2"
 kotlin = "1.8.0"
-version-name = "4.7"
+version-name = "4.9"
 version-code ="4"
 
 # app level
@@ -13,23 +13,23 @@ androidx-material = "1.9.0"
 app-compat = "1.7.0-alpha02"
 blankj-utilcodex = "1.31.0"
 coil = "2.1.0"
-compose = "1.5.0-beta01"
+compose = "1.5.0-alpha04"
 compose-compiler = "1.4.0"
 compose-navigation = "2.5.3"
 core-ktx = "1.10.1"
 crashx = "v6.0.19"
 glide = "1.6.1"
 hilt = "2.44"
-ktor = "2.2.1"
+ktor = "2.3.0"
 kotlinx-coroutine = "1.6.4"
 lifecycle-ktx = "2.6.1"
-material3 = "1.2.0-alpha02"
+material3 = "1.2.0-alpha01"
 mmkv = "1.2.14"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 javax = "1"
-kotlinx-serialization-json = "1.4.1"
+kotlinx-serialization-json = "1.5.0"
 
 [libraries]
 
@@ -105,12 +105,4 @@ kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", vers
 
 [bundles]
 network-ktor = ["ktor-core", "ktor-client-cio", "ktor-kotlinx-serialization"]
-compose-accompanist = [
-    "accompanist-flowLayout",
-    "accompanist-navigation-animation",
-    "accompanist-systemUiController",
-    "accompanist-permission",
-    "accompanist-pager-indicators",
-    "accompanist-pager-layouts"
-]
 

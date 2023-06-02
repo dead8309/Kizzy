@@ -30,12 +30,12 @@ import javax.inject.Inject
 class GetCurrentlyRunningApp @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
-    operator fun invoke(): CommonRpc {
+    operator fun invoke(beginTime: Long = System.currentTimeMillis() - 10000): CommonRpc {
         val usageStatsManager =
             context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
         val currentTimeMillis = System.currentTimeMillis()
         val queryUsageStats = usageStatsManager.queryUsageStats(
-            UsageStatsManager.INTERVAL_DAILY, currentTimeMillis - 10000, currentTimeMillis
+            UsageStatsManager.INTERVAL_DAILY, beginTime, currentTimeMillis
         )
         val apps = Prefs[Prefs.ENABLED_APPS, "[]"]
         val enabledPackages: ArrayList<String> = Json.decodeFromString(apps)

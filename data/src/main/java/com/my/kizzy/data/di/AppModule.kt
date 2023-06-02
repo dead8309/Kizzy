@@ -30,6 +30,7 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
+import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import javax.inject.Singleton
@@ -74,6 +75,7 @@ object AppModule {
             }
             install(Logging) {
                 level = LogLevel.HEADERS
+                sanitizeHeader { header -> header == HttpHeaders.Authorization }
                 logger = object : Logger {
                     override fun log(message: String) {
                         kLogger.d("Ktor", message)
