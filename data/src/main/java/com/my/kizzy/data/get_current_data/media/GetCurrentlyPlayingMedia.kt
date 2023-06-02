@@ -19,6 +19,7 @@ import android.media.MediaMetadata
 import android.media.session.MediaSessionManager
 import com.blankj.utilcode.util.AppUtils
 import com.my.kizzy.data.rpc.CommonRpc
+import com.my.kizzy.data.rpc.RpcImage
 import com.my.kizzy.preference.Prefs
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kizzy.gateway.entities.presence.Timestamps
@@ -30,8 +31,8 @@ class GetCurrentPlayingMedia @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
     operator fun invoke(): CommonRpc {
-        var largeIcon: com.my.kizzy.data.rpc.RpcImage?
-        val smallIcon: com.my.kizzy.data.rpc.RpcImage?
+        var largeIcon: RpcImage?
+        val smallIcon: RpcImage?
         var timestamps: Timestamps? = null
         val mediaSessionManager =
             context.getSystemService(Service.MEDIA_SESSION_SERVICE) as MediaSessionManager
@@ -54,12 +55,12 @@ class GetCurrentPlayingMedia @Inject constructor(
             }
             if (title != null) {
                 largeIcon =
-                    if (Prefs[Prefs.MEDIA_RPC_APP_ICON, false]) com.my.kizzy.data.rpc.RpcImage.ApplicationIcon(
+                    if (Prefs[Prefs.MEDIA_RPC_APP_ICON, false]) RpcImage.ApplicationIcon(
                         mediaController.packageName, context
                     ) else null
                 if (bitmap != null) {
                     smallIcon = largeIcon
-                    largeIcon = com.my.kizzy.data.rpc.RpcImage.BitmapImage(
+                    largeIcon = RpcImage.BitmapImage(
                         context = context,
                         bitmap = bitmap,
                         packageName = mediaController.packageName,
