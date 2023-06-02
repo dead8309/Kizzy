@@ -26,19 +26,19 @@ import kotlinx.serialization.json.Json
 sealed class RpcImage {
     abstract suspend fun resolveImage(repository: KizzyRepository): String?
 
-    class DiscordImage(private val image: String) : RpcImage() {
+    class DiscordImage(val image: String) : RpcImage() {
         override suspend fun resolveImage(repository: KizzyRepository): String {
             return "mp:${image}"
         }
     }
 
-    class ExternalImage(private val image: String) : RpcImage() {
+    class ExternalImage(val image: String) : RpcImage() {
         override suspend fun resolveImage(repository: KizzyRepository): String? {
             return repository.getImage(image)
         }
     }
 
-    class ApplicationIcon(private val packageName: String, private val context: Context) : RpcImage() {
+    class ApplicationIcon(val packageName: String, private val context: Context) : RpcImage() {
         val data = Prefs[Prefs.SAVED_IMAGES, "{}"]
         private val savedImages: HashMap<String, String> = Json.decodeFromString(data)
 
@@ -67,7 +67,7 @@ sealed class RpcImage {
 
     class BitmapImage(
         private val context: Context,
-        private val bitmap: Bitmap?,
+        val bitmap: Bitmap?,
         private val packageName: String,
         val title: String,
     ) : RpcImage() {
