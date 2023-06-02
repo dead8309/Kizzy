@@ -15,7 +15,6 @@
 package com.my.kizzy.feature_rpc_base.services
 
 import android.app.Notification
-import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
@@ -28,6 +27,8 @@ import com.my.kizzy.domain.interfaces.Logger
 import com.my.kizzy.domain.model.samsung_rpc.GalaxyPresence
 import com.my.kizzy.domain.model.samsung_rpc.UpdateEvent
 import com.my.kizzy.domain.repository.KizzyRepository
+import com.my.kizzy.feature_rpc_base.Constants
+import com.my.kizzy.feature_rpc_base.setLargeIcon
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.resources.R
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,22 +53,18 @@ class SamsungRpcService : Service() {
     lateinit var kizzyRepository: KizzyRepository
 
     @Inject
+    lateinit var notificationManager: NotificationManager
+
+    @Inject
+    lateinit var notificationBuilder: Notification.Builder
+
+    @Inject
     lateinit var logger: Logger
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        if (intent?.action.equals(ACTION_STOP_SERVICE)) stopSelf()
+        if (intent?.action.equals(Constants.ACTION_STOP_SERVICE)) stopSelf()
         else {
-            val channel = NotificationChannel(
-                CHANNEL_ID,
-                CHANNEL_NAME,
-                NotificationManager.IMPORTANCE_LOW
-            )
-            channel.description =
-                "Background Service which notifies the Current Running game"
-            val manager = getSystemService(NotificationManager::class.java)
-            manager.createNotificationChannel(channel)
-
             val stopIntent = Intent(this, SamsungRpcService::class.java)
-            stopIntent.action = ACTION_STOP_SERVICE
+            stopIntent.action = Constants.ACTION_STOP_SERVICE
             val pendingIntent: PendingIntent = PendingIntent.getService(
                 this, 0, stopIntent, PendingIntent.FLAG_IMMUTABLE
             )
@@ -101,21 +98,23 @@ class SamsungRpcService : Service() {
 
                     }
 
-                    manager.notify(
-                        2293, Notification.Builder(this@SamsungRpcService, CHANNEL_ID).apply {
-                            setSmallIcon(R.drawable.ic_samsung_logo)
+                    notificationManager.notify(
+                        Constants.NOTIFICATION_ID, notificationBuilder.apply {
                             if (currentApp.packageName.isNotEmpty()) {
-                                setContentTitle("Playing"+ currentApp.name)
+                                setContentTitle("Playing ${currentApp.name}")
                             }
-                            addAction(R.drawable.ic_samsung_logo, "Exit", pendingIntent)
+                            setLargeIcon(
+                                rpcImage = currentApp.largeImage,
+                                context = this@SamsungRpcService
+                            )
                         }.build()
                     )
                     delay(1.minutes)
                 }
             }
             startForeground(
-                2293,
-                Notification.Builder(this, CHANNEL_ID)
+                Constants.NOTIFICATION_ID,
+                notificationBuilder
                     .setSmallIcon(R.drawable.ic_samsung_logo)
                     .setContentTitle("Service enabled")
                     .addAction(R.drawable.ic_samsung_logo, "Exit", pendingIntent)
@@ -169,9 +168,6 @@ class SamsungRpcService : Service() {
     }
 
     companion object {
-        const val ACTION_STOP_SERVICE = "Stop RPC"
-        const val CHANNEL_ID = "samsung_rpc_notification_channel"
-        const val CHANNEL_NAME = "Samsung Rpc"
         private var lastGamePackage = ""
     }
 }
