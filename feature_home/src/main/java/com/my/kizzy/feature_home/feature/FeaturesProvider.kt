@@ -23,6 +23,7 @@ import com.my.kizzy.feature_rpc_base.services.AppDetectionService
 import com.my.kizzy.feature_rpc_base.services.CustomRpcService
 import com.my.kizzy.feature_rpc_base.services.ExperimentalRpc
 import com.my.kizzy.feature_rpc_base.services.MediaRpcService
+import com.my.kizzy.feature_rpc_base.services.SamsungRpcService
 import com.my.kizzy.navigation.Routes
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.resources.R
@@ -50,6 +51,7 @@ fun homeFeaturesProvider(
                     ctx.stopService(Intent(ctx, CustomRpcService::class.java))
                     ctx.stopService(Intent(ctx, ExperimentalRpc::class.java))
                     ctx.stopService(Intent(ctx, MediaRpcService::class.java))
+                    ctx.stopService(Intent(ctx, SamsungRpcService::class.java))
                     ctx.startService(Intent(ctx, AppDetectionService::class.java))
                 } else
                     ctx.stopService(Intent(ctx, AppDetectionService::class.java))
@@ -71,6 +73,7 @@ fun homeFeaturesProvider(
                     ctx.stopService(Intent(ctx, CustomRpcService::class.java))
                     ctx.stopService(Intent(ctx, ExperimentalRpc::class.java))
                     ctx.stopService(Intent(ctx, AppDetectionService::class.java))
+                    ctx.stopService(Intent(ctx, SamsungRpcService::class.java))
                     ctx.startService(Intent(ctx, MediaRpcService::class.java))
                 } else
                     ctx.stopService(Intent(ctx, MediaRpcService::class.java))
@@ -95,6 +98,7 @@ fun homeFeaturesProvider(
                     }
                     ctx.stopService(Intent(ctx, MediaRpcService::class.java))
                     ctx.stopService(Intent(ctx, ExperimentalRpc::class.java))
+                    ctx.stopService(Intent(ctx, SamsungRpcService::class.java))
                     ctx.stopService(Intent(ctx, AppDetectionService::class.java))
                     ctx.startService(intent)
                 } else
@@ -122,6 +126,7 @@ fun homeFeaturesProvider(
                     ctx.stopService(Intent(ctx, MediaRpcService::class.java))
                     ctx.stopService(Intent(ctx, ExperimentalRpc::class.java))
                     ctx.stopService(Intent(ctx, AppDetectionService::class.java))
+                    ctx.stopService(Intent(ctx, SamsungRpcService::class.java))
                     ctx.startService(intent)
                 } else
                     ctx.stopService(Intent(ctx, CustomRpcService::class.java))
@@ -140,6 +145,7 @@ fun homeFeaturesProvider(
                     ctx.stopService(Intent(ctx, MediaRpcService::class.java))
                     ctx.stopService(Intent(ctx, CustomRpcService::class.java))
                     ctx.stopService(Intent(ctx, AppDetectionService::class.java))
+                    ctx.stopService(Intent(ctx, SamsungRpcService::class.java))
                     ctx.startService(Intent(ctx, ExperimentalRpc::class.java))
                 } else
                     ctx.stopService(Intent(ctx, ExperimentalRpc::class.java))
@@ -150,9 +156,26 @@ fun homeFeaturesProvider(
             featureDocsLink = ToolTipContent.EXPERIMENTAL_RPC_DOCS_LINK
         ),
         HomeFeature(
+            title = "Samsung Rpc",
+            icon = R.drawable.ic_samsung_logo,
+            isChecked = AppUtils.samsungRpcRunning(),
+            onCheckedChange = {
+                if (it) {
+                    ctx.stopService(Intent(ctx, MediaRpcService::class.java))
+                    ctx.stopService(Intent(ctx, CustomRpcService::class.java))
+                    ctx.stopService(Intent(ctx, AppDetectionService::class.java))
+                    ctx.stopService(Intent(ctx, ExperimentalRpc::class.java))
+                    ctx.startService(Intent(ctx, SamsungRpcService::class.java))
+                } else
+                    ctx.stopService(Intent(ctx, SamsungRpcService::class.java))
+            },
+            shape = RoundedCornerShape(44.dp, 20.dp, 44.dp, 20.dp),
+            showSwitch = hasUsageAccess.value && userVerified
+        ),
+        HomeFeature(
             title = "Coming Soon",
             icon = R.drawable.ic_info,
-            shape = RoundedCornerShape(44.dp, 20.dp, 44.dp, 20.dp),
+            shape = RoundedCornerShape(20.dp, 44.dp, 20.dp, 44.dp),
             showSwitch = false
         )
     )

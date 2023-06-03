@@ -12,7 +12,7 @@
 
 package com.my.kizzy.feature_profile.ui.user
 
-import com.my.kizzy.domain.model.User
+import com.my.kizzy.domain.model.user.User
 
 sealed interface UserState {
     object Loading: UserState

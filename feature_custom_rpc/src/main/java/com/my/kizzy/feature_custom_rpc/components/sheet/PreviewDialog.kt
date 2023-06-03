@@ -15,8 +15,8 @@ package com.my.kizzy.feature_custom_rpc.components.sheet
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import com.my.kizzy.domain.model.RpcConfig
-import com.my.kizzy.domain.model.User
+import com.my.kizzy.domain.model.rpc.RpcConfig
+import com.my.kizzy.domain.model.user.User
 import com.my.kizzy.feature_profile.ui.component.ProfileCard
 
 @Composable

@@ -15,7 +15,7 @@ package com.my.kizzy.feature_custom_rpc
 import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.my.kizzy.domain.model.RpcConfig
+import com.my.kizzy.domain.model.rpc.RpcConfig
 import com.my.kizzy.domain.use_case.upload_galleryImage.UploadGalleryImageUseCase
 import com.my.kizzy.feature_custom_rpc.components.sheet.stringToData
 import com.my.kizzy.preference.Prefs

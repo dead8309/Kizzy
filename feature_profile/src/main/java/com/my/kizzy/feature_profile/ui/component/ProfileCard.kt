@@ -50,8 +50,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.my.kizzy.domain.model.RpcConfig
-import com.my.kizzy.domain.model.User
+import com.my.kizzy.domain.model.rpc.RpcConfig
+import com.my.kizzy.domain.model.user.User
 import com.my.kizzy.resources.R
 import com.my.kizzy.ui.theme.DISCORD_LIGHT_DARK
 import com.skydoves.landscapist.glide.GlideImage
