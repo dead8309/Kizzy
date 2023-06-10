@@ -16,5 +16,6 @@
     <string name="locale_it" translatable="false">Italiano</string>
     <string name="locale_fil" translatable="false">Filipino</string>
     <string name="locale_fr" translatable="false">French</string>
+    <string name="locale_hr" translatable="false">Hrvatski</string>
     <!-- Until here -->
 </resources>
