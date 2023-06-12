@@ -21,7 +21,6 @@ dependencies {
     implementation (libs.bundles.network.ktor)
     implementation (libs.ktor.content.negotiation)
     implementation (libs.ktor.logging)
-    implementation (libs.javax)
     implementation (projects.common.preference)
     implementation (projects.gateway)
     implementation (libs.blankj.utilcodex)
