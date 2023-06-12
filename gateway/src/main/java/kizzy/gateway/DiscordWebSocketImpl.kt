@@ -4,11 +4,11 @@ import com.my.kizzy.domain.interfaces.Logger
 import com.my.kizzy.domain.interfaces.NoOpLogger
 import io.ktor.client.*
 import io.ktor.client.plugins.websocket.*
-import io.ktor.serialization.*
 import io.ktor.websocket.*
 import kizzy.gateway.entities.Heartbeat
 import kizzy.gateway.entities.Identify.Companion.toIdentifyPayload
 import kizzy.gateway.entities.Payload
+import kizzy.gateway.entities.Ready
 import kizzy.gateway.entities.Resume
 import kizzy.gateway.entities.op.OpCode
 import kizzy.gateway.entities.op.OpCode.*
@@ -105,8 +105,9 @@ open class DiscordWebSocketImpl(
     open fun Payload.handleDispatch() {
         when (this.t.toString()) {
             "READY" -> {
-                sessionId = (this.d as Map<*, *>?)!!["session_id"].toString()
-                resumeGatewayUrl = this.d!!["resume_gateway_url"].toString() + "/?v=10&encoding=json"
+                val ready = json.decodeFromJsonElement<Ready>(this.d!!)
+                sessionId = ready.sessionId
+                resumeGatewayUrl = ready.resumeGatewayUrl + "/?v=10&encoding=json"
                 logger.i("Gateway","resume_gateway_url updated to $resumeGatewayUrl")
                 logger.i("Gateway","session_id updated to $sessionId")
                 connected = true
