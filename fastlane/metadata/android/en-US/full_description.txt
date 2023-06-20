@@ -1,0 +1,1 @@
+<p><i>Kizzy</i> is a Discord Rich Presence manager for Android, with a clean UI and Material You theme. It is easy to set up and offers predefined presets (Nintendo,Wii Rpc have 300+ options). You can create custom configs with your own images and links.</p>
