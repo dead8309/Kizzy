@@ -152,7 +152,7 @@ fun getInstalledApps(context1: Context): List<AppsInfo> {
             )
         }
     }
-    return appList
+    return appList.sortedBy { it.name }.sortedBy { !it.isChecked }
 }
 
 private fun ResolveInfo.isSystemPackage(): Boolean {
