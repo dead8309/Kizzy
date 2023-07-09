@@ -111,4 +111,5 @@ object Prefs {
     const val PALETTE_STYLE = "palette_style"
 
     const val APPLY_FIELDS_FROM_LAST_RUN_RPC = "enable_setting_from_last_config"
+    const val CUSTOM_ACTIVITY_STATUS = "custom_activity_status"
 }

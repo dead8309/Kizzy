@@ -23,20 +23,42 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.Cached
+import androidx.compose.material.icons.filled.Code
+import androidx.compose.material.icons.filled.DeleteForever
+import androidx.compose.material.icons.filled.DoNotDisturbOn
+import androidx.compose.material.icons.filled.HighQuality
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.SmartButton
+import androidx.compose.material.icons.filled.Storage
+import androidx.compose.material.icons.filled.Tune
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.LargeTopAppBar
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import com.my.kizzy.resources.R
-import com.my.kizzy.preference.Prefs
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.rpc.Constants.MAX_ALLOWED_CHARACTER_LENGTH
 import com.my.kizzy.domain.model.rpc.RpcButtons
+import com.my.kizzy.preference.Prefs
+import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.RpcField
 import com.my.kizzy.ui.components.SettingItem
@@ -59,10 +81,16 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
     var rpcButtons by remember {
         mutableStateOf(Json.decodeFromString<RpcButtons>(Prefs[Prefs.RPC_BUTTONS_DATA, "{}"]))
     }
+    var customActivityStatus by remember {
+        mutableStateOf(Prefs[Prefs.CUSTOM_ACTIVITY_STATUS, "dnd"])
+    }
     var customActivityType by remember {
         mutableStateOf(Prefs[Prefs.CUSTOM_ACTIVITY_TYPE, 0].toString())
     }
     var showActivityTypeDialog by remember {
+        mutableStateOf(false)
+    }
+    var showActivityStatusDialog by remember {
         mutableStateOf(false)
     }
     var setLastRunRpcConfigOption by remember {
@@ -120,6 +148,16 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                     icon = Icons.Default.Code
                 ) {
                     showActivityTypeDialog = true
+                }
+
+            }
+            item {
+                SettingItem(
+                    title = "Custom Activity Status",
+                    description = "Overrides the default activity status",
+                    icon = Icons.Default.DoNotDisturbOn
+                ) {
+                    showActivityStatusDialog = true
                 }
             }
             item {
@@ -309,6 +347,36 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                             }
                     }) {
                         Text(text = "Save")
+                    }
+                }
+            )
+        }
+
+        if (showActivityStatusDialog) {
+            AlertDialog(
+                onDismissRequest = {
+                    showActivityStatusDialog = false
+                },
+                confirmButton = {},
+                text = {
+                    val statusMap = mapOf(
+                        "Online" to "online",
+                        "AFK" to "idle",
+                        "Do Not Disturb" to "dnd",
+                        "Offline" to "offline",
+                        "Invisible and shown as offline" to "invisible"
+                    )
+                    Column {
+                        statusMap.forEach { (key, value) ->
+                            SingleChoiceItem(
+                                text = key,
+                                selected = value == customActivityStatus
+                            ) {
+                                customActivityStatus = value
+                                Prefs[Prefs.CUSTOM_ACTIVITY_STATUS] = value
+                                showActivityStatusDialog = false
+                            }
+                        }
                     }
                 }
             )

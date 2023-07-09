@@ -151,7 +151,7 @@ class AppDetectionService : Service() {
             kizzyRPC.apply {
                 setName(AppUtils.getAppName(packageName))
                 setStartTimestamps(System.currentTimeMillis())
-                setStatus("dnd")
+                setStatus(Prefs[Prefs.CUSTOM_ACTIVITY_STATUS,"dnd"])
                 setLargeImage(RpcImage.ApplicationIcon(packageName, this@AppDetectionService))
                 if (Prefs[Prefs.USE_RPC_BUTTONS, false]) {
                     with(rpcButtons) {

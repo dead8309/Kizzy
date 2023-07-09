@@ -117,7 +117,7 @@ class MediaRpcService : Service() {
                         kizzyRPC.apply {
                             setName(playingMedia.name.ifEmpty { "YouTube" })
                             setDetails(playingMedia.details)
-                            setStatus("dnd")
+                            setStatus(Prefs[Prefs.CUSTOM_ACTIVITY_STATUS,"dnd"])
                             if (Prefs[Prefs.USE_RPC_BUTTONS, false]) {
                                 with(rpcButtons) {
                                     setButton1(button1.takeIf { it.isNotEmpty() })

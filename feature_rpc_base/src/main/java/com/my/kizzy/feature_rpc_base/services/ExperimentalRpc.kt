@@ -12,7 +12,10 @@
 
 package com.my.kizzy.feature_rpc_base.services
 
-import android.app.*
+import android.app.Notification
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 import com.my.kizzy.data.get_current_data.AppTracker
@@ -74,7 +77,7 @@ class ExperimentalRpc : Service() {
                     } else kizzyRPC.apply {
                         setName(collectedData.name)
                         setStartTimestamps(System.currentTimeMillis())
-                        setStatus("dnd")
+                        setStatus(Prefs[Prefs.CUSTOM_ACTIVITY_STATUS,"dnd"])
                         setLargeImage(collectedData.largeImage)
                         setSmallImage(collectedData.smallImage)
                         if (Prefs[Prefs.USE_RPC_BUTTONS, false]) {
