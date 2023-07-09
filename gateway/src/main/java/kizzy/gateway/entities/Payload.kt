@@ -1,16 +1,18 @@
 package kizzy.gateway.entities
 
+import kizzy.gateway.entities.op.OpCode
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonElement
 
-import com.google.gson.annotations.SerializedName
-import kizzy.gateway.entities.op.OpCodes
-
+@Serializable
 data class Payload(
-    @SerializedName("t")
-    val t: Any? = null,
-    @SerializedName("s")
+    @SerialName("t")
+    val t: String? = null,
+    @SerialName("s")
     val s: Int? = null,
-    @SerializedName("op")
-    val op: OpCodes? = null,
-    @SerializedName("d")
-    val d: Any? = null
+    @SerialName("op")
+    val op: OpCode? = null,
+    @SerialName("d")
+    val d: JsonElement? = null
 )

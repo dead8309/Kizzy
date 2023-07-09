@@ -12,5 +12,5 @@ dependencies {
     implementation (libs.activity.compose)
     implementation (libs.material.icons.extended)
     implementation (libs.accompanist.permission)
-    implementation(libs.gson)
+    implementation (libs.kotlinx.serialization.json)
 }

@@ -17,15 +17,16 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import com.blankj.utilcode.util.FileIOUtils
-import com.google.gson.GsonBuilder
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.utils.getFileName
-import com.my.kizzy.domain.model.RpcConfig
+import com.my.kizzy.domain.model.rpc.RpcConfig
 import com.my.kizzy.preference.Prefs
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import java.io.File
 import java.io.FilenameFilter
 
-internal val gson = GsonBuilder().setPrettyPrinting().serializeNulls().create()
 internal val FILE_FILTER = FilenameFilter { _: File?, f: String ->
     f.endsWith(".json")
 }
@@ -61,18 +62,18 @@ internal fun Context.handleUriResult(uri: Uri?, onSuccess: (json: String) -> Uni
         onSuccess(json)
     }
 }
-
-fun RpcConfig.dataToString(): String {
-    return gson.toJson(this)
+internal val json = Json {
+    ignoreUnknownKeys = true
 }
 
-fun String.stringToData(): RpcConfig {
+internal fun RpcConfig.dataToString(): String {
+    return json.encodeToString(this)
+}
+
+
+internal fun String.stringToData(): RpcConfig {
     return try {
-        var config = gson.fromJson(this, RpcConfig::class.java)
-        //Gson will set value of url as null if its not present in json
-        if (config.url == null)
-            config = config.copy(url = "")
-        return config
+        return json.decodeFromString(this)
     } catch (ex: Exception) {
         RpcConfig()
     }

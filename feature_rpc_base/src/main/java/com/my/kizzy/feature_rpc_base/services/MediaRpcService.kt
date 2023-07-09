@@ -18,18 +18,20 @@ import android.content.Intent
 import android.os.IBinder
 import android.os.PowerManager
 import android.os.PowerManager.WakeLock
-import com.google.gson.Gson
 import com.my.kizzy.data.get_current_data.media.GetCurrentPlayingMedia
-import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.rpc.KizzyRPC
 import com.my.kizzy.domain.interfaces.Logger
-import com.my.kizzy.domain.model.RpcButtons
+import com.my.kizzy.domain.model.rpc.RpcButtons
+import com.my.kizzy.feature_rpc_base.Constants
+import com.my.kizzy.feature_rpc_base.setLargeIcon
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.preference.Prefs.MEDIA_RPC_ENABLE_TIMESTAMPS
 import com.my.kizzy.preference.Prefs.TOKEN
 import com.my.kizzy.resources.R
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -49,6 +51,12 @@ class MediaRpcService : Service() {
 
     private var wakeLock: WakeLock? = null
 
+    @Inject
+    lateinit var notificationManager: NotificationManager
+
+    @Inject
+    lateinit var notificationBuilder: Notification.Builder
+
     @SuppressLint("WakelockTimeout")
     override fun onCreate() {
         super.onCreate()
@@ -57,17 +65,40 @@ class MediaRpcService : Service() {
         // TODO add time left later
         val time = System.currentTimeMillis()
         setupWakeLock()
-        startForeground(NOTIFICATION_ID, getNotification())
+        val intent = Intent(this, MediaRpcService::class.java)
+        intent.action = Constants.ACTION_STOP_SERVICE
+        val pendingIntent = PendingIntent.getService(
+            this,
+            0, intent, PendingIntent.FLAG_IMMUTABLE
+        )
+
+        startForeground(
+            Constants.NOTIFICATION_ID, notificationBuilder
+                .setSmallIcon(R.drawable.ic_media_rpc)
+                .addAction(R.drawable.ic_media_rpc, "Exit", pendingIntent)
+                .setContentText("Browsing Home Page..")
+                .build()
+        )
+
         scope.launch {
             while (isActive) {
                 val enableTimestamps = Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS, false]
                 val playingMedia = getCurrentPlayingMedia()
-                getNotificationManager()?.notify(
-                    NOTIFICATION_ID,
-                    getNotification(playingMedia.details?:"")
+
+                notificationManager.notify(
+                    Constants.NOTIFICATION_ID,
+                    notificationBuilder
+                        .setContentText(
+                            (playingMedia.details ?: "").ifEmpty { "Browsing Home Page.." })
+                        .setLargeIcon(
+                            rpcImage = playingMedia.largeImage,
+                            context = this@MediaRpcService
+                        )
+                        .build()
                 )
+
                 val rpcButtonsString = Prefs[Prefs.RPC_BUTTONS_DATA, "{}"]
-                val rpcButtons = Gson().fromJson(rpcButtonsString, RpcButtons::class.java)
+                val rpcButtons = Json.decodeFromString<RpcButtons>(rpcButtonsString)
                 when (kizzyRPC.isRpcRunning()) {
                     true -> {
                         logger.d("MediaRPC", "Updating Rpc")
@@ -81,11 +112,12 @@ class MediaRpcService : Service() {
                             time = time
                         )
                     }
+
                     false -> {
                         kizzyRPC.apply {
                             setName(playingMedia.name.ifEmpty { "YouTube" })
                             setDetails(playingMedia.details)
-                            setStatus(Constants.DND)
+                            setStatus(Prefs[Prefs.CUSTOM_ACTIVITY_STATUS,"dnd"])
                             if (Prefs[Prefs.USE_RPC_BUTTONS, false]) {
                                 with(rpcButtons) {
                                     setButton1(button1.takeIf { it.isNotEmpty() })
@@ -103,30 +135,6 @@ class MediaRpcService : Service() {
         }
     }
 
-    @Suppress("DEPRECATION")
-    private fun getNotification(notificationTitle: String = "Browsing Home Page.."): Notification {
-        getNotificationManager().apply {
-            this?.createNotificationChannel(
-                NotificationChannel(
-                    CHANNEL_ID,
-                    "Background Service",
-                    NotificationManager.IMPORTANCE_LOW
-                )
-            )
-        }
-        val builder = Notification.Builder(this, CHANNEL_ID)
-        builder.setSmallIcon(R.drawable.ic_media_rpc)
-        val intent = Intent(this, MediaRpcService::class.java)
-        intent.action = ACTION_STOP_SERVICE
-        val pendingIntent = PendingIntent.getService(
-            this,
-            0, intent, PendingIntent.FLAG_IMMUTABLE
-        )
-        builder.addAction(R.drawable.ic_media_rpc, "Exit", pendingIntent)
-        builder.setContentText(notificationTitle.ifEmpty { "Browsing Home Page.." })
-        return builder.build()
-    }
-
     @SuppressLint("WakelockTimeout")
     private fun setupWakeLock() {
         val powerManager = getSystemService(POWER_SERVICE) as PowerManager
@@ -134,16 +142,10 @@ class MediaRpcService : Service() {
         wakeLock?.acquire()
     }
 
-    private fun getNotificationManager(): NotificationManager? {
-        return getSystemService(
-            NotificationManager::class.java
-        )
-    }
-
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         intent?.let {
             it.action?.let { ac ->
-                if (ac == ACTION_STOP_SERVICE)
+                if (ac == Constants.ACTION_STOP_SERVICE)
                     stopSelf()
             }
         }
@@ -161,11 +163,5 @@ class MediaRpcService : Service() {
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
-    }
-
-    companion object {
-        const val CHANNEL_ID = "MediaRPC"
-        const val ACTION_STOP_SERVICE = "STOP_RPC"
-        const val NOTIFICATION_ID = 8838
     }
 }

@@ -1,26 +1,28 @@
 package kizzy.gateway.entities.presence
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Activity(
-    @SerializedName("name")
+    @SerialName("name")
     val name: String?,
-    @SerializedName("state")
+    @SerialName("state")
     val state: String? = null,
-    @SerializedName("details")
+    @SerialName("details")
     val details: String? = null,
-    @SerializedName("type")
+    @SerialName("type")
     val type: Int? = 0,
-    @SerializedName("timestamps")
+    @SerialName("timestamps")
     val timestamps: Timestamps? = null,
-    @SerializedName("assets")
+    @SerialName("assets")
     val assets: Assets? = null,
-    @SerializedName("buttons")
+    @SerialName("buttons")
     val buttons: List<String?>? = null,
-    @SerializedName("metadata")
+    @SerialName("metadata")
     val metadata: Metadata? = null,
-    @SerializedName("application_id")
+    @SerialName("application_id")
     val applicationId: String? = null,
-    @SerializedName("url")
+    @SerialName("url")
     val url: String? = null
 )

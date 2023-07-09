@@ -2,7 +2,7 @@
  *
  *  ******************************************************************
  *  *  * Copyright (C) 2022
- *  *  * ProvideFeatures.kt is part of Kizzy
+ *  *  * FeaturesProvider.kt is part of Kizzy
  *  *  *  and can not be copied and/or distributed without the express
  *  *  * permission of yzziK(Vaibhav)
  *  *  *****************************************************************
@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.feature_home
+package com.my.kizzy.feature_home.feature
 
 import android.content.Intent
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -23,20 +23,21 @@ import com.my.kizzy.feature_rpc_base.services.AppDetectionService
 import com.my.kizzy.feature_rpc_base.services.CustomRpcService
 import com.my.kizzy.feature_rpc_base.services.ExperimentalRpc
 import com.my.kizzy.feature_rpc_base.services.MediaRpcService
+import com.my.kizzy.feature_rpc_base.services.SamsungRpcService
 import com.my.kizzy.navigation.Routes
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.resources.R
 
 @Composable
-fun provideFeatures(
+fun homeFeaturesProvider(
     navigateTo: (String) -> Unit,
     hasUsageAccess: MutableState<Boolean>,
     hasNotificationAccess: MutableState<Boolean>,
     userVerified: Boolean
-): List<HomeFeatures> {
+): List<HomeFeature> {
     val ctx = LocalContext.current
     return listOf(
-        HomeFeatures(
+        HomeFeature(
             title = "App Detection",
             icon = R.drawable.ic_apps,
             route = Routes.APPS_DETECTION,
@@ -50,12 +51,15 @@ fun provideFeatures(
                     ctx.stopService(Intent(ctx, CustomRpcService::class.java))
                     ctx.stopService(Intent(ctx, ExperimentalRpc::class.java))
                     ctx.stopService(Intent(ctx, MediaRpcService::class.java))
+                    ctx.stopService(Intent(ctx, SamsungRpcService::class.java))
                     ctx.startService(Intent(ctx, AppDetectionService::class.java))
                 } else
                     ctx.stopService(Intent(ctx, AppDetectionService::class.java))
             },
-            shape = RoundedCornerShape(20.dp, 44.dp, 20.dp, 44.dp)
-        ), HomeFeatures(
+            shape = RoundedCornerShape(20.dp, 44.dp, 20.dp, 44.dp),
+            tooltipText = ToolTipContent.APP_DETECTION_DOCS,
+            featureDocsLink = ToolTipContent.APP_DETECTION_DOCS_LINK
+        ), HomeFeature(
             title = "Media Rpc",
             icon = R.drawable.ic_media_rpc,
             route = Routes.MEDIA_RPC,
@@ -69,12 +73,15 @@ fun provideFeatures(
                     ctx.stopService(Intent(ctx, CustomRpcService::class.java))
                     ctx.stopService(Intent(ctx, ExperimentalRpc::class.java))
                     ctx.stopService(Intent(ctx, AppDetectionService::class.java))
+                    ctx.stopService(Intent(ctx, SamsungRpcService::class.java))
                     ctx.startService(Intent(ctx, MediaRpcService::class.java))
                 } else
                     ctx.stopService(Intent(ctx, MediaRpcService::class.java))
             },
-            shape = RoundedCornerShape(44.dp, 20.dp, 44.dp, 20.dp)
-        ), HomeFeatures(
+            shape = RoundedCornerShape(44.dp, 20.dp, 44.dp, 20.dp),
+            tooltipText = ToolTipContent.MEDIA_RPC_DOCS,
+            featureDocsLink = ToolTipContent.MEDIA_RPC_DOCS_LINK
+        ), HomeFeature(
             title = "Custom Rpc",
             icon = R.drawable.ic_rpc_placeholder,
             route = Routes.CUSTOM_RPC,
@@ -91,14 +98,17 @@ fun provideFeatures(
                     }
                     ctx.stopService(Intent(ctx, MediaRpcService::class.java))
                     ctx.stopService(Intent(ctx, ExperimentalRpc::class.java))
+                    ctx.stopService(Intent(ctx, SamsungRpcService::class.java))
                     ctx.stopService(Intent(ctx, AppDetectionService::class.java))
                     ctx.startService(intent)
                 } else
                     ctx.stopService(Intent(ctx, CustomRpcService::class.java))
             },
             shape = RoundedCornerShape(44.dp, 20.dp, 44.dp, 20.dp),
-            showSwitch = Prefs[Prefs.LAST_RUN_CUSTOM_RPC, ""].isNotEmpty()
-        ), HomeFeatures(
+            showSwitch = Prefs[Prefs.LAST_RUN_CUSTOM_RPC, ""].isNotEmpty(),
+            tooltipText = ToolTipContent.CUSTOM_RPC_DOCS,
+            featureDocsLink = ToolTipContent.CUSTOM_RPC_DOCS_LINK
+        ), HomeFeature(
             title = "Console Rpc",
             icon = R.drawable.ic_console_games,
             route = Routes.CONSOLE_RPC,
@@ -116,14 +126,17 @@ fun provideFeatures(
                     ctx.stopService(Intent(ctx, MediaRpcService::class.java))
                     ctx.stopService(Intent(ctx, ExperimentalRpc::class.java))
                     ctx.stopService(Intent(ctx, AppDetectionService::class.java))
+                    ctx.stopService(Intent(ctx, SamsungRpcService::class.java))
                     ctx.startService(intent)
                 } else
                     ctx.stopService(Intent(ctx, CustomRpcService::class.java))
             },
             shape = RoundedCornerShape(20.dp, 44.dp, 20.dp, 44.dp),
-            showSwitch = Prefs[Prefs.LAST_RUN_CONSOLE_RPC, ""].isNotEmpty()
+            showSwitch = Prefs[Prefs.LAST_RUN_CONSOLE_RPC, ""].isNotEmpty(),
+            tooltipText = ToolTipContent.CONSOLE_RPC_DOCS,
+            featureDocsLink = ToolTipContent.CONSOLE_RPC_DOCS_LINK
         ),
-        HomeFeatures(
+        HomeFeature(
             title = "Experimental Rpc",
             icon = R.drawable.ic_dev_rpc,
             isChecked = AppUtils.experimentalRpcRunning(),
@@ -132,17 +145,37 @@ fun provideFeatures(
                     ctx.stopService(Intent(ctx, MediaRpcService::class.java))
                     ctx.stopService(Intent(ctx, CustomRpcService::class.java))
                     ctx.stopService(Intent(ctx, AppDetectionService::class.java))
+                    ctx.stopService(Intent(ctx, SamsungRpcService::class.java))
                     ctx.startService(Intent(ctx, ExperimentalRpc::class.java))
                 } else
                     ctx.stopService(Intent(ctx, ExperimentalRpc::class.java))
             },
             shape = RoundedCornerShape(20.dp, 44.dp, 20.dp, 44.dp),
-            showSwitch = hasUsageAccess.value && hasNotificationAccess.value && userVerified
+            showSwitch = hasUsageAccess.value && hasNotificationAccess.value && userVerified,
+            tooltipText = ToolTipContent.EXPERIMENTAL_RPC_DOCS,
+            featureDocsLink = ToolTipContent.EXPERIMENTAL_RPC_DOCS_LINK
         ),
-        HomeFeatures(
+        HomeFeature(
+            title = "Samsung Rpc",
+            icon = R.drawable.ic_samsung_logo,
+            isChecked = AppUtils.samsungRpcRunning(),
+            onCheckedChange = {
+                if (it) {
+                    ctx.stopService(Intent(ctx, MediaRpcService::class.java))
+                    ctx.stopService(Intent(ctx, CustomRpcService::class.java))
+                    ctx.stopService(Intent(ctx, AppDetectionService::class.java))
+                    ctx.stopService(Intent(ctx, ExperimentalRpc::class.java))
+                    ctx.startService(Intent(ctx, SamsungRpcService::class.java))
+                } else
+                    ctx.stopService(Intent(ctx, SamsungRpcService::class.java))
+            },
+            shape = RoundedCornerShape(44.dp, 20.dp, 44.dp, 20.dp),
+            showSwitch = hasUsageAccess.value && userVerified
+        ),
+        HomeFeature(
             title = "Coming Soon",
             icon = R.drawable.ic_info,
-            shape = RoundedCornerShape(44.dp, 20.dp, 44.dp, 20.dp),
+            shape = RoundedCornerShape(20.dp, 44.dp, 20.dp, 44.dp),
             showSwitch = false
         )
     )

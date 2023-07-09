@@ -7,7 +7,7 @@
     <string name="activity_state">Состояние активности</string>
     <string name="activity_start_timestamps">Начало временной метки</string>
     <string name="activity_stop_timestamps">Конец временной метки</string>
-    <string name="activity_status_online_idle_dnd">Статус активности ("В сети", "Неактивен" или "Не беспокоить")</string>
+    <string name="activity_status_online_idle_dnd">Статус активности (\"online\" - \"В сети\", \"idle\" - \"Неактивен\" или \"dnd\" - \"Не беспокоить\")</string>
     <string name="activity_button1_text">Текст на первой кнопке</string>
     <string name="activity_button2_text">Текст на второй кнопке</string>
     <string name="activity_button1_url">Ссылка первой кнопки</string>
@@ -81,7 +81,7 @@
     <string name="permission_not_granted">Не предоставлено, нажмите, чтобы разрешить</string>
     <string name="activity_large_text">Большой текст активности</string>
     <string name="activity_small_text">Малый текст активности</string>
-    <string name="contributors">Вкладчики</string>
+    <string name="contributors">Контрибьюторы</string>
     <string name="stream_url">Ссылка на эфир</string>
     <string name="stream_url_info">Будут работать только ссылки на Twitch и YouTube.</string>
     <string name="activity_button_max_character">Максимальное кол-во символов - 31</string>

@@ -1,22 +1,27 @@
 package kizzy.gateway
 
 import com.my.kizzy.domain.interfaces.Logger
+import com.my.kizzy.domain.interfaces.NoOpLogger
 import io.ktor.client.*
 import io.ktor.client.plugins.websocket.*
-import io.ktor.serialization.*
-import io.ktor.serialization.gson.*
 import io.ktor.websocket.*
+import kizzy.gateway.entities.Heartbeat
 import kizzy.gateway.entities.Identify.Companion.toIdentifyPayload
 import kizzy.gateway.entities.Payload
+import kizzy.gateway.entities.Ready
 import kizzy.gateway.entities.Resume
-import kizzy.gateway.entities.op.OpCodes
-import kizzy.gateway.entities.op.OpCodes.*
+import kizzy.gateway.entities.op.OpCode
+import kizzy.gateway.entities.op.OpCode.*
 import kizzy.gateway.entities.presence.Presence
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromJsonElement
+import kotlinx.serialization.json.encodeToJsonElement
 import kotlin.coroutines.CoroutineContext
 import kotlin.time.Duration.Companion.milliseconds
-import com.my.kizzy.domain.interfaces.NoOpLogger
 
 open class DiscordWebSocketImpl(
     private val token: String,
@@ -31,9 +36,11 @@ open class DiscordWebSocketImpl(
     private var heartbeatJob: Job? = null
     private var connected = false
     private var client: HttpClient = HttpClient {
-        install(WebSockets) {
-            contentConverter = GsonWebsocketContentConverter()
-        }
+        install(WebSockets)
+    }
+    private val json = Json{
+        ignoreUnknownKeys = true
+        encodeDefaults = true
     }
 
     override val coroutineContext: CoroutineContext
@@ -50,7 +57,10 @@ open class DiscordWebSocketImpl(
                 websocket!!.incoming.receiveAsFlow()
                     .collect {
                         when (it) {
-                            is Frame.Text -> onMessage(websocket!!.converter?.deserialize(it))
+                            is Frame.Text -> {
+                                val jsonString = it.readText()
+                                onMessage(json.decodeFromString(jsonString))
+                            }
                             else -> {}
                         }
                     }
@@ -76,9 +86,7 @@ open class DiscordWebSocketImpl(
             close()
     }
 
-    private suspend fun onMessage(payload: Payload?) {
-        if (payload == null)
-            return
+    private suspend fun onMessage(payload: Payload) {
         logger.d("Gateway","Received op:${payload.op}, seq:${payload.s}, event :${payload.t}")
 
         payload.s?.let {
@@ -97,8 +105,9 @@ open class DiscordWebSocketImpl(
     open fun Payload.handleDispatch() {
         when (this.t.toString()) {
             "READY" -> {
-                sessionId = (this.d as Map<*, *>?)!!["session_id"].toString()
-                resumeGatewayUrl = this.d!!["resume_gateway_url"].toString() + "/?v=10&encoding=json"
+                val ready = json.decodeFromJsonElement<Ready>(this.d!!)
+                sessionId = ready.sessionId
+                resumeGatewayUrl = ready.resumeGatewayUrl + "/?v=10&encoding=json"
                 logger.i("Gateway","resume_gateway_url updated to $resumeGatewayUrl")
                 logger.i("Gateway","session_id updated to $sessionId")
                 connected = true
@@ -124,7 +133,7 @@ open class DiscordWebSocketImpl(
         } else {
             sendIdentify()
         }
-        heartbeatInterval = ((this.d as Map<*, *>)["heartbeat_interval"] as Double).toLong()
+        heartbeatInterval =  json.decodeFromJsonElement<Heartbeat>(this.d!!).heartbeatInterval
         logger.i("Gateway","Setting heartbeatInterval= $heartbeatInterval")
         startHeartbeatJob(heartbeatInterval)
     }
@@ -185,15 +194,15 @@ open class DiscordWebSocketImpl(
         return websocket?.incoming != null && websocket?.outgoing?.isClosedForSend == false
     }
 
-
-    private suspend fun send(op: OpCodes, d: Any?) {
+    private suspend inline fun <reified T> send(op: OpCode, d: T?) {
         if (websocket?.isActive == true) {
-            websocket?.sendSerialized(
+            val payload = json.encodeToString(
                 Payload(
                     op = op,
-                    d = d
+                    d= json.encodeToJsonElement(d),
                 )
             )
+            websocket?.send(Frame.Text(payload))
         }
     }
 

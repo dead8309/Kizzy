@@ -17,14 +17,16 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.gson.Gson
 import com.my.kizzy.domain.model.Resource
-import com.my.kizzy.domain.model.User
+import com.my.kizzy.domain.model.user.User
 import com.my.kizzy.domain.use_case.get_user.GetUserUseCase
 import com.my.kizzy.preference.Prefs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
 @HiltViewModel
@@ -48,10 +50,10 @@ class UserViewModel @Inject constructor(
                             nitro = Prefs[Prefs.USER_NITRO]
                         )
                     )
-                    Prefs[Prefs.USER_DATA] = Gson().toJson(result.data)
+                    Prefs[Prefs.USER_DATA] = Json.encodeToString(result.data)
                 }
                 is Resource.Error -> {
-                    val user = Gson().fromJson(Prefs[Prefs.USER_DATA,"{}"], User::class.java)
+                    val user = Json.decodeFromString<User>(Prefs[Prefs.USER_DATA,"{}"])
                     _state.value = UserState.Error(
                         error = result.message ?: "An unexpected error occurred",
                         user = user

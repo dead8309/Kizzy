@@ -27,10 +27,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.*
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.my.kizzy.domain.model.User
+import com.my.kizzy.domain.model.user.User
+import com.my.kizzy.feature_home.feature.Features
+import com.my.kizzy.feature_home.feature.HomeFeature
+import com.my.kizzy.feature_home.feature.ToolTipContent
 import com.my.kizzy.feature_rpc_base.services.KizzyTileService
 import com.my.kizzy.feature_settings.SettingsDrawer
 import com.my.kizzy.resources.R
@@ -41,7 +45,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Home(
-    features: List<HomeFeatures>,
+    features: List<HomeFeature>,
     user: User?,
     componentName: ComponentName? = null,
     navigateToProfile: () -> Unit,
@@ -56,6 +60,9 @@ fun Home(
     }
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
+    val scrollBehavior =
+        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState(),
+            canScroll = { true })
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
@@ -76,44 +83,52 @@ fun Home(
             }
         }) {
         Scaffold(
+            modifier = Modifier
+                .fillMaxSize()
+                .nestedScroll(scrollBehavior.nestedScrollConnection),
             topBar = {
-                LargeTopAppBar(title = {
-                    Text(
-                        text = stringResource(id = R.string.welcome) + ", ${user?.username ?: ""}",
-                        style = MaterialTheme.typography.headlineLarge,
-                    )
-                }, navigationIcon = {
-                    IconButton(
-                        onClick = { scope.launch { drawerState.open() } },
-                    ) {
-                        Icon(
-                            Icons.Outlined.Menu, Icons.Outlined.Menu.name
+                LargeTopAppBar(
+                    title = {
+                        Text(
+                            text = stringResource(id = R.string.welcome) + ", ${user?.username ?: ""}",
+                            style = MaterialTheme.typography.headlineLarge,
                         )
-                    }
-                }, actions = {
-                    IconButton(onClick = { navigateToProfile() }) {
-                        if (user != null) {
-                            GlideImage(
-                                imageModel = user.getAvatarImage(),
-                                modifier = Modifier
-                                    .size(52.dp)
-                                    .border(
-                                        2.dp,
-                                        MaterialTheme.colorScheme.secondaryContainer,
-                                        CircleShape
-                                    )
-                                    .clip(CircleShape),
-                                previewPlaceholder = R.drawable.error_avatar
-                            )
-                        } else {
+                    },
+                    navigationIcon = {
+                        IconButton(
+                            onClick = { scope.launch { drawerState.open() } },
+                        ) {
                             Icon(
-                                imageVector = Icons.Outlined.Person,
-                                contentDescription = Icons.Default.Person.name
+                                Icons.Outlined.Menu, Icons.Outlined.Menu.name,
                             )
                         }
-                    }
-                })
-            },
+                    },
+                    actions = {
+                        IconButton(onClick = { navigateToProfile() }) {
+                            if (user != null) {
+                                GlideImage(
+                                    imageModel = user.getAvatarImage(),
+                                    modifier = Modifier
+                                        .size(52.dp)
+                                        .border(
+                                            2.dp,
+                                            MaterialTheme.colorScheme.secondaryContainer,
+                                            CircleShape,
+                                        )
+                                        .clip(CircleShape),
+                                    previewPlaceholder = R.drawable.error_avatar,
+                                )
+                            } else {
+                                Icon(
+                                    imageVector = Icons.Outlined.Person,
+                                    contentDescription = Icons.Default.Person.name,
+                                )
+                            }
+                        }
+                    },
+                    scrollBehavior = scrollBehavior,
+                )
+            }
         ) { paddingValues ->
             LazyColumn(
                 modifier = Modifier.padding(paddingValues),
@@ -156,32 +171,42 @@ fun HomeScreenPreview() {
     }
 }
 val fakeFeatures = listOf(
-    HomeFeatures(
+    HomeFeature(
         title = "App Detection",
         icon = R.drawable.ic_apps,
-        shape = RoundedCornerShape(20.dp, 44.dp, 20.dp, 44.dp)
-    ), HomeFeatures(
+        shape = RoundedCornerShape(20.dp, 44.dp, 20.dp, 44.dp),
+        tooltipText = ToolTipContent.APP_DETECTION_DOCS
+    ), HomeFeature(
         title = "Media Rpc",
         icon = R.drawable.ic_media_rpc,
-        shape = RoundedCornerShape(44.dp, 20.dp, 44.dp, 20.dp)
-    ), HomeFeatures(
+        shape = RoundedCornerShape(44.dp, 20.dp, 44.dp, 20.dp),
+        tooltipText = ToolTipContent.MEDIA_RPC_DOCS
+    ), HomeFeature(
         title = "Custom Rpc",
         icon = R.drawable.ic_rpc_placeholder,
         shape = RoundedCornerShape(44.dp, 20.dp, 44.dp, 20.dp),
-    ), HomeFeatures(
+        tooltipText = ToolTipContent.CUSTOM_RPC_DOCS
+    ), HomeFeature(
         title = "Console Rpc",
         icon = R.drawable.ic_console_games,
         shape = RoundedCornerShape(20.dp, 44.dp, 20.dp, 44.dp),
+        tooltipText = ToolTipContent.CONSOLE_RPC_DOCS
     ),
-    HomeFeatures(
+    HomeFeature(
         title = "Experimental Rpc",
         icon = R.drawable.ic_dev_rpc,
         shape = RoundedCornerShape(20.dp, 44.dp, 20.dp, 44.dp),
+        tooltipText = ToolTipContent.EXPERIMENTAL_RPC_DOCS
     ),
-    HomeFeatures(
+    HomeFeature(
+        title = "Samsung Rpc",
+        icon = R.drawable.ic_samsung_logo,
+        shape = RoundedCornerShape(44.dp, 20.dp, 44.dp, 20.dp)
+    ),
+    HomeFeature(
         title = "Coming Soon",
         icon = R.drawable.ic_info,
-        shape = RoundedCornerShape(44.dp, 20.dp, 44.dp, 20.dp),
+        shape = RoundedCornerShape(20.dp, 44.dp, 20.dp, 44.dp),
         showSwitch = false
     )
 )

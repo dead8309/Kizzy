@@ -13,6 +13,6 @@ dependencies {
     implementation (projects.theme)
     implementation (projects.gateway)
     implementation (libs.glide)
-    implementation (libs.gson)
-    implementation(libs.activity.compose)
+    implementation (libs.activity.compose)
+    implementation (libs.kotlinx.serialization.json)
 }

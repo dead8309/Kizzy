@@ -1,14 +1,16 @@
 package kizzy.gateway.entities.presence
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Assets(
-    @SerializedName("large_image")
+    @SerialName("large_image")
     val largeImage: String?,
-    @SerializedName("small_image")
+    @SerialName("small_image")
     val smallImage: String?,
-    @SerializedName("large_text")
+    @SerialName("large_text")
     val largeText: String? = null,
-    @SerializedName("small_text")
+    @SerialName("small_text")
     val smallText: String? = null,
 )

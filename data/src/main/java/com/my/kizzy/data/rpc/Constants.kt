@@ -30,5 +30,4 @@ object Constants {
     const val APP_DIRECTORY = "App Directory"
     const val DOWNLOADS_DIRECTORY = "Downloads Directory"
     const val MAX_ALLOWED_CHARACTER_LENGTH = 32
-    const val DISCORD_CDN_BASE = "https://cdn.discordapp.com"
 }
