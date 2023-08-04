@@ -14,6 +14,7 @@ package com.my.kizzy.data.utils
 
 import android.content.ContentResolver
 import android.content.Context
+import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -21,7 +22,11 @@ import android.graphics.Canvas
 import android.net.Uri
 import android.util.DisplayMetrics
 import android.webkit.MimeTypeMap
+import androidx.core.app.ShareCompat
+import androidx.core.content.FileProvider
 import com.blankj.utilcode.util.AppUtils
+import com.blankj.utilcode.util.FileIOUtils
+import com.blankj.utilcode.util.FileUtils
 import com.my.kizzy.data.remote.ApiResponse
 import com.my.kizzy.data.rpc.RpcImage
 import com.my.kizzy.preference.Prefs
@@ -115,4 +120,22 @@ fun Context.uriToFile(uri: Uri): File {
         }
     }
     return file
+}
+
+fun Context.shareAsFile(content: String?, fileName: String) {
+    val tempFile = File("$filesDir/$fileName")
+    if (FileUtils.isFileExists(tempFile)) {
+        FileUtils.delete(tempFile)
+    }
+    FileIOUtils.writeFileFromString(tempFile, content)
+    shareFile(tempFile)
+}
+
+fun Context.shareFile(file: File?) {
+    if (file == null) return
+    val uri = FileProvider.getUriForFile(this, "com.my.kizzy.provider", file)
+    val intent = ShareCompat.IntentBuilder(this).setType("text/plain")
+        .setStream(uri).intent.setAction(Intent.ACTION_SEND).setDataAndType(uri, "text/*")
+        .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    this.startActivity(Intent.createChooser(intent, "Share File With"))
 }

@@ -12,14 +12,25 @@
 
 package com.my.kizzy.feature_crash_handler
 
-import android.content.Intent
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.outlined.Close
-import androidx.compose.material3.*
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -27,12 +38,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.app.ShareCompat
-import androidx.core.content.FileProvider
-import com.blankj.utilcode.util.FileIOUtils
-import com.blankj.utilcode.util.FileUtils
+import com.my.kizzy.data.utils.shareAsFile
 import com.my.kizzy.resources.R
-import java.io.File
 import kotlin.system.exitProcess
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -57,20 +64,7 @@ fun CrashScreen(trace: String?) {
         })
     }, floatingActionButton = {
         ExtendedFloatingActionButton(onClick = {
-            val file = File(ctx.filesDir.toString() + "/" + "Kizzy_Log.txt")
-            if (FileUtils.isFileExists(file)) {
-                FileUtils.delete(file)
-            }
-            FileIOUtils.writeFileFromString(file, trace)
-            val uri = FileProvider.getUriForFile(
-                ctx,
-                "com.my.kizzy.provider",
-                file
-            )
-            val intent = ShareCompat.IntentBuilder(ctx).setType("text/plain")
-                .setStream(uri).intent.setAction(Intent.ACTION_SEND).setDataAndType(uri, "text/*")
-                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            ctx.startActivity(Intent.createChooser(intent, "Share File With"))
+            ctx.shareAsFile(trace, "Kizzy_Log.txt")
         }) {
             Icon(
                 imageVector = Icons.Default.Share,
