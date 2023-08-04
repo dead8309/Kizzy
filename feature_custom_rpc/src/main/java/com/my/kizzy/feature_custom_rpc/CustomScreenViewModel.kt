@@ -121,6 +121,13 @@ class CustomScreenViewModel @Inject constructor(
                 )
             }
 
+            UiEvent.SheetEvent.TriggerShareDialog -> {
+                _uiState.value = _uiState.value.copy(
+                    showShareDialog = !_uiState.value.showShareDialog,
+                    showBottomSheet = false
+                )
+            }
+
             UiEvent.SheetEvent.TriggerPreviewDialog -> {
                 _uiState.value = _uiState.value.copy(
                     showPreviewDialog = !_uiState.value.showPreviewDialog,

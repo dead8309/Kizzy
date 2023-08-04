@@ -40,6 +40,7 @@ import com.my.kizzy.feature_custom_rpc.components.sheet.LoadConfig
 import com.my.kizzy.feature_custom_rpc.components.sheet.PreviewDialog
 import com.my.kizzy.feature_custom_rpc.components.sheet.RequestStoragePermissionDialog
 import com.my.kizzy.feature_custom_rpc.components.sheet.SaveConfigDialog
+import com.my.kizzy.feature_custom_rpc.components.sheet.ShareConfig
 import com.my.kizzy.feature_custom_rpc.components.sheet.dataToString
 import com.my.kizzy.feature_rpc_base.AppUtils
 import com.my.kizzy.feature_rpc_base.services.AppDetectionService
@@ -54,7 +55,6 @@ import com.my.kizzy.ui.components.SwitchBar
 import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import java.util.*
 
 @Composable
 fun CustomRPC(
@@ -82,6 +82,13 @@ fun CustomRPC(
             },
             onConfigSelected = {
                 onEvent(UiEvent.SetFieldsFromConfig(it))
+            }
+        )
+    }
+    if (state.showShareDialog) {
+        ShareConfig(
+            onDismiss = {
+                onEvent(UiEvent.SheetEvent.TriggerShareDialog)
             }
         )
     }

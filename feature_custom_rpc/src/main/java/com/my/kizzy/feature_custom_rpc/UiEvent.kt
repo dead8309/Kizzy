@@ -25,6 +25,7 @@ sealed interface UiEvent {
 
     sealed interface SheetEvent: UiEvent {
         object TriggerLoadDialog: SheetEvent
+        object TriggerShareDialog: SheetEvent
         object TriggerSaveDialog: SheetEvent
         object TriggerDeleteDialog: SheetEvent
         object TriggerPreviewDialog: SheetEvent

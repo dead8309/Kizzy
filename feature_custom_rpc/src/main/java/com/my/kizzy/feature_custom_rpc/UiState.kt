@@ -18,6 +18,7 @@ data class UiState(
     val activityTypeIsExpanded: Boolean = false,
     val showBottomSheet: Boolean = false,
     val showLoadDialog: Boolean = false,
+    val showShareDialog: Boolean = false,
     val showSaveDialog: Boolean = false,
     val showDeleteDialog: Boolean = false,
     val showPreviewDialog: Boolean = false,
