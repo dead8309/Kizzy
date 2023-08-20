@@ -143,7 +143,7 @@ internal fun getDateTimeInMillis(
 ): Long {
     val calender = Calendar.getInstance().apply {
         timeInMillis = dateMillis
-        set(Calendar.HOUR_OF_DAY, hours % 12 + if (hours > 12) 12 else 0)
+        set(Calendar.HOUR_OF_DAY, hours % 12 + if (hours >= 12) 12 else 0)
         set(Calendar.MINUTE, minutes)
     }
     return calender.timeInMillis
