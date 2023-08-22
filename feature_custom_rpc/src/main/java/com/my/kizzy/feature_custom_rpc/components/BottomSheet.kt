@@ -21,6 +21,7 @@ import androidx.compose.material.icons.outlined.ClearAll
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.FileOpen
 import androidx.compose.material.icons.outlined.SaveAs
+import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -101,6 +102,17 @@ fun BottomSheet(onEvent: (UiEvent.SheetEvent) -> Unit,onDismiss: () -> Unit) {
                     }
                 },
                 icon = Icons.Outlined.ClearAll
+            )
+
+            SheetItem(
+                title = stringResource(id = R.string.share_config),
+                icon = Icons.Outlined.Share,
+                onClick = {
+                    scope.launch {
+                        state.hide()
+                        onEvent(UiEvent.SheetEvent.TriggerShareDialog)
+                    }
+                }
             )
         }
     }

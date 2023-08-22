@@ -1,8 +1,8 @@
 [versions]
 # project level
-gradle = "8.0.2"
+gradle = "8.1.0"
 kotlin = "1.8.0"
-version-name = "5.0"
+version-name = "5.2"
 version-code ="5"
 
 # app level

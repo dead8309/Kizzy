@@ -2,6 +2,7 @@
   <code_scheme name="Project" version="173">
     <option name="ENABLE_SECOND_REFORMAT" value="true" />
     <JetCodeStyleSettings>
+      <option name="ALLOW_TRAILING_COMMA" value="true" />
       <option name="BLANK_LINES_BEFORE_DECLARATION_WITH_COMMENT_OR_ANNOTATION_ON_SEPARATE_LINE" value="0" />
       <option name="CODE_STYLE_DEFAULTS" value="KOTLIN_OFFICIAL" />
     </JetCodeStyleSettings>
