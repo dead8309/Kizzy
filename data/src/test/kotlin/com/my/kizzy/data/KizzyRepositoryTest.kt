@@ -107,4 +107,10 @@ class KizzyRepositoryTest {
             token = System.getenv("DISCORD_TOKEN")!!
         )
     }
+
+    @Test
+    fun `Check for Update`() = runBlocking {
+        val response = kizzyRepository.checkForUpdate()
+        println(response)
+    }
 }

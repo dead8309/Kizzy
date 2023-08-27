@@ -13,8 +13,15 @@
 package com.my.kizzy.feature_home
 
 import android.content.ComponentName
+import android.widget.Toast
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,15 +29,36 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.outlined.Update
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.LargeTopAppBar
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalDrawerSheet
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberDrawerState
+import androidx.compose.material3.rememberTopAppBarState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.*
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.my.kizzy.domain.model.toVersion
 import com.my.kizzy.domain.model.user.User
 import com.my.kizzy.feature_home.feature.Features
 import com.my.kizzy.feature_home.feature.HomeFeature
@@ -39,12 +67,16 @@ import com.my.kizzy.feature_rpc_base.services.KizzyTileService
 import com.my.kizzy.feature_settings.SettingsDrawer
 import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.ChipSection
+import com.my.kizzy.ui.components.UpdateDialog
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Home(
+    state: HomeScreenState,
+    checkForUpdates: () -> Unit,
+    showBadge: Boolean,
     features: List<HomeFeature>,
     user: User?,
     componentName: ComponentName? = null,
@@ -55,8 +87,12 @@ fun Home(
     navigateToRpcSettings: () -> Unit,
     navigateToLogsScreen: () -> Unit
 ) {
+    val ctx = LocalContext.current
     var homeItems by remember {
         mutableStateOf(features)
+    }
+    var showUpdateDialog by remember {
+        mutableStateOf(false)
     }
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -104,6 +140,48 @@ fun Home(
                         }
                     },
                     actions = {
+                        if (showBadge) {
+                            BadgedBox(
+                                badge = {
+                                    Badge(
+                                        modifier = Modifier
+                                            .size(8.dp)
+                                            .clip(CircleShape),
+                                        containerColor = MaterialTheme.colorScheme.error,
+                                        contentColor = MaterialTheme.colorScheme.onError,
+                                    )
+                                }
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Update,
+                                    contentDescription = "Update",
+                                    modifier = Modifier.clickable {
+                                        Toast.makeText(
+                                            ctx,
+                                            "Checking for updates...",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        checkForUpdates()
+                                        showUpdateDialog = true
+                                    }
+                                )
+                            }
+                        } else {
+                            Icon(
+                                imageVector = Icons.Outlined.Update,
+                                contentDescription = "Update",
+                                modifier = Modifier.clickable {
+                                    Toast.makeText(
+                                        ctx,
+                                        "Checking for updates...",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    checkForUpdates()
+                                    showUpdateDialog = true
+                                }
+                            )
+                        }
+                        Spacer(modifier = Modifier.width(8.dp))
                         IconButton(onClick = { navigateToProfile() }) {
                             if (user != null) {
                                 GlideImage(
@@ -152,6 +230,25 @@ fun Home(
                     }
                 }
             }
+            when (state) {
+                is HomeScreenState.LoadingCompleted -> {
+                    if (state.release.toVersion().whetherNeedUpdate(BuildConfig.VERSION_NAME.toVersion()) && showUpdateDialog) {
+                        with(state.release) {
+                            UpdateDialog(
+                                newVersionPublishDate = publishedAt ?: "",
+                                newVersionSize = assets?.getOrNull(0)?.size ?: 0,
+                                newVersionLog = body ?: "",
+                                onDismissRequest = {
+                                    showUpdateDialog = false
+                                },
+                            )
+                        }
+                    } else {
+                        Toast.makeText(ctx, "No updates available", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                else -> {}
+            }
         }
     }
 }
@@ -160,6 +257,9 @@ fun Home(
 @Composable
 fun HomeScreenPreview() {
     Home(
+        state = HomeScreenState.Loading,
+        checkForUpdates = {},
+        showBadge = true,
         features = fakeFeatures,
         user = fakeUser,
         navigateToProfile = {  },

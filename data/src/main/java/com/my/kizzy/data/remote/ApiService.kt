@@ -74,6 +74,10 @@ class ApiService @Inject constructor(
             setBody(galaxyPresence)
         }
     }
+
+    suspend fun checkForUpdate() = client.get {
+        url("$githubBaseUrl/repos/dead8309/Kizzy/releases/latest")
+    }
 }
 
 private const val USER_AGENT = "Mozilla/5.0 (Linux; Android 11) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/100.0.4896.127 Mobile OceanHero/6 Safari/537.36"

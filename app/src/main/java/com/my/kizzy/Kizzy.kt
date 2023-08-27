@@ -27,7 +27,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import com.my.kizzy.domain.model.toVersion
 import com.my.kizzy.feature_about.about.About
+import com.my.kizzy.feature_home.HomeScreenViewModel
 import com.my.kizzy.feature_about.about.Credits
 import com.my.kizzy.feature_about.about.CreditsScreenViewModel
 import com.my.kizzy.feature_apps_rpc.AppsRPC
@@ -82,9 +84,25 @@ internal fun ComponentActivity.Kizzy() {
                     })
             }
             animatedComposable(Routes.HOME) {
+                val release = Prefs.getSavedLatestRelease()
                 val user = Prefs.getUser()
                 val ctx = LocalContext.current
+                val viewModel by viewModels<HomeScreenViewModel>()
+                val state = viewModel.aboutScreenState.collectAsState().value
+                val showBadge = release
+                    ?.toVersion()
+                    ?.whetherNeedUpdate(BuildConfig.VERSION_NAME.toVersion())
+                    ?: false
                 Home(
+                    state = state,
+                    checkForUpdates = {
+                        if (release != null && release.toVersion() > BuildConfig.VERSION_NAME.toVersion()) {
+                            viewModel.setReleaseFromPrefs(release)
+                        } else {
+                            viewModel.getLatestUpdate()
+                        }
+                    },
+                    showBadge = showBadge,
                     features = homeFeaturesProvider(
                         navigateTo = { navController.navigate(it) },
                         hasUsageAccess = MainActivity.usageAccessStatus,
