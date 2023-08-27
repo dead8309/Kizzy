@@ -89,6 +89,8 @@
     <string name="set_previous_run_config_in_custom_rpc_desc">Otomatis setel fields ke Kustom rpc dari rpc yang di Jalakan sebelunya</string>
     <string name="clear_all_fields">Bersihkan Semua Fields</string>
     <string name="share_config">Share Config</string>
+    <string name="change_log">Change Log</string>
+    <string name="update">Update</string>
 
 
 </resources>

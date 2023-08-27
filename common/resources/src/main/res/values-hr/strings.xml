@@ -90,4 +90,6 @@
     <string name="set_previous_run_config_in_custom_rpc_desc">Automatski postavite polja u prilagođenom rpc-u iz posljednjeg rpc-a</string>
     <string name="clear_all_fields">Očisti sva polja</string>
     <string name="share_config">Share Config</string>
+    <string name="change_log">Change Log</string>
+    <string name="update">Update</string>
 </resources>
