@@ -18,10 +18,13 @@ import com.my.kizzy.data.remote.toGame
 import com.my.kizzy.data.utils.toImageAsset
 import com.my.kizzy.domain.model.Contributor
 import com.my.kizzy.domain.model.Game
+import com.my.kizzy.domain.model.release.Release
 import com.my.kizzy.domain.model.samsung_rpc.GalaxyPresence
 import com.my.kizzy.domain.model.user.User
 import com.my.kizzy.domain.repository.KizzyRepository
+import com.my.kizzy.preference.Prefs
 import io.ktor.client.call.body
+import io.ktor.client.statement.HttpResponse
 import java.io.File
 import javax.inject.Inject
 
@@ -49,5 +52,17 @@ class KizzyRepositoryImpl @Inject constructor(
     }
     override suspend fun setSamsungGalaxyPresence(galaxyPresence: GalaxyPresence,token: String) {
         return api.setSamsungGalaxyPresence(galaxyPresence,token)
+    }
+    override suspend fun checkForUpdate(): Release {
+        return api.checkForUpdate().releaseBody()
+    }
+}
+
+suspend fun HttpResponse.releaseBody(): Release {
+    return if (this.status.value == 200) {
+        Prefs.saveLatestRelease(this.body())
+        this.body()
+    } else {
+        Prefs.getSavedLatestRelease() ?: Release()
     }
 }
