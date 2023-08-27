@@ -89,7 +89,6 @@
     <string name="set_previous_run_config_in_custom_rpc_desc">Automatycznie wypełnij pola w własnym rpc z ostatnio uruchomionego rpc</string>
     <string name="clear_all_fields">Wyczyść wszystkie pola</string>
     <string name="share_config">Udostępnij konfigurację</string>
-    <string name="share_config">Share Config</string>
     <string name="change_log">Change Log</string>
     <string name="update">Update</string>
 </resources>
