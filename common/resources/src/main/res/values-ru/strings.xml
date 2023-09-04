@@ -89,6 +89,6 @@
     <string name="set_previous_run_config_in_custom_rpc_desc">Автоматически установить поля в Custom RPC из последнего запуска RPC</string>
     <string name="clear_all_fields">Очистить все поля</string>
     <string name="share_config">Поделиться конфигурацией</string>
-    <string name="change_log">Change Log</string>
-    <string name="update">Update</string>
+    <string name="change_log">Список изменений</string>
+    <string name="update">Обновить</string>
 </resources>
