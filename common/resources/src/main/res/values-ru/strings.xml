@@ -42,7 +42,7 @@
     <string name="app_crashed">Приложение вылетело</string>
     <string name="share_crash_logs_desc">Пожалуйста, отправьте журналы в канале Discord со следующей трассировкой стека:</string>
     <string name="share_crash_logs">ПОДЕЛИТЬСЯ ЖУРНАЛАМИ</string>
-    <string name="welcome">Добро пожаловать</string>
+    <string name="welcome">Привет</string>
     <string name="features">Возможности</string>
     <string name="account">Аккаунт</string>
     <string name="display">Дисплей</string>
