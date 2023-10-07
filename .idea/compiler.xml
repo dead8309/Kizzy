@@ -31,6 +31,7 @@
       <module name="Kizzy.feature_startup" target="17" />
       <module name="Kizzy.gateway" target="17" />
       <module name="Kizzy.theme" target="17" />
+      <module name="StudioProjects.Kizzy.feature_about" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>

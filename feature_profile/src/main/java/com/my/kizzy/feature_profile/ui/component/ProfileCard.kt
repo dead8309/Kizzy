@@ -160,7 +160,7 @@ fun ProfileCard(
                     .background(Color.White)
             ) {
                 ProfileText(
-                    text = user.username + "#" + user.discriminator,
+                    text = user.globalName ?: (user.username + "#" + user.discriminator),
                     style = MaterialTheme.typography.titleLarge,
                 )
                 Spacer(
