@@ -246,7 +246,7 @@ fun ProfileCardSmall(
                     modifier = Modifier
                         .weight(9f)
                         .padding(5.dp),
-                    text = user?.username+"#"+user?.discriminator,
+                    text = user?.globalName ?: (user?.username + "#" + user?.discriminator),
                     maxLines = 1,
                     style = MaterialTheme.typography.titleLarge.copy(fontSize = 20.sp, fontWeight = FontWeight.SemiBold),
                     overflow = TextOverflow.Ellipsis

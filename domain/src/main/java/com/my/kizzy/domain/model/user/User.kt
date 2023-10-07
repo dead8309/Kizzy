@@ -44,7 +44,9 @@ data class User(
     @SerialName("special")
     val special: String? = null,
     @SerialName("verified")
-    val verified: Boolean = false
+    val verified: Boolean = false,
+    @SerialName("global_name")
+val globalName: String? = null
 ) {
     fun getAvatarImage(): String {
         return if (avatar?.startsWith("a_") == true)
