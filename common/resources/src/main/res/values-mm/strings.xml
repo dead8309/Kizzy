@@ -77,8 +77,8 @@
     <string name="setup">ပြင်ဆင်မည်</string>
     <string name="user_data_policy">ဤအက်ပ်သည် မည်သည့်အသုံးပြုသူ ဒေတာကိုမျှ မစုဆောင်းပါ</string>
     <string name="setup_desc">ရှေ့သို့မသွားမီ ဤapp၏ အင်္ဂါရပ်အားလုံး အလုပ်လုပ်ကြောင်း သေချာစေရန် လိုအပ်သည့်လုပ်ဆောင်ချက်များကို လုပ်ဆောင်ရန် အကြံပြုထားသည်။</string>
-    <string name="permission_granted">ခွင့်ပြုသည်</string>
-    <string name="permission_not_granted">ခွင့်မပြုပါ, ခွင့်ပြုရန် နှိပ်ပါ</string>
+    <string name="permission_granted">ခွင့်ပြုချက် အောင်မြင်စွာ ရရှိပါသည်။/string>
+    <string name="permission_not_granted">ခွင့်ပြုချက်ပေးရန် ဤနေရာကိုနှိပ်ပါ။</string>
     <string name="activity_large_text">လုပ်ဆောင်မှု စာအသေး</string>
     <string name="activity_small_text">လုပ်ဆောင်မှု စာအကြီး</string>
     <string name="contributors">Contributors</string>
