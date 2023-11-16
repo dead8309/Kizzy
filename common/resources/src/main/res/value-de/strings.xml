@@ -76,7 +76,7 @@
     <string name="android_off">Aus</string>
     <string name="setup">Einrichtung</string>
     <string name="user_data_policy">Diese App sammelt keine Nutzerdaten</string>
-    <string name="setup_desc">Bevor du fortfährst, empfiehlt es sich die notwendigen Aktionen durchzuführen, um sicherzustellen, dass alle Funktionen der App funktionieren.</string>
+    <string name="setup_desc">Bevor du fortfährst, empfiehlt es sich die notwendigen Aktionen durchzuführen, um sicherzustellen dass alle Funktionen der App funktionieren.</string>
     <string name="permission_granted">Gewährt</string>
     <string name="permission_not_granted">Nicht gewährt, zum Zulassen klicken</string>
     <string name="activity_large_text">Aktivität Großer Text</string>
