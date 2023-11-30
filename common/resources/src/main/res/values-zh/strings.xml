@@ -20,7 +20,7 @@
     <string name="delete_configs">刪除配置</string>
     <string name="preview_rpc">預覽 Rpc</string>
     <string name="select_a_config">選擇配置</string>
-    <string name="login_with_discord">使用用Discord登入</string>
+    <string name="login_with_discord">使用Discord登入</string>
     <string name="github_readme">README</string>
     <string name="github_readme_desc">檢查 Github 存儲庫</string>
     <string name="github_latest_release">最新版本</string>
