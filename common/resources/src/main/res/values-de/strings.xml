@@ -41,7 +41,6 @@
     <string name="delete_saved_icon_urls">Gespeicherte Symbollinks löschen</string>
     <string name="delete_saved_icon_urls_desc">In lokalen Dateien gespeicherte Symbol-Urls löschen (nur in seltenen Fällen verwenden, da dadurch alle Bilder erneut an die Discord-Server gesendet werden, was mehr Daten verbraucht)</string>
     <string name="app_crashed">App abgestürzt</string>
-    <string name="app_name">Kizzy</string>
     <string name="share_crash_logs_desc">Bitte sende die Logs im Discord-Kanal mit dem folgenden Stacktrace :</string>
     <string name="share_crash_logs">LOGS TEILEN</string>
     <string name="welcome">Willkommen</string>
