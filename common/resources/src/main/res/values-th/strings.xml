@@ -3,7 +3,7 @@
 
     <!-- Activities -->
     <string name="activity_name">ชื่อของกิจกรรมที่คุณต้องการตามใจนึก!</string>
-    <string name="activity_details">-ข้อความรายละเอียดกิจกรรมเพิ่มเติมที่คุณอยากเฉิดฉาย!</string>
+    <string name="activity_details">ข้อความรายละเอียดกิจกรรมเพิ่มเติมที่คุณอยากเฉิดฉาย!</string>
     <string name="activity_state">สถานะของกิจกรรมเพิ่มเติม!</string>
     <string name="activity_start_timestamps">เวลาที่ต้องการเริ่มการประทับเวลา</string>
     <string name="activity_stop_timestamps">เวลาที่ต้องการหยุดการประทับเวลา</string>
