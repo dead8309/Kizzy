@@ -60,7 +60,7 @@
     <string name="privacy_policy">นโยบายความเป็นส่วนตัวของเรา</string>
     <string name="privacy_policy_desc">อ่านนโยบายความเป็นส่วนตัว</string>
     <string name="enable_console_rpc">เปิดใช้งาน Console Rpc</string>
-    <string name="rpc_settings_button_configs">กำหนดค่าปุ่มสหรับ Media และ AppDetection Rpc</string>
+    <string name="rpc_settings_button_configs">กำหนดค่าปุ่มสำหรับ Media และ AppDetection Rpc</string>
     <string name="use_custom_buttons">ใช้งานการตั้งค่าปุ่มสุดแสนวิเศษ</string>
     <string name="use_custom_buttons_desc">ใช้ปุ่มที่กำหนดไว้ล่วงหน้าเพื่อแสดงบน Media และ AppDetection rpc</string>
     <string name="follow_system">ตามตั้งค่าของระบบ</string>
