@@ -48,7 +48,7 @@
     <string name="display">การแสดงผล</string>
     <string name="about">เกี่ยวกับ</string>
     <string name="settings">การตั้งค่า</string>
-    <string name="language">ตั้งค่าภาษา</string>
+    <string name="language">เปลี่ยนภาษา</string>
     <string name="design_credits">ให้เครดิตแก่ พวก Design </string>
     <string name="enable_appsRpc">เปิดใช้งาน App Detection</string>
     <string name="usage_access">จำเป็นต้องเข้าถึงการใช้งาน</string>
