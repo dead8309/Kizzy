@@ -7,7 +7,7 @@
     <string name="activity_state">สถานะของกิจกรรมเพิ่มเติม!</string>
     <string name="activity_start_timestamps">เวลาที่ต้องการเริ่มการประทับเวลา</string>
     <string name="activity_stop_timestamps">เวลาที่ต้องการหยุดการประทับเวลา</string>
-    <string name="activity_status_online_idle_dnd">สถานะของกิจกรรม(ออนไลน์,ไม่ว่าง,ห้ามรบกวน)</string>
+    <string name="activity_status_online_idle_dnd">สถานะของกิจกรรม(ออนไลน์,ไม่อยู่(ว่าง),ห้ามรบกวน)</string>
     <string name="activity_button1_text">กำหนดข้อความปุ่มของกิจกรรม อันที่ 1</string>
     <string name="activity_button2_text">กำหนดข้อความปุ่มของกิจกรรม อันที่ 2</string>
     <string name="activity_button1_url">ใส่ url ในปุ่มที่ 1</string>
