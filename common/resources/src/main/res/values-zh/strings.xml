@@ -5,11 +5,11 @@
     <string name="activity_name">活動名字</string>
     <string name="activity_details">活動詳情</string>
     <string name="activity_state">活動狀態</string>
-    <string name="activity_start_timestamps">開始時間</string>
-    <string name="activity_stop_timestamps">停止時間</string>
-    <string name="activity_status_online_idle_dnd">活動狀態(在線,休息中,請勿打擾)</string>
-    <string name="activity_button1_text">活動按鈕1的字</string>
-    <string name="activity_button2_text">活動按鈕2的字</string>
+    <string name="activity_start_timestamps">開始時間戳</string>
+    <string name="activity_stop_timestamps">結束時間戳</string>
+    <string name="activity_status_online_idle_dnd">活動狀態(綫上,閑置,請勿打擾)</string>
+    <string name="activity_button1_text">活動按鈕1文本</string>
+    <string name="activity_button2_text">活動按鈕2文本</string>
     <string name="activity_button1_url">按鈕1連結</string>
     <string name="activity_button2_url">按鈕2連結</string>
     <string name="activity_large_image">活動大圖示</string>
@@ -20,9 +20,9 @@
     <string name="delete_configs">刪除配置</string>
     <string name="preview_rpc">預覽 Rpc</string>
     <string name="select_a_config">選擇配置</string>
-    <string name="login_with_discord">用Discord登入</string>
+    <string name="login_with_discord">使用Discord登入</string>
     <string name="github_readme">README</string>
-    <string name="github_readme_desc">檢查 Github repository</string>
+    <string name="github_readme_desc">檢查 Github 存儲庫</string>
     <string name="github_latest_release">最新版本</string>
     <string name="github_latest_release_desc">檢查新版本和更新日誌</string>
     <string name="github_issue">Github 問題</string>
@@ -74,7 +74,7 @@
     <string name="primary_color_hint">例子： #666666 / 666666</string>
     <string name="android_on">開啓</string>
     <string name="android_off">關閉</string>
-    <string name="setup">Setup</string>
+    <string name="setup">設置</string>
     <string name="user_data_policy">本應用程式不會收集任何用戶資料</string>
     <string name="setup_desc">在繼續前, 請確保已授權所有必要權限已確保程式的所有功能可以正常運作</string>
     <string name="permission_granted">已授權</string>
@@ -82,15 +82,13 @@
     <string name="activity_large_text">活動大標題</string>
     <string name="activity_small_text">活動小標題</string>
     <string name="contributors">Contributors</string>
-    <string name="stream_url">Stream Url</string>
-    <string name="stream_url_info">Only https://twitch.tv/ and https://youtube.com/ urls will work.</string>
-    <string name="activity_button_max_character">Max character limit is 31</string>
-    <string name="set_previous_run_config_in_custom_rpc">Set Previous Run config to Custom Rpc Fields</string>
-    <string name="set_previous_run_config_in_custom_rpc_desc">Automatically set fields in custom rpc from the last run rpc</string>
-    <string name="clear_all_fields">Clear All Fields</string>
-    <string name="share_config">Share Config</string>
-    <string name="change_log">Change Log</string>
-    <string name="update">Update</string>
-
-
+    <string name="stream_url">流媒體連結</string>
+    <string name="stream_url_info">只在 https://twitch.tv/ and https://youtube.com/ 的連結上有效</string>
+    <string name="activity_button_max_character">最大字符限制為 31</string>
+    <string name="set_previous_run_config_in_custom_rpc">在自定義 Rpc 字段中設置上一次運行的配置</string>
+    <string name="set_previous_run_config_in_custom_rpc_desc">自動從上一次運行的 Rpc 中設置自定義 Rpc 字段</string>
+    <string name="clear_all_fields">清除所有字段</string>
+    <string name="share_config">分享配置</string>
+    <string name="change_log">更改日誌</string>
+    <string name="update">更新</string>
 </resources>
