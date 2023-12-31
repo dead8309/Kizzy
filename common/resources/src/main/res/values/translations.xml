@@ -18,5 +18,6 @@
     <string name="locale_fr" translatable="false">French</string>
     <string name="locale_hr" translatable="false">Hrvatski</string>
     <string name="locale_th" translatable="false">ภาษาไทย</string>
+    <string name="locale_ja" translatable="false">日本語</string>
     <!-- Until here -->
 </resources>
