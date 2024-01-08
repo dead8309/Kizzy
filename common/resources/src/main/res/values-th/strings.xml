@@ -32,7 +32,7 @@
     <string name="enable_artist_name">เปิดใช้งาน การแสดงชื่อของศิลปินสุดแสนวิเศษ</string>
     <string name="show_app_icon">แสดงไอคอนของแอพสุดเฟี้ยว</string>
     <string name="enable_timestamps">เปิดใช้งานการประทับเวลา</string>
-    <string name="text_after_permission_denied">เฮ้! การเข้าถึงพื้นที่จัดเก็บข้อมูลในโทรศัพท์ของคุณเป็นความสำคัญต่อแอพในการเก็บพวกเหล่าการตั้งค่าต่างๆของคุณให้มีที่ซุกหัวนอนภายในพื้นที่โทรศัพท์อ่ะนะ พิมพ์มาขนาดนี้ ให้สิทธิ์การเข้าถึงพื้นที่จัดเก็บมือถือด้วยล่ะ!</string>
+    <string name="text_after_permission_denied">เฮ้! การเข้าถึงพื้นที่จัดเก็บข้อมูลในโทรศัพท์ของคุณเป็นความสำคัญต่อแอพในการเก็บพวกเหล่าการตั้งค่าต่างๆของคุณให้มี ที่ซุกหัวนอนภายในพื้นที่โทรศัพท์อ่ะนะ ขอมาขนาดนี้ให้สิทธิ์การเข้าถึงพื้นที่จัดเก็บมือถือด้วยล่ะ!</string>
     <string name="request_for_permission">นี้พวกคือ.. เปิดใช้งานการเข้าถึงพื้นที่จัดเก็บข้อมูลเถอะ เพื่อเป็นการให้เหล่า ตั้งค่าฟีเจอร์ต่างๆ ได้ออกมาเฉิดฉายอย่างสง่างามไง! อย่าลืมเปิดด้วยล่ะ</string>
     <string name="grant_permission">อนุญาตการเข้าถึง</string>
     <string name="use_low_res_icon">ลดคุณภาพของภาพลง</string>
@@ -42,7 +42,7 @@
     <string name="app_crashed">แอพเกิดข้อผิดพลาด!</string>
     <string name="share_crash_logs_desc">โปรดส่ง Logs ในช่อง Discord พร้อมด้วย stacktrace ต่อไปนี้:</string>
     <string name="share_crash_logs">แชร์ LOGS</string>
-    <string name="welcome">ยินดีต้อนรับคุณ</string>
+    <string name="welcome">ยินดีต้อนรับ คุณ</string>
     <string name="features">ฟีเจอร์</string>
     <string name="account">บัญชี</string>
     <string name="display">การแสดงผล</string>
@@ -56,7 +56,7 @@
     <string name="enable_mediaRpc">เปิดใช้งาน Media Rpc</string>
     <string name="permission_required">ต้องการสิทธิ์ในการเข้าถึง</string>
     <string name="enable_customRpc">เปิดใช้งาน Custom Rpc</string>
-    <string name="dark_theme">ธีมดำ</string>
+    <string name="dark_theme">โหมดมืด</string>
     <string name="privacy_policy">นโยบายความเป็นส่วนตัวของเรา</string>
     <string name="privacy_policy_desc">อ่านนโยบายความเป็นส่วนตัว</string>
     <string name="enable_console_rpc">เปิดใช้งาน Console Rpc</string>
@@ -65,7 +65,7 @@
     <string name="use_custom_buttons_desc">ใช้ปุ่มที่กำหนดไว้ล่วงหน้าเพื่อแสดงบน Media และ AppDetection rpc</string>
     <string name="follow_system">ตามตั้งค่าของระบบ</string>
     <string name="advance_settings">ตั้งค่าขั้นสูง</string>
-    <string name="amoled">โหมดมืด แบบ Amoled</string>
+    <string name="amoled">โหมดมืดแบบ Amoled</string>
     <string name="dynamic_color">Dynamic color</string>
     <string name="dynamic_color_desc">เปลี่ยนสีตาม wallpapers</string>
     <string name="cancel">ยกเลิก</string>
@@ -74,7 +74,7 @@
     <string name="primary_color_hint">ยกตัวอย่างเช่น #666666 หรือ 666666</string>
     <string name="android_on">เปิด</string>
     <string name="android_off">ปิด</string>
-    <string name="setup">ติดตั้ง</string>
+    <string name="setup">มาตั้งค่าสิทธิ์กันก่อน!</string>
     <string name="user_data_policy">แอพนี้จะไม่เก็บข้อมูลส่วนตัวของท่านใดๆทั้งสิ้น</string>
     <string name="setup_desc">ช้าก่อนพวก! ก่อนที่จะไปส่วนอื่น รบกวนสักนิด พอดีขอแนะนำให้คุณดำเนินการอะไรที่จำเป็นนิดหน่อยเพื่อให้แน่ใจว่าคุณสมบัติทั้งหมดของแอปทำงานได้ปกติอ่ะนะ</string>
     <string name="permission_granted">อนุญาตการเข้าถึงแล้ว!</string>
