@@ -20,5 +20,6 @@
     <string name="locale_de" translatable="false">German</string>
     <string name="locale_th" translatable="false">ภาษาไทย</string>
 
-<!-- Until here -->
+    <string name="locale_ja" translatable="false">日本語</string>
+    <!-- Until here -->
 </resources>
