@@ -19,6 +19,7 @@
     <string name="locale_hr" translatable="false">Hrvatski</string>
     <string name="locale_de" translatable="false">German</string>
     <string name="locale_th" translatable="false">ภาษาไทย</string>
+    <string name="locale_fa" translatable="false">فارسی</string>
 
     <string name="locale_ja" translatable="false">日本語</string>
     <!-- Until here -->
