@@ -8,7 +8,7 @@
     <string name="activity_state">وضعیت فعالیت</string>
     <string name="activity_start_timestamps">شروع رویداد</string>
     <string name="activity_stop_timestamps">توقف رویداد</string>
-    <string name="activity_status_online_idle_dnd">وضعیت فعالیت (آنلاین، بیکار، dnd)</string>
+    <string name="activity_status_online_idle_dnd">وضعیت فعالیت (Online، Idle، dnd)</string>
     <string name="activity_button1_text">متن دکمه 1 فعالیت</string>
     <string name="activity_button2_text">متن دکمه 2 فعالیت</string>
     <string name="activity_button1_url">آدرس دکمه 1</string>
@@ -64,7 +64,7 @@
     <string name="rpc_settings_button_configs">پیکربندی دکمه برای Media و AppDetection Rpc</string>
     <string name="use_custom_buttons">استفاده از دکمه های سفارشی</string>
     <string name="use_custom_buttons_desc">استفاده از دکمه های از پیش تعریف شده برای نمایش در Media و AppDetection rpc</string>
-    <string name="follow_system">دنبال کردن سیستم</string>
+    <string name="follow_system">سیستم</string>
     <string name="advance_settings">تنظیمات پیشرفته</string>
     <string name="amoled">تم آمولد</string>
     <string name="dynamic_color">رنگ پویا</string>
