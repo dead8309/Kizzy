@@ -51,7 +51,7 @@ val languages: Map<Int, String> =
         Pair(ITALIAN, "it"),
         Pair(FILIPINO, "fil"),
         Pair(FRENCH, "fr"),
-        Pair(CROATIAN,"hr")
+        Pair(CROATIAN,"hr"),
         Pair(FARSI, "fa")
     )
 
