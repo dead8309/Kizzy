@@ -18,34 +18,33 @@ import com.tencent.mmkv.MMKV
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import kotlin.time.Duration.Companion.hours
 
 object Prefs {
     val kv = MMKV.defaultMMKV()
-
     operator fun set(key: String, value: Any?) =
         when (value) {
             is String? -> kv.encode(key, value)
             is Int -> kv.encode(key, value)
             is Boolean -> kv.encode(key, value)
-            is Float ->  kv.encode(key, value)
+            is Float -> kv.encode(key, value)
             is Long -> kv.encode(key, value)
             else -> throw UnsupportedOperationException("Not yet implemented")
         }
 
     inline operator fun <reified T : Any> get(
         key: String,
-        defaultValue: T? = null
-    ): T =
-        when (T::class) {
-            String::class -> kv.decodeString(key, defaultValue as String? ?: "") as T
-            Int::class -> kv.decodeInt(key, defaultValue as? Int ?: -1) as T
-            Boolean::class -> kv.decodeBool(key, defaultValue as? Boolean ?: false) as T
-            Float::class -> kv.decodeFloat(key, defaultValue as? Float ?: -1f) as T
-            Long::class -> kv.decodeLong(key, defaultValue as? Long ?: -1) as T
-            else -> throw UnsupportedOperationException("Not yet implemented")
-        }
+        defaultValue: T? = null,
+    ): T = when (T::class) {
+        String::class -> kv.decodeString(key, defaultValue as String? ?: "") as T
+        Int::class -> kv.decodeInt(key, defaultValue as? Int ?: -1) as T
+        Boolean::class -> kv.decodeBool(key, defaultValue as? Boolean ?: false) as T
+        Float::class -> kv.decodeFloat(key, defaultValue as? Float ?: -1f) as T
+        Long::class -> kv.decodeLong(key, defaultValue as? Long ?: -1) as T
+        else -> throw UnsupportedOperationException("Not yet implemented")
+    }
 
-    fun remove(key: String){
+    fun remove(key: String) {
         kv.removeValueForKey(key)
     }
 
@@ -67,14 +66,14 @@ object Prefs {
     }
 
     fun getUser(): User? {
-        val userJson = get(USER_DATA,"")
+        val userJson = get(USER_DATA, "")
         return when {
             userJson.isNotEmpty() -> Json.decodeFromString(userJson)
             else -> null
         }
     }
 
-    fun getSavedLatestRelease() : Release? {
+    fun getSavedLatestRelease(): Release? {
         val json = get(LATEST_RELEASE, "")
         return when {
             json.isNotEmpty() -> Json.decodeFromString(json)
@@ -85,6 +84,21 @@ object Prefs {
     fun saveLatestRelease(release: Release) {
         set(LATEST_RELEASE, Json.encodeToString(release))
     }
+
+    fun checkAndAutoDeleteSavedImages() {
+        val lastDeleted = get(
+            key = LAST_DELETED,
+            // Force delete everyone's saved images for the first time
+            defaultValue = System.currentTimeMillis() - 24.hours.inWholeMilliseconds
+        )
+        val currentTime = System.currentTimeMillis()
+        if (currentTime - lastDeleted > 24.hours.inWholeMilliseconds) {
+            remove(SAVED_IMAGES)
+            remove(SAVED_ARTWORK)
+            set(LAST_DELETED, currentTime)
+        }
+    }
+
     //User Preferences
     const val USER_DATA = "user" //Json Data Referencing User_Data class
     const val TOKEN = "token"
@@ -127,4 +141,7 @@ object Prefs {
     const val CUSTOM_ACTIVITY_STATUS = "custom_activity_status"
 
     const val LATEST_RELEASE = "latest_release"
+
+    // Last Deleted Time of Saved Images
+    const val LAST_DELETED = "last_deleted"
 }
