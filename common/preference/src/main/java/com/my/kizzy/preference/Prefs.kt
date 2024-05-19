@@ -144,4 +144,6 @@ object Prefs {
 
     // Last Deleted Time of Saved Images
     const val LAST_DELETED = "last_deleted"
+
+    const val SAMSUNG_RPC_ENABLED = "samsung_rpc_enabled"
 }

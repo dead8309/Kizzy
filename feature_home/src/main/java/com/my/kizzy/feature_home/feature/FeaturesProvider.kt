@@ -170,7 +170,7 @@ fun homeFeaturesProvider(
                     ctx.stopService(Intent(ctx, SamsungRpcService::class.java))
             },
             shape = RoundedCornerShape(44.dp, 20.dp, 44.dp, 20.dp),
-            showSwitch = hasUsageAccess.value && userVerified
+            showSwitch = hasUsageAccess.value && userVerified && Prefs[Prefs.SAMSUNG_RPC_ENABLED, false],
         ),
         HomeFeature(
             title = "Coming Soon",
