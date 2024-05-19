@@ -11,7 +11,6 @@ android {
 
     defaultConfig {
         applicationId = "com.my.kizzy"
-        targetSdk = 33
         versionCode = libs.versions.version.code.get().toInt()
         versionName = libs.versions.version.name.get()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
