@@ -2,8 +2,8 @@
 # project level
 gradle = "8.1.0"
 kotlin = "1.8.0"
-version-name = "5.3"
-version-code ="5"
+version-name = "5.4"
+version-code ="6"
 
 # app level
 accompanist = "0.31.0-alpha"
@@ -77,7 +77,7 @@ ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 ktor-websockets = { module = "io.ktor:ktor-client-websockets", version.ref = "ktor" }
 ktor-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-kotlinx-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
-ktor-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor"}
+ktor-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 
 # Third-party libraries
 glide = { module = "com.github.skydoves:landscapist-glide", version.ref = "glide" }

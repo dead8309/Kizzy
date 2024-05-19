@@ -19,8 +19,6 @@ class AndroidHiltPlugin : Plugin<Project> {
                 "implementation"(libs.findLibrary("hilt").get())
                 "kapt"(libs.findLibrary("hilt.compiler").get())
             }
-
         }
     }
-
 }
