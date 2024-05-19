@@ -65,8 +65,8 @@
     <string name="use_custom_buttons_desc">Gunakan tombol standar untuk ditampilkan ke Media dan AppDetection rpc</string>
     <string name="follow_system">Mengikuti Sistem Bawaan</string>
     <string name="advance_settings">Pengaturan lanjutan</string>
-    <string name="amoled">Amoled Theme</string>
-    <string name="dynamic_color">Dynamic color</string>
+    <string name="amoled">Tema Amoled</string>
+    <string name="dynamic_color">Warna Dynamic</string>
     <string name="dynamic_color_desc">Terapkan warna dari wallpaper</string>
     <string name="cancel">Batal</string>
     <string name="confirm">Konfirmasi</string>
@@ -81,16 +81,16 @@
     <string name="permission_not_granted">Akses tidak Diberikan, Klik untuk Mengizinkan</string>
     <string name="activity_large_text">Activity Large Text</string>
     <string name="activity_small_text">Activity Small Text</string>
-    <string name="contributors">Contributors</string>
+    <string name="contributors">Berkontribusi</string>
     <string name="stream_url">Stream Url</string>
     <string name="stream_url_info">Hanya https://twitch.tv/ dan https://youtube.com/ url yang berfungsi.</string>
     <string name="activity_button_max_character">Batas maksimal karakter adalah 31</string>
     <string name="set_previous_run_config_in_custom_rpc">Setel ke Konfigurasi yang Dijalankan Sebelumnya ke Custom Rpc Fields</string>
     <string name="set_previous_run_config_in_custom_rpc_desc">Otomatis setel fields ke Kustom rpc dari rpc yang di Jalakan sebelunya</string>
     <string name="clear_all_fields">Bersihkan Semua Fields</string>
-    <string name="share_config">Share Config</string>
+    <string name="share_config">Bagikan Config</string>
     <string name="change_log">Change Log</string>
-    <string name="update">Update</string>
+    <string name="update">Perbarui</string>
 
 
 </resources>
