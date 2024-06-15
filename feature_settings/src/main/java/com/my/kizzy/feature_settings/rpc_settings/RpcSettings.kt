@@ -113,7 +113,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
                 item {
                     SettingItem(
-                        title = "Configs Directory",
+                        title = stringResource(id = R.string.configs_directory),
                         description = configsDir,
                         icon = Icons.Default.Storage,
                     ) {
@@ -145,8 +145,8 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
             }
             item {
                 SettingItem(
-                    title = "Custom Activity Type",
-                    description = "Overrides the default activity type. Works for media and experimental rpc only",
+                    title = stringResource(id = R.string.custom_activity_type),
+                    description = stringResource(id = R.string.custom_activity_type_desc),
                     icon = Icons.Default.Code
                 ) {
                     showActivityTypeDialog = true
@@ -155,8 +155,8 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
             }
             item {
                 SettingItem(
-                    title = "Custom Activity Status",
-                    description = "Overrides the default activity status",
+                    title = stringResource(id = R.string.custom_activity_status),
+                    description = stringResource(id = R.string.custom_activity_status_desc),
                     icon = Icons.Default.DoNotDisturbOn
                 ) {
                     showActivityStatusDialog = true

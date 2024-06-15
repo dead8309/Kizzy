@@ -91,4 +91,9 @@
     <string name="share_config">แชร์ log</string>
     <string name="change_log">Change Log</string>
     <string name="update">อัพเดท</string>
+    <string name="configs_directory">Configs Directory</string>
+    <string name="custom_activity_type">Custom Activity Type</string>
+    <string name="custom_activity_type_desc">Overrides the default activity type. Works for media and experimental rpc only</string>
+    <string name="custom_activity_status">Custom Activity Status</string>
+    <string name="custom_activity_status_desc">Overrides the default activity status</string>
 </resources>
