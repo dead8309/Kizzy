@@ -57,7 +57,7 @@ import com.my.kizzy.ui.theme.DISCORD_LIGHT_DARK
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.delay
 
-const val NITRO_ICON = "https://cdn.discordapp.com/attachments/948828217312178227/1041053075567284295/nitro.png"
+const val NITRO_ICON = "https://cdn.discordapp.com/badge-icons/2ba85e8026a8614b640c2837bcdfe21b.png"
 const val USER_BANNER = "https://discord.com/assets/97ac61a0b98fd6f01b4de370c9ccdb56.png"
 
 @Composable
