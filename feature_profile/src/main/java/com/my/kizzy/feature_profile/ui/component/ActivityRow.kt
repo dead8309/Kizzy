@@ -31,10 +31,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.my.kizzy.domain.model.rpc.RpcConfig
 import com.my.kizzy.resources.R
 import com.my.kizzy.ui.theme.DarkBlueBg
-import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
 fun ActivityRow(
@@ -59,11 +59,11 @@ fun ActivityRow(
                     .background(DarkBlueBg),
                 contentAlignment = Alignment.Center
             ) {
-                GlideImage(
-                    imageModel = if (rpcConfig?.largeImg?.startsWith("attachments") == true) "https://media.discordapp.net/${rpcConfig.largeImg}" else
+                AsyncImage(
+                    model = if (rpcConfig?.largeImg?.startsWith("attachments") == true) "https://media.discordapp.net/${rpcConfig.largeImg}" else
                         rpcConfig?.largeImg,
                     error = painterResource(id =  R.drawable.editing_rpc_pencil),
-                    previewPlaceholder = R.drawable.editing_rpc_pencil,
+                    placeholder = painterResource(R.drawable.editing_rpc_pencil),
                     contentDescription = null,
                     modifier = if (!rpcConfig?.largeImg.isNullOrEmpty())
                         Modifier
@@ -75,14 +75,14 @@ fun ActivityRow(
                             .background(DarkBlueBg, RoundedCornerShape(15.dp))
                 )
                 if (!rpcConfig?.smallImg.isNullOrEmpty()) {
-                    GlideImage(
-                        imageModel =
+                    AsyncImage(
+                        model =
                         if (rpcConfig?.smallImg?.startsWith("attachments") == true)
                             "https://media.discordapp.net/${rpcConfig.largeImg}"
                         else
                             rpcConfig?.smallImg,
                         error = painterResource(id = R.drawable.ic_rpc_placeholder),
-                        previewPlaceholder = R.drawable.ic_rpc_placeholder,
+                        placeholder = painterResource(R.drawable.ic_rpc_placeholder),
                         contentDescription = null,
                         modifier = Modifier
                             .size(30.dp)
