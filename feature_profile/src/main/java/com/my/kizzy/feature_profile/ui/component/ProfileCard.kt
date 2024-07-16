@@ -42,6 +42,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -103,6 +104,7 @@ fun ProfileCard(
                         .fillMaxWidth()
                         .height(120.dp),
                     model = user.getBannerImage() ?: USER_BANNER,
+                    contentScale = ContentScale.FillWidth,
                     placeholder = painterResource(R.drawable.broken_image),
                     contentDescription = "User Avatar"
                 )
