@@ -156,7 +156,7 @@ fun getInstalledApps(context1: Context): List<AppsInfo> {
 }
 
 private fun ResolveInfo.isSystemPackage(): Boolean {
-    return this.activityInfo.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM != 0
+    return this.activityInfo.applicationInfo.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != 0
 }
 
 
