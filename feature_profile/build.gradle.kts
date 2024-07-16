@@ -12,7 +12,7 @@ android {
 dependencies {
     implementation (projects.theme)
     implementation (projects.gateway)
-    implementation (libs.glide)
+    implementation (libs.coil)
     implementation (libs.activity.compose)
     implementation (libs.kotlinx.serialization.json)
 }

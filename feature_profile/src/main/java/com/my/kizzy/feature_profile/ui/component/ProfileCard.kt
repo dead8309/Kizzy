@@ -42,19 +42,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.platform.LocalUriHandler
-import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.my.kizzy.domain.model.rpc.RpcConfig
 import com.my.kizzy.domain.model.user.User
 import com.my.kizzy.resources.R
 import com.my.kizzy.ui.theme.DISCORD_LIGHT_DARK
-import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.delay
 
 const val NITRO_ICON = "https://cdn.discordapp.com/badge-icons/2ba85e8026a8614b640c2837bcdfe21b.png"
@@ -99,18 +98,19 @@ fun ProfileCard(
     ) {
         if (user != null) {
             Box {
-                GlideImage(
+                AsyncImage(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(120.dp),
-                    imageModel = user.getBannerImage() ?: USER_BANNER,
-                    previewPlaceholder = R.drawable.broken_image
+                    model = user.getBannerImage() ?: USER_BANNER,
+                    placeholder = painterResource(R.drawable.broken_image),
+                    contentDescription = "User Avatar"
                 )
 
-                GlideImage(
-                    imageModel = user.getAvatarImage(),
-                    placeHolder = ImageBitmap.imageResource(id = R.drawable.error_avatar),
-                    error = ImageBitmap.imageResource(id = R.drawable.error_avatar),
+                AsyncImage(
+                    model = user.getAvatarImage(),
+                    placeholder = painterResource(id = R.drawable.error_avatar),
+                    error = painterResource(id = R.drawable.error_avatar),
                     contentDescription = null,
                     modifier = Modifier
                         .padding(16.dp, 64.dp, 16.dp, 6.dp)
@@ -121,7 +121,6 @@ fun ProfileCard(
                             shape = CircleShape
                         )
                         .clip(CircleShape),
-                    previewPlaceholder = R.drawable.error_avatar
                 )
 
                 Row(
@@ -132,22 +131,24 @@ fun ProfileCard(
                         .background(Color.White)
                 ) {
                     if (user.nitro == true) {
-                        GlideImage(
-                            imageModel = NITRO_ICON,
-                            previewPlaceholder = R.drawable.broken_image,
+                        AsyncImage(
+                            model = NITRO_ICON,
+                            placeholder = painterResource(R.drawable.broken_image),
                             modifier = Modifier
                                 .size(40.dp)
-                                .padding(5.dp)
+                                .padding(5.dp),
+                            contentDescription = "Nitro Icon"
                         )
                     }
                     user.badges?.let {
                         it.forEach { badge ->
-                            GlideImage(
-                                imageModel = badge.icon,
-                                previewPlaceholder = R.drawable.broken_image,
+                            AsyncImage(
+                                model = badge.icon,
+                                placeholder = painterResource(R.drawable.broken_image),
                                 modifier = Modifier
                                     .size(40.dp)
-                                    .padding(5.dp)
+                                    .padding(5.dp),
+                                contentDescription = badge.name
                             )
                         }
                     }
