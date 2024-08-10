@@ -85,15 +85,15 @@
     <string name="stream_url">URL phát trực tiếp</string>
     <string name="stream_url_info">Chỉ các URL từ https://twitch.tv/ và https://youtube.com/ sẽ hoạt động.</string>
     <string name="activity_button_max_character">Giới hạn ký tự tối đa là 31</string>
-    <string name="set_previous_run_config_in_custom_rpc">Đặt cấu hình chạy trước đó vào Trường tùy chỉnh Rpc</string>
-    <string name="set_previous_run_config_in_custom_rpc_desc">Tự động đặt các trường trong Rpc tùy chỉnh từ chạy trước đó</string>
+    <string name="set_previous_run_config_in_custom_rpc">Đặt cấu hình chạy trước đó vào Trường tùy chỉnh trạng thái</string>
+    <string name="set_previous_run_config_in_custom_rpc_desc">Tự động đặt các trường trong trạng thái tùy chỉnh từ chạy trước đó</string>
     <string name="clear_all_fields">Xóa tất cả các trường</string>
     <string name="share_config">Chia sẻ Cấu hình</string>
     <string name="change_log">Nhật ký thay đổi</string>
     <string name="update">Cập nhật</string>
-    <string name="configs_directory">Configs Directory</string>
-    <string name="custom_activity_type">Custom Activity Type</string>
-    <string name="custom_activity_type_desc">Overrides the default activity type. Works for media and experimental rpc only</string>
-    <string name="custom_activity_status">Custom Activity Status</string>
-    <string name="custom_activity_status_desc">Overrides the default activity status</string>
+    <string name="configs_directory">Thư mục cấu hình</string>
+    <string name="custom_activity_type">Loại hoạt động tùy chỉnh</string>
+    <string name="custom_activity_type_desc">Ghi đè loại hoạt động mặc định. Chỉ hoạt động cho phương tiện và trạng thái thử nghiệm</string>
+    <string name="custom_activity_status">Trạng thái hoạt động tùy chỉnh</string>
+    <string name="custom_activity_status_desc">Ghi đè trạng thái hoạt động mặc định</string>
 </resources>
