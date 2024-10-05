@@ -22,13 +22,13 @@
     <string name="select_a_config">Pilih Konfigurasi</string>
     <string name="login_with_discord">Login Dengan Discord</string>
     <string name="github_readme">README</string>
-    <string name="github_readme_desc">Periksa Repository GitHub</string>
+    <string name="github_readme_desc">Periksa Repositori GitHub</string>
     <string name="github_latest_release">"Versi Terbaru "</string>
     <string name="github_latest_release_desc">Lihat versi baru dan changelog</string>
     <string name="github_issue">Issue GitHub</string>
     <string name="github_issue_desc">Kirimkan masalah tentang laporan bug atau permintaan fitur</string>
     <string name="credits">Kredit</string>
-    <string name="credits_desc">Kredit untuk libraries yang digunakan dan Kontributor</string>
+    <string name="credits_desc">Kredit untuk perpustakaan yang digunakan dan Kontributor</string>
     <string name="enable_artist_name">Nyalakan Nama Artis</string>
     <string name="show_app_icon">Tampilkan Ikon Aplikasi</string>
     <string name="enable_timestamps">Nyalakan Stempel Waktu</string>
@@ -37,7 +37,7 @@
     <string name="grant_permission">Izinkan</string>
     <string name="use_low_res_icon">Gunakan Gambar Resolusi rendah</string>
     <string name="use_low_res_icon_desc">Gunakan gambar resolusi rendah untuk menampilkan rpc (nyalakan ini jika rpc kamu crash). Settingan ini juga berlaku untuk Apps RPC</string>
-    <string name="delete_saved_icon_urls">Hapus link icon yang tersimpan</string>
+    <string name="delete_saved_icon_urls">Hapus tautan ikon yang tersimpan</string>
     <string name="delete_saved_icon_urls_desc">Hapus URL Icon yang tersimpan di Perangkat(Gunakan ini jika Kasus Langka Terjadi, ini akan mengirim ulang semua ikon aplikasi ke server discord yang akan menggunakan banyak data)</string>
     <string name="app_crashed">Aplikasi Crashed</string>
     <string name="share_crash_logs_desc">Silahkan kirimkan stacktrace berikut di channel discord :</string>
@@ -66,21 +66,21 @@
     <string name="follow_system">Mengikuti Sistem Bawaan</string>
     <string name="advance_settings">Pengaturan lanjutan</string>
     <string name="amoled">Tema Amoled</string>
-    <string name="dynamic_color">Warna Dynamic</string>
+    <string name="dynamic_color">Warna Dinamis</string>
     <string name="dynamic_color_desc">Terapkan warna dari wallpaper</string>
     <string name="cancel">Batal</string>
     <string name="confirm">Konfirmasi</string>
-    <string name="primary_color">Warna Primerr</string>
+    <string name="primary_color">Warna Primer</string>
     <string name="primary_color_hint">Seperti #666666 atau 666666</string>
-    <string name="android_on">On</string>
-    <string name="android_off">Off</string>
+    <string name="android_on">Aktifkan</string>
+    <string name="android_off">Nonaktifkan</string>
     <string name="setup">Setup</string>
     <string name="user_data_policy">Aplikasi ini tidak mengumpulkan data pengguna apa pun</string>
     <string name="setup_desc">Sebelum melanjutkan, disarankan untuk melakukan tindakan yang diperlukan untuk memastikan semua fitur aplikasi berfungsi.</string>
     <string name="permission_granted">Akses diberikan</string>
     <string name="permission_not_granted">Akses tidak Diberikan, Klik untuk Mengizinkan</string>
-    <string name="activity_large_text">Activity Large Text</string>
-    <string name="activity_small_text">Activity Small Text</string>
+    <string name="activity_large_text">Teks Besar Aktivitas</string>
+    <string name="activity_small_text">Teks Kecil Aktivitas</string>
     <string name="contributors">Berkontribusi</string>
     <string name="stream_url">Stream Url</string>
     <string name="stream_url_info">Hanya https://twitch.tv/ dan https://youtube.com/ url yang berfungsi.</string>
@@ -89,13 +89,13 @@
     <string name="set_previous_run_config_in_custom_rpc_desc">Otomatis setel fields ke Kustom rpc dari rpc yang di Jalakan sebelunya</string>
     <string name="clear_all_fields">Bersihkan Semua Fields</string>
     <string name="share_config">Bagikan Config</string>
-    <string name="change_log">Change Log</string>
+    <string name="change_log">Catatan Perubahan</string>
     <string name="update">Perbarui</string>
-    <string name="configs_directory">Configs Directory</string>
-    <string name="custom_activity_type">Custom Activity Type</string>
-    <string name="custom_activity_type_desc">Overrides the default activity type. Works for media and experimental rpc only</string>
-    <string name="custom_activity_status">Custom Activity Status</string>
-    <string name="custom_activity_status_desc">Overrides the default activity status</string>
+    <string name="configs_directory">Direktori Konfigurasi</string>
+    <string name="custom_activity_type">Tipe Kustom Aktivitas</string>
+    <string name="custom_activity_type_desc">Mengesampingkan tipe aktivitas default. Bekerja hanya untuk rpc media dan eksperimental</string>
+    <string name="custom_activity_status">Kustom Status Aktivitas</string>
+    <string name="custom_activity_status_desc">Mengesampingkan status default aktivitas</string>
 
 
 </resources>
