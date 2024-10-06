@@ -30,6 +30,7 @@
     <string name="credits">Crediti</string>
     <string name="credits_desc">Crediti alle librerie utilizzate e ai collaboratori</string>
     <string name="enable_artist_name">Abilita Nome Artista</string>
+    <string name="enable_album_name">Enable Album Name</string>
     <string name="show_app_icon">Mostra Icona App</string>
     <string name="enable_timestamps">Abilita Tempo Trascorso</string>
     <string name="text_after_permission_denied">Accesso ai dati di archiviazione necessario per salvare le configurazioni nelle cartelle pubbliche. Si prega di concedere il permesso.</string>

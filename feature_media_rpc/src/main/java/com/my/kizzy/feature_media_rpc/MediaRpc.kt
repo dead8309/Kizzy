@@ -22,6 +22,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Apps
 import androidx.compose.material.icons.filled.Audiotrack
+import androidx.compose.material.icons.filled.Album
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.*
@@ -37,6 +38,7 @@ import com.my.kizzy.feature_rpc_base.services.MediaRpcService
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.preference.Prefs.MEDIA_RPC_APP_ICON
 import com.my.kizzy.preference.Prefs.MEDIA_RPC_ARTIST_NAME
+import com.my.kizzy.preference.Prefs.MEDIA_RPC_ALBUM_NAME
 import com.my.kizzy.preference.Prefs.MEDIA_RPC_ENABLE_TIMESTAMPS
 import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.BackButton
@@ -50,6 +52,7 @@ fun MediaRPC(onBackPressed: () -> Unit) {
     val context = LocalContext.current
     var mediaRpcRunning by remember { mutableStateOf(AppUtils.mediaRpcRunning()) }
     var isArtistEnabled by remember { mutableStateOf(Prefs[MEDIA_RPC_ARTIST_NAME, false]) }
+    var isAlbumEnabled by remember { mutableStateOf(Prefs[MEDIA_RPC_ALBUM_NAME, false]) }
     var isAppIconEnabled by remember { mutableStateOf(Prefs[MEDIA_RPC_APP_ICON, false]) }
     var isTimestampsEnabled by remember { mutableStateOf(Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS, false]) }
     var hasNotificationAccess by remember { mutableStateOf(context.hasNotificationAccess()) }
@@ -108,6 +111,16 @@ fun MediaRPC(onBackPressed: () -> Unit) {
                     ) {
                         isArtistEnabled = !isArtistEnabled
                         Prefs[MEDIA_RPC_ARTIST_NAME] = isArtistEnabled
+                    }
+                }
+                item {
+                    PreferenceSwitch(
+                        title = stringResource(id = R.string.enable_album_name),
+                        icon = Icons.Default.Album,
+                        isChecked = isAlbumEnabled
+                    ) {
+                        isAlbumEnabled = !isAlbumEnabled
+                        Prefs[MEDIA_RPC_ALBUM_NAME] = isAlbumEnabled
                     }
                 }
                 item {

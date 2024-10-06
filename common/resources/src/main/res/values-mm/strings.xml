@@ -30,6 +30,7 @@
     <string name="credits">ခရက်ဒစ်</string>
     <string name="credits_desc">ယူသုံးထားသော libraries နှင့် contributors အတွက် ခရက်ဒစ်</string>
     <string name="enable_artist_name">အနုပညာရှင်နာမည်ကို သုံးပါ</string>
+    <string name="enable_album_name">Enable Album Name</string>
     <string name="show_app_icon">အက်ပ်အိုင်ကွန် ပြပါ</string>
     <string name="enable_timestamps">အချိန်ပြစာကို သုံးပါ</string>
     <string name="text_after_permission_denied">Storage access is important for this app to store configs in public directories. Please grant the permission.</string>

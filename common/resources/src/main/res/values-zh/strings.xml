@@ -30,6 +30,7 @@
     <string name="credits">捐款</string>
     <string name="credits_desc">捐款給使用的資料庫和奉獻者</string>
     <string name="enable_artist_name">啟用顯示作家名字</string>
+    <string name="enable_album_name">Enable Album Name</string>
     <string name="show_app_icon">顯示程式名字</string>
     <string name="enable_timestamps">啟用時間</string>
     <string name="text_after_permission_denied">你必須授權儲存權限以儲存配置</string>

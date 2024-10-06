@@ -78,8 +78,8 @@ class ExperimentalRpc : Service() {
                         setName(collectedData.name)
                         setStartTimestamps(System.currentTimeMillis())
                         setStatus(Prefs[Prefs.CUSTOM_ACTIVITY_STATUS,"dnd"])
-                        setLargeImage(collectedData.largeImage)
-                        setSmallImage(collectedData.smallImage)
+                        setLargeImage(collectedData.largeImage, collectedData.largeText)
+                        setSmallImage(collectedData.smallImage, collectedData.smallText)
                         if (Prefs[Prefs.USE_RPC_BUTTONS, false]) {
                             with(rpcButtons) {
                                 setButton1(button1.takeIf { it.isNotEmpty() })

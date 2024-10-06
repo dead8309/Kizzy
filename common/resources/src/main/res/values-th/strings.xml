@@ -30,6 +30,7 @@
     <string name="credits">เครดิต</string>
     <string name="credits_desc">เครดิตแก่ libraries ที่ใช้และผู้ที่มีส่วนร่วมที่ทำให้แอพนี้เป็นแอพสุดเจ๋ง!</string>
     <string name="enable_artist_name">เปิดใช้งาน การแสดงชื่อของศิลปินสุดแสนวิเศษ</string>
+    <string name="enable_album_name">Enable Album Name</string>
     <string name="show_app_icon">แสดงไอคอนของแอพสุดเฟี้ยว</string>
     <string name="enable_timestamps">เปิดใช้งานการประทับเวลา</string>
     <string name="text_after_permission_denied">เฮ้! การเข้าถึงพื้นที่จัดเก็บข้อมูลในโทรศัพท์ของคุณเป็นความสำคัญต่อแอพในการเก็บพวกเหล่าการตั้งค่าต่างๆของคุณให้มี ที่ซุกหัวนอนภายในพื้นที่โทรศัพท์อ่ะนะ ขอมาขนาดนี้ให้สิทธิ์การเข้าถึงพื้นที่จัดเก็บมือถือด้วยล่ะ มันง่ายกว่าไปรักเขาข้างเดียวอีก!</string>

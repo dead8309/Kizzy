@@ -30,6 +30,7 @@
     <string name="credits">Mga kredito</string>
     <string name="credits_desc">Mga kredito sa mga ginamit na aklatan at mga nag-aambag</string>
     <string name="enable_artist_name">Paganahin ang Pangalan ng Artist</string>
+    <string name="enable_album_name">Enable Album Name</string>
     <string name="show_app_icon">Ipakita ang Icon ng App</string>
     <string name="enable_timestamps">Paganahin ang mga Timestamp</string>
     <string name="text_after_permission_denied">Mahalaga ang access sa storage para sa app na ito upang mag-imbak ng mga config sa mga pampublikong direktoryo. Mangyaring bigyan ang pahintulot.</string>

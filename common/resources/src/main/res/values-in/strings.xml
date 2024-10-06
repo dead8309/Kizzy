@@ -30,6 +30,7 @@
     <string name="credits">Kredit</string>
     <string name="credits_desc">Kredit untuk perpustakaan yang digunakan dan Kontributor</string>
     <string name="enable_artist_name">Nyalakan Nama Artis</string>
+    <string name="enable_album_name">Enable Album Name</string>
     <string name="show_app_icon">Tampilkan Ikon Aplikasi</string>
     <string name="enable_timestamps">Nyalakan Stempel Waktu</string>
     <string name="text_after_permission_denied">Akses penyimpanan penting bagi aplikasi ini untuk menyimpan konfigurasi di folder publik.</string>

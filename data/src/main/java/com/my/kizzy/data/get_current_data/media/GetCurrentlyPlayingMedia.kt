@@ -46,11 +46,16 @@ class GetCurrentPlayingMedia @Inject constructor(
                 if (Prefs[Prefs.MEDIA_RPC_ARTIST_NAME, false])
                 metadata?.let { metadataResolver.getArtistOrAuthor(it) }
                 else null
+            val album =
+                if (Prefs[Prefs.MEDIA_RPC_ALBUM_NAME, false])
+                metadata?.let { metadataResolver.getAlbum(it) }
+                else null
             val bitmap = metadata?.let { metadataResolver.getCoverArt(it) }
             val duration = metadata?.getLong(MediaMetadata.METADATA_KEY_DURATION)
             duration?.let {
                 if (it != 0L) timestamps = Timestamps(
-                    end = System.currentTimeMillis() + duration, start = System.currentTimeMillis()
+                    end = System.currentTimeMillis() + duration - (mediaController.playbackState?.position ?: 0L),
+                    start = System.currentTimeMillis() - (mediaController.playbackState?.position ?: 0L)
                 )
             }
             if (title != null) {
@@ -72,6 +77,8 @@ class GetCurrentPlayingMedia @Inject constructor(
                     state = author,
                     largeImage = largeIcon,
                     smallImage = smallIcon,
+                    largeText = album,
+                    smallText = appName,
                     packageName = "$title::${mediaController.packageName}",
                     time = timestamps.takeIf { it != null })
             }

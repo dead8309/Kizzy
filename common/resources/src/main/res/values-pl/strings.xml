@@ -31,6 +31,7 @@
     <string name="credits">Podziękowania</string>
     <string name="credits_desc">Podziękowania dla używanych bibliotek i użytkowników</string>
     <string name="enable_artist_name">Włącz Nazwę Artysty</string>
+    <string name="enable_album_name">Enable Album Name</string>
     <string name="show_app_icon">Pokaż Ikonę Aplikacji</string>
     <string name="enable_timestamps">Włącz Znaczniki Czasu</string>
     <string name="text_after_permission_denied">Dostęp do pamięci jest ważny dla tej aplikacji do przechowywania konfiguracji w katalogach publicznych. Proszę o pozwolenie na dostęp</string>
