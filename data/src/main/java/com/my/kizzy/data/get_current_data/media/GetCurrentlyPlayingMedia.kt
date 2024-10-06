@@ -17,6 +17,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.media.MediaMetadata
 import android.media.session.MediaSessionManager
+import android.media.session.PlaybackState.STATE_PLAYING
 import com.blankj.utilcode.util.AppUtils
 import com.my.kizzy.data.rpc.CommonRpc
 import com.my.kizzy.data.rpc.RpcImage
@@ -53,7 +54,7 @@ class GetCurrentPlayingMedia @Inject constructor(
             val bitmap = metadata?.let { metadataResolver.getCoverArt(it) }
             val duration = metadata?.getLong(MediaMetadata.METADATA_KEY_DURATION)
             duration?.let {
-                if (it != 0L) timestamps = Timestamps(
+                if (it != 0L && mediaController.playbackState?.state == STATE_PLAYING) timestamps = Timestamps(
                     end = System.currentTimeMillis() + duration - (mediaController.playbackState?.position ?: 0L),
                     start = System.currentTimeMillis() - (mediaController.playbackState?.position ?: 0L)
                 )

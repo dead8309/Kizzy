@@ -26,16 +26,11 @@ class AppTracker @Inject constructor(
     private val getCurrentlyRunningApp: GetCurrentlyRunningApp,
     private val getCurrentPlayingMedia: GetCurrentPlayingMedia
 ) {
-
     fun getCurrentAppData() = flow {
-        var songTitle = "" // Title::packageName
         while (currentCoroutineContext().isActive) {
             val getCurrentMedia = getCurrentPlayingMedia()
             if (getCurrentMedia.name.isNotEmpty()) {
-                if (songTitle != getCurrentMedia.packageName) {
-                    songTitle = getCurrentMedia.packageName
-                    emit(getCurrentMedia)
-                }
+                emit(getCurrentMedia)
             } else {
                 val getCurrentApp = getCurrentlyRunningApp()
                 if (getCurrentApp.name.isNotEmpty()) {
