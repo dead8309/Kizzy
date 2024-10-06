@@ -30,6 +30,7 @@
     <string name="credits">クレジット</string>
     <string name="credits_desc">使用したライブラリと貢献者へのクレジット</string>
     <string name="enable_artist_name">アーティスト名を表示</string>
+    <string name="enable_album_name">Enable Album Name</string>
     <string name="show_app_icon">アプリアイコンを表示</string>
     <string name="enable_timestamps">経過日時を表示</string>
     <string name="text_after_permission_denied">このアプリでは、構成ファイルを保存、読み込み、削除するためにストレージへのアクセスが必要です。権限を付与してください。</string>

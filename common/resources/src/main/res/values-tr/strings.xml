@@ -30,6 +30,7 @@
     <string name="credits">Katkıda Bulunanlar</string>
     <string name="credits_desc">Kullanılan kitaplıklar ve Katkıda bulunan çevirmenler</string>
     <string name="enable_artist_name">Sanatçı İsmini Etkinleştir</string>
+    <string name="enable_album_name">Enable Album Name</string>
     <string name="show_app_icon">Uygulama Simgesini Göster</string>
     <string name="enable_timestamps">Zaman Bilgisini Etkinleştir</string>
     <string name="text_after_permission_denied">Depolama erişimi bu uygulama için herkese açık dizinlerde yapılandırma kaydetmek için önemlidir. Lütfen izin verin.</string>

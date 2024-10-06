@@ -268,39 +268,7 @@ class KizzyRPC(
         discordWebSocket.sendActivity(presence)
     }
 
-    suspend fun updateRPC(
-        name: String,
-        details: String?,
-        state: String?,
-        large_image: RpcImage?,
-        small_image: RpcImage?,
-        enableTimestamps: Boolean,
-        time: Long
-    ) {
-        discordWebSocket.sendActivity(
-            Presence(
-                activities = listOf(
-                    Activity(name = name,
-                        details = details,
-                        state = state,
-                        type = Prefs[CUSTOM_ACTIVITY_TYPE, 0],
-                        timestamps = Timestamps(start = time).takeIf { enableTimestamps },
-                        assets = Assets(
-                            largeImage = large_image?.resolveImage(kizzyRepository),
-                            smallImage = small_image?.resolveImage(kizzyRepository)
-                        ).takeIf { large_image != null || small_image != null },
-                        buttons = buttons.takeIf { it.size > 0 },
-                        metadata = Metadata(buttonUrls = buttonUrl).takeIf { buttonUrl.size > 0 },
-                        applicationId = Constants.APPLICATION_ID.takeIf { buttons.size > 0 })
-                ),
-                afk = true,
-                since = time,
-                status = Constants.DND
-            )
-        )
-    }
-
-    suspend fun updateRPC(commonRpc: CommonRpc) {
+    suspend fun updateRPC(commonRpc: CommonRpc, enableTimestamps: Boolean? = true) {
         if (!discordWebSocket.isActive) return
         var time = Timestamps(start = startTimestamps)
         if (commonRpc.time != null)
@@ -313,10 +281,12 @@ class KizzyRPC(
                         details = commonRpc.details?.takeIf { it.isNotEmpty() },
                         state = commonRpc.state?.takeIf { it.isNotEmpty() },
                         type = Prefs[CUSTOM_ACTIVITY_TYPE, 0],
-                        timestamps = time,
+                        timestamps = time.takeIf { enableTimestamps == true },
                         assets = Assets(
                                 largeImage = commonRpc.largeImage?.resolveImage(kizzyRepository),
-                                smallImage = commonRpc.smallImage?.resolveImage(kizzyRepository)
+                                smallImage = commonRpc.smallImage?.resolveImage(kizzyRepository),
+                                largeText = commonRpc.largeText,
+                                smallText = commonRpc.smallText,
                             ).takeIf { commonRpc.largeImage != null || commonRpc.smallImage != null },
                         buttons = buttons.takeIf { buttons.size > 0 },
                         metadata = Metadata(buttonUrls = buttonUrl).takeIf { buttonUrl.size > 0 },

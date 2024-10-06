@@ -31,6 +31,7 @@
     <string name="credits">سازندگان</string>
     <string name="credits_desc">سازندگان کتابخانه ها و مشارکت کنندگان</string>
     <string name="enable_artist_name">فعال کردن نام هنرمند</string>
+    <string name="enable_album_name">Enable Album Name</string>
     <string name="show_app_icon">نمایش نماد برنامه</string>
     <string name="enable_timestamps">فعال کردن رویداد ها</string>
     <string name="text_after_permission_denied">دسترسی به فضای ذخیره سازی برای این برنامه برای ذخیره تنظیمات در پوشه های عمومی مهم است. لطفا اجازه بدهید</string>

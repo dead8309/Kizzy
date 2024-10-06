@@ -62,8 +62,6 @@ class MediaRpcService : Service() {
         super.onCreate()
         val token = Prefs[TOKEN, ""]
         if (token.isEmpty()) stopSelf()
-        // TODO add time left later
-        val time = System.currentTimeMillis()
         setupWakeLock()
         val intent = Intent(this, MediaRpcService::class.java)
         intent.action = Constants.ACTION_STOP_SERVICE
@@ -102,15 +100,7 @@ class MediaRpcService : Service() {
                 when (kizzyRPC.isRpcRunning()) {
                     true -> {
                         logger.d("MediaRPC", "Updating Rpc")
-                        kizzyRPC.updateRPC(
-                            name = playingMedia.name.ifEmpty { "YouTube" },
-                            details = playingMedia.details,
-                            state = playingMedia.state,
-                            large_image = playingMedia.largeImage,
-                            small_image = playingMedia.smallImage,
-                            enableTimestamps = enableTimestamps,
-                            time = time
-                        )
+                        kizzyRPC.updateRPC(playingMedia, enableTimestamps)
                     }
 
                     false -> {
@@ -118,6 +108,8 @@ class MediaRpcService : Service() {
                             setName(playingMedia.name.ifEmpty { "YouTube" })
                             setDetails(playingMedia.details)
                             setStatus(Prefs[Prefs.CUSTOM_ACTIVITY_STATUS,"dnd"])
+                            setLargeImage(playingMedia.largeImage, if (Prefs[Prefs.MEDIA_RPC_ALBUM_NAME, false]) playingMedia.largeText else null)
+                            setSmallImage(if (Prefs[Prefs.MEDIA_RPC_APP_ICON, false]) playingMedia.smallImage else null, playingMedia.smallText)
                             if (Prefs[Prefs.USE_RPC_BUTTONS, false]) {
                                 with(rpcButtons) {
                                     setButton1(button1.takeIf { it.isNotEmpty() })

@@ -31,6 +31,7 @@
     <string name="credits">Credits</string>
     <string name="credits_desc">Verweise auf verwendete Bibliotheken und Mitwirkende</string>
     <string name="enable_artist_name">Künstlername aktivieren</string>
+    <string name="enable_album_name">Enable Album Name</string>
     <string name="show_app_icon">App-Symbol anzeigen</string>
     <string name="enable_timestamps">Zeitstempel aktivieren</string>
     <string name="text_after_permission_denied">Der Speicherzugriff ist wichtig für diese Anwendung, um Konfigurationen in öffentlichen Verzeichnissen zu speichern. Bitte erteile die Erlaubnis.</string>

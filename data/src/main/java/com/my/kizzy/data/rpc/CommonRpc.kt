@@ -20,6 +20,8 @@ data class CommonRpc(
     val state: String? = "",
     val largeImage: RpcImage? = null,
     val smallImage: RpcImage? = null,
+    var largeText: String? = "",
+    var smallText: String? = "",
     val time: Timestamps? = null,
     val packageName: String = ""
 )

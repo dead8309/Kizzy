@@ -30,6 +30,7 @@
     <string name="credits">Credits</string>
     <string name="credits_desc">Credits to libraries used and contributors</string>
     <string name="enable_artist_name">Laat artiest naam zien</string>
+    <string name="enable_album_name">Enable Album Name</string>
     <string name="show_app_icon">Laat app icoon zien</string>
     <string name="enable_timestamps">Laat verstreken tijd zien</string>
     <string name="text_after_permission_denied">Geef de app permissie om de opslag te gebruiken, het is erg belangrijk en word gebruikt om de configuraties op te slaan.</string>
