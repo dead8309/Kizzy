@@ -43,9 +43,9 @@ class ApiService @Inject constructor(
         url("$baseUrl/upload")
         setBody(MultiPartFormDataContent(
             formData {
-                append("temp", file.readBytes(), Headers.build {
+                append("\"temp\"", file.readBytes(), Headers.build {
                     append(HttpHeaders.ContentType, "image/*")
-                    append(HttpHeaders.ContentDisposition, "filename=${file.name}")
+                    append(HttpHeaders.ContentDisposition, "filename=\"${file.name}\"")
                 })
             }
         ))
