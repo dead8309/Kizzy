@@ -1,0 +1,61 @@
+<resources>
+    <string name="app_name">Kizzy</string>
+    <string name="about_activity">Acerca de</string>
+    <string name="permission_request">Solicitud de permiso</string>
+    <string name="this_application_needs_permission_to_access_device_storage">Esta aplicación necesita permiso para acceder al almacenamiento del dispositivo</string>
+    <string name="grant_permission">Conceder permiso</string>
+    <string name="activity_type_only_numbers_playing_0_streaming_1_nlistening_2_watching_3_ncustom_4_competing_5">Tipo de actividad (solo números)</string>
+    <string name="activity_small_image">Imagen pequeña de actividad</string>
+    <string name="activity_large_image">Imagen grande de actividad</string>
+    <string name="activity_button2_text">Texto del botón de actividad 2</string>
+    <string name="activity_button1_text">Texto del botón de actividad 1</string>
+    <string name="activity_status_online_idle_dnd">Presencia de actividad(online,idle,dnd)</string>
+    <string name="activity_state">Estado de actividad</string>
+    <string name="activity_details">Detalles de la actividad</string>
+    <string name="activity_name">Nombre de la actividad</string>
+    <string name="login_with_discord">Iniciar sesión con Discord</string>
+    <string name="display_name">Nombre para mostrar</string>
+    <string name="email">Correo electrónico</string>
+    <string name="nitro_status">Estado de nitro</string>
+    <string name="bio">Sobre mí</string>
+    <string name="account">Cuenta</string>
+    <string name="list_of_supported_apps">Lista de aplicaciones compatibles</string>
+    <string name="enable_rpc_buttons">Habilitar botones de Rpc</string>
+    <string name="text_on_button1">Texto del botón 1</string>
+    <string name="text_on_button2">Texto del botón 2</string>
+    <string name="how_to_use_large_small_image">Imagen grande y pequeña</string>
+    <string name="how_to_use_activity_type">Tipos de actividad</string>
+    <string name="image_docs">----¿Cómo obtener una imagen grande?----\n
+        ->Sube una foto a Discord.\n
+        ->Copie el enlace de esa imagen haciendo clic en Imagen y luego haga clic en el ícono Compartir.\n
+        ->Eliminar todo lo que esté antes de la palabra attachments.\n
+        ->Pegue el resto en el cuadro Imagen\n
+        -------------------------------\n
+        ej: https://media.discordapp.net/attachments/92822/2992/Kizzy.png\n
+       se convertirá : attachments/92822/2992/Kizzy.png</string>
+    <string name="activity_type_docs">Utilice sólo los siguientes números\n
+        Jugando = 0\n
+        Transmitiendo = 1\n
+        Escuchando = 2\n
+        Viendo = 3\n
+        Personalizado = 4\n
+        Compitiendo = 5</string>
+        
+        <!-- New Translations Are here -->
+       <string name="activity_apps">Aplicaciones</string>
+       <string name="rpc_settings">Configuración de RPC</string>
+       <string name="other_rpc">Otros RPC</string>
+       <string name="main_mediaRpc">RPC de medios</string>
+       <string name="main_mediaRpc_details">Un RPC de detección de música/video</string>
+       <string name="main_CustomRpc">RPC personalizado</string>
+       <string name="main_CustomRpc_details">Detalles de RPC</string>
+       <string name="change_lang">Cambiar idioma</string>
+       <string name="update_check_for_update">Buscar actualizaciones</string>
+       <string name="update_force_update">Forzar actualización</string>
+       <string name="activity_start_timestamps">Timestamp de inicio</string>
+       <string name="activity_stop_timestamps">Timestamp de fin</string>
+       <string name="activity_button1_url">URL Botón 1 </string>
+       <string name="activity_button2_url">URL Botón 2 </string>
+       <string name="settings_enable_timestamps">Permitir Timestamps</string>
+       <string name="settings_status_type">Tipo de estado</string>
+</resources>
