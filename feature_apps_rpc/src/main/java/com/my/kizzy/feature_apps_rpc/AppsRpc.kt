@@ -24,14 +24,20 @@ import android.provider.Settings
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AppsOutage
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.my.kizzy.feature_rpc_base.AppUtils
 import com.my.kizzy.feature_rpc_base.services.AppDetectionService
 import com.my.kizzy.feature_rpc_base.services.CustomRpcService
@@ -56,6 +62,8 @@ fun AppsRPC(
     val ctx = LocalContext.current
     var serviceEnabled by remember { mutableStateOf(AppUtils.appDetectionRunning()) }
     var apps by remember { mutableStateOf(getInstalledApps(ctx)) }
+    var searchText by remember { mutableStateOf("") }
+    var isSearchBarVisible by remember { mutableStateOf(false) }
 
     Scaffold(
         modifier = Modifier
@@ -64,12 +72,52 @@ fun AppsRPC(
         topBar = {
             LargeTopAppBar(
                 title = {
-                    Text(
-                        text = "Apps",
-                        style = MaterialTheme.typography.headlineLarge,
-                    )
+                    Column {
+                        Text(
+                            text = "Apps",
+                            style = MaterialTheme.typography.headlineLarge,
+                        )
+                    }
                 },
                 navigationIcon = { BackButton { onBackPressed() } },
+                actions = {
+                    if (isSearchBarVisible) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(10.dp)
+                        ) {
+                            TextField(
+                                value = searchText,
+                                onValueChange = { searchText = it },
+                                shape = RoundedCornerShape(topStart = 2.dp, topEnd = 2.dp),
+                                modifier = Modifier
+                                    .fillMaxWidth(),
+                                textStyle = MaterialTheme.typography.bodyLarge.copy(color = Color.Black),
+                                placeholder = { Text(stringResource(R.string.search_placeholder)) },
+                                leadingIcon = {
+                                    Icon(imageVector = Icons.Default.Search, contentDescription = stringResource(R.string.search))
+                                },
+                                trailingIcon = {
+                                    IconButton(
+                                        onClick = {
+                                            if (searchText.isEmpty())
+                                                isSearchBarVisible = !isSearchBarVisible
+                                            else
+                                                Unit
+                                            searchText = ""
+                                        }) {
+                                        Icon(imageVector = Icons.Default.Clear, contentDescription = stringResource(R.string.clear))
+                                    }
+                                },
+                            )
+                        }
+                    } else {
+                        IconButton(onClick = { isSearchBarVisible = !isSearchBarVisible }) {
+                            Icon(imageVector = Icons.Outlined.Search, contentDescription = "Search")
+                        }
+                    }
+                },
                 scrollBehavior = scrollBehavior
             )
         }
@@ -110,22 +158,25 @@ fun AppsRPC(
                             }
                             false -> ctx.stopService(Intent(ctx, AppDetectionService::class.java))
                         }
-
                     }
                 }
                 items(apps.size) { i ->
-                    AppsItem(
-                        name = apps[i].name,
-                        pkg = apps[i].pkg,
-                        isChecked = apps[i].isChecked
-                    ) {
-                        apps = apps.mapIndexed { j, app ->
-                            if (i == j) {
-                                Prefs.saveToPrefs(app.pkg)
-                                app.copy(isChecked = !app.isChecked)
-                            } else
-                                app
+                    if (searchText.isEmpty() || apps[i].name.contains(searchText, ignoreCase = true) || apps[i].pkg.contains(searchText, ignoreCase = true)) {
+                        AppsItem(
+                            name = apps[i].name,
+                            pkg = apps[i].pkg,
+                            isChecked = apps[i].isChecked
+                        ) {
+                            apps = apps.mapIndexed { j, app ->
+                                if (i == j) {
+                                    Prefs.saveToPrefs(app.pkg)
+                                    app.copy(isChecked = !app.isChecked)
+                                } else
+                                    app
+                            }
                         }
+                    } else {
+                        Spacer(modifier = Modifier.height(0.dp))
                     }
                 }
             }

@@ -99,14 +99,16 @@ class MediaRpcService : Service() {
                 val rpcButtons = Json.decodeFromString<RpcButtons>(rpcButtonsString)
                 when (kizzyRPC.isRpcRunning()) {
                     true -> {
-                        logger.d("MediaRPC", "Updating Rpc")
+                        logger.d("MediaRPC", "Updating RPC")
                         kizzyRPC.updateRPC(playingMedia, enableTimestamps)
                     }
 
                     false -> {
                         kizzyRPC.apply {
                             setName(playingMedia.name.ifEmpty { "YouTube" })
+                            setType(Prefs[Prefs.CUSTOM_ACTIVITY_TYPE, 0])
                             setDetails(playingMedia.details)
+                            setState(playingMedia.state)
                             setStatus(Prefs[Prefs.CUSTOM_ACTIVITY_STATUS,"dnd"])
                             setLargeImage(playingMedia.largeImage, if (Prefs[Prefs.MEDIA_RPC_ALBUM_NAME, false]) playingMedia.largeText else null)
                             setSmallImage(if (Prefs[Prefs.MEDIA_RPC_APP_ICON, false]) playingMedia.smallImage else null, playingMedia.smallText)

@@ -73,7 +73,7 @@ Check out our [QuickStart Guide](https://kizzydocs.vercel.app/quickstart/install
 - [x] Easy [Setup](https://kizzydocs.vercel.app/quickstart/post_install) 
 - [x] 300+ Predefined presets
 - [x] Create custom configs with your own images and links
-- [x] Preview Rpc in the app itself
+- [x] Preview RPC in the app itself
 - [x] Runs in background even when screen is off
 - [x] Gif support
 - [x] External Url support (meaning you can give a url which points to an image on the web and discord will show it!)
