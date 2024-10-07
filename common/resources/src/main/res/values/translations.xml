@@ -22,5 +22,6 @@
     <string name="locale_fa" translatable="false">فارسی</string>
 
     <string name="locale_ja" translatable="false">日本語</string>
+    <string name="locale_kr" translatable="false">한국어</string>
     <!-- Until here -->
 </resources>
