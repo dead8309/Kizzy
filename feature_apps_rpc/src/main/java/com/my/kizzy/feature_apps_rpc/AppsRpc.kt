@@ -24,16 +24,12 @@ import android.provider.Settings
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AppsOutage
-import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -47,6 +43,7 @@ import com.my.kizzy.preference.Prefs
 import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.SwitchBar
+import com.my.kizzy.ui.components.SearchBar
 import com.my.kizzy.ui.components.preference.PreferencesHint
 
 @SuppressLint("MutableCollectionMutableState")
@@ -83,32 +80,13 @@ fun AppsRPC(
                 actions = {
                     if (isSearchBarVisible) {
                         Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(10.dp)
+                            modifier = Modifier.padding(10.dp)
                         ) {
-                            TextField(
-                                value = searchText,
-                                onValueChange = { searchText = it },
-                                shape = RoundedCornerShape(topStart = 2.dp, topEnd = 2.dp),
-                                modifier = Modifier
-                                    .fillMaxWidth(),
-                                textStyle = MaterialTheme.typography.bodyLarge.copy(color = Color.Black),
-                                placeholder = { Text(stringResource(R.string.search_placeholder)) },
-                                leadingIcon = {
-                                    Icon(imageVector = Icons.Default.Search, contentDescription = stringResource(R.string.search))
-                                },
-                                trailingIcon = {
-                                    IconButton(
-                                        onClick = {
-                                            if (searchText.isEmpty())
-                                                isSearchBarVisible = !isSearchBarVisible
-                                            else
-                                                searchText = ""
-                                        }) {
-                                        Icon(imageVector = Icons.Default.Clear, contentDescription = stringResource(R.string.clear))
-                                    }
-                                },
+                            SearchBar(
+                                text = searchText,
+                                onTextChanged = { searchText = it },
+                                onClose = { isSearchBarVisible = false },
+                                placeholder = stringResource(id = R.string.search_placeholder)
                             )
                         }
                     } else {
