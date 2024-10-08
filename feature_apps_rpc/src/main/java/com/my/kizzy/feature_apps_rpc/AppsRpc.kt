@@ -104,8 +104,7 @@ fun AppsRPC(
                                             if (searchText.isEmpty())
                                                 isSearchBarVisible = !isSearchBarVisible
                                             else
-                                                Unit
-                                            searchText = ""
+                                                searchText = ""
                                         }) {
                                         Icon(imageVector = Icons.Default.Clear, contentDescription = stringResource(R.string.clear))
                                     }
