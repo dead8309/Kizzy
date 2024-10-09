@@ -118,7 +118,7 @@ fun ActivityRow(
                 )
                 if(showTs) {
                     ProfileText(
-                        text = "00:$elapsed",
+                        text = "00:${if (elapsed < 10) "0$elapsed" else elapsed}",
                         style = MaterialTheme.typography.titleSmall
                             .copy(
                                 fontFamily = FontFamily.Monospace,

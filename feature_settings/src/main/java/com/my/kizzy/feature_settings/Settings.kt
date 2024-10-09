@@ -26,8 +26,12 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextIndent
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -232,26 +236,42 @@ fun ProfileCardSmall(
         Row(modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
+            Row {
                 GlideImage(
                     imageModel = user?.getAvatarImage(),
                     modifier = Modifier
+                        .padding(end = 10.dp)
                         .size(50.dp)
                         .clip(CircleShape),
                     error = ImageBitmap.imageResource(id = R.drawable.error_avatar),
                     previewPlaceholder = R.drawable.error_avatar
                 )
                 Text(
-                    modifier = Modifier
-                        .weight(9f)
-                        .padding(5.dp),
-                    text = user?.globalName ?: (user?.username + "#" + user?.discriminator),
-                    maxLines = 1,
-                    style = MaterialTheme.typography.titleLarge.copy(fontSize = 20.sp, fontWeight = FontWeight.SemiBold),
-                    overflow = TextOverflow.Ellipsis
+                    buildAnnotatedString {
+                        withStyle(
+                            style = MaterialTheme.typography.titleLarge.copy(
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                textAlign = TextAlign.Left
+                            ).toSpanStyle()
+                        ) {
+                            append((user?.globalName ?: user?.username) + "\r\n")
+                        }
+                        withStyle(
+                            style = MaterialTheme.typography.titleSmall.copy(
+                                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                textAlign = TextAlign.Left
+                            ).toSpanStyle()
+                        ) {
+                            append(user?.username)
+                            if (user?.discriminator != "0")
+                                append("#${user?.discriminator}")
+                        }
+                    }
                 )
-
+            }
             IconButton(onClick = { navigateToProfile() }) {
                 Icon(
                     imageVector = Icons.Rounded.ArrowForwardIos,
@@ -281,5 +301,4 @@ fun SettingsDrawerPreview() {
             navigateToRpcSettings = {}
         ) {}
     }
-
 }

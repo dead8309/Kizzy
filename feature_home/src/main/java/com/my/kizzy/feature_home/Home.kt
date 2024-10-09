@@ -99,6 +99,7 @@ fun Home(
     val scrollBehavior =
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState(),
             canScroll = { true })
+    val isCollapsed = scrollBehavior.state.collapsedFraction > 0.55f
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
@@ -127,7 +128,10 @@ fun Home(
                     title = {
                         Text(
                             text = stringResource(id = R.string.welcome) + ", ${user?.username ?: ""}",
-                            style = MaterialTheme.typography.headlineLarge,
+                            style = if (isCollapsed) MaterialTheme.typography.headlineSmall else MaterialTheme.typography.headlineLarge,
+                            maxLines = if (isCollapsed) 1 else Int.MAX_VALUE,
+                            overflow = if (isCollapsed) androidx.compose.ui.text.style.TextOverflow.Ellipsis else androidx.compose.ui.text.style.TextOverflow.Clip,
+                            modifier = Modifier.padding(end = if (isCollapsed) 0.dp else 12.dp)
                         )
                     },
                     navigationIcon = {
@@ -225,26 +229,37 @@ fun Home(
                         homeItems = homeItems.mapIndexed { j, item ->
                             if (it == j) {
                                 item.copy(isChecked = !item.isChecked)
-                            } else item
+                            } else {
+                                if (item.isChecked) {
+                                    item.copy(isChecked = false)
+                                } else {
+                                    item
+                                }
+                            }
                         }
                     }
                 }
             }
             when (state) {
                 is HomeScreenState.LoadingCompleted -> {
-                    if (state.release.toVersion().whetherNeedUpdate(BuildConfig.VERSION_NAME.toVersion()) && showUpdateDialog) {
-                        with(state.release) {
-                            UpdateDialog(
-                                newVersionPublishDate = publishedAt ?: "",
-                                newVersionSize = assets?.getOrNull(0)?.size ?: 0,
-                                newVersionLog = body ?: "",
-                                onDismissRequest = {
-                                    showUpdateDialog = false
-                                },
-                            )
+                    if (showUpdateDialog) {
+                        if (state.release.toVersion()
+                                .whetherNeedUpdate(BuildConfig.VERSION_NAME.toVersion())
+                        ) {
+                            with(state.release) {
+                                UpdateDialog(
+                                    newVersionPublishDate = publishedAt ?: "",
+                                    newVersionSize = assets?.getOrNull(0)?.size ?: 0,
+                                    newVersionLog = body ?: "",
+                                    onDismissRequest = {
+                                        showUpdateDialog = false
+                                    },
+                                )
+                            }
+                        } else {
+                            Toast.makeText(ctx, "No updates available", Toast.LENGTH_SHORT).show()
+                            showUpdateDialog = false
                         }
-                    } else {
-                        Toast.makeText(ctx, "No updates available", Toast.LENGTH_SHORT).show()
                     }
                 }
                 else -> {}
@@ -277,29 +292,29 @@ val fakeFeatures = listOf(
         shape = RoundedCornerShape(20.dp, 44.dp, 20.dp, 44.dp),
         tooltipText = ToolTipContent.APP_DETECTION_DOCS
     ), HomeFeature(
-        title = "Media Rpc",
+        title = "Media RPC",
         icon = R.drawable.ic_media_rpc,
         shape = RoundedCornerShape(44.dp, 20.dp, 44.dp, 20.dp),
         tooltipText = ToolTipContent.MEDIA_RPC_DOCS
     ), HomeFeature(
-        title = "Custom Rpc",
+        title = "Custom RPC",
         icon = R.drawable.ic_rpc_placeholder,
         shape = RoundedCornerShape(44.dp, 20.dp, 44.dp, 20.dp),
         tooltipText = ToolTipContent.CUSTOM_RPC_DOCS
     ), HomeFeature(
-        title = "Console Rpc",
+        title = "Console RPC",
         icon = R.drawable.ic_console_games,
         shape = RoundedCornerShape(20.dp, 44.dp, 20.dp, 44.dp),
         tooltipText = ToolTipContent.CONSOLE_RPC_DOCS
     ),
     HomeFeature(
-        title = "Experimental Rpc",
+        title = "Experimental RPC",
         icon = R.drawable.ic_dev_rpc,
         shape = RoundedCornerShape(20.dp, 44.dp, 20.dp, 44.dp),
         tooltipText = ToolTipContent.EXPERIMENTAL_RPC_DOCS
     ),
     HomeFeature(
-        title = "Samsung Rpc",
+        title = "Samsung RPC",
         icon = R.drawable.ic_samsung_logo,
         shape = RoundedCornerShape(44.dp, 20.dp, 44.dp, 20.dp)
     ),
