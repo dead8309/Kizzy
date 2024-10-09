@@ -22,7 +22,6 @@ import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.request.url
 import io.ktor.http.ContentType
-import io.ktor.http.Headers
 import io.ktor.http.HttpHeaders
 import io.ktor.http.contentType
 import java.io.File
@@ -31,24 +30,30 @@ import javax.inject.Inject
 class ApiService @Inject constructor(
     private val client: HttpClient,
     @Base private val baseUrl: String,
+    @External private val externalBaseUrl: String,
     @Discord private val discordBaseUrl: String,
     @Github private val githubBaseUrl: String,
 ) {
     suspend fun getImage(url: String) = client.get {
-        url("$baseUrl/image")
+        url(externalBaseUrl)
         parameter("url", url)
     }
 
     suspend fun uploadImage(file: File) = client.post {
-        url("$baseUrl/upload")
-        setBody(MultiPartFormDataContent(
-            formData {
-                append("\"temp\"", file.readBytes(), Headers.build {
-                    append(HttpHeaders.ContentType, "image/*")
-                    append(HttpHeaders.ContentDisposition, "filename=\"${file.name}\"")
-                })
-            }
-        ))
+        url("https://api.imgur.com/3/image")
+        headers {
+            // Imgur web client API key, unchanged for at least >5 years as of 2024
+            append(HttpHeaders.Authorization, "Client-ID 546c25a59c58ad7")
+        }
+        contentType(ContentType.MultiPart.FormData)
+        setBody(
+            MultiPartFormDataContent(
+                formData {
+                    append("image", file.readBytes())
+                    append("type", "raw")
+                }
+            )
+        )
     }
 
     suspend fun getGames() = client.get {

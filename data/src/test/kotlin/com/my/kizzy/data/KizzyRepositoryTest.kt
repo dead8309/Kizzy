@@ -41,6 +41,7 @@ class KizzyRepositoryTest {
         apiService = ApiService(
             client = client,
             baseUrl = BuildConfig.BASE_URL,
+            externalAssetUrl = BuildConfig.EXTERNAL_ASSETS_URL,
             discordBaseUrl = BuildConfig.DISCORD_API_BASE_URL,
             githubBaseUrl = BuildConfig.GITHUB_API_BASE_URL
         )

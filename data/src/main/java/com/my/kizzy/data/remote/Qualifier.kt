@@ -20,6 +20,10 @@ annotation class Base
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
+annotation class External
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
 annotation class Discord
 
 @Qualifier

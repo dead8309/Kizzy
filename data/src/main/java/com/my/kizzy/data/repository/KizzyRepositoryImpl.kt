@@ -15,6 +15,7 @@ package com.my.kizzy.data.repository
 import com.my.kizzy.data.remote.ApiService
 import com.my.kizzy.data.remote.GamesResponse
 import com.my.kizzy.data.remote.toGame
+import com.my.kizzy.data.utils.toExternalImage
 import com.my.kizzy.data.utils.toImageAsset
 import com.my.kizzy.domain.model.Contributor
 import com.my.kizzy.domain.model.Game
@@ -33,11 +34,11 @@ class KizzyRepositoryImpl @Inject constructor(
 ): KizzyRepository {
 
     override suspend fun getImage(url: String): String? {
-        return api.getImage(url).toImageAsset()
+        return api.getImage(url).toExternalImage()
     }
 
     override suspend fun uploadImage(file: File): String? {
-        return api.uploadImage(file).toImageAsset()
+        return api.uploadImage(file).toImageAsset()?.let { this.getImage(it) }
     }
 
     override suspend fun getGames(): List<Game> {
