@@ -76,8 +76,9 @@ class ExperimentalRpc : Service() {
                         kizzyRPC.updateRPC(collectedData)
                     } else kizzyRPC.apply {
                         setName(collectedData.name)
-                        setStartTimestamps(System.currentTimeMillis())
+                        setType(Prefs[Prefs.CUSTOM_ACTIVITY_TYPE, 0])
                         setStatus(Prefs[Prefs.CUSTOM_ACTIVITY_STATUS,"dnd"])
+                        setDetails(collectedData.details)
                         setLargeImage(collectedData.largeImage, collectedData.largeText)
                         setSmallImage(collectedData.smallImage, collectedData.smallText)
                         if (Prefs[Prefs.USE_RPC_BUTTONS, false]) {

@@ -26,12 +26,14 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AppsOutage
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.my.kizzy.feature_rpc_base.AppUtils
 import com.my.kizzy.feature_rpc_base.services.AppDetectionService
 import com.my.kizzy.feature_rpc_base.services.CustomRpcService
@@ -41,6 +43,7 @@ import com.my.kizzy.preference.Prefs
 import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.SwitchBar
+import com.my.kizzy.ui.components.SearchBar
 import com.my.kizzy.ui.components.preference.PreferencesHint
 
 @SuppressLint("MutableCollectionMutableState")
@@ -56,6 +59,8 @@ fun AppsRPC(
     val ctx = LocalContext.current
     var serviceEnabled by remember { mutableStateOf(AppUtils.appDetectionRunning()) }
     var apps by remember { mutableStateOf(getInstalledApps(ctx)) }
+    var searchText by remember { mutableStateOf("") }
+    var isSearchBarVisible by remember { mutableStateOf(false) }
 
     Scaffold(
         modifier = Modifier
@@ -64,12 +69,32 @@ fun AppsRPC(
         topBar = {
             LargeTopAppBar(
                 title = {
-                    Text(
-                        text = "Apps",
-                        style = MaterialTheme.typography.headlineLarge,
-                    )
+                    Column {
+                        Text(
+                            text = "Apps",
+                            style = MaterialTheme.typography.headlineLarge,
+                        )
+                    }
                 },
                 navigationIcon = { BackButton { onBackPressed() } },
+                actions = {
+                    if (isSearchBarVisible) {
+                        Column(
+                            modifier = Modifier.padding(10.dp)
+                        ) {
+                            SearchBar(
+                                text = searchText,
+                                onTextChanged = { searchText = it },
+                                onClose = { isSearchBarVisible = false },
+                                placeholder = stringResource(id = R.string.search_placeholder)
+                            )
+                        }
+                    } else {
+                        IconButton(onClick = { isSearchBarVisible = !isSearchBarVisible }) {
+                            Icon(imageVector = Icons.Outlined.Search, contentDescription = "Search")
+                        }
+                    }
+                },
                 scrollBehavior = scrollBehavior
             )
         }
@@ -110,22 +135,25 @@ fun AppsRPC(
                             }
                             false -> ctx.stopService(Intent(ctx, AppDetectionService::class.java))
                         }
-
                     }
                 }
                 items(apps.size) { i ->
-                    AppsItem(
-                        name = apps[i].name,
-                        pkg = apps[i].pkg,
-                        isChecked = apps[i].isChecked
-                    ) {
-                        apps = apps.mapIndexed { j, app ->
-                            if (i == j) {
-                                Prefs.saveToPrefs(app.pkg)
-                                app.copy(isChecked = !app.isChecked)
-                            } else
-                                app
+                    if (searchText.isEmpty() || apps[i].name.contains(searchText, ignoreCase = true) || apps[i].pkg.contains(searchText, ignoreCase = true)) {
+                        AppsItem(
+                            name = apps[i].name,
+                            pkg = apps[i].pkg,
+                            isChecked = apps[i].isChecked
+                        ) {
+                            apps = apps.mapIndexed { j, app ->
+                                if (i == j) {
+                                    Prefs.saveToPrefs(app.pkg)
+                                    app.copy(isChecked = !app.isChecked)
+                                } else
+                                    app
+                            }
                         }
+                    } else {
+                        Spacer(modifier = Modifier.height(0.dp))
                     }
                 }
             }

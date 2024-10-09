@@ -91,7 +91,7 @@ fun GamesScreen(
                     }
                     else {
                         Text(
-                            text = "Console Rpc",
+                            text = "Console RPC",
                             style = MaterialTheme.typography.headlineLarge,
                         )
                     }

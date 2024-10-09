@@ -61,9 +61,9 @@ class KizzyTileService : TileService() {
     }
 
     private fun createRpcChoosingDialog(ctx: Context): Dialog {
-        val rpc = arrayOf("Apps Rpc", "Media Rpc", "Experimental Rpc", "Samsung Rpc")
+        val rpc = arrayOf("Apps RPC", "Media RPC", "Experimental RPC", "Samsung RPC")
         return MaterialAlertDialogBuilder(ContextThemeWrapper(ctx, com.my.kizzy.feature_rpc_base.R.style.MyTileDialogTheme))
-            .setTitle("Select a Rpc")
+            .setTitle("Select a RPC")
             .setSingleChoiceItems(rpc, -1) { dialog, which ->
                 when (which) {
                     0 -> {
@@ -112,13 +112,13 @@ class KizzyTileService : TileService() {
 
     private fun getSubtitle(): String {
         return if (AppUtils.appDetectionRunning())
-            "Apps Rpc"
+            "Apps RPC"
         else if (AppUtils.mediaRpcRunning())
-            "Media Rpc"
+            "Media RPC"
         else if (AppUtils.experimentalRpcRunning())
-            "Experimental Rpc"
+            "Experimental RPC"
         else
-            "Samsung Rpc"
+            "Samsung RPC"
     }
 
     companion object {

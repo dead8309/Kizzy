@@ -75,7 +75,7 @@ import kotlinx.serialization.json.Json
 fun RpcSettings(onBackPressed: () -> Boolean) {
     val context = LocalContext.current
     var isLowResIconsEnabled by remember { mutableStateOf(Prefs[Prefs.RPC_USE_LOW_RES_ICON, false]) }
-    var configsDir by remember { mutableStateOf(Prefs[Prefs.CONFIGS_DIRECTORY, "Directory to store Custom Rpc configs"]) }
+    var configsDir by remember { mutableStateOf(Prefs[Prefs.CONFIGS_DIRECTORY, "Directory to store Custom RPC configs"]) }
     var showDirConfigDialog by remember { mutableStateOf(false) }
     var useButtonConfigs by remember { mutableStateOf(Prefs[Prefs.USE_RPC_BUTTONS, false]) }
     var showButtonsConfigDialog by remember { mutableStateOf(false) }
@@ -178,7 +178,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
             }
             item {
                 PreferenceSwitch(
-                    title = "Enable Samsung Rpc",
+                    title = "Enable Samsung RPC",
                     description = "Enables Samsung Rpc for verified users. \n" +
                             "It will be removed from next update.",
                     icon = Icons.Default.Warning,

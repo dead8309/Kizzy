@@ -153,7 +153,7 @@ fun CustomRpcScreen(
         topBar = {
             LargeTopAppBar(title = {
                 Text(
-                    text = "Custom Rpc",
+                    text = "Custom RPC",
                     style = MaterialTheme.typography.headlineLarge,
                 )
             },

@@ -60,7 +60,7 @@ fun homeFeaturesProvider(
             tooltipText = ToolTipContent.APP_DETECTION_DOCS,
             featureDocsLink = ToolTipContent.APP_DETECTION_DOCS_LINK
         ), HomeFeature(
-            title = "Media Rpc",
+            title = "Media RPC",
             icon = R.drawable.ic_media_rpc,
             route = Routes.MEDIA_RPC,
             isChecked = AppUtils.mediaRpcRunning(),
@@ -82,7 +82,7 @@ fun homeFeaturesProvider(
             tooltipText = ToolTipContent.MEDIA_RPC_DOCS,
             featureDocsLink = ToolTipContent.MEDIA_RPC_DOCS_LINK
         ), HomeFeature(
-            title = "Custom Rpc",
+            title = "Custom RPC",
             icon = R.drawable.ic_rpc_placeholder,
             route = Routes.CUSTOM_RPC,
             isChecked = AppUtils.customRpcRunning(),
@@ -109,7 +109,7 @@ fun homeFeaturesProvider(
             tooltipText = ToolTipContent.CUSTOM_RPC_DOCS,
             featureDocsLink = ToolTipContent.CUSTOM_RPC_DOCS_LINK
         ), HomeFeature(
-            title = "Console Rpc",
+            title = "Console RPC",
             icon = R.drawable.ic_console_games,
             route = Routes.CONSOLE_RPC,
             isChecked = AppUtils.customRpcRunning(),
@@ -137,7 +137,7 @@ fun homeFeaturesProvider(
             featureDocsLink = ToolTipContent.CONSOLE_RPC_DOCS_LINK
         ),
         HomeFeature(
-            title = "Experimental Rpc",
+            title = "Experimental RPC",
             icon = R.drawable.ic_dev_rpc,
             isChecked = AppUtils.experimentalRpcRunning(),
             onCheckedChange = {
@@ -156,7 +156,7 @@ fun homeFeaturesProvider(
             featureDocsLink = ToolTipContent.EXPERIMENTAL_RPC_DOCS_LINK
         ),
         HomeFeature(
-            title = "Samsung Rpc",
+            title = "Samsung RPC",
             icon = R.drawable.ic_samsung_logo,
             isChecked = AppUtils.samsungRpcRunning(),
             onCheckedChange = {
