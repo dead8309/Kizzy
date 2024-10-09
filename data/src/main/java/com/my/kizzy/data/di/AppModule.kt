@@ -17,6 +17,7 @@ import com.my.kizzy.data.remote.ApiService
 import com.my.kizzy.data.remote.Base
 import com.my.kizzy.data.remote.Discord
 import com.my.kizzy.data.remote.Github
+import com.my.kizzy.data.remote.External
 import com.my.kizzy.data.repository.KizzyRepositoryImpl
 import com.my.kizzy.domain.repository.KizzyRepository
 import dagger.Module
@@ -42,6 +43,11 @@ object AppModule {
     @Singleton
     @Base
     fun provideBaseUrl() = BuildConfig.BASE_URL
+
+    @Provides
+    @Singleton
+    @External
+    fun provideExternalBaseUrl() = BuildConfig.EXTERNAL_ASSETS_URL
 
     @Provides
     @Singleton

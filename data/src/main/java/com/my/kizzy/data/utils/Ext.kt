@@ -28,6 +28,7 @@ import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.FileIOUtils
 import com.blankj.utilcode.util.FileUtils
 import com.my.kizzy.data.remote.ApiResponse
+import com.my.kizzy.data.remote.ImgurResponse
 import com.my.kizzy.data.rpc.RpcImage
 import com.my.kizzy.preference.Prefs
 import io.ktor.client.call.body
@@ -39,7 +40,18 @@ import java.io.FileOutputStream
 suspend fun HttpResponse.toImageAsset(): String? {
     return try {
         if (this.status == HttpStatusCode.OK)
-            this.body<ApiResponse>().id
+            this.body<ImgurResponse>().data.link
+        else
+            null
+    } catch (e: Exception) {
+        null
+    }
+}
+
+suspend fun HttpResponse.toExternalImage(): String? {
+    return try {
+        if (this.status == HttpStatusCode.OK)
+            this.body<ApiResponse>().url
         else
             null
     } catch (e: Exception) {

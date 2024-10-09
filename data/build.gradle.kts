@@ -12,6 +12,7 @@ android {
         buildConfigFieldFromGradleProperty("BASE_URL","BASE_URL")
         buildConfigFieldFromGradleProperty("DISCORD_API_BASE_URL","DISCORD_API_URL")
         buildConfigFieldFromGradleProperty("GITHUB_API_BASE_URL","GITHUB_API_URL")
+        buildConfigFieldFromGradleProperty("EXTERNAL_ASSETS_URL", "EXTERNAL_ASSETS_URL")
     }
 }
 
