@@ -122,7 +122,7 @@
     <string name="try_again">Thử lại</string>
     <string name="request_for_notification_access">Ứng dụng cần được cấp quyền Đọc thông báo để nhận thông tin về trình phát đa phương tiện.</string>
     <string name="update_check_for_update">Đang kiểm tra cập nhật...</string>
-    <string name="update_no_updates_available">Không có bản cập nhật</string>
+    <string name="update_no_updates_available">Không có phiên bản mới</string>
     <string name="compact_mode">Thu gọn</string>
     <string name="are_you_sure">Bạn có chắc không?</string>
     <string name="yes">Có</string>
