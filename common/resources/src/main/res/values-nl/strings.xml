@@ -34,7 +34,7 @@
     <string name="show_app_icon">Laat app icoon zien</string>
     <string name="enable_timestamps">Laat verstreken tijd zien</string>
     <string name="text_after_permission_denied">Geef de app permissie om de opslag te gebruiken, het is erg belangrijk en word gebruikt om de configuraties op te slaan.</string>
-    <string name="request_for_permission">Opslag permissies is erg belangrijk voor configuratie opties, geef alstublieft opslag permissies.</string>
+    <string name="request_for_storage_access">Opslag permissies is erg belangrijk voor configuratie opties, geef alstublieft opslag permissies.</string>
     <string name="grant_permission">Geef Permissie</string>
     <string name="use_low_res_icon">Use Low Resolution Images</string>
     <string name="use_low_res_icon_desc">Gebruik een lagere resolutie voor de app icoon/logo op rpc (schakel dit in als de rpc crasht). Deze instelling wordt ook toegepast op Apps Rpc.</string>

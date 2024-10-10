@@ -23,6 +23,7 @@ class LogsViewModel: ViewModel() {
     val filterStrings = mutableStateOf("")
     var logs = logger.getLogs()
     var showCompat = mutableStateOf(Prefs[Prefs.SHOW_LOGS_IN_COMPACT_MODE,false])
+    var autoScroll = mutableStateOf(Prefs[Prefs.LOGS_AUTO_SCROLL,true])
     val isSearchBarVisible = mutableStateOf(false)
 
 

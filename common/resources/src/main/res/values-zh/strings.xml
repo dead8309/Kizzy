@@ -34,7 +34,7 @@
     <string name="show_app_icon">顯示程式名字</string>
     <string name="enable_timestamps">啟用時間</string>
     <string name="text_after_permission_denied">你必須授權儲存權限以儲存配置</string>
-    <string name="request_for_permission">你必須授權儲存權限以啟用配置功能</string>
+    <string name="request_for_storage_access">你必須授權儲存權限以啟用配置功能</string>
     <string name="grant_permission">授權權限</string>
     <string name="use_low_res_icon">使用低畫質圖示</string>
     <string name="use_low_res_icon_desc">顯示低畫質圖示在 rpc 上(如果rpc停止運作請啟用這個)。 這項功能也會應用到程式rpc上</string>

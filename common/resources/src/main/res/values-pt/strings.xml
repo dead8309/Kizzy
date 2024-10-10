@@ -34,7 +34,7 @@
     <string name="show_app_icon">Mostrar Ícone do Aplicativo</string>
     <string name="enable_timestamps">Ativar Tempo de Atividade</string>
     <string name="text_after_permission_denied">O acesso à memória é importante para este aplicativo armazenar configurações em diretórios públicos. Por favor, conceda permissão.</string>
-    <string name="request_for_permission">A Permissão de armazenamento é necessária para que os recursos de configuração funcionem. Por favor, conceda a permissão.</string>
+    <string name="request_for_storage_access">A Permissão de armazenamento é necessária para que os recursos de configuração funcionem. Por favor, conceda a permissão.</string>
     <string name="grant_permission">Conceder Permissão</string>
     <string name="use_low_res_icon">Usar imagens com resolução baixa</string>
     <string name="use_low_res_icon_desc">Use um ícone de aplicativo de resolução mais baixa para exibir no rpc (ative-o se o rpc estiver crashando). Essa configuração também será aplicada aos Apps Rpc.</string>

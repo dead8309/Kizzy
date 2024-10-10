@@ -34,7 +34,7 @@
     <string name="show_app_icon">Prikaži ikonu aplikacije</string>
     <string name="enable_timestamps">Omogući vremenske oznake</string>
     <string name="text_after_permission_denied">Pristup pohrani je važan za ovu aplikaciju kako bi se postavke pohranile u javne direktorije. Molimo odobrite pristup.</string>
-    <string name="request_for_permission">Potrebna je dozvola za pohranu za rad postavki. Molimo odobrite pristup.</string>
+    <string name="request_for_storage_access">Potrebna je dozvola za pohranu za rad postavki. Molimo odobrite pristup.</string>
     <string name="grant_permission">Odobri dozvolu</string>
     <string name="use_low_res_icon">Koristi sliku niske rezolucije</string>
     <string name="use_low_res_icon_desc">Koristite sliku aplikacije niske rezolucije za prikaz na RPC-u (uključite ovo ako se RPC ruši). Ova postavka će se primijeniti i na Apps RPC.</string>

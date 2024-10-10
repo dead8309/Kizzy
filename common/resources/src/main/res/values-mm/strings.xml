@@ -34,7 +34,7 @@
     <string name="show_app_icon">အက်ပ်အိုင်ကွန် ပြပါ</string>
     <string name="enable_timestamps">အချိန်ပြစာကို သုံးပါ</string>
     <string name="text_after_permission_denied">Storage access is important for this app to store configs in public directories. Please grant the permission.</string>
-    <string name="request_for_permission">သိုလှောင်ခွင့်သည် ဤအက်ပ်အတွက်ု အချက်အလက်များသိမ်းဆည်းရန် လိုအပ်ပါသည်။ ကျေးဇူးပြု၍ ခွင့်ပြုချက်ပေးပါ</string>
+    <string name="request_for_storage_access">သိုလှောင်ခွင့်သည် ဤအက်ပ်အတွက်ု အချက်အလက်များသိမ်းဆည်းရန် လိုအပ်ပါသည်။ ကျေးဇူးပြု၍ ခွင့်ပြုချက်ပေးပါ</string>
     <string name="grant_permission">ခွင့်ပြုချက်ပေးသည်</string>
     <string name="use_low_res_icon">Low Resolution ပုံများကို သုံးပါ</string>
     <string name="use_low_res_icon_desc">Rpc တွင်ပြသရန် Low Resolution ပုံများကို သုံးပါ (Rpc ပျက်နေပါက ဤခလုတ်ကိုဖွင့်ပါ)။ ဤဆက်တင်ကို Apps Rpc တွင်လည်း အသုံးပြုမည်ဖြစ်သည်။</string>

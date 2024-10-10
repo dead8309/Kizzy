@@ -34,7 +34,7 @@
     <string name="show_app_icon">Mostra Icona App</string>
     <string name="enable_timestamps">Abilita Tempo Trascorso</string>
     <string name="text_after_permission_denied">Accesso ai dati di archiviazione necessario per salvare le configurazioni nelle cartelle pubbliche. Si prega di concedere il permesso.</string>
-    <string name="request_for_permission">Autorizzazione ai dati di archiviazione è necessario per le funzionalità di configurazione. Si prega di concedere il permesso.</string>
+    <string name="request_for_storage_access">Autorizzazione ai dati di archiviazione è necessario per le funzionalità di configurazione. Si prega di concedere il permesso.</string>
     <string name="grant_permission">Concedi Permesso</string>
     <string name="use_low_res_icon">Usa Immagini a Bassa Risoluzione</string>
     <string name="use_low_res_icon_desc">Usa icone app a risoluzione inferiore da mostrare su RPC (attivala se il RPC si arresta in modo anomalo). Questa impostazione verrà applicata anche al RPC App.</string>

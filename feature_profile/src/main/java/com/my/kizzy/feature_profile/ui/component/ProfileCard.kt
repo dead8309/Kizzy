@@ -45,6 +45,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -66,7 +67,7 @@ fun ProfileCard(
     borderColors: List<Color> = listOf(Color(0xFFa3a1ed), Color(0xFFA77798)),
     backgroundColors: List<Color> = listOf(Color(0xFFC2C0FA), Color(0xFFFADAF0)),
     padding: Dp = 30.dp,
-    type: String = "USING KIZZY RICH PRESENCE",
+    type: String = stringResource(id = R.string.user_profile_rpc_name),
     rpcConfig: RpcConfig? = null,
     showTs: Boolean = true
 ) {
@@ -74,7 +75,7 @@ fun ProfileCard(
         mutableStateOf(0)
     }
     LaunchedEffect(elapsed) {
-        if (elapsed == 60)
+        if (elapsed == 90)
             elapsed = 0
         else {
             delay(1000)
@@ -163,8 +164,13 @@ fun ProfileCard(
                     .background(Color.White)
             ) {
                 ProfileText(
-                    text = user.globalName ?: (user.username + "#" + user.discriminator),
+                    text = user.globalName ?: user.username,
                     style = MaterialTheme.typography.titleLarge,
+                )
+                ProfileText(
+                    text = user.username + if (user.discriminator != "0") "#" + user.discriminator else "",
+                    style = MaterialTheme.typography.titleSmall,
+                    bold = false
                 )
                 Spacer(
                     modifier = Modifier
@@ -174,7 +180,7 @@ fun ProfileCard(
                         .background(Color(0xFFC2C0FA))
                 )
                 ProfileText(
-                    text = "ABOUT ME",
+                    text = stringResource(id = R.string.user_profile_bio),
                     style = MaterialTheme.typography.titleSmall
                 )
                 ProfileText(
@@ -251,7 +257,7 @@ fun PreviewProfileCard() {
         discriminator = null,
         id = null,
         publicFlags = null,
-        username = null,
+        username = "yizzK",
         special = null,
         verified = false
     )

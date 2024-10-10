@@ -83,7 +83,7 @@ fun GamesScreen(
                                 onEvent(UiEvent.Search(it))
                             },
                             text = searchText,
-                            placeholder = "Search",
+                            placeholder = stringResource(id = R.string.search_placeholder),
                             onClose = {
                                 onEvent(UiEvent.CloseSearchBar)
                             }
@@ -91,7 +91,7 @@ fun GamesScreen(
                     }
                     else {
                         Text(
-                            text = "Console RPC",
+                            text = stringResource(id = R.string.main_consoleRpc),
                             style = MaterialTheme.typography.headlineLarge,
                         )
                     }
@@ -99,7 +99,7 @@ fun GamesScreen(
                 actions = {
                         if(!isSearchBarVisible) {
                             IconButton(onClick = { onEvent(UiEvent.OpenSearchBar) }) {
-                                Icon(Icons.Default.Search, "search")
+                                Icon(Icons.Default.Search, stringResource(id = R.string.search))
                             }
                         }
                 },
@@ -124,7 +124,7 @@ fun GamesScreen(
                                 .padding(horizontal = 20.dp)
                         )
                         Button(onClick = { onEvent(UiEvent.TryAgain) }) {
-                            Text(text = "Try Again")
+                            Text(text = stringResource(id = R.string.try_again))
                         }
                     }
                 }

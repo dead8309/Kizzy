@@ -20,6 +20,7 @@ import kizzy.gateway.DiscordWebSocket
 import kizzy.gateway.entities.presence.Activity
 import kizzy.gateway.entities.presence.Assets
 import kizzy.gateway.entities.presence.Metadata
+import kizzy.gateway.entities.presence.Party
 import kizzy.gateway.entities.presence.Presence
 import kizzy.gateway.entities.presence.Timestamps
 import kotlinx.coroutines.isActive
@@ -34,6 +35,7 @@ class KizzyRPC(
     private var activityName: String? = null
     private var details: String? = null
     private var state: String? = null
+    private var party: Party? = null
     private var largeImage: RpcImage? = null
     private var smallImage: RpcImage? = null
     private var largeText: String? = null
@@ -99,6 +101,22 @@ class KizzyRPC(
      */
     fun setState(state: String?): KizzyRPC {
         this.state = state
+        return this
+    }
+
+    /**
+     * Party of Rpc
+     *
+     * @param party
+     * @return
+     */
+    fun setPartySize(current: Int?, max: Int?): KizzyRPC {
+        if (current != null && max != null) {
+            this.party = Party(
+                id = "kizzy",
+                size = arrayOf(current, max)
+            )
+        }
         return this
     }
 
@@ -235,6 +253,7 @@ class KizzyRPC(
                     name = activityName,
                     state = state,
                     details = details,
+                    party = party.takeIf { party != null },
                     type = type,
                     timestamps = Timestamps(
                         start = startTimestamps,
@@ -273,6 +292,8 @@ class KizzyRPC(
         var time = Timestamps(start = startTimestamps)
         if (commonRpc.time != null)
             Timestamps(end = commonRpc.time.end, start = commonRpc.time.start).also { time = it }
+        if (commonRpc.party1 != null && commonRpc.party2 != null)
+            Party(id = "kizzy", size = arrayOf(commonRpc.party1, commonRpc.party2)).also { party = it }
         discordWebSocket.sendActivity(
             Presence(
                 activities = listOf(
@@ -288,6 +309,7 @@ class KizzyRPC(
                                 largeText = commonRpc.largeText,
                                 smallText = commonRpc.smallText,
                             ).takeIf { commonRpc.largeImage != null || commonRpc.smallImage != null },
+                        party = party.takeIf { party != null },
                         buttons = buttons.takeIf { buttons.size > 0 },
                         metadata = Metadata(buttonUrls = buttonUrl).takeIf { buttonUrl.size > 0 },
                         applicationId = Constants.APPLICATION_ID.takeIf { buttons.size > 0 }

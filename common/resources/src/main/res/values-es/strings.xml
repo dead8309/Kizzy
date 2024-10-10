@@ -47,8 +47,8 @@
        <string name="other_rpc">Otros RPC</string>
        <string name="main_mediaRpc">RPC de medios</string>
        <string name="main_mediaRpc_details">Un RPC de detección de música/video</string>
-       <string name="main_CustomRpc">RPC personalizado</string>
-       <string name="main_CustomRpc_details">Detalles de RPC</string>
+       <string name="main_customRpc">RPC personalizado</string>
+       <string name="main_customRpc_details">Detalles de RPC</string>
        <string name="change_lang">Cambiar idioma</string>
        <string name="update_check_for_update">Buscar actualizaciones</string>
        <string name="update_force_update">Forzar actualización</string>

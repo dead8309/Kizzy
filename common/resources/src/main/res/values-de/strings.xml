@@ -35,7 +35,7 @@
     <string name="show_app_icon">App-Symbol anzeigen</string>
     <string name="enable_timestamps">Zeitstempel aktivieren</string>
     <string name="text_after_permission_denied">Der Speicherzugriff ist wichtig für diese Anwendung, um Konfigurationen in öffentlichen Verzeichnissen zu speichern. Bitte erteile die Erlaubnis.</string>
-    <string name="request_for_permission">Speichererlaubnis erforderlich, damit die Konfigurationsfunktionen funktionieren. Bitte erteile die Erlaubnis</string>
+    <string name="request_for_storage_access">Speichererlaubnis erforderlich, damit die Konfigurationsfunktionen funktionieren. Bitte erteile die Erlaubnis</string>
     <string name="grant_permission">Erlaubnis erteilen</string>
     <string name="use_low_res_icon">Bilder mit niedriger Auflösung verwenden</string>
     <string name="use_low_res_icon_desc">Verwende ein App-Symbol mit geringerer Auflösung für die Anzeige in der Rpc (schalte dies ein, wenn die Rpc abstürzt). Diese Einstellung wird auch auf Apps Rpc angewendet.</string>

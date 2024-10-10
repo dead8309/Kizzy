@@ -35,7 +35,7 @@
     <string name="show_app_icon">نمایش نماد برنامه</string>
     <string name="enable_timestamps">فعال کردن رویداد ها</string>
     <string name="text_after_permission_denied">دسترسی به فضای ذخیره سازی برای این برنامه برای ذخیره تنظیمات در پوشه های عمومی مهم است. لطفا اجازه بدهید</string>
-    <string name="request_for_permission">مجوز ذخیره سازی برای عملکرد ویژگی های پیکربندی مورد نیاز است. لطفا اجازه بدهید</string>
+    <string name="request_for_storage_access">مجوز ذخیره سازی برای عملکرد ویژگی های پیکربندی مورد نیاز است. لطفا اجازه بدهید</string>
     <string name="grant_permission">اعطای مجوز</string>
     <string name="use_low_res_icon">از تصاویر با وضوح پایین استفاده کنید</string>
     <string name="use_low_res_icon_desc">برای نمایش در rpc از یک نماد برنامه با وضوح پایین تر استفاده کنید (اگر rpc کار نمی کند، این را روشن کنید). این تنظیم برای برنامه های Rpc نیز اعمال خواهد شد.</string>

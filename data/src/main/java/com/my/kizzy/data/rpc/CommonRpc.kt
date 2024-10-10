@@ -12,12 +12,12 @@
 
 package com.my.kizzy.data.rpc
 
-import kizzy.gateway.entities.presence.Timestamps
-
 data class CommonRpc(
     val name: String = "",
     val details: String? = "",
     val state: String? = "",
+    val party1: Int? = null,
+    val party2: Int? = null,
     val largeImage: RpcImage? = null,
     val smallImage: RpcImage? = null,
     var largeText: String? = "",

@@ -34,7 +34,7 @@
     <string name="show_app_icon">Tampilkan Ikon Aplikasi</string>
     <string name="enable_timestamps">Nyalakan Stempel Waktu</string>
     <string name="text_after_permission_denied">Akses penyimpanan penting bagi aplikasi ini untuk menyimpan konfigurasi di folder publik.</string>
-    <string name="request_for_permission">Izin penyimpanan diperlukan agar fitur konfigurasi berfungsi.</string>
+    <string name="request_for_storage_access">Izin penyimpanan diperlukan agar fitur konfigurasi berfungsi.</string>
     <string name="grant_permission">Izinkan</string>
     <string name="use_low_res_icon">Gunakan Gambar Resolusi rendah</string>
     <string name="use_low_res_icon_desc">Gunakan gambar resolusi rendah untuk menampilkan rpc (nyalakan ini jika rpc kamu crash). Settingan ini juga berlaku untuk Apps RPC</string>

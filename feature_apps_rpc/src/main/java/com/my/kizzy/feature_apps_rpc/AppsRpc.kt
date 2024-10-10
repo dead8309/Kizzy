@@ -71,7 +71,7 @@ fun AppsRPC(
                 title = {
                     Column {
                         Text(
-                            text = "Apps",
+                            text = stringResource(id = R.string.main_appDetection),
                             style = MaterialTheme.typography.headlineLarge,
                         )
                     }

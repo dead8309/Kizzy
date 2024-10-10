@@ -34,7 +34,7 @@
     <string name="show_app_icon">アプリアイコンを表示</string>
     <string name="enable_timestamps">経過日時を表示</string>
     <string name="text_after_permission_denied">このアプリでは、構成ファイルを保存、読み込み、削除するためにストレージへのアクセスが必要です。権限を付与してください。</string>
-    <string name="request_for_permission">構成ファイルを保存、読み込み、削除するためにストレージへのアクセスが必要です。権限を付与してください。</string>
+    <string name="request_for_storage_access">構成ファイルを保存、読み込み、削除するためにストレージへのアクセスが必要です。権限を付与してください。</string>
     <string name="grant_permission">権限を付与</string>
     <string name="use_low_res_icon">低解像度の画像を使用</string>
     <string name="use_low_res_icon_desc">低解像度の画像を使用してアクティビティに表示します。(アプリがクラッシュする際にお試しください) この設定は、アプリアクティビティにも適用されます。</string>
