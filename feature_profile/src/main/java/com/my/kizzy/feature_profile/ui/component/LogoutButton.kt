@@ -19,6 +19,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.res.stringResource
+import com.my.kizzy.resources.R
 
 @Composable
 fun Logout(
@@ -35,6 +37,6 @@ fun Logout(
             contentColor = MaterialTheme.colorScheme.onErrorContainer
         )
     ) {
-        Text(text = "Logout")
+        Text(text = stringResource(id = R.string.logout))
     }
 }

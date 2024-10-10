@@ -30,6 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -40,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.my.kizzy.domain.model.logs.LogEvent
 import com.my.kizzy.preference.Prefs
+import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.KSwitch
 import com.my.kizzy.ui.components.SearchBar
 import com.my.kizzy.ui.theme.LogColors.color
@@ -58,8 +60,8 @@ fun LogScreen(viewModel: LogsViewModel) {
         modifier = Modifier.fillMaxSize(),
         topBar = { ToolBar(viewModel) }
     ) { paddingValues ->
-        LaunchedEffect(viewModel.logs.size) {
-            if (viewModel.logs.size > 0)
+        LaunchedEffect(viewModel.logs.size)  {
+            if (viewModel.logs.size > 0 && viewModel.autoScroll.value)
                 lazyListState.animateScrollToItem(viewModel.logs.size - 1)
         }
         LazyColumn(
@@ -101,7 +103,7 @@ fun ToolBar(viewModel: LogsViewModel) {
             if(viewModel.isSearchBarVisible.value) {
                 SearchBar(
                     text = viewModel.filterStrings.value,
-                    placeholder = "Search...",
+                    placeholder = stringResource(id = R.string.search_placeholder),
                     onClose = { viewModel.isSearchBarVisible.value = false }
                 ) {
                     viewModel.filterStrings.value = it
@@ -115,7 +117,7 @@ fun ToolBar(viewModel: LogsViewModel) {
         actions = {
             if(!viewModel.isSearchBarVisible.value){
                 IconButton(onClick = { viewModel.isSearchBarVisible.value = true }) {
-                    Icon(Icons.Default.Search, "search")
+                    Icon(Icons.Default.Search, stringResource(id = R.string.search))
                 }
             }
             IconButton(onClick = { menuClicked = !menuClicked }) {
@@ -124,7 +126,29 @@ fun ToolBar(viewModel: LogsViewModel) {
                 )
                 DropdownMenu(expanded = menuClicked,
                     onDismissRequest = { menuClicked = !menuClicked }) {
-                    DropdownMenuItem(onClick = {},
+                    DropdownMenuItem(
+                        onClick = {},
+                        text = {
+                            Row(
+                                Modifier
+                                    .fillMaxSize()
+                                    .clickable {
+                                        viewModel.autoScroll.value = !viewModel.autoScroll.value
+                                        Prefs[Prefs.LOGS_AUTO_SCROLL] = viewModel.autoScroll.value
+                                    }, horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Text(
+                                    text = stringResource(id = R.string.auto_scroll),
+                                    style = MaterialTheme.typography.bodyLarge
+                                )
+                                KSwitch(
+                                    checked = viewModel.autoScroll.value,
+                                    modifier = Modifier.padding(start = 10.dp)
+                                )
+                            }
+                        })
+                    DropdownMenuItem(
+                        onClick = {},
                         text = {
                             Row(
                                 Modifier
@@ -132,14 +156,20 @@ fun ToolBar(viewModel: LogsViewModel) {
                                     .clickable {
                                         viewModel.showCompat.value = !viewModel.showCompat.value
                                         Prefs[Prefs.SHOW_LOGS_IN_COMPACT_MODE] = viewModel.showCompat.value
-                                    }, horizontalArrangement = Arrangement.SpaceAround
+                                    }, horizontalArrangement = Arrangement.SpaceBetween
                             ) {
-                                Text("Compact Mode")
-                                KSwitch(checked = viewModel.showCompat.value)
+                                Text(
+                                    text = stringResource(id = R.string.compact_mode),
+                                    style = MaterialTheme.typography.bodyLarge
+                                )
+                                KSwitch(
+                                    checked = viewModel.showCompat.value,
+                                    modifier = Modifier.padding(start = 10.dp)
+                                )
                             }
                         })
                     DropdownMenuItem(
-                        text = { Text("Clear") },
+                        text = { Text(text = stringResource(R.string.clear), style = MaterialTheme.typography.bodyLarge) },
                         onClick = {
                             viewModel.clearLogs()
                             menuClicked = false

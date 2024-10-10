@@ -18,6 +18,7 @@ import java.io.File
 sealed interface UiEvent {
     object TriggerBottomSheet: UiEvent
     object TriggerActivityTypeDropDownMenu: UiEvent
+    object TriggerStatusDropDownMenu: UiEvent
     class SetFieldsFromConfig(val config: RpcConfig): UiEvent
     object TriggerStartTimeStampsDialog: UiEvent
     object TriggerStopTimeStampsDialog: UiEvent

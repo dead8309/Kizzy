@@ -157,7 +157,7 @@ fun StartUp(
                 }
                 item {
                     SetupCard(
-                        title = "Usage Access Permission",
+                        title = stringResource(id = R.string.usage_access),
                         description = stringResource(id = R.string.usage_access_desc),
                         status = usageAccessStatus.value
                     ) {
@@ -166,8 +166,8 @@ fun StartUp(
                 }
                 item {
                     SetupCard(
-                        title = "Notification Access Permission",
-                        description = "Notification Access is needed for app to extract media information",
+                        title = stringResource(id = R.string.notification_access),
+                        description = stringResource(id = R.string.request_for_notification_access),
                         status = mediaControlStatus.value
                     ) {
                         context.startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
@@ -176,8 +176,8 @@ fun StartUp(
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     item {
                         SetupCard(
-                            title = "Post Notification",
-                            description = "Grant Permission to Show Notification",
+                            title = stringResource(id = R.string.post_notification),
+                            description = stringResource(id = R.string.request_for_post_notification),
                             status = notificationPostingPerm
                         ) {
                             launcher.launch(POST_NOTIFICATIONS)
@@ -186,8 +186,8 @@ fun StartUp(
                 } else {
                     item {
                         SetupCard(
-                            title = "Grant Storage Access Permission",
-                            description = stringResource(id = R.string.request_for_permission),
+                            title = stringResource(id = R.string.storage_access),
+                            description = stringResource(id = R.string.request_for_storage_access),
                             status = storagePermissionState.status.isGranted
                         ) {
                             when (storagePermissionState.status) {
@@ -237,7 +237,7 @@ fun StartUp(
             ) {
                 TextButton(onClick = { navigateToHome() }, enabled = notificationPostingPerm && usageAccessStatus.value || mediaControlStatus.value) {
                     val text =
-                        if (usageAccessStatus.value && mediaControlStatus.value) "Start App Now" else "Skip"
+                        if (usageAccessStatus.value && mediaControlStatus.value) stringResource(R.string.start_app_now) else stringResource(R.string.skip)
                     val style =
                         if (usageAccessStatus.value && mediaControlStatus.value) MaterialTheme.typography.titleLarge else MaterialTheme.typography.titleLarge.copy(
                             fontSize = 20.sp

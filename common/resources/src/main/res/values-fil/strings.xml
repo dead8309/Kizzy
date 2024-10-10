@@ -34,7 +34,7 @@
     <string name="show_app_icon">Ipakita ang Icon ng App</string>
     <string name="enable_timestamps">Paganahin ang mga Timestamp</string>
     <string name="text_after_permission_denied">Mahalaga ang access sa storage para sa app na ito upang mag-imbak ng mga config sa mga pampublikong direktoryo. Mangyaring bigyan ang pahintulot.</string>
-    <string name="request_for_permission">Mahalaga ang access sa storage para sa app na ito upang mag-imbak ng mga config sa mga pampublikong direktoryo. Mangyaring bigyan ang pahintulot.</string>
+    <string name="request_for_storage_access">Mahalaga ang access sa storage para sa app na ito upang mag-imbak ng mga config sa mga pampublikong direktoryo. Mangyaring bigyan ang pahintulot.</string>
     <string name="grant_permission">Pinayagang pahintulot</string>
     <string name="use_low_res_icon">Gumamit ng Low Resolution Images</string>
     <string name="use_low_res_icon_desc">Gumamit ng icon ng app na may mas mababang resolution para sa pagpapakita sa rpc (i-on ito kung nag-crash ang rpc). Ilalapat din ang setting na ito sa Apps Rpc.</string>

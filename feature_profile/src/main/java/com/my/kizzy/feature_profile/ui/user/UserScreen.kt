@@ -18,12 +18,14 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.my.kizzy.domain.model.user.User
 import com.my.kizzy.feature_profile.ui.component.Logout
 import com.my.kizzy.feature_profile.ui.component.ProfileCard
 import com.my.kizzy.feature_profile.ui.component.ProfileNetworkError
+import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.shimmer.AnimatedShimmer
 import com.my.kizzy.ui.components.shimmer.ShimmerProfileCard
@@ -37,6 +39,7 @@ fun UserScreen(
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
+    val ctx = LocalContext.current
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -81,8 +84,8 @@ fun UserScreen(
                     ) {
                         scope.launch {
                             snackbarHostState.showSnackbar(
-                                message = "Are you sure ?",
-                                actionLabel = "Yes",
+                                message = ctx.getString(R.string.are_you_sure),
+                                actionLabel = ctx.getString(R.string.yes),
                                 duration = SnackbarDuration.Short,
                                 withDismissAction = true
                             ).run {

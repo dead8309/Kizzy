@@ -162,7 +162,7 @@ fun Home(
                                     modifier = Modifier.clickable {
                                         Toast.makeText(
                                             ctx,
-                                            "Checking for updates...",
+                                            ctx.getString(R.string.update_check_for_update),
                                             Toast.LENGTH_SHORT
                                         ).show()
                                         checkForUpdates()
@@ -177,7 +177,7 @@ fun Home(
                                 modifier = Modifier.clickable {
                                     Toast.makeText(
                                         ctx,
-                                        "Checking for updates...",
+                                        ctx.getString(R.string.update_check_for_update),
                                         Toast.LENGTH_SHORT
                                     ).show()
                                     checkForUpdates()
@@ -257,7 +257,7 @@ fun Home(
                                 )
                             }
                         } else {
-                            Toast.makeText(ctx, "No updates available", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(ctx, ctx.getString(R.string.update_no_updates_available), Toast.LENGTH_SHORT).show()
                             showUpdateDialog = false
                         }
                     }

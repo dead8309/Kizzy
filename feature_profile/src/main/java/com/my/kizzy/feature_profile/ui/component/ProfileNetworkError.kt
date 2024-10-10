@@ -32,9 +32,11 @@ import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.my.kizzy.resources.R
 
 @Composable
 fun ProfileNetworkError(
@@ -74,7 +76,7 @@ fun ProfileNetworkError(
                     tint = Color(0xFFCE8500)
                 )
                 Text(
-                    text = "Could not Update User Profile:\n$error",
+                    text = stringResource(R.string.user_profile_error) + "\n$error",
                     style = MaterialTheme.typography.titleMedium.copy(
                         fontWeight = FontWeight.ExtraBold,
                         color = Color(0xFFCE8500)
@@ -92,6 +94,6 @@ fun Preview_Profile_Network_Error_Card() {
         modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp),
-        error = "No Internet Connection. Try again after some time"
+        error = stringResource(R.string.user_profile_error)
     )
 }

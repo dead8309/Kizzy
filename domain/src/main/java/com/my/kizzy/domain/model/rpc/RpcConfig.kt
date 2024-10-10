@@ -49,5 +49,9 @@ data class RpcConfig(
     @SerialName("small_text")
     val smallText: String = "",
     @SerialName("url")
-    val url: String = ""
+    val url: String = "",
+    @SerialName("party1")
+    val party1: String = "",
+    @SerialName("party2")
+    val party2: String = "",
 )

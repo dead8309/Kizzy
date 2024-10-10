@@ -83,6 +83,11 @@ class CustomScreenViewModel @Inject constructor(
                     _uiState.value.copy(activityTypeIsExpanded = !_uiState.value.activityTypeIsExpanded)
             }
 
+            UiEvent.TriggerStatusDropDownMenu -> {
+                _uiState.value =
+                    _uiState.value.copy(statusIsExpanded = !_uiState.value.statusIsExpanded)
+            }
+
             UiEvent.TriggerStartTimeStampsDialog -> {
                 _uiState.value =
                     _uiState.value.copy(showStartTimeStampsPickerDialog = !_uiState.value.showStartTimeStampsPickerDialog)

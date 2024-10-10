@@ -35,7 +35,7 @@
     <string name="show_app_icon">앱 아이콘 표시</string>
     <string name="enable_timestamps">타임스탬프 활성화</string>
     <string name="text_after_permission_denied">이 앱이 설정을 저장하려면 저장소 액세스가 필요합니다. 권한을 부여해주세요.</string>
-    <string name="request_for_permission">설정 기능이 작동하려면 저장소 권한이 필요합니다. 권한을 부여해주세요.</string>
+    <string name="request_for_storage_access">설정 기능이 작동하려면 저장소 권한이 필요합니다. 권한을 부여해주세요.</string>
     <string name="grant_permission">권한 부여</string>
     <string name="use_low_res_icon">저해상도 이미지 사용</string>
     <string name="use_low_res_icon_desc">저해상도 앱 아이콘을 사용하여 RPC에 표시합니다 (RPC가 충돌할 경우 켜주세요). 이 설정은 앱의 RPC에도 적용됩니다.</string>

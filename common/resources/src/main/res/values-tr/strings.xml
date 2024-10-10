@@ -34,7 +34,7 @@
     <string name="show_app_icon">Uygulama Simgesini Göster</string>
     <string name="enable_timestamps">Zaman Bilgisini Etkinleştir</string>
     <string name="text_after_permission_denied">Depolama erişimi bu uygulama için herkese açık dizinlerde yapılandırma kaydetmek için önemlidir. Lütfen izin verin.</string>
-    <string name="request_for_permission">Depolama izni yapılandırma özelliğinin çalışması için gereklidir. Lütfen izin verin.</string>
+    <string name="request_for_storage_access">Depolama izni yapılandırma özelliğinin çalışması için gereklidir. Lütfen izin verin.</string>
     <string name="grant_permission">İzin Ver</string>
     <string name="use_low_res_icon">Düşük Çözünürlüklü Resim Kullan</string>
     <string name="use_low_res_icon_desc">RPC\'de gözükecek uygulama simgesini düşük çözünürlüklü kullan (bunu RPC çöküyorsa açın). Bu ayar Uygulama RPC\'sine de uygulanır.</string>

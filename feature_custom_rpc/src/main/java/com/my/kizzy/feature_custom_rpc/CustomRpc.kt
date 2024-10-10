@@ -153,7 +153,7 @@ fun CustomRpcScreen(
         topBar = {
             LargeTopAppBar(title = {
                 Text(
-                    text = "Custom RPC",
+                    text = stringResource(id = R.string.main_customRpc),
                     style = MaterialTheme.typography.headlineLarge,
                 )
             },
@@ -240,6 +240,30 @@ private fun RpcTextFieldsColumn(
             }
 
             item {
+                Row {
+                    RpcField(
+                        value = party1,
+                        label = R.string.party_current,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                    ) {
+                        onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(party1 = it)))
+                    }
+                }
+            }
+
+            item {
+                AnimatedVisibility(visible = party1.isNotBlank()) {
+                    RpcField(
+                        value = party2,
+                        label = R.string.party_max,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                    ) {
+                        onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(party2 = it)))
+                    }
+                }
+            }
+
+            item {
                 RpcField(value = timestampsStart,
                     label = R.string.activity_start_timestamps,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -301,12 +325,57 @@ private fun RpcTextFieldsColumn(
                 }
             }
 
+            val iconStatus = if (uiState.activityTypeIsExpanded)
+                Icons.Default.KeyboardArrowUp
+            else
+                Icons.Default.KeyboardArrowDown
+
             item {
                 RpcField(
                     value = status,
-                    label = R.string.activity_status_online_idle_dnd
+                    label = R.string.activity_status_online_idle_dnd,
+                    trailingIcon = {
+                        Icon(imageVector = iconStatus,
+                            contentDescription = null,
+                            modifier = Modifier.clickable {
+                                onEvent(UiEvent.TriggerStatusDropDownMenu)
+                            })
+                    }
                 ) {
                     onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(status = it)))
+                }
+
+                DropdownMenu(
+                    expanded = uiState.statusIsExpanded, onDismissRequest = {
+                        onEvent(UiEvent.TriggerStatusDropDownMenu)
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    val statuses = listOf(
+                        Pair(
+                            stringResource(id = R.string.status_online),
+                            "online"
+                        ),
+                        Pair(
+                            stringResource(id = R.string.status_idle),
+                            "idle"
+                        ),
+                        Pair(
+                            stringResource(id = R.string.status_dnd),
+                            "dnd"
+                        ),
+                    )
+                    statuses.forEach {
+                        DropdownMenuItem(
+                            text = {
+                                Text(text = it.first)
+                            },
+                            onClick = {
+                                onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(status = it.second)))
+                                onEvent(UiEvent.TriggerStatusDropDownMenu)
+                            },
+                        )
+                    }
                 }
             }
 

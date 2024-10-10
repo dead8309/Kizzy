@@ -29,8 +29,6 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextIndent
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -118,13 +116,13 @@ fun SettingsDrawer(
                 }
                 item {
                     Subtitle(
-                        text = "HELP",
+                        text = stringResource(id = R.string.drawer_subtitle_help),
                         modifier = Modifier
                     )
                 }
                 item {
                     SettingsItemCard(
-                        title = "FAQ",
+                        title = stringResource(id = R.string.drawer_faq),
                         icon = Icons.Rounded.HelpOutline
                     ) {
                         uriHandler.openUri("https://kizzy.vercel.app/#FAQ")
@@ -276,7 +274,7 @@ fun ProfileCardSmall(
                 Icon(
                     imageVector = Icons.Rounded.ArrowForwardIos,
                     modifier = Modifier.size(28.dp),
-                    contentDescription = "Go to Profile",
+                    contentDescription = stringResource(R.string.go_to_profile),
                     tint = MaterialTheme.colorScheme.secondary
                 )
             }

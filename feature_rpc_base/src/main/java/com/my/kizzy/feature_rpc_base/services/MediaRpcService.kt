@@ -73,7 +73,7 @@ class MediaRpcService : Service() {
         startForeground(
             Constants.NOTIFICATION_ID, notificationBuilder
                 .setSmallIcon(R.drawable.ic_media_rpc)
-                .addAction(R.drawable.ic_media_rpc, "Exit", pendingIntent)
+                .addAction(R.drawable.ic_media_rpc, getString(R.string.exit), pendingIntent)
                 .setContentText("Browsing Home Page..")
                 .build()
         )
@@ -86,8 +86,10 @@ class MediaRpcService : Service() {
                 notificationManager.notify(
                     Constants.NOTIFICATION_ID,
                     notificationBuilder
+                        .setContentTitle(playingMedia.name.ifEmpty { getString(R.string.app_name) })
                         .setContentText(
-                            (playingMedia.details ?: "").ifEmpty { "Browsing Home Page.." })
+                            (playingMedia.details ?: "").ifEmpty { getString(R.string.idling_notification) }
+                        )
                         .setLargeIcon(
                             rpcImage = playingMedia.largeImage,
                             context = this@MediaRpcService
@@ -105,10 +107,12 @@ class MediaRpcService : Service() {
 
                     false -> {
                         kizzyRPC.apply {
-                            setName(playingMedia.name.ifEmpty { "YouTube" })
+                            setName(playingMedia.name)
                             setType(Prefs[Prefs.CUSTOM_ACTIVITY_TYPE, 0])
                             setDetails(playingMedia.details)
                             setState(playingMedia.state)
+                            setStartTimestamps(if (enableTimestamps) playingMedia.time?.start else null)
+                            setStopTimestamps(if (enableTimestamps) playingMedia.time?.end else null)
                             setStatus(Prefs[Prefs.CUSTOM_ACTIVITY_STATUS,"dnd"])
                             setLargeImage(playingMedia.largeImage, if (Prefs[Prefs.MEDIA_RPC_ALBUM_NAME, false]) playingMedia.largeText else null)
                             setSmallImage(if (Prefs[Prefs.MEDIA_RPC_APP_ICON, false]) playingMedia.smallImage else null, playingMedia.smallText)

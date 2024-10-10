@@ -11,6 +11,8 @@ data class Activity(
     val state: String? = null,
     @SerialName("details")
     val details: String? = null,
+    @SerialName("party")
+    val party: Party? = null,
     @SerialName("type")
     val type: Int? = 0,
     @SerialName("timestamps")

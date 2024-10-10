@@ -41,7 +41,7 @@ internal fun RequestStoragePermissionDialog(
                 if ((storagePermissionState.status as PermissionStatus.Denied).shouldShowRationale) {
                     stringResource(id = R.string.text_after_permission_denied)
                 } else {
-                    stringResource(id = R.string.request_for_permission)
+                    stringResource(id = R.string.request_for_storage_access)
                 }
             AlertDialog(
                 onDismissRequest = onDismiss,

@@ -115,6 +115,7 @@ object Prefs {
     const val MEDIA_RPC_ALBUM_NAME = "media_rpc_album_name"
     const val MEDIA_RPC_APP_ICON = "media_rpc_app_icon"
     const val MEDIA_RPC_ENABLE_TIMESTAMPS = "enable_timestamps"
+    const val MEDIA_RPC_HIDE_ON_PAUSE = "hide_on_pause"
 
     //Rpc Setting Preferences
     const val USE_RPC_BUTTONS = "use_saved_rpc_buttons"
@@ -135,6 +136,7 @@ object Prefs {
     const val IS_FIRST_LAUNCHED = "is_first_launched"
     const val CUSTOM_ACTIVITY_TYPE = "custom_activity_type"
     const val SHOW_LOGS_IN_COMPACT_MODE = "logs_compact_mode"
+    const val LOGS_AUTO_SCROLL = "logs_auto_scroll"
 
     const val PALETTE_STYLE = "palette_style"
 

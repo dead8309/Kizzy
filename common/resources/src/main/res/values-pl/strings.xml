@@ -35,7 +35,7 @@
     <string name="show_app_icon">Pokaż Ikonę Aplikacji</string>
     <string name="enable_timestamps">Włącz Znaczniki Czasu</string>
     <string name="text_after_permission_denied">Dostęp do pamięci jest ważny dla tej aplikacji do przechowywania konfiguracji w katalogach publicznych. Proszę o pozwolenie na dostęp</string>
-    <string name="request_for_permission">Aby funkcje konfiguracyjne mogły działać, wymagane jest zezwolenie na przechowywanie. Proszę o pozwolenie na dostęp</string>
+    <string name="request_for_storage_access">Aby funkcje konfiguracyjne mogły działać, wymagane jest zezwolenie na przechowywanie. Proszę o pozwolenie na dostęp</string>
     <string name="grant_permission">Przydziel Uprawnienia</string>
     <string name="use_low_res_icon">Użyj Grafik Niskiej Rozdzielczości</string>
     <string name="use_low_res_icon_desc">Użyj niskiej rozdzielczości ikony aplikacji wyświetlanej w rpc (włącz to jeśli rpc ulega awarii). To ustawienie zostanie zastosowane również dla RPC Aplikacji</string>

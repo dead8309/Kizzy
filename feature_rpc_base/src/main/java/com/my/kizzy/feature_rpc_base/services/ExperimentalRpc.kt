@@ -25,6 +25,7 @@ import com.my.kizzy.domain.model.rpc.RpcButtons
 import com.my.kizzy.feature_rpc_base.Constants
 import com.my.kizzy.feature_rpc_base.setLargeIcon
 import com.my.kizzy.preference.Prefs
+import com.my.kizzy.preference.Prefs.MEDIA_RPC_ENABLE_TIMESTAMPS
 import com.my.kizzy.resources.R
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -79,6 +80,8 @@ class ExperimentalRpc : Service() {
                         setType(Prefs[Prefs.CUSTOM_ACTIVITY_TYPE, 0])
                         setStatus(Prefs[Prefs.CUSTOM_ACTIVITY_STATUS,"dnd"])
                         setDetails(collectedData.details)
+                        setStartTimestamps(if (Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS, false]) System.currentTimeMillis() else null)
+                        setStopTimestamps(if (Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS, false]) System.currentTimeMillis() else null)
                         setLargeImage(collectedData.largeImage, collectedData.largeText)
                         setSmallImage(collectedData.smallImage, collectedData.smallText)
                         if (Prefs[Prefs.USE_RPC_BUTTONS, false]) {

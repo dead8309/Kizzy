@@ -23,6 +23,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Apps
 import androidx.compose.material.icons.filled.Audiotrack
 import androidx.compose.material.icons.filled.Album
+import androidx.compose.material.icons.filled.PauseCircle
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.*
@@ -40,6 +41,7 @@ import com.my.kizzy.preference.Prefs.MEDIA_RPC_APP_ICON
 import com.my.kizzy.preference.Prefs.MEDIA_RPC_ARTIST_NAME
 import com.my.kizzy.preference.Prefs.MEDIA_RPC_ALBUM_NAME
 import com.my.kizzy.preference.Prefs.MEDIA_RPC_ENABLE_TIMESTAMPS
+import com.my.kizzy.preference.Prefs.MEDIA_RPC_HIDE_ON_PAUSE
 import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.SwitchBar
@@ -55,6 +57,7 @@ fun MediaRPC(onBackPressed: () -> Unit) {
     var isAlbumEnabled by remember { mutableStateOf(Prefs[MEDIA_RPC_ALBUM_NAME, false]) }
     var isAppIconEnabled by remember { mutableStateOf(Prefs[MEDIA_RPC_APP_ICON, false]) }
     var isTimestampsEnabled by remember { mutableStateOf(Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS, false]) }
+    var hideOnPause by remember { mutableStateOf(Prefs[MEDIA_RPC_HIDE_ON_PAUSE, false]) }
     var hasNotificationAccess by remember { mutableStateOf(context.hasNotificationAccess()) }
     Scaffold(
         modifier = Modifier
@@ -63,7 +66,7 @@ fun MediaRPC(onBackPressed: () -> Unit) {
             LargeTopAppBar(
                 title = {
                     Text(
-                        text = "Media RPC",
+                        text = stringResource(id = R.string.main_mediaRpc),
                         style = MaterialTheme.typography.headlineLarge,
                     )
                 },
@@ -76,8 +79,8 @@ fun MediaRPC(onBackPressed: () -> Unit) {
             AnimatedVisibility(visible = !hasNotificationAccess
             ) {
                 PreferencesHint(
-                    title = "Permission Required",
-                    description = "Notification Access is needed for app to extract media information",
+                    title = stringResource(id = R.string.permission_required),
+                    description = stringResource(id = R.string.request_for_notification_access),
                     icon = Icons.Default.Warning,
                 ) {
                     when (context.hasNotificationAccess()) {
@@ -141,6 +144,16 @@ fun MediaRPC(onBackPressed: () -> Unit) {
                     ) {
                         isTimestampsEnabled = !isTimestampsEnabled
                         Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS] = isTimestampsEnabled
+                    }
+                }
+                item {
+                    PreferenceSwitch(
+                        title = stringResource(id = R.string.hide_on_pause),
+                        icon = Icons.Default.PauseCircle,
+                        isChecked = hideOnPause,
+                    ) {
+                        hideOnPause = !hideOnPause
+                        Prefs[MEDIA_RPC_HIDE_ON_PAUSE] = hideOnPause
                     }
                 }
             }
