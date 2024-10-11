@@ -19,6 +19,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -149,6 +150,7 @@ fun Home(
                                 badge = {
                                     Badge(
                                         modifier = Modifier
+                                            .offset(8.dp, -14.dp)
                                             .size(8.dp)
                                             .clip(CircleShape),
                                         containerColor = MaterialTheme.colorScheme.error,

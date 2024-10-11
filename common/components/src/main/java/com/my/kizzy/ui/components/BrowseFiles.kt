@@ -16,7 +16,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.OpenInNew
+import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -40,7 +40,7 @@ fun BrowseFilesButton(
         Text(text = stringResource(R.string.browse_files))
         Spacer(modifier = Modifier.width(5.dp))
         Icon(
-            Icons.Default.OpenInNew,
+            Icons.AutoMirrored.Filled.OpenInNew,
             null
         )
     }
