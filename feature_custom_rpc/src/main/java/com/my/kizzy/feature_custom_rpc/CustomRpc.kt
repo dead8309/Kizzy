@@ -167,7 +167,23 @@ fun CustomRpcScreen(
                         )
                     }
                 })
-        }) { padding ->
+        },
+        floatingActionButton = {
+            ExtendedFloatingActionButton(
+                text = { Text(stringResource(id = R.string.preview_rpc)) },
+                onClick = {
+                    onEvent(UiEvent.SheetEvent.TriggerPreviewDialog)
+                },
+                icon = {
+                    Icon(
+                        imageVector = Icons.Default.Preview,
+                        contentDescription = "preview"
+                    )
+                },
+            )
+        },
+        floatingActionButtonPosition = FabPosition.End
+    ) { padding ->
         Column(modifier = Modifier.padding(padding)) {
             RpcTextFieldsColumn(
                 snackBarHostState = snackBarHostState,
@@ -244,7 +260,28 @@ private fun RpcTextFieldsColumn(
                     RpcField(
                         value = partyCurrentSize,
                         label = R.string.party_current,
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+                        isError =
+                            partyCurrentSize.isNotEmpty() && (
+                                partyCurrentSize.toIntOrNull() == null ||
+                                0 >= partyCurrentSize.toInt() ||
+                                (partyMaxSize.toIntOrNull() != null && partyCurrentSize.toInt() > partyMaxSize.toInt())
+                            ),
+                        errorMessage =
+                            if (partyCurrentSize.isNotEmpty()) {
+                                if (partyCurrentSize.toIntOrNull() == null) {
+                                    stringResource(R.string.party_invalid_number)
+                                } else if (0 >= partyCurrentSize.toInt()) {
+                                    stringResource(R.string.party_less_than_zero)
+                                } else if (partyMaxSize.toIntOrNull() != null && partyCurrentSize.toInt() > partyMaxSize.toInt()) {
+                                    stringResource(R.string.party_greater_than_max)
+                                } else {
+                                    ""
+                                }
+                            } else {
+                                ""
+                            }
+
                     ) {
                         onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(partyCurrentSize = it)))
                     }
@@ -256,7 +293,29 @@ private fun RpcTextFieldsColumn(
                     RpcField(
                         value = partyMaxSize,
                         label = R.string.party_max,
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+                        isError =
+                            partyMaxSize.isNotEmpty() && (
+                                partyMaxSize.toIntOrNull() == null ||
+                                0 >= partyMaxSize.toInt() ||
+                                (partyCurrentSize.toIntOrNull() != null && partyCurrentSize.toInt() > partyMaxSize.toInt())
+                            ),
+                        errorMessage =
+                            if (partyMaxSize.isNotEmpty()) {
+                                if (partyMaxSize.toIntOrNull() == null) {
+                                    stringResource(R.string.party_invalid_number)
+                                } else if (0 >= partyMaxSize.toInt()) {
+                                    stringResource(R.string.party_less_than_zero)
+                                } else if (partyCurrentSize.toIntOrNull() != null && partyCurrentSize.toInt() > partyMaxSize.toInt()) {
+                                    stringResource(R.string.party_greater_than_max)
+                                } else {
+                                    ""
+                                }
+                            } else if (partyCurrentSize.isNotEmpty() && partyMaxSize.isBlank()) {
+                                stringResource(R.string.party_max_cannot_be_empty)
+                            } else {
+                                ""
+                            }
                     ) {
                         onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(partyMaxSize = it)))
                     }
