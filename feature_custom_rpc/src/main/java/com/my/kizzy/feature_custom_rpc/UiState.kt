@@ -25,5 +25,6 @@ data class UiState(
     val showStoragePermissionRequestDialog: Boolean = false,
     val showStartTimeStampsPickerDialog: Boolean = false,
     val showStopTimeStampsPickerDialog: Boolean = false,
+    val statusIsExpanded: Boolean = false,
     val rpcConfig: RpcConfig = RpcConfig()
 )

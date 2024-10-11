@@ -80,7 +80,7 @@ fun Features(
                         },
                     ) {
                         Text(
-                            text = "Learn more",
+                            text = stringResource(R.string.learn_more),
                         )
                     }
                 },

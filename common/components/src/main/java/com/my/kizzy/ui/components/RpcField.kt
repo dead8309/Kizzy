@@ -64,7 +64,8 @@ fun RpcField(
                 text = errorMessage,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.End,
-                color = MaterialTheme.colorScheme.error
+                color = MaterialTheme.colorScheme.error,
+                style = MaterialTheme.typography.bodyMedium
             )
         }
         content()

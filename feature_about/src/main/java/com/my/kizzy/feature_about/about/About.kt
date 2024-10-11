@@ -110,7 +110,7 @@ fun About(
             }
             item { 
                 SettingItem(
-                    title = "Version",
+                    title = stringResource(id = R.string.version),
                     description = BuildConfig.VERSION_NAME,
                     icon = Icons.Outlined.Info
                 ) {

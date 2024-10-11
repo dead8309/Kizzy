@@ -17,13 +17,13 @@ import android.content.ComponentName
 import android.content.Context
 import android.media.MediaMetadata
 import android.media.session.MediaSessionManager
-import android.media.session.PlaybackState.STATE_PLAYING
+import android.media.session.PlaybackState
 import com.blankj.utilcode.util.AppUtils
 import com.my.kizzy.data.rpc.CommonRpc
+import com.my.kizzy.data.rpc.Timestamps
 import com.my.kizzy.data.rpc.RpcImage
 import com.my.kizzy.preference.Prefs
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kizzy.gateway.entities.presence.Timestamps
 import javax.inject.Inject
 
 class GetCurrentPlayingMedia @Inject constructor(
@@ -40,6 +40,14 @@ class GetCurrentPlayingMedia @Inject constructor(
         val sessions = mediaSessionManager.getActiveSessions(componentName)
         if (sessions.size > 0) {
             val mediaController = sessions[0]
+            if (
+                Prefs[Prefs.MEDIA_RPC_HIDE_ON_PAUSE, false] &&
+                (
+                    mediaController.playbackState?.state == PlaybackState.STATE_PAUSED ||
+                    mediaController.playbackState?.state == PlaybackState.STATE_STOPPED
+                )
+            ) return CommonRpc()
+
             val metadata = mediaController.metadata
             val title = metadata?.getString(MediaMetadata.METADATA_KEY_TITLE)
             val appName = AppUtils.getAppName(mediaController.packageName)
@@ -54,7 +62,7 @@ class GetCurrentPlayingMedia @Inject constructor(
             val bitmap = metadata?.let { metadataResolver.getCoverArt(it) }
             val duration = metadata?.getLong(MediaMetadata.METADATA_KEY_DURATION)
             duration?.let {
-                if (it != 0L && mediaController.playbackState?.state == STATE_PLAYING) timestamps = Timestamps(
+                if (it != 0L && mediaController.playbackState?.state == PlaybackState.STATE_PLAYING) timestamps = Timestamps(
                     end = System.currentTimeMillis() + duration - (mediaController.playbackState?.position ?: 0L),
                     start = System.currentTimeMillis() - (mediaController.playbackState?.position ?: 0L)
                 )

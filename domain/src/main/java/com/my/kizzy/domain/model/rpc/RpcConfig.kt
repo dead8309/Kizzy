@@ -49,5 +49,9 @@ data class RpcConfig(
     @SerialName("small_text")
     val smallText: String = "",
     @SerialName("url")
-    val url: String = ""
+    val url: String = "",
+    @SerialName("partyCurrentSize")
+    val partyCurrentSize: String = "",
+    @SerialName("partyMaxSize")
+    val partyMaxSize: String = "",
 )

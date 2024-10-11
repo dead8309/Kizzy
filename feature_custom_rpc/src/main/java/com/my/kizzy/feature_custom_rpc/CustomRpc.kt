@@ -153,7 +153,7 @@ fun CustomRpcScreen(
         topBar = {
             LargeTopAppBar(title = {
                 Text(
-                    text = "Custom RPC",
+                    text = stringResource(id = R.string.main_customRpc),
                     style = MaterialTheme.typography.headlineLarge,
                 )
             },
@@ -240,6 +240,73 @@ private fun RpcTextFieldsColumn(
             }
 
             item {
+                Row {
+                    RpcField(
+                        value = partyCurrentSize,
+                        label = R.string.party_current,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+                        isError =
+                            partyCurrentSize.isNotEmpty() && (
+                                partyCurrentSize.toIntOrNull() == null ||
+                                0 >= partyCurrentSize.toInt() ||
+                                (partyMaxSize.toIntOrNull() != null && partyCurrentSize.toInt() > partyMaxSize.toInt())
+                            ),
+                        errorMessage =
+                            if (partyCurrentSize.isNotEmpty()) {
+                                if (partyCurrentSize.toIntOrNull() == null) {
+                                    stringResource(R.string.party_invalid_number)
+                                } else if (0 >= partyCurrentSize.toInt()) {
+                                    stringResource(R.string.party_less_than_zero)
+                                } else if (partyMaxSize.toIntOrNull() != null && partyCurrentSize.toInt() > partyMaxSize.toInt()) {
+                                    stringResource(R.string.party_greater_than_max)
+                                } else {
+                                    ""
+                                }
+                            } else {
+                                ""
+                            }
+
+                    ) {
+                        onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(partyCurrentSize = it)))
+                    }
+                }
+            }
+
+            item {
+                AnimatedVisibility(visible = partyCurrentSize.isNotBlank()) {
+                    RpcField(
+                        value = partyMaxSize,
+                        label = R.string.party_max,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+                        isError =
+                            partyMaxSize.isNotEmpty() && (
+                                partyMaxSize.toIntOrNull() == null ||
+                                0 >= partyMaxSize.toInt() ||
+                                (partyCurrentSize.toIntOrNull() != null && partyCurrentSize.toInt() > partyMaxSize.toInt())
+                            ),
+                        errorMessage =
+                            if (partyMaxSize.isNotEmpty()) {
+                                if (partyMaxSize.toIntOrNull() == null) {
+                                    stringResource(R.string.party_invalid_number)
+                                } else if (0 >= partyMaxSize.toInt()) {
+                                    stringResource(R.string.party_less_than_zero)
+                                } else if (partyCurrentSize.toIntOrNull() != null && partyCurrentSize.toInt() > partyMaxSize.toInt()) {
+                                    stringResource(R.string.party_greater_than_max)
+                                } else {
+                                    ""
+                                }
+                            } else if (partyCurrentSize.isNotEmpty() && partyMaxSize.isBlank()) {
+                                stringResource(R.string.party_max_cannot_be_empty)
+                            } else {
+                                ""
+                            }
+                    ) {
+                        onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(partyMaxSize = it)))
+                    }
+                }
+            }
+
+            item {
                 RpcField(value = timestampsStart,
                     label = R.string.activity_start_timestamps,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -301,12 +368,57 @@ private fun RpcTextFieldsColumn(
                 }
             }
 
+            val iconStatus = if (uiState.activityTypeIsExpanded)
+                Icons.Default.KeyboardArrowUp
+            else
+                Icons.Default.KeyboardArrowDown
+
             item {
                 RpcField(
                     value = status,
-                    label = R.string.activity_status_online_idle_dnd
+                    label = R.string.activity_status_online_idle_dnd,
+                    trailingIcon = {
+                        Icon(imageVector = iconStatus,
+                            contentDescription = null,
+                            modifier = Modifier.clickable {
+                                onEvent(UiEvent.TriggerStatusDropDownMenu)
+                            })
+                    }
                 ) {
                     onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(status = it)))
+                }
+
+                DropdownMenu(
+                    expanded = uiState.statusIsExpanded, onDismissRequest = {
+                        onEvent(UiEvent.TriggerStatusDropDownMenu)
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    val statuses = listOf(
+                        Pair(
+                            stringResource(id = R.string.status_online),
+                            "online"
+                        ),
+                        Pair(
+                            stringResource(id = R.string.status_idle),
+                            "idle"
+                        ),
+                        Pair(
+                            stringResource(id = R.string.status_dnd),
+                            "dnd"
+                        ),
+                    )
+                    statuses.forEach {
+                        DropdownMenuItem(
+                            text = {
+                                Text(text = it.first)
+                            },
+                            onClick = {
+                                onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(status = it.second)))
+                                onEvent(UiEvent.TriggerStatusDropDownMenu)
+                            },
+                        )
+                    }
                 }
             }
 

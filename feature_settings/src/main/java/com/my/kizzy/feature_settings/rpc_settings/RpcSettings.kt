@@ -75,7 +75,7 @@ import kotlinx.serialization.json.Json
 fun RpcSettings(onBackPressed: () -> Boolean) {
     val context = LocalContext.current
     var isLowResIconsEnabled by remember { mutableStateOf(Prefs[Prefs.RPC_USE_LOW_RES_ICON, false]) }
-    var configsDir by remember { mutableStateOf(Prefs[Prefs.CONFIGS_DIRECTORY, "Directory to store Custom RPC configs"]) }
+    var configsDir by remember { mutableStateOf(Prefs[Prefs.CONFIGS_DIRECTORY, ""]) }
     var showDirConfigDialog by remember { mutableStateOf(false) }
     var useButtonConfigs by remember { mutableStateOf(Prefs[Prefs.USE_RPC_BUTTONS, false]) }
     var showButtonsConfigDialog by remember { mutableStateOf(false) }
@@ -108,13 +108,13 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
     }) { paddingValues ->
         LazyColumn(modifier = Modifier.padding(paddingValues)) {
             item {
-                Subtitle(text = "General")
+                Subtitle(text = stringResource(R.string.general_settings))
             }
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
                 item {
                     SettingItem(
                         title = stringResource(id = R.string.configs_directory),
-                        description = configsDir,
+                        description = configsDir.ifEmpty { stringResource(id = R.string.custom_rpc_directory) },
                         icon = Icons.Default.Storage,
                     ) {
                         showDirConfigDialog = true
@@ -220,7 +220,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                         imageVector = Icons.Default.Storage, contentDescription = null
                     )
                 },
-                title = { Text("Select Directory") },
+                title = { Text(stringResource(R.string.select_directory)) },
                 text = {
                     Column {
                         SingleChoiceItem(
@@ -261,7 +261,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                         imageVector = Icons.Default.Storage, contentDescription = null
                     )
                 },
-                title = { Text("Enter Details") },
+                title = { Text(stringResource(R.string.enter_details)) },
                 text = {
                     Column {
                         RpcField(
@@ -360,7 +360,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                                 showActivityTypeDialog = false
                             }
                     }) {
-                        Text(text = "Save")
+                        Text(text = stringResource(R.string.save))
                     }
                 }
             )
@@ -374,11 +374,11 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 confirmButton = {},
                 text = {
                     val statusMap = mapOf(
-                        "Online" to "online",
-                        "AFK" to "idle",
-                        "Do Not Disturb" to "dnd",
-                        "Offline" to "offline",
-                        "Invisible and shown as offline" to "invisible"
+                        stringResource(R.string.status_online) to "online",
+                        stringResource(R.string.status_idle) to "idle",
+                        stringResource(R.string.status_dnd) to "dnd",
+                        stringResource(R.string.status_offline) to "offline",
+                        stringResource(R.string.status_invisible_offline) to "invisible"
                     )
                     Column {
                         statusMap.forEach { (key, value) ->

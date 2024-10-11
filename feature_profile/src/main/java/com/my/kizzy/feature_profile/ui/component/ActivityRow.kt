@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -93,12 +94,12 @@ fun ActivityRow(
             }
             Column {
                 ProfileText(
-                    text = rpcConfig?.name.takeIf { !it.isNullOrEmpty() }?:"User Profile",
+                    text = rpcConfig?.name.takeIf { !it.isNullOrEmpty() }?: stringResource(id = R.string.user_profile),
                     style = MaterialTheme.typography.titleSmall
                         .copy(
                             fontFamily = FontFamily.Monospace,
-                            fontSize = 16.sp
-                        )
+                            fontSize = 16.sp,
+                        ),
                 )
                 ProfileText(
                     text = rpcConfig?.details,
@@ -109,7 +110,18 @@ fun ActivityRow(
                         )
                 )
                 ProfileText(
-                    text = rpcConfig?.state,
+                    text = (rpcConfig?.state +
+                            if (
+                                rpcConfig?.partyCurrentSize?.toIntOrNull() != null &&
+                                rpcConfig.partyMaxSize.toIntOrNull() != null &&
+                                rpcConfig.partyCurrentSize.toIntOrNull()!! > 0 &&
+                                rpcConfig.partyMaxSize.toIntOrNull()!! > 0 &&
+                                rpcConfig.partyCurrentSize.toIntOrNull()!! <= rpcConfig.partyMaxSize.toIntOrNull()!!
+                            ) {
+                                " " + stringResource(R.string.user_profile_party, rpcConfig.partyCurrentSize.toInt(), rpcConfig.partyMaxSize.toInt())
+                            } else {
+                                ""
+                            }).takeIf { rpcConfig?.state?.isNotEmpty() == true },
                     style = MaterialTheme.typography.titleSmall
                         .copy(
                             fontFamily = FontFamily.Monospace,
@@ -129,7 +141,7 @@ fun ActivityRow(
             }
         }
         if (showTs)
-            ProfileButton(label = "Special Button", link = special)
+            ProfileButton(label = stringResource(id = R.string.user_profile_special_button), link = special)
         if (rpcConfig != null) {
             ProfileButton(label = rpcConfig.button1, link = rpcConfig.button1link )
             ProfileButton(label = rpcConfig.button2, link = rpcConfig.button2link )

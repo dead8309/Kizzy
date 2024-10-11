@@ -35,9 +35,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.my.kizzy.ui.components.BrowseFilesButton
+import com.my.kizzy.resources.R
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
@@ -90,7 +92,7 @@ fun UploadDialog(
                         onPicked(image.value!!)
                     },
                 ) {
-                    Text(text = "Confirm")
+                    Text(text = stringResource(R.string.confirm))
                     if (showProgress) {
                         Spacer(modifier = Modifier.width(2.dp))
                         CircularProgressIndicator(Modifier.size(20.dp))
@@ -98,7 +100,7 @@ fun UploadDialog(
                 }
             }
         },
-        title = { Text(text = "Upload Image") },
+        title = { Text(text = stringResource(R.string.upload_image)) },
         text = {
             Column(
                 modifier = Modifier.fillMaxWidth(),

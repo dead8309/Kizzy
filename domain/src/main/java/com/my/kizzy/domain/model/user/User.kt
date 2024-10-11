@@ -50,16 +50,16 @@ val globalName: String? = null
 ) {
     fun getAvatarImage(): String {
         return if (avatar?.startsWith("a_") == true)
-            "${DISCORD_CDN}/avatars/${id}/${avatar}.gif"
+            "${DISCORD_CDN}/avatars/${id}/${avatar}.gif?size=4096"
         else
-            "${DISCORD_CDN}/avatars/${id}/${avatar}.png"
+            "${DISCORD_CDN}/avatars/${id}/${avatar}.png?size=4096"
     }
     fun getBannerImage(): String? {
         if (banner.isNullOrEmpty()) return null
         return if (banner.startsWith("a_"))
-            "$DISCORD_CDN/banners/${id}/${banner}.gif"
+            "$DISCORD_CDN/banners/${id}/${banner}.gif?size=4096"
         else
-            "$DISCORD_CDN/banners/${id}/${banner}.png"
+            "$DISCORD_CDN/banners/${id}/${banner}.png?size=4096"
     }
 }
 

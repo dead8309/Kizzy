@@ -51,12 +51,12 @@ fun SaveConfigDialog(
                             rpc.dataToString()
                         ).also {
                             when (it) {
-                                true -> onSaved("Saved $configName Successfully")
-                                false -> onSaved("Error Saving Config")
+                                true -> onSaved(ctx.getString(R.string.saved_config_toast, configName))
+                                false -> onSaved(ctx.getString(R.string.error_saving_config_toast))
                             }
                         }
                 }) {
-                Text(text = "Save")
+                Text(text = stringResource(R.string.save))
             }
         },
         title = { Text(text = stringResource(id = R.string.save_config)) },
@@ -65,7 +65,7 @@ fun SaveConfigDialog(
                 onValueChange = {
                     configName = it
                 },
-                label = { Text(text = "Config Name") },
+                label = { Text(text = stringResource(R.string.config_name)) },
                 value = configName,
             )
         })
