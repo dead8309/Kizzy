@@ -26,9 +26,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.RichTooltipBox
+import androidx.compose.material3.TooltipBox
+import androidx.compose.material3.TooltipDefaults
+import androidx.compose.material3.RichTooltip
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberTooltipState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -66,32 +69,106 @@ fun Features(
         mainAxisAlignment = FlowMainAxisAlignment.SpaceBetween
     ) {
         for (i in homeItems.indices) {
-            RichTooltipBox(
-                title = {
-                    Text(homeItems[i].title, style = MaterialTheme.typography.titleMedium)
-                },
-                text = {
-                    Text(homeItems[i].tooltipText)
-                },
-                action = {
-                    TextButton(
-                        onClick = {
-                            uriHandler.openUri(homeItems[i].featureDocsLink)
-                        },
-                    ) {
-                        Text(
-                            text = stringResource(R.string.learn_more),
+            if (homeItems[i].tooltipText.isNotBlank()) {
+                TooltipBox(
+                    positionProvider = TooltipDefaults.rememberPlainTooltipPositionProvider(),
+                    state = rememberTooltipState(),
+                    tooltip = {
+                        RichTooltip(
+                            title = {
+                                Text(
+                                    homeItems[i].title,
+                                    style = MaterialTheme.typography.titleMedium
+                                )
+                            },
+                            text = {
+                                Text(homeItems[i].tooltipText)
+                            },
+                            action = {
+                                TextButton(
+                                    onClick = {
+                                        uriHandler.openUri(homeItems[i].featureDocsLink)
+                                    },
+                                ) {
+                                    Text(
+                                        text = stringResource(R.string.learn_more),
+                                    )
+                                }
+                            },
                         )
-                    }
-                },
-            ) {
-                Box(modifier = Modifier
-                    .then(
-                        if (homeItems[i].tooltipText.isNotBlank()){
-                            Modifier.tooltipTrigger()
-                        } else
+                    },
+                ) {
+                    Box(modifier = Modifier
+                        .size(featureSize)
+                        .padding(9.dp)
+                        .aspectRatio(1f)
+                        .clip(homeItems[i].shape)
+                        .background(
+                            brush = if (homeItems[i].isChecked) {
+                                Brush.linearGradient(
+                                    listOf(
+                                        MaterialTheme.colorScheme.primaryContainer,
+                                        MaterialTheme.colorScheme.primaryContainer.copy(0.8f),
+                                        MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.6f)
+                                    )
+                                )
+                            } else {
+                                brush
+                            }
+                        )
+                        .clickable { homeItems[i].route?.let { homeItems[i].onClick(it) } }) {
+                        Column(
                             Modifier
-                    )
+                                .fillMaxSize()
+                                .padding(15.dp, 15.dp, 2.dp, 15.dp)
+                        ) {
+                            Icon(
+                                tint = if (homeItems[i].isChecked) MaterialTheme.colorScheme.primary
+                                else MaterialTheme.colorScheme.secondary,
+                                painter = painterResource(id = homeItems[i].icon),
+                                contentDescription = "",
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .padding(5.dp, 0.dp)
+                            )
+                            Text(
+                                text = homeItems[i].title,
+                                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.W500),
+                                color = if (homeItems[i].isChecked) MaterialTheme.colorScheme.onPrimaryContainer
+                                else MaterialTheme.colorScheme.onSecondaryContainer,
+                                modifier = Modifier.weight(2f)
+                            )
+                            Row(
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .weight(1f)
+                            ) {
+                                if (homeItems[i].showSwitch) {
+                                    Text(
+                                        text = if (homeItems[i].isChecked) stringResource(id = R.string.android_on)
+                                        else stringResource(id = R.string.android_off),
+                                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W600),
+                                        color = if (homeItems[i].isChecked) MaterialTheme.colorScheme.onPrimaryContainer
+                                        else MaterialTheme.colorScheme.onSecondaryContainer
+                                    )
+                                    KSwitch(
+                                        checked = homeItems[i].isChecked,
+                                        modifier = Modifier.rotate(-90f),
+                                        onClick = {
+                                            homeItems[i].onCheckedChange(!homeItems[i].isChecked)
+                                            onValueUpdate(i)
+                                        }
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                Box(modifier = Modifier
                     .size(featureSize)
                     .padding(9.dp)
                     .aspectRatio(1f)

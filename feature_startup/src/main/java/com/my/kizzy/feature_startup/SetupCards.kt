@@ -17,8 +17,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.NavigateNext
-import androidx.compose.material.icons.filled.OpenInNew
+import androidx.compose.material.icons.automirrored.filled.NavigateNext
+import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -60,7 +60,7 @@ fun SetupCard(
                     color = colorScheme.onSecondaryContainer
                 )
                 Icon(
-                    imageVector = Icons.Default.OpenInNew,
+                    imageVector = Icons.AutoMirrored.Filled.OpenInNew,
                     contentDescription = null,
                     modifier = Modifier.size(20.dp),
                     tint = colorScheme.primary
@@ -112,7 +112,7 @@ fun SetupCard(
                     color = colorScheme.onSecondaryContainer
                 )
                 Icon(
-                    imageVector = Icons.Default.NavigateNext,
+                    imageVector = Icons.AutoMirrored.Filled.NavigateNext,
                     contentDescription = null,
                     modifier = Modifier.size(20.dp),
                     tint = colorScheme.primary

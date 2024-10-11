@@ -11,9 +11,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.ArrowForwardIos
+import androidx.compose.material.icons.automirrored.rounded.HelpOutline
 import androidx.compose.material.icons.outlined.*
-import androidx.compose.material.icons.rounded.ArrowForwardIos
-import androidx.compose.material.icons.rounded.HelpOutline
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -112,7 +112,7 @@ fun SettingsDrawer(
                     }
                 }
                 item {
-                    Divider()
+                    HorizontalDivider()
                 }
                 item {
                     Subtitle(
@@ -123,7 +123,7 @@ fun SettingsDrawer(
                 item {
                     SettingsItemCard(
                         title = stringResource(id = R.string.drawer_faq),
-                        icon = Icons.Rounded.HelpOutline
+                        icon = Icons.AutoMirrored.Rounded.HelpOutline
                     ) {
                         uriHandler.openUri("https://kizzy.vercel.app/#FAQ")
                     }
@@ -272,7 +272,7 @@ fun ProfileCardSmall(
             }
             IconButton(onClick = { navigateToProfile() }) {
                 Icon(
-                    imageVector = Icons.Rounded.ArrowForwardIos,
+                    imageVector = Icons.AutoMirrored.Rounded.ArrowForwardIos,
                     modifier = Modifier.size(28.dp),
                     contentDescription = stringResource(R.string.go_to_profile),
                     tint = MaterialTheme.colorScheme.secondary
