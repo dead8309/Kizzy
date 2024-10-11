@@ -174,4 +174,5 @@
     <string name="activity_competiting_title">Competiting in %1$s</string>
     <string name="activity_streaming_title">Streaming at %1$s</string>
     <string name="delete_config_successfully_toast">%1$s was deleted successfully</string>
+    <string name="service_enabled">Service enabled</string>
 </resources>

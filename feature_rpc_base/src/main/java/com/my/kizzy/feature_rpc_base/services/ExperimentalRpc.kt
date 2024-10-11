@@ -80,8 +80,9 @@ class ExperimentalRpc : Service() {
                         setType(Prefs[Prefs.CUSTOM_ACTIVITY_TYPE, 0])
                         setStatus(Prefs[Prefs.CUSTOM_ACTIVITY_STATUS,"dnd"])
                         setDetails(collectedData.details)
-                        setStartTimestamps(if (Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS, false]) System.currentTimeMillis() else null)
-                        setStopTimestamps(if (Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS, false]) System.currentTimeMillis() else null)
+                        setState(collectedData.state)
+                        setStartTimestamps(if (Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS, false]) collectedData.time?.start else null)
+                        setStopTimestamps(if (Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS, false]) collectedData.time?.end else null)
                         setLargeImage(collectedData.largeImage, collectedData.largeText)
                         setSmallImage(collectedData.smallImage, collectedData.smallText)
                         if (Prefs[Prefs.USE_RPC_BUTTONS, false]) {
@@ -110,8 +111,8 @@ class ExperimentalRpc : Service() {
                 Constants.NOTIFICATION_ID,
                 notificationBuilder
                     .setSmallIcon(R.drawable.ic_dev_rpc)
-                    .setContentTitle("Service enabled")
-                    .addAction(R.drawable.ic_dev_rpc, "Exit", pendingIntent)
+                    .setContentTitle(getString(R.string.service_enabled))
+                    .addAction(R.drawable.ic_dev_rpc, getString(R.string.exit), pendingIntent)
                     .build()
             )
         }

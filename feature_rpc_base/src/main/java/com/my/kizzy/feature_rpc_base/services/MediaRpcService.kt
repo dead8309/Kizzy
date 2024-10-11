@@ -103,28 +103,43 @@ class MediaRpcService : Service() {
                     true -> {
                         logger.d("MediaRPC", "Updating RPC")
                         kizzyRPC.updateRPC(playingMedia, enableTimestamps)
+                        if (playingMedia.name.isEmpty()) {
+                            logger.d("MediaRPC", "No media playing, stopping RPC")
+                            kizzyRPC.closeRPC()
+                        }
                     }
 
                     false -> {
-                        kizzyRPC.apply {
-                            setName(playingMedia.name)
-                            setType(Prefs[Prefs.CUSTOM_ACTIVITY_TYPE, 0])
-                            setDetails(playingMedia.details)
-                            setState(playingMedia.state)
-                            setStartTimestamps(if (enableTimestamps) playingMedia.time?.start else null)
-                            setStopTimestamps(if (enableTimestamps) playingMedia.time?.end else null)
-                            setStatus(Prefs[Prefs.CUSTOM_ACTIVITY_STATUS,"dnd"])
-                            setLargeImage(playingMedia.largeImage, if (Prefs[Prefs.MEDIA_RPC_ALBUM_NAME, false]) playingMedia.largeText else null)
-                            setSmallImage(if (Prefs[Prefs.MEDIA_RPC_APP_ICON, false]) playingMedia.smallImage else null, playingMedia.smallText)
-                            if (Prefs[Prefs.USE_RPC_BUTTONS, false]) {
-                                with(rpcButtons) {
-                                    setButton1(button1.takeIf { it.isNotEmpty() })
-                                    setButton1URL(button1Url.takeIf { it.isNotEmpty() })
-                                    setButton2(button2.takeIf { it.isNotEmpty() })
-                                    setButton2URL(button2Url.takeIf { it.isNotEmpty() })
+                        if (playingMedia.name.isEmpty()) {
+                            logger.d("MediaRPC", "No media playing, skipping RPC update")
+                        } else {
+                            logger.d("MediaRPC", "Starting RPC")
+                            kizzyRPC.apply {
+                                setName(playingMedia.name)
+                                setType(Prefs[Prefs.CUSTOM_ACTIVITY_TYPE, 0])
+                                setDetails(playingMedia.details)
+                                setState(playingMedia.state)
+                                setStartTimestamps(if (enableTimestamps) playingMedia.time?.start else null)
+                                setStopTimestamps(if (enableTimestamps) playingMedia.time?.end else null)
+                                setStatus(Prefs[Prefs.CUSTOM_ACTIVITY_STATUS, "dnd"])
+                                setLargeImage(
+                                    playingMedia.largeImage,
+                                    if (Prefs[Prefs.MEDIA_RPC_ALBUM_NAME, false]) playingMedia.largeText else null
+                                )
+                                setSmallImage(
+                                    if (Prefs[Prefs.MEDIA_RPC_APP_ICON, false]) playingMedia.smallImage else null,
+                                    playingMedia.smallText
+                                )
+                                if (Prefs[Prefs.USE_RPC_BUTTONS, false]) {
+                                    with(rpcButtons) {
+                                        setButton1(button1.takeIf { it.isNotEmpty() })
+                                        setButton1URL(button1Url.takeIf { it.isNotEmpty() })
+                                        setButton2(button2.takeIf { it.isNotEmpty() })
+                                        setButton2URL(button2Url.takeIf { it.isNotEmpty() })
+                                    }
                                 }
+                                build()
                             }
-                            build()
                         }
                     }
                 }

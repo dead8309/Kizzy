@@ -59,6 +59,8 @@ class AppDetectionService : Service() {
 
     private lateinit var pendingIntent: PendingIntent
 
+    var runningPackage = ""
+
     override fun onBind(intent: Intent): IBinder? = null
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -85,7 +87,7 @@ class AppDetectionService : Service() {
         // https://github.com/dead8309/Kizzy/issues/197
         notificationBuilder
             .setSmallIcon(R.drawable.ic_apps)
-            .addAction(R.drawable.ic_apps, "Exit", pendingIntent)
+            .addAction(R.drawable.ic_apps, getString(R.string.exit), pendingIntent)
 
         startForeground(Constants.NOTIFICATION_ID, createDefaultNotification())
 
@@ -139,10 +141,12 @@ class AppDetectionService : Service() {
         enabledPackages: List<String>,
         rpcButtons: RpcButtons
     ) {
-        if (packageName in enabledPackages) {
+        if (packageName in enabledPackages && packageName != runningPackage) {
             handleEnabledPackage(packageName, rpcButtons)
-        } else {
+            runningPackage = packageName
+        } else if (packageName != runningPackage) {
             handleDisabledPackage()
+            runningPackage = ""
         }
     }
 
@@ -185,8 +189,8 @@ class AppDetectionService : Service() {
     private fun createDefaultNotification(): Notification {
         return Notification.Builder(this,Constants.CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_apps)
-            .setContentTitle("Service enabled")
-            .addAction(R.drawable.ic_apps, "Exit", pendingIntent)
+            .setContentTitle(getString(R.string.service_enabled))
+            .addAction(R.drawable.ic_apps, getString(R.string.exit), pendingIntent)
             .build()
     }
 
