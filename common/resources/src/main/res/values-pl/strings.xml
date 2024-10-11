@@ -168,4 +168,10 @@
     <string name="mandatory">Mandatory</string>
     <string name="optional">Optional</string>
     <string name="general_settings">General</string>
+    <string name="activity_playing_title">Playing a game</string>
+    <string name="activity_listening_title">Listening to %1$s</string>
+    <string name="activity_watching_title">Watching %1$s</string>
+    <string name="activity_competiting_title">Competiting in %1$s</string>
+    <string name="activity_streaming_title">Streaming at %1$s</string>
+    <string name="delete_config_successfully_toast">%1$s was deleted successfully</string>
 </resources>

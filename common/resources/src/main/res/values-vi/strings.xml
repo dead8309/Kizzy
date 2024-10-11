@@ -167,4 +167,10 @@
     <string name="mandatory">Bắt buộc</string>
     <string name="optional">Tùy chọn</string>
     <string name="general_settings">Cài đặt chung</string>
+    <string name="activity_playing_title">Đang chơi trò chơi</string>
+    <string name="activity_listening_title">Đang nghe %1$s</string>
+    <string name="activity_watching_title">Đang xem %1$s</string>
+    <string name="activity_competiting_title">Đang thi đấu trong %1$s</string>
+    <string name="activity_streaming_title">Đang phát trực tiếp tại %1$s</string>
+    <string name="delete_config_successfully_toast">%1$s đã được xóa thành công</string>
 </resources>

@@ -54,7 +54,7 @@ fun DeleteConfigDialog(
                     onDismiss()
                     configs.value.forEach {
                         FileUtils.delete("$dir/$it")
-                        onFilesDeleted("${it.dropLast(5)} was deleted Successfully")
+                        onFilesDeleted(ctx.getString(R.string.delete_config_successfully_toast, it.dropLast(5)))
                     }
                 },
                 colors = ButtonDefaults.buttonColors(
