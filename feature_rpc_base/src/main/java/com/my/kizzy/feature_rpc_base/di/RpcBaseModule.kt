@@ -50,8 +50,10 @@ object RpcBaseModule {
             Constants.CHANNEL_ID,
             Constants.CHANNEL_NAME,
             NotificationManager.IMPORTANCE_LOW
-        )
-        channel.description = Constants.CHANNEL_DESCRIPTION
+        ).apply {
+            description = Constants.CHANNEL_DESCRIPTION
+            setShowBadge(false)
+        }
         notificationManager.createNotificationChannel(channel)
         return Notification.Builder(context, Constants.CHANNEL_ID)
     }

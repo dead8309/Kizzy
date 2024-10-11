@@ -112,13 +112,13 @@ fun ActivityRow(
                 ProfileText(
                     text = (rpcConfig?.state +
                             if (
-                                rpcConfig?.party1?.toIntOrNull() != null &&
-                                rpcConfig?.party2?.toIntOrNull() != null &&
-                                rpcConfig?.party1?.toIntOrNull()!! > 0 &&
-                                rpcConfig?.party2?.toIntOrNull()!! > 0 &&
-                                rpcConfig?.party1?.toIntOrNull()!! <= rpcConfig?.party2?.toIntOrNull()!!
+                                rpcConfig?.partyCurrentSize?.toIntOrNull() != null &&
+                                rpcConfig.partyMaxSize.toIntOrNull() != null &&
+                                rpcConfig.partyCurrentSize.toIntOrNull()!! > 0 &&
+                                rpcConfig.partyMaxSize.toIntOrNull()!! > 0 &&
+                                rpcConfig.partyCurrentSize.toIntOrNull()!! <= rpcConfig.partyMaxSize.toIntOrNull()!!
                             ) {
-                                " " + stringResource(R.string.user_profile_party, rpcConfig.party1.toInt(), rpcConfig.party2.toInt())
+                                " " + stringResource(R.string.user_profile_party, rpcConfig.partyCurrentSize.toInt(), rpcConfig.partyMaxSize.toInt())
                             } else {
                                 ""
                             }).takeIf { rpcConfig?.state?.isNotEmpty() == true },

@@ -242,23 +242,23 @@ private fun RpcTextFieldsColumn(
             item {
                 Row {
                     RpcField(
-                        value = party1,
+                        value = partyCurrentSize,
                         label = R.string.party_current,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                     ) {
-                        onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(party1 = it)))
+                        onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(partyCurrentSize = it)))
                     }
                 }
             }
 
             item {
-                AnimatedVisibility(visible = party1.isNotBlank()) {
+                AnimatedVisibility(visible = partyCurrentSize.isNotBlank()) {
                     RpcField(
-                        value = party2,
+                        value = partyMaxSize,
                         label = R.string.party_max,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                     ) {
-                        onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(party2 = it)))
+                        onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(partyMaxSize = it)))
                     }
                 }
             }

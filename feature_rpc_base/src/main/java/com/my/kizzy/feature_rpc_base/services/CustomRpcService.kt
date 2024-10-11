@@ -92,7 +92,7 @@ class CustomRpcService : Service() {
                         setName(it.name.ifEmpty { "" })
                         setDetails(it.details.ifEmpty { null })
                         setState(it.state.ifEmpty { null })
-                        setPartySize(it.party1.toIntOrNull(), it.party2.toIntOrNull())
+                        setPartySize(it.partyCurrentSize.toIntOrNull(), it.partyMaxSize.toIntOrNull())
                         setStatus(it.status.ifEmpty { "online" })
                         setType(it.type.toIntOrNull() ?: 0)
                         setStartTimestamps(it.timestampsStart.toLongOrNull())

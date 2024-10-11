@@ -107,7 +107,8 @@ class KizzyRPC(
     /**
      * Party of Rpc
      *
-     * @param party
+     * @param current Current party size
+     * @param max Max party size
      * @return
      */
     fun setPartySize(current: Int?, max: Int?): KizzyRPC {
@@ -292,8 +293,8 @@ class KizzyRPC(
         var time = Timestamps(start = startTimestamps)
         if (commonRpc.time != null)
             Timestamps(end = commonRpc.time.end, start = commonRpc.time.start).also { time = it }
-        if (commonRpc.party1 != null && commonRpc.party2 != null)
-            Party(id = "kizzy", size = arrayOf(commonRpc.party1, commonRpc.party2)).also { party = it }
+        if (commonRpc.partyCurrentSize != null && commonRpc.partyMaxSize != null)
+            Party(id = "kizzy", size = arrayOf(commonRpc.partyCurrentSize, commonRpc.partyMaxSize)).also { party = it }
         discordWebSocket.sendActivity(
             Presence(
                 activities = listOf(
