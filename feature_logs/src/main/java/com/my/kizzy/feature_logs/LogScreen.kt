@@ -110,7 +110,7 @@ fun ToolBar(viewModel: LogsViewModel) {
                 }
             } else
                 Text(
-                    text = "Logs",
+                    text = stringResource(R.string.logs),
                     style = MaterialTheme.typography.headlineMedium
                 )
         },

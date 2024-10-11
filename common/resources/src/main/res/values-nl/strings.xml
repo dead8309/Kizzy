@@ -155,6 +155,18 @@
     <string name="party_less_than_zero">Party size must be greater than zero</string>
     <string name="party_greater_than_max">Current party size must not exceed max party size</string>
     <string name="party_max_cannot_be_empty">Max party size cannot be empty</string>
+    <string name="learn_more">Learn more</string>
+    <string name="browse_files">Browse files</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="save">Save</string>
+    <string name="set_timestamps">Set Timestamps</string>
+    <string name="saved_config_toast">Saved \"%1$s\" successfully</string>
+    <string name="error_saving_config_toast">Error saving config</string>
+    <string name="config_name">Config name</string>
+    <string name="delete">Delete</string>
+    <string name="mandatory">Mandatory</string>
+    <string name="optional">Optional</string>
+    <string name="general_settings">General</string>
 
 
 </resources>

@@ -150,7 +150,7 @@ fun StartUp(
                 }
                 item {
                     Subtitle(
-                        text = "Mandatory",
+                        text = stringResource(R.string.mandatory),
                         modifier = Modifier,
                         style = MaterialTheme.typography.titleMedium
                     )
@@ -202,7 +202,7 @@ fun StartUp(
 
                 item {
                     Subtitle(
-                        text = "Optional",
+                        text = stringResource(R.string.optional),
                         modifier = Modifier,
                         style = MaterialTheme.typography.titleMedium
                     )

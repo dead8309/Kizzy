@@ -155,4 +155,16 @@
     <string name="party_less_than_zero">Kích cỡ tổ dội phải lớn hơn 0</string>
     <string name="party_greater_than_max">Kích cỡ tổ đội hiện tại không thể vượt quá kích cỡ tối đa</string>
     <string name="party_max_cannot_be_empty">Kích cỡ tổ đội tối đa không được để trống</string>
+    <string name="learn_more">Tìm hiểu thêm</string>
+    <string name="browse_files">Duyệt tập tin</string>
+    <string name="upload_image">Tải lên ảnh</string>
+    <string name="save">Lưu</string>
+    <string name="set_timestamps">Chọn thời gian</string>
+    <string name="saved_config_toast">Lưu \"%1$s\" thành công</string>
+    <string name="error_saving_config_toast">Lỗi khi lưu cấu hình</string>
+    <string name="config_name">Tên cấu hình</string>
+    <string name="delete">Xóa</string>
+    <string name="mandatory">Bắt buộc</string>
+    <string name="optional">Tùy chọn</string>
+    <string name="general_settings">Cài đặt chung</string>
 </resources>

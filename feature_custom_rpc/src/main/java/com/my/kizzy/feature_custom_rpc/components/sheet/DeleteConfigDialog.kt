@@ -68,7 +68,7 @@ fun DeleteConfigDialog(
                     modifier = Modifier.padding(end = 2.dp),
                     tint = MaterialTheme.colorScheme.error
                 )
-                Text(text = "Delete")
+                Text(text = stringResource(R.string.delete))
             }
         },
         title = { Text(text = stringResource(id = R.string.delete_configs)) },

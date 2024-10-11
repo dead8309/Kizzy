@@ -74,7 +74,7 @@ fun DateTimePickerDialog(
             DatePicker(state = datePickerState,
                 title = {
                     Text(
-                        text = "Set Timestamps",
+                        text = stringResource(R.string.set_timestamps),
                         modifier = Modifier.padding(PaddingValues(start = 24.dp, end = 12.dp, top = 16.dp))
                     )
                 })

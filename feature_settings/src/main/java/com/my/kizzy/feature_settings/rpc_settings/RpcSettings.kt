@@ -108,7 +108,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
     }) { paddingValues ->
         LazyColumn(modifier = Modifier.padding(paddingValues)) {
             item {
-                Subtitle(text = "General")
+                Subtitle(text = stringResource(R.string.general_settings))
             }
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
                 item {
@@ -360,7 +360,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                                 showActivityTypeDialog = false
                             }
                     }) {
-                        Text(text = "Save")
+                        Text(text = stringResource(R.string.save))
                     }
                 }
             )
