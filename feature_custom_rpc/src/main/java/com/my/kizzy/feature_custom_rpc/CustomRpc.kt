@@ -167,23 +167,7 @@ fun CustomRpcScreen(
                         )
                     }
                 })
-        },
-        floatingActionButton = {
-            ExtendedFloatingActionButton(
-                text = { Text(stringResource(id = R.string.preview_rpc)) },
-                onClick = {
-                    onEvent(UiEvent.SheetEvent.TriggerPreviewDialog)
-                },
-                icon = {
-                    Icon(
-                        imageVector = Icons.Default.Preview,
-                        contentDescription = "preview"
-                    )
-                },
-            )
-        },
-        floatingActionButtonPosition = FabPosition.End
-    ) { padding ->
+        }) { padding ->
         Column(modifier = Modifier.padding(padding)) {
             RpcTextFieldsColumn(
                 snackBarHostState = snackBarHostState,
