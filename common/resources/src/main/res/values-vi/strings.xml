@@ -99,9 +99,9 @@
     <string name="custom_activity_status_desc">Ghi đè trạng thái hoạt động mặc định</string>
     <string name="search">Tìm kiếm</string>
     <string name="clear">Xóa</string>
-    <string name="search_placeholder">Tìm kiếm...</string>
+    <string name="search_placeholder">Tìm kiếm…</string>
     <string name="hide_on_pause">Ẩn hoạt động khi dừng</string>
-    <string name="idling_notification">Đang ngưng...</string>
+    <string name="idling_notification">Đang ngưng…</string>
     <string name="main_appDetection">Nhận diện Ứng dụng</string>
     <string name="main_appDetection_details">Kizzy cho phép bạn chia sẻ ứng dụng bạn đang sử dụng bằng hoạt động Discord.</string>
     <string name="main_mediaRpc">RPC Trình Phát</string>
@@ -121,7 +121,7 @@
     <string name="version">Phiên bản</string>
     <string name="try_again">Thử lại</string>
     <string name="request_for_notification_access">Ứng dụng cần được cấp quyền Đọc thông báo để nhận thông tin về trình phát đa phương tiện.</string>
-    <string name="update_check_for_update">Đang kiểm tra cập nhật...</string>
+    <string name="update_check_for_update">Đang kiểm tra cập nhật…</string>
     <string name="update_no_updates_available">Không có phiên bản mới</string>
     <string name="compact_mode">Thu gọn</string>
     <string name="are_you_sure">Bạn có chắc không?</string>
