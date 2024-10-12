@@ -83,7 +83,7 @@ class MediaRpcService : Service() {
             Constants.NOTIFICATION_ID, notificationBuilder
                 .setSmallIcon(R.drawable.ic_media_rpc)
                 .addAction(R.drawable.ic_media_rpc, getString(R.string.exit), pendingIntent)
-                .setContentText("Browsing Home Page..")
+                .setContentText(getString(R.string.idling_notification))
                 .build()
         )
 
