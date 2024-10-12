@@ -69,7 +69,7 @@ class CustomRpcService : Service() {
                     .setContentTitle("Custom RPC is running")
                     .setContentText(rpcData?.name ?: "")
                     .setSmallIcon(R.drawable.ic_rpc_placeholder)
-                    .addAction(R.drawable.ic_rpc_placeholder, "Exit", pendingIntent)
+                    .addAction(R.drawable.ic_rpc_placeholder, getString(R.string.exit), pendingIntent)
                     .build()
             )
 

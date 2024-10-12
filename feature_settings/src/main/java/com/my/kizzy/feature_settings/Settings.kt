@@ -64,6 +64,7 @@ fun SettingsDrawer(
                     Badge(
                         containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                         contentColor = MaterialTheme.colorScheme.tertiary,
+                        modifier = Modifier.offset(8.dp, (-8).dp)
                     ) {
                         Text(text = BuildConfig.VERSION_NAME)
                     }
@@ -97,7 +98,7 @@ fun SettingsDrawer(
                 }
                 item {
                     SettingsItemCard(
-                        title = "Logs",
+                        title = stringResource(id = R.string.logs),
                         icon = Icons.Outlined.BugReport
                     ) {
                         navigateToLogsScreen()

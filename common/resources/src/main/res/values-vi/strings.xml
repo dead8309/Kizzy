@@ -173,4 +173,5 @@
     <string name="activity_competiting_title">Đang thi đấu trong %1$s</string>
     <string name="activity_streaming_title">Đang phát trực tiếp tại %1$s</string>
     <string name="delete_config_successfully_toast">%1$s đã được xóa thành công</string>
+    <string name="service_enabled">Dịch vụ đã khởi chạy</string>
 </resources>

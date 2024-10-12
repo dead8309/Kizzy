@@ -116,8 +116,8 @@ class SamsungRpcService : Service() {
                 Constants.NOTIFICATION_ID,
                 notificationBuilder
                     .setSmallIcon(R.drawable.ic_samsung_logo)
-                    .setContentTitle("Service enabled")
-                    .addAction(R.drawable.ic_samsung_logo, "Exit", pendingIntent)
+                    .setContentTitle(getString(R.string.service_enabled))
+                    .addAction(R.drawable.ic_samsung_logo, getString(R.string.exit), pendingIntent)
                     .build()
             )
         }

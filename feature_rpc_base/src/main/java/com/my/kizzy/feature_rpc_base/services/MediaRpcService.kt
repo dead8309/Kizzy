@@ -14,7 +14,12 @@ package com.my.kizzy.feature_rpc_base.services
 
 import android.annotation.SuppressLint
 import android.app.*
+import android.content.ComponentName
 import android.content.Intent
+import android.media.MediaMetadata
+import android.media.session.MediaController
+import android.media.session.MediaSessionManager
+import android.media.session.PlaybackState
 import android.os.IBinder
 import android.os.PowerManager
 import android.os.PowerManager.WakeLock
@@ -57,6 +62,10 @@ class MediaRpcService : Service() {
     @Inject
     lateinit var notificationBuilder: Notification.Builder
 
+    private lateinit var mediaSessionManager: MediaSessionManager
+
+    private var currentMediaController: MediaController? = null
+
     @SuppressLint("WakelockTimeout")
     override fun onCreate() {
         super.onCreate()
@@ -78,58 +87,108 @@ class MediaRpcService : Service() {
                 .build()
         )
 
-        scope.launch {
-            while (isActive) {
-                val enableTimestamps = Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS, false]
-                val playingMedia = getCurrentPlayingMedia()
+        mediaSessionManager = getSystemService(MEDIA_SESSION_SERVICE) as MediaSessionManager
+        mediaSessionManager.addOnActiveSessionsChangedListener(::activeSessionsListener, ComponentName(this, NotificationListener::class.java))
 
-                notificationManager.notify(
-                    Constants.NOTIFICATION_ID,
-                    notificationBuilder
-                        .setContentTitle(playingMedia.name.ifEmpty { getString(R.string.app_name) })
-                        .setContentText(
-                            (playingMedia.details ?: "").ifEmpty { getString(R.string.idling_notification) }
-                        )
-                        .setLargeIcon(
-                            rpcImage = playingMedia.largeImage,
-                            context = this@MediaRpcService
-                        )
-                        .build()
+        // Register first media session
+        activeSessionsListener(mediaSessionManager.getActiveSessions(ComponentName(this, NotificationListener::class.java)), false)
+    }
+
+    suspend private fun updatePresence() {
+        val enableTimestamps = Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS, false]
+        val playingMedia = getCurrentPlayingMedia()
+
+        notificationManager.notify(
+            Constants.NOTIFICATION_ID,
+            notificationBuilder
+                .setContentTitle(playingMedia.name.ifEmpty { getString(R.string.app_name) })
+                .setContentText(
+                    (playingMedia.details ?: "").ifEmpty { getString(R.string.idling_notification) }
                 )
+                .setLargeIcon(
+                    rpcImage = playingMedia.largeImage,
+                    context = this@MediaRpcService
+                )
+                .build()
+        )
 
-                val rpcButtonsString = Prefs[Prefs.RPC_BUTTONS_DATA, "{}"]
-                val rpcButtons = Json.decodeFromString<RpcButtons>(rpcButtonsString)
-                when (kizzyRPC.isRpcRunning()) {
-                    true -> {
-                        logger.d("MediaRPC", "Updating RPC")
-                        kizzyRPC.updateRPC(playingMedia, enableTimestamps)
-                    }
-
-                    false -> {
-                        kizzyRPC.apply {
-                            setName(playingMedia.name)
-                            setType(Prefs[Prefs.CUSTOM_ACTIVITY_TYPE, 0])
-                            setDetails(playingMedia.details)
-                            setState(playingMedia.state)
-                            setStartTimestamps(if (enableTimestamps) playingMedia.time?.start else null)
-                            setStopTimestamps(if (enableTimestamps) playingMedia.time?.end else null)
-                            setStatus(Prefs[Prefs.CUSTOM_ACTIVITY_STATUS,"dnd"])
-                            setLargeImage(playingMedia.largeImage, if (Prefs[Prefs.MEDIA_RPC_ALBUM_NAME, false]) playingMedia.largeText else null)
-                            setSmallImage(if (Prefs[Prefs.MEDIA_RPC_APP_ICON, false]) playingMedia.smallImage else null, playingMedia.smallText)
-                            if (Prefs[Prefs.USE_RPC_BUTTONS, false]) {
-                                with(rpcButtons) {
-                                    setButton1(button1.takeIf { it.isNotEmpty() })
-                                    setButton1URL(button1Url.takeIf { it.isNotEmpty() })
-                                    setButton2(button2.takeIf { it.isNotEmpty() })
-                                    setButton2URL(button2Url.takeIf { it.isNotEmpty() })
-                                }
-                            }
-                            build()
+        val rpcButtonsString = Prefs[Prefs.RPC_BUTTONS_DATA, "{}"]
+        val rpcButtons = Json.decodeFromString<RpcButtons>(rpcButtonsString)
+        when (kizzyRPC.isRpcRunning()) {
+            true -> {
+                kizzyRPC.updateRPC(playingMedia, enableTimestamps)
+            }
+            false -> {
+                kizzyRPC.apply {
+                    setName(playingMedia.name)
+                    setType(Prefs[Prefs.CUSTOM_ACTIVITY_TYPE, 0])
+                    setDetails(playingMedia.details)
+                    setState(playingMedia.state)
+                    setStartTimestamps(if (enableTimestamps) playingMedia.time?.start else null)
+                    setStopTimestamps(if (enableTimestamps) playingMedia.time?.end else null)
+                    setStatus(Prefs[Prefs.CUSTOM_ACTIVITY_STATUS, "dnd"])
+                    setLargeImage(
+                        playingMedia.largeImage,
+                        if (Prefs[Prefs.MEDIA_RPC_ALBUM_NAME, false]) playingMedia.largeText else null
+                    )
+                    setSmallImage(
+                        if (Prefs[Prefs.MEDIA_RPC_APP_ICON, false]) playingMedia.smallImage else null,
+                        playingMedia.smallText
+                    )
+                    if (Prefs[Prefs.USE_RPC_BUTTONS, false]) {
+                        with(rpcButtons) {
+                            setButton1(button1.takeIf { it.isNotEmpty() })
+                            setButton1URL(button1Url.takeIf { it.isNotEmpty() })
+                            setButton2(button2.takeIf { it.isNotEmpty() })
+                            setButton2URL(button2Url.takeIf { it.isNotEmpty() })
                         }
                     }
+                    build()
                 }
-                delay(5000)
             }
+        }
+    }
+
+    private val mediaControllerCallback = MediaControllerCallback()
+
+    private fun activeSessionsListener(mediaSessions: List<MediaController>?, isEvent: Boolean = true) {
+        logger.d("MediaRPC", "Active sessions changed")
+
+        // For some reason, event is occasionally fired before session list is actually updated
+        if (isEvent) runBlocking { delay(1000) }
+
+        if (mediaSessions?.isNotEmpty() == true) {
+            currentMediaController?.unregisterCallback(mediaControllerCallback)
+            currentMediaController = mediaSessionManager.getActiveSessions(ComponentName(this, NotificationListener::class.java)).firstOrNull()
+            currentMediaController?.registerCallback(mediaControllerCallback)
+        } else {
+            currentMediaController?.unregisterCallback(mediaControllerCallback)
+            currentMediaController = null
+        }
+
+        scope.coroutineContext.cancelChildren()
+        scope.launch { updatePresence() }
+    }
+
+    private inner class MediaControllerCallback: MediaController.Callback() {
+        override fun onPlaybackStateChanged(state: PlaybackState?) {
+            super.onPlaybackStateChanged(state)
+
+            // Cancel all previous jobs and start new job to prevent conflict/spam
+            scope.coroutineContext.cancelChildren()
+            scope.launch { updatePresence() }
+        }
+        override fun onMetadataChanged(metadata: MediaMetadata?) {
+            super.onMetadataChanged(metadata)
+
+            scope.coroutineContext.cancelChildren()
+            scope.launch { updatePresence() }
+        }
+        override fun onSessionDestroyed() {
+            super.onSessionDestroyed()
+
+            scope.coroutineContext.cancelChildren()
+            scope.launch { updatePresence() }
         }
     }
 
@@ -151,6 +210,8 @@ class MediaRpcService : Service() {
     }
 
     override fun onDestroy() {
+        mediaSessionManager.removeOnActiveSessionsChangedListener(::activeSessionsListener)
+        currentMediaController?.unregisterCallback(mediaControllerCallback)
         scope.cancel()
         kizzyRPC.closeRPC()
         wakeLock?.let {
