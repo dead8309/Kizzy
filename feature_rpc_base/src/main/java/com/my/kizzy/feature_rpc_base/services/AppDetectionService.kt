@@ -59,7 +59,7 @@ class AppDetectionService : Service() {
 
     private lateinit var pendingIntent: PendingIntent
 
-    var runningPackage = ""
+    private var runningPackage = ""
 
     override fun onBind(intent: Intent): IBinder? = null
 
