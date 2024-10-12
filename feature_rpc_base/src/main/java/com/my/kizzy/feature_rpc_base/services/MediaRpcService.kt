@@ -83,7 +83,7 @@ class MediaRpcService : Service() {
             Constants.NOTIFICATION_ID, notificationBuilder
                 .setSmallIcon(R.drawable.ic_media_rpc)
                 .addAction(R.drawable.ic_media_rpc, getString(R.string.exit), pendingIntent)
-                .setContentText("Browsing Home Page..")
+                .setContentText(getString(R.string.idling_notification))
                 .build()
         )
 
@@ -176,13 +176,19 @@ class MediaRpcService : Service() {
 
             // Cancel all previous jobs and start new job to prevent conflict/spam
             scope.coroutineContext.cancelChildren()
-            scope.launch { updatePresence() }
+            scope.launch {
+                delay(1000)
+                updatePresence()
+            }
         }
         override fun onMetadataChanged(metadata: MediaMetadata?) {
             super.onMetadataChanged(metadata)
 
             scope.coroutineContext.cancelChildren()
-            scope.launch { updatePresence() }
+            scope.launch {
+                delay(1000)
+                updatePresence()
+            }
         }
         override fun onSessionDestroyed() {
             super.onSessionDestroyed()
