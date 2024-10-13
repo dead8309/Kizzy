@@ -55,15 +55,15 @@ class KizzyTileService : TileService() {
         tileAdded.value = true
     }
 
-    override fun onTileRemoved() {
-        super.onTileRemoved()
-        tileAdded.value = false
-    }
-
     private fun createRpcChoosingDialog(ctx: Context): Dialog {
-        val rpc = arrayOf("Apps RPC", "Media RPC", "Experimental RPC", "Samsung RPC")
+        val rpc = arrayOf(
+            getString(R.string.main_appDetection),
+            getString(R.string.main_mediaRpc),
+            getString(R.string.main_experimentalRpc),
+            getString(R.string.main_samsungRpc)
+        )
         return MaterialAlertDialogBuilder(ContextThemeWrapper(ctx, com.my.kizzy.feature_rpc_base.R.style.MyTileDialogTheme))
-            .setTitle("Select a RPC")
+            .setTitle(getString(R.string.choose_rpc))
             .setSingleChoiceItems(rpc, -1) { dialog, which ->
                 when (which) {
                     0 -> {
@@ -103,7 +103,7 @@ class KizzyTileService : TileService() {
                 qsTile.state = Tile.STATE_INACTIVE
                 qsTile.icon = Icon.createWithResource(this, R.drawable.ic_tile_play)
                 if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
-                    qsTile.subtitle = "Off"
+                    qsTile.subtitle = getString(R.string.off)
                 }
             }
         }
@@ -112,13 +112,13 @@ class KizzyTileService : TileService() {
 
     private fun getSubtitle(): String {
         return if (AppUtils.appDetectionRunning())
-            "Apps RPC"
+            getString(R.string.main_appDetection)
         else if (AppUtils.mediaRpcRunning())
-            "Media RPC"
+            getString(R.string.main_mediaRpc)
         else if (AppUtils.experimentalRpcRunning())
-            "Experimental RPC"
+            getString(R.string.main_experimentalRpc)
         else
-            "Samsung RPC"
+            getString(R.string.main_samsungRpc)
     }
 
     companion object {

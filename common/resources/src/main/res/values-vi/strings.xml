@@ -40,7 +40,7 @@
     <string name="use_low_res_icon_desc">Hiển thị hình ảnh có độ phân giải thấp hơn (bật tùy chọn này nếu ứng dụng gặp sự cố).</string>
     <string name="delete_saved_icon_urls">Xóa liên kết hình ảnh đã lưu</string>
     <string name="delete_saved_icon_urls_desc">Xóa các liên kết hình ảnh đã lưu (Chỉ sử dụng tùy chọn này khi cần thiết, ứng dụng sẽ tiêu tốn nhiều tài nguyên hơn để gửi lại tất cả hình ảnh đến máy chủ).</string>
-    <string name="app_crashed">Ứng dụng bị đóng đột ngột</string>
+    <string name="app_crashed">Lỗi nghiêm trọng</string>
     <string name="share_crash_logs_desc">Vui lòng gửi báo cáo lỗi thông qua kênh Discord với mẫu sau:</string>
     <string name="share_crash_logs">CHIA SẺ BÁO CÁO LỖI</string>
     <string name="welcome">Chào mừng</string>
@@ -86,7 +86,7 @@
     <string name="stream_url">URL phát trực tiếp</string>
     <string name="stream_url_info">Chỉ các URL từ https://twitch.tv/ và https://youtube.com/ sẽ hoạt động.</string>
     <string name="activity_button_max_character">Giới hạn ký tự tối đa là 31</string>
-    <string name="set_previous_run_config_in_custom_rpc">Đặt cấu hình chạy trước đó vào Trường tùy chỉnh trạng thái</string>
+    <string name="set_previous_run_config_in_custom_rpc">Đặt cấu hình chạy trước vào Trường tùy chỉnh trạng thái</string>
     <string name="set_previous_run_config_in_custom_rpc_desc">Tự động đặt các trường trong trạng thái tùy chỉnh từ chạy trước đó</string>
     <string name="clear_all_fields">Xóa tất cả các trường</string>
     <string name="share_config">Chia sẻ Cấu hình</string>
@@ -174,4 +174,12 @@
     <string name="activity_streaming_title">Đang phát trực tiếp tại %1$s</string>
     <string name="delete_config_successfully_toast">%1$s đã được xóa thành công</string>
     <string name="service_enabled">Dịch vụ đã khởi chạy</string>
+    <string name="no_internet_connection">Không kết nối Internet</string>
+    <string name="unknown_error">Mội lỗi bất ngờ đã xảy ra</string>
+    <string name="rpc_buttons">Nút hoạt động</string>
+    <string name="samsungRPC_settings">Bật Samsung RPC</string>
+    <string name="samsungRPC_settings_desc">Cho phép sử dụng tính năng Samsung RPC cho người dùng đã được xác minh.\nTính năng này sẽ bị loại bỏ ở phiên bản sắp tới.</string>
+    <string name="main_samsungRpc">Samsung RPC</string>
+    <string name="choose_rpc">Chọn dịch vụ RPC</string>
+    <string name="off">Tắt</string>
 </resources>

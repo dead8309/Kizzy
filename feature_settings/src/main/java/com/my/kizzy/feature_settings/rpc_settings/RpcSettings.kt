@@ -135,7 +135,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
             item {
                 AnimatedVisibility(visible = useButtonConfigs) {
                     SettingItem(
-                        title = "Rpc Buttons",
+                        title = stringResource(R.string.rpc_buttons),
                         description = stringResource(id = R.string.rpc_settings_button_configs),
                         icon = Icons.Default.SmartButton
                     ) {
@@ -178,9 +178,8 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
             }
             item {
                 PreferenceSwitch(
-                    title = "Enable Samsung RPC",
-                    description = "Enables Samsung Rpc for verified users. \n" +
-                            "It will be removed from next update.",
+                    title = stringResource(R.string.samsungRPC_settings),
+                    description = stringResource(R.string.samsungRPC_settings_desc),
                     icon = Icons.Default.Warning,
                     isChecked = isSamsungRpcEnabled
                 ) {
