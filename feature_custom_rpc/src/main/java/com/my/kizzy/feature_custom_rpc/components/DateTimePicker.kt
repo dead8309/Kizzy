@@ -12,27 +12,40 @@
 
 package com.my.kizzy.feature_custom_rpc.components
 
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.AlertDialog
+import android.text.format.DateFormat.is24HourFormat
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Keyboard
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TimePicker
 import androidx.compose.material3.TimePickerLayoutType
+import androidx.compose.material3.TimePickerSelectionMode
+import androidx.compose.material3.TimePickerState
 import androidx.compose.material3.rememberDatePickerState
-import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.Saver
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import com.my.kizzy.resources.R
 import java.util.Calendar
 
@@ -107,36 +120,77 @@ fun DateTimePickerDialog(
 @Composable
 fun TimePickerDialog(
     onTimeSelected: (hours: Int, minutes: Int) -> Unit,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
 ) {
-    val timePickerState = rememberTimePickerState()
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        confirmButton = {
-            TextButton(onClick = {
-                onTimeSelected(timePickerState.hour, timePickerState.minute)
-            }) {
-                Text(stringResource(id = R.string.confirm))
-            }
-        },
-        dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text(stringResource(id = R.string.cancel))
-            }
-        },
-        text = {
-            TimePicker(
-                state = timePickerState,
-                layoutType = TimePickerLayoutType.Vertical,
+    val ctx = LocalContext.current
+    val timePickerState: TimePickerStateImpl =
+        rememberSaveable(saver = TimePickerStateImpl.Saver()) {
+            TimePickerStateImpl(
+                initialHour = 0,
+                initialMinute = 0,
+                is24Hour = is24HourFormat(ctx)
             )
         }
-    )
+
+    Dialog(
+        onDismissRequest = onDismiss,
+        properties = DialogProperties(usePlatformDefaultWidth = false),
+    ) {
+        Surface(
+            shape = MaterialTheme.shapes.extraLarge,
+            tonalElevation = 6.dp,
+            modifier = Modifier
+                .width(IntrinsicSize.Min)
+                .height(IntrinsicSize.Min)
+        ) {
+            Column(
+                modifier = Modifier.padding(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = stringResource(R.string.set_timestamps),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 20.dp)
+                )
+                TimePicker(
+                    state = timePickerState,
+                    layoutType = TimePickerLayoutType.Vertical,
+                )
+                Row(
+                    modifier = Modifier
+                        .height(40.dp)
+                        .fillMaxWidth()
+                ) {
+                    IconButton(onClick = { timePickerState.is24hour = !timePickerState.is24hour }) {
+                        Icon(
+                            imageVector = Icons.Outlined.Keyboard,
+                            contentDescription = "Toggle time picker type",
+                        )
+                    }
+                    Spacer(modifier = Modifier.weight(1f))
+                    TextButton(onClick = onDismiss) {
+                        Text(
+                            stringResource(id = R.string.cancel)
+                        )
+                    }
+                    TextButton(onClick = {
+                        onTimeSelected(timePickerState.hour, timePickerState.minute)
+                    }) {
+                        Text(
+                            stringResource(id = R.string.confirm)
+                        )
+                    }
+                }
+            }
+        }
+    }
 }
 
 internal fun getDateTimeInMillis(
     dateMillis: Long,
     hours: Int,
-    minutes: Int
+    minutes: Int,
 ): Long {
     val calender = Calendar.getInstance().apply {
         timeInMillis = dateMillis
@@ -154,4 +208,54 @@ fun DateTimePickerPreview() {
         onDismiss = {},
         onDateTimeSelected = {}
     )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+private class TimePickerStateImpl(
+    initialHour: Int,
+    initialMinute: Int,
+    is24Hour: Boolean,
+) : TimePickerState {
+    init {
+        require(initialHour in 0..23) { "initialHour should in [0..23] range" }
+        require(initialMinute in 0..59) { "initialMinute should be in [0..59] range" }
+    }
+
+    override var is24hour by mutableStateOf(is24Hour)
+
+    override var selection by mutableStateOf(TimePickerSelectionMode.Hour)
+
+    override var isAfternoon by mutableStateOf(initialHour >= 12)
+
+    val hourState = mutableIntStateOf(initialHour % 12)
+
+    val minuteState = mutableIntStateOf(initialMinute)
+
+    override var minute: Int
+        get() = minuteState.intValue
+        set(value) {
+            minuteState.intValue = value
+        }
+
+    override var hour: Int
+        get() = hourState.intValue + if (isAfternoon) 12 else 0
+        set(value) {
+            isAfternoon = value >= 12
+            hourState.intValue = value % 12
+        }
+
+    companion object {
+        /** The default [Saver] implementation for [TimePickerState]. */
+        fun Saver(): Saver<TimePickerStateImpl, *> =
+            Saver(
+                save = { listOf(it.hour, it.minute, it.is24hour) },
+                restore = { value ->
+                    TimePickerStateImpl(
+                        initialHour = value[0] as Int,
+                        initialMinute = value[1] as Int,
+                        is24Hour = value[2] as Boolean
+                    )
+                }
+            )
+    }
 }
