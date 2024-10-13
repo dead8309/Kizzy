@@ -165,11 +165,12 @@ fun ProfileCard(
             ) {
                 ProfileText(
                     text = user.globalName ?: user.username,
-                    style = MaterialTheme.typography.titleLarge,
+                    style = MaterialTheme.typography.titleLarge.copy(),
+                    modifier = Modifier.padding(20.dp, 12.dp, 20.dp, 0.dp)
                 )
                 ProfileText(
                     text = user.username + if (user.discriminator != "0") "#" + user.discriminator else "",
-                    style = MaterialTheme.typography.titleSmall,
+                    style = MaterialTheme.typography.labelSmall,
                     bold = false
                 )
                 Spacer(
@@ -179,21 +180,22 @@ fun ProfileCard(
                         .height(1.5.dp)
                         .background(Color(0xFFC2C0FA))
                 )
-                ProfileText(
-                    text = stringResource(id = R.string.user_profile_bio),
-                    style = MaterialTheme.typography.titleSmall
-                )
-                ProfileText(
-                    text = user.bio,
-                    style = MaterialTheme.typography.bodyMedium,
-                    bold = false
-                )
+                if (!user.bio.isNullOrEmpty()) {
+                    ProfileText(
+                        text = stringResource(id = R.string.user_profile_bio),
+                        style = MaterialTheme.typography.titleSmall
+                    )
+                    ProfileText(
+                        text = user.bio,
+                        style = MaterialTheme.typography.bodyMedium,
+                        bold = false
+                    )
+                }
                 ProfileText(
                     text = type,
                     style = MaterialTheme.typography.titleSmall
                 )
                 ActivityRow(
-                    elapsed = elapsed,
                     rpcConfig = rpcConfig,
                     showTs = showTs,
                     special = user.special
@@ -208,13 +210,14 @@ fun ProfileText(
     text: String?,
     style: TextStyle,
     bold: Boolean = true,
+    modifier: Modifier = Modifier.padding(20.dp, 4.dp)
 ) {
     if (!text.isNullOrEmpty()) {
         Text(
             text = text,
             style = if (!bold) style
             else style.copy(fontWeight = FontWeight.ExtraBold),
-            modifier = Modifier.padding(20.dp, 4.dp),
+            modifier = modifier,
             color = Color.Black.copy(alpha = 0.9f)
         )
     }
@@ -227,7 +230,7 @@ fun ProfileButton(label: String?, link: String?) {
         ElevatedButton(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(10.dp, 0.dp),
+                .padding(20.dp, 0.dp, 20.dp, 0.dp),
             onClick = {
                 if (!link.isNullOrEmpty()) {
                     uriHandler.openUri(link)

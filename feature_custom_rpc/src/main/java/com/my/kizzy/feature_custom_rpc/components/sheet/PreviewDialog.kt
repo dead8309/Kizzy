@@ -36,7 +36,7 @@ fun PreviewDialog(
             user = user, padding = 0.dp,
             rpcConfig = rpc,
             type = rpc?.type.getType(ctx, rpc?.name),
-            showTs = false
+            showTs = !rpc?.timestampsStart.isNullOrEmpty() || !rpc?.timestampsStop.isNullOrEmpty(),
         )
     }
 }

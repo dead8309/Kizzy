@@ -109,10 +109,7 @@ fun TimePickerDialog(
     onTimeSelected: (hours: Int, minutes: Int) -> Unit,
     onDismiss: () -> Unit
 ) {
-    val timePickerState = rememberTimePickerState(
-        // Show timepicker according to device's time-format and convert it into millis.
-        is24Hour = false
-    )
+    val timePickerState = rememberTimePickerState()
     AlertDialog(
         onDismissRequest = onDismiss,
         confirmButton = {
