@@ -181,4 +181,5 @@
     <string name="samsungRPC_settings_desc">Cho phép sử dụng tính năng Samsung RPC cho người dùng đã được xác minh.\nTính năng này sẽ bị loại bỏ ở phiên bản sắp tới.</string>
     <string name="main_samsungRpc">Samsung RPC</string>
     <string name="choose_rpc">Chọn dịch vụ RPC</string>
+    <string name="off">Tắt</string>
 </resources>

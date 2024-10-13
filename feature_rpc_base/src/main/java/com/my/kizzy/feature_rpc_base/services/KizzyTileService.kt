@@ -103,7 +103,7 @@ class KizzyTileService : TileService() {
                 qsTile.state = Tile.STATE_INACTIVE
                 qsTile.icon = Icon.createWithResource(this, R.drawable.ic_tile_play)
                 if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
-                    qsTile.subtitle = "Off"
+                    qsTile.subtitle = getString(R.string.off)
                 }
             }
         }
