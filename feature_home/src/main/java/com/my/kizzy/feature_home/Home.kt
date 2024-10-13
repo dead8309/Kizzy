@@ -47,10 +47,12 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -59,6 +61,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.my.kizzy.domain.model.toVersion
 import com.my.kizzy.domain.model.user.User
 import com.my.kizzy.feature_home.feature.Features
@@ -89,7 +95,8 @@ fun Home(
     navigateToLogsScreen: () -> Unit
 ) {
     val ctx = LocalContext.current
-    var homeItems by remember {
+    var timestamp by remember { mutableStateOf(System.currentTimeMillis()) }
+    var homeItems by remember(timestamp) {
         mutableStateOf(features)
     }
     var showUpdateDialog by remember {
@@ -101,6 +108,17 @@ fun Home(
         TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState(),
             canScroll = { true })
     val isCollapsed = scrollBehavior.state.collapsedFraction > 0.55f
+
+    // Refresh home screen in case user turns off service from notification/Quickie
+    OnLifecycleEvent { _, event ->
+        when (event) {
+            Lifecycle.Event.ON_RESUME -> {
+                timestamp = System.currentTimeMillis()
+            }
+            else -> {}
+        }
+    }
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
@@ -128,7 +146,7 @@ fun Home(
                 LargeTopAppBar(
                     title = {
                         Text(
-                            text = stringResource(id = R.string.welcome) + ", ${user?.username ?: ""}",
+                            text = stringResource(id = R.string.welcome) + ", ${user?.globalName ?: user?.username ?: ""}",
                             style = if (isCollapsed) MaterialTheme.typography.headlineSmall else MaterialTheme.typography.headlineLarge,
                             maxLines = if (isCollapsed) 1 else Int.MAX_VALUE,
                             overflow = if (isCollapsed) androidx.compose.ui.text.style.TextOverflow.Ellipsis else androidx.compose.ui.text.style.TextOverflow.Clip,
@@ -266,6 +284,24 @@ fun Home(
                 }
                 else -> {}
             }
+        }
+    }
+}
+
+@Composable
+fun OnLifecycleEvent(onEvent: (owner: LifecycleOwner, event: Lifecycle.Event) -> Unit) {
+    val eventHandler = rememberUpdatedState(onEvent)
+    val lifecycleOwner = rememberUpdatedState(LocalLifecycleOwner.current)
+
+    DisposableEffect(lifecycleOwner.value) {
+        val lifecycle = lifecycleOwner.value.lifecycle
+        val observer = LifecycleEventObserver { owner, event ->
+            eventHandler.value(owner, event)
+        }
+
+        lifecycle.addObserver(observer)
+        onDispose {
+            lifecycle.removeObserver(observer)
         }
     }
 }
