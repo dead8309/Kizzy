@@ -317,7 +317,7 @@ fun GamesScreenPreview2() {
     GamesScreen(
         onEvent = {},
         onBackPressed = {},
-        state = GamesState.Error("No Internet Connection"),
+        state = GamesState.Error(stringResource(id = R.string.no_internet_connection)),
         isSearchBarVisible = false,
         serviceEnabled = false
     )
@@ -352,7 +352,7 @@ fun GamesScreenPreview5() {
     GamesScreen(
         onEvent = {},
         onBackPressed = {},
-        state = GamesState.Error("No Internet Connection"),
+        state = GamesState.Error(stringResource(id = R.string.no_internet_connection)),
         isSearchBarVisible = true,
         serviceEnabled = true
     )

@@ -12,6 +12,7 @@
 
 package com.my.kizzy.feature_console_rpc
 
+import android.content.Context
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -20,7 +21,9 @@ import androidx.lifecycle.viewModelScope
 import com.my.kizzy.domain.model.Game
 import com.my.kizzy.domain.model.Resource
 import com.my.kizzy.domain.use_case.get_games.GetGamesUseCase
+import com.my.kizzy.resources.R
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
@@ -30,7 +33,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GamesViewModel @Inject constructor(
-    private val getGamesUseCase: GetGamesUseCase
+    private val getGamesUseCase: GetGamesUseCase,
+    @ApplicationContext private val context: Context
 ) : ViewModel() {
 
     private val _state: MutableState<GamesState> = mutableStateOf(GamesState.Loading)
@@ -54,7 +58,7 @@ class GamesViewModel @Inject constructor(
 
                 is Resource.Error -> {
                     _state.value = GamesState.Error(
-                        error = result.message ?: "An unexpected error occurred"
+                        error = result.message ?: context.getString(R.string.unknown_error)
                     )
                 }
 
