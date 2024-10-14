@@ -182,4 +182,7 @@
     <string name="main_samsungRpc">Samsung RPC</string>
     <string name="choose_rpc">Choose an RPC</string>
     <string name="off">Off</string>
+    <string name="time_elapsed">%1$s elapsed</string>
+    <string name="time_left">%1$s left</string>
+    <string name="config_name_empty">Config name cannot be empty</string>
 </resources>

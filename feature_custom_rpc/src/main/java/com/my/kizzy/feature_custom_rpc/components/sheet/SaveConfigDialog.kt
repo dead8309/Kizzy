@@ -37,13 +37,21 @@ fun SaveConfigDialog(
     var configName by remember {
         mutableStateOf("")
     }
+    var isError by remember {
+        mutableStateOf(false)
+    }
     val dir = ctx.dir()
     dir.mkdirs()
 
-    AlertDialog(onDismissRequest = { onDismiss() },
+    AlertDialog(
+        onDismissRequest = { onDismiss() },
         confirmButton = {
             OutlinedButton(
                 onClick = {
+                    if (configName.isEmpty()) {
+                        isError = true
+                        return@OutlinedButton
+                    }
                     onDismiss()
                     FileIOUtils
                         .writeFileFromString(
@@ -64,9 +72,12 @@ fun SaveConfigDialog(
             TextField(
                 onValueChange = {
                     configName = it
+                    isError = it.isEmpty()
                 },
                 label = { Text(text = stringResource(R.string.config_name)) },
                 value = configName,
+                isError = isError,
+                supportingText = { if (isError) Text(stringResource(R.string.config_name_empty)) else Unit }
             )
         })
 }
