@@ -20,8 +20,8 @@ data class CommonRpc(
     val partyMaxSize: Int? = null,
     val largeImage: RpcImage? = null,
     val smallImage: RpcImage? = null,
-    var largeText: String? = "",
-    var smallText: String? = "",
+    var largeText: String? = null,
+    var smallText: String? = null,
     val time: Timestamps? = null,
     val packageName: String = ""
 )

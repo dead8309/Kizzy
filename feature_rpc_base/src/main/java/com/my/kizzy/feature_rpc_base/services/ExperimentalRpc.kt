@@ -132,19 +132,19 @@ class ExperimentalRpc : Service() {
     private fun startAppDetectionCoroutine() {
         logger.d(TAG, "Starting app detection coroutine")
 
-        // Socket needs to be closed before starting new RPC for whatever reason
-        kizzyRPC.closeRPC()
         var currentPackageName = ""
 
         scope.launch {
             while (isActive) {
                 val getCurrentApp = getCurrentlyRunningApp()
-                if (getCurrentApp.name.isNotEmpty() && getCurrentApp.packageName != currentPackageName) {
+                val apps = Prefs[Prefs.ENABLED_APPS, "[]"]
+                val enabledPackages: ArrayList<String> = Json.decodeFromString(apps)
+                if (getCurrentApp.name.isNotEmpty() && getCurrentApp.packageName != currentPackageName && enabledPackages.contains(getCurrentApp.packageName)) {
                     currentPackageName = getCurrentApp.packageName
                     updatePresence(getCurrentApp.copy(time = Timestamps(start = System.currentTimeMillis())))
-                } else if (getCurrentApp.name.isEmpty()) {
+                } else if (getCurrentApp.name.isNotEmpty() && getCurrentApp.packageName != currentPackageName) {
                     currentPackageName = ""
-                    // updatePresence(CommonRpc())
+                    updatePresence(CommonRpc())
                 }
                 delay(5000)
             }
