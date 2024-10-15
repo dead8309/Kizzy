@@ -185,4 +185,6 @@
     <string name="time_elapsed">%1$s đã trôi qua</string>
     <string name="time_left">%1$s còn lại</string>
     <string name="config_name_empty">Tên cấu hình không được để trống</string>
+    <string name="restart">Khởi chạy lại</string>
+    <string name="custom_rpc_running">RPC tuỳ chỉnh đang chạy</string>
 </resources>

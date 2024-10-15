@@ -28,7 +28,7 @@ import java.util.TreeMap
 import javax.inject.Inject
 
 class GetCurrentlyRunningApp @Inject constructor(
-    @ApplicationContext private val context: Context
+    @ApplicationContext private val context: Context,
 ) {
     operator fun invoke(beginTime: Long = System.currentTimeMillis() - 10000): CommonRpc {
         val usageStatsManager =
@@ -37,8 +37,6 @@ class GetCurrentlyRunningApp @Inject constructor(
         val queryUsageStats = usageStatsManager.queryUsageStats(
             UsageStatsManager.INTERVAL_DAILY, beginTime, currentTimeMillis
         )
-        val apps = Prefs[Prefs.ENABLED_APPS, "[]"]
-        val enabledPackages: ArrayList<String> = Json.decodeFromString(apps)
         if (queryUsageStats != null && queryUsageStats.size > 1) {
             val treeMap: SortedMap<Long, UsageStats> = TreeMap()
             for (usageStats in queryUsageStats) {
@@ -47,13 +45,14 @@ class GetCurrentlyRunningApp @Inject constructor(
             if (!(treeMap.isEmpty() || treeMap[treeMap.lastKey()]?.packageName == "com.my.kizzy" || treeMap[treeMap.lastKey()]?.packageName == "com.discord")) {
                 val packageName = treeMap[treeMap.lastKey()]!!.packageName
                 Objects.requireNonNull(packageName)
-                if (enabledPackages.contains(packageName)) {
-                    return CommonRpc(
-                        name = AppUtils.getAppName(packageName),
-                        largeImage = RpcImage.ApplicationIcon(packageName, context),
-                        packageName = packageName
-                    )
-                }
+                return CommonRpc(
+                    name = AppUtils.getAppName(packageName),
+                    details = null,
+                    state = null,
+                    largeImage = RpcImage.ApplicationIcon(packageName, context),
+                    packageName = packageName
+                )
+
             }
         }
         return CommonRpc()
