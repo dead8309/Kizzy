@@ -66,7 +66,7 @@ class CustomRpcService : Service() {
 
             startForeground(
                 Constants.NOTIFICATION_ID, notificationBuilder
-                    .setContentTitle("Custom RPC is running")
+                    .setContentTitle(getString(R.string.custom_rpc_running))
                     .setContentText(rpcData?.name ?: "")
                     .setSmallIcon(R.drawable.ic_rpc_placeholder)
                     .addAction(R.drawable.ic_rpc_placeholder, getString(R.string.exit), pendingIntent)

@@ -50,6 +50,8 @@ class GetCurrentlyRunningApp @Inject constructor(
                 if (enabledPackages.contains(packageName)) {
                     return CommonRpc(
                         name = AppUtils.getAppName(packageName),
+                        details = null,
+                        state = null,
                         largeImage = RpcImage.ApplicationIcon(packageName, context),
                         packageName = packageName
                     )

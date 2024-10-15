@@ -79,9 +79,17 @@ class MediaRpcService : Service() {
             0, intent, PendingIntent.FLAG_IMMUTABLE
         )
 
+        val restartIntent = Intent(this, MediaRpcService::class.java)
+        restartIntent.action = Constants.ACTION_RESTART_SERVICE
+        val restartPendingIntent = PendingIntent.getService(
+            this,
+            0, restartIntent, PendingIntent.FLAG_IMMUTABLE
+        )
+
         startForeground(
             Constants.NOTIFICATION_ID, notificationBuilder
                 .setSmallIcon(R.drawable.ic_media_rpc)
+                .addAction(R.drawable.ic_media_rpc, getString(R.string.restart), restartPendingIntent)
                 .addAction(R.drawable.ic_media_rpc, getString(R.string.exit), pendingIntent)
                 .setContentText(getString(R.string.idling_notification))
                 .build()
@@ -116,9 +124,17 @@ class MediaRpcService : Service() {
         val rpcButtons = Json.decodeFromString<RpcButtons>(rpcButtonsString)
         when (kizzyRPC.isRpcRunning()) {
             true -> {
+                if (playingMedia.name.isBlank()) {
+                    logger.d("MediaRPC", "Updating RPC with empty data, stopping RPC")
+                    kizzyRPC.closeRPC()
+                }
                 kizzyRPC.updateRPC(playingMedia, enableTimestamps)
             }
             false -> {
+                if (playingMedia.name.isBlank()) {
+                    logger.d("MediaRPC", "Skipping RPC update with empty data")
+                    return
+                }
                 kizzyRPC.apply {
                     setName(playingMedia.name)
                     setType(Prefs[Prefs.CUSTOM_ACTIVITY_TYPE, 0])
@@ -155,7 +171,7 @@ class MediaRpcService : Service() {
         logger.d("MediaRPC", "Active sessions changed")
 
         // For some reason, event is occasionally fired before session list is actually updated
-        if (isEvent) runBlocking { delay(1000) }
+        if (isEvent) runBlocking { delay(1500) }
 
         if (mediaSessions?.isNotEmpty() == true) {
             currentMediaController?.unregisterCallback(mediaControllerCallback)
@@ -210,6 +226,10 @@ class MediaRpcService : Service() {
             it.action?.let { ac ->
                 if (ac == Constants.ACTION_STOP_SERVICE)
                     stopSelf()
+                else if (ac == Constants.ACTION_RESTART_SERVICE) {
+                    stopSelf()
+                    startService(Intent(this, MediaRpcService::class.java))
+                }
             }
         }
         return super.onStartCommand(intent, flags, startId)

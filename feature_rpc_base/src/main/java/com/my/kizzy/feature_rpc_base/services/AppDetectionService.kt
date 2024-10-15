@@ -59,13 +59,16 @@ class AppDetectionService : Service() {
 
     private lateinit var pendingIntent: PendingIntent
 
+    private lateinit var restartPendingIntent: PendingIntent
+
     private var runningPackage = ""
-
     override fun onBind(intent: Intent): IBinder? = null
-
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent?.action == Constants.ACTION_STOP_SERVICE) {
             stopSelf()
+        } else if (intent?.action == Constants.ACTION_RESTART_SERVICE) {
+            stopSelf()
+            startService(Intent(this, AppDetectionService::class.java))
         } else {
             handleAppDetection()
         }
@@ -83,11 +86,19 @@ class AppDetectionService : Service() {
 
         val stopIntent = createStopIntent()
         pendingIntent = createPendingIntent(stopIntent)
+
+        val restartIntent = createRestartIntent()
+        restartPendingIntent = PendingIntent.getService(
+            this,
+            0, restartIntent, PendingIntent.FLAG_IMMUTABLE
+        )
         // Adding action to notification builder here to avoid having multiple Exit buttons
         // https://github.com/dead8309/Kizzy/issues/197
         notificationBuilder
             .setSmallIcon(R.drawable.ic_apps)
+            .addAction(R.drawable.ic_apps, getString(R.string.restart), restartPendingIntent)
             .addAction(R.drawable.ic_apps, getString(R.string.exit), pendingIntent)
+
 
         startForeground(Constants.NOTIFICATION_ID, createDefaultNotification())
 
@@ -139,7 +150,7 @@ class AppDetectionService : Service() {
     private suspend fun handleValidPackage(
         packageName: String,
         enabledPackages: List<String>,
-        rpcButtons: RpcButtons
+        rpcButtons: RpcButtons,
     ) {
         if (packageName in enabledPackages && packageName != runningPackage) {
             handleEnabledPackage(packageName, rpcButtons)
@@ -155,7 +166,7 @@ class AppDetectionService : Service() {
             kizzyRPC.apply {
                 setName(AppUtils.getAppName(packageName))
                 setStartTimestamps(System.currentTimeMillis())
-                setStatus(Prefs[Prefs.CUSTOM_ACTIVITY_STATUS,"dnd"])
+                setStatus(Prefs[Prefs.CUSTOM_ACTIVITY_STATUS, "dnd"])
                 setLargeImage(RpcImage.ApplicationIcon(packageName, this@AppDetectionService))
                 if (Prefs[Prefs.USE_RPC_BUTTONS, false]) {
                     with(rpcButtons) {
@@ -187,10 +198,11 @@ class AppDetectionService : Service() {
     }
 
     private fun createDefaultNotification(): Notification {
-        return Notification.Builder(this,Constants.CHANNEL_ID)
+        return Notification.Builder(this, Constants.CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_apps)
             .setContentTitle(getString(R.string.service_enabled))
             .addAction(R.drawable.ic_apps, getString(R.string.exit), pendingIntent)
+            .addAction(R.drawable.ic_apps, getString(R.string.restart), restartPendingIntent)
             .build()
     }
 
@@ -198,6 +210,12 @@ class AppDetectionService : Service() {
         val stopIntent = Intent(this, AppDetectionService::class.java)
         stopIntent.action = Constants.ACTION_STOP_SERVICE
         return stopIntent
+    }
+
+    private fun createRestartIntent(): Intent {
+        val restartIntent = Intent(this, AppDetectionService::class.java)
+        restartIntent.action = Constants.ACTION_RESTART_SERVICE
+        return restartIntent
     }
 
     private fun createPendingIntent(stopIntent: Intent): PendingIntent {
