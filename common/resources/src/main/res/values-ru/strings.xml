@@ -185,6 +185,6 @@
     <string name="time_elapsed">%1$s прошло</string>
     <string name="time_left">%1$s осталось</string>
     <string name="config_name_empty">Название конфигурации не может быть пустым</string>
-    <string name="restart">Restart</string>
-    <string name="custom_rpc_running">Custom RPC is running</string>
+    <string name="restart">Перезапустить</string>
+    <string name="custom_rpc_running">Свой RPC запущен</string>
 </resources>
