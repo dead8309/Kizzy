@@ -51,7 +51,7 @@ fun UserScreen(
     LaunchedEffect(presence) {
         while (true) {
             presence.value = Prefs[CURRENT_PRESENCE]
-            delay(5000)
+            delay(1000)
         }
     }
 
