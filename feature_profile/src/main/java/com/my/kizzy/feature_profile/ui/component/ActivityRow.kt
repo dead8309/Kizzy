@@ -12,6 +12,7 @@
 
 package com.my.kizzy.feature_profile.ui.component
 
+import android.os.Build.VERSION.SDK_INT
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -37,12 +38,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import coil.decode.GifDecoder
+import coil.decode.ImageDecoderDecoder
+import coil.request.ImageRequest
 import com.my.kizzy.domain.model.rpc.RpcConfig
 import com.my.kizzy.resources.R
 import com.my.kizzy.ui.theme.DISCORD_BLURPLE
@@ -65,13 +69,14 @@ fun ActivityRow(
             ?.equals(3) == true
 
     // Media
+    var duration by remember { mutableStateOf("00:00") }
     var elapsedText by remember { mutableStateOf("00:00") }
     var sliderPosition by remember { mutableFloatStateOf(0f) }
     LaunchedEffect(elapsedState) {
         while (true) {
             delay(1000)
             elapsedState = formatTime(elapsed)
-            if (isPlayingMedia && rpcConfig?.timestampsStart?.toLongOrNull() != null && rpcConfig?.timestampsStop?.toLongOrNull() != null) {
+            if (isPlayingMedia && rpcConfig?.timestampsStart?.toLongOrNull() != null && rpcConfig.timestampsStop.toLongOrNull() != null) {
                 val startTime = rpcConfig.timestampsStart.toLong()
                 val endTime = rpcConfig.timestampsStop.toLong()
                 val difference = endTime - startTime
@@ -82,6 +87,7 @@ fun ActivityRow(
                 } else {
                     getFormatFromMs(difference)
                 }
+                duration = getFormatFromMs(difference)
             }
         }
     }
@@ -103,8 +109,25 @@ fun ActivityRow(
                 contentAlignment = Alignment.Center
             ) {
                 AsyncImage(
-                    model = if (rpcConfig?.largeImg?.startsWith("attachments") == true) "https://media.discordapp.net/${rpcConfig.largeImg}" else
-                        rpcConfig?.largeImg,
+                    model = ImageRequest.Builder(LocalContext.current).data(
+                        if (rpcConfig?.largeImg?.startsWith("attachments") == true || rpcConfig?.largeImg?.startsWith(
+                                "mp:"
+                            ) == true
+                        ) "https://media.discordapp.net/${
+                            rpcConfig.largeImg.replace(
+                                "mp:",
+                                ""
+                            )
+                        }" else
+                            rpcConfig?.largeImg
+                    ).decoderFactory(
+                        if (SDK_INT >= 28) {
+                            ImageDecoderDecoder.Factory()
+                        } else {
+                            GifDecoder.Factory()
+                        }
+                    )
+                        .build(),
                     error = painterResource(id = R.drawable.editing_rpc_pencil),
                     placeholder = painterResource(R.drawable.editing_rpc_pencil),
                     contentDescription = null,
@@ -120,10 +143,27 @@ fun ActivityRow(
                 if (!rpcConfig?.smallImg.isNullOrEmpty()) {
                     AsyncImage(
                         model =
-                        if (rpcConfig?.smallImg?.startsWith("attachments") == true)
-                            "https://media.discordapp.net/${rpcConfig.largeImg}"
-                        else
-                            rpcConfig?.smallImg,
+                        ImageRequest.Builder(LocalContext.current).data(
+                            if (rpcConfig?.smallImg?.startsWith("attachments") == true || rpcConfig?.smallImg?.startsWith(
+                                    "mp:"
+                                ) == true
+                            )
+                                "https://media.discordapp.net/${
+                                    rpcConfig.smallImg.replace(
+                                        "mp:",
+                                        ""
+                                    )
+                                }"
+                            else
+                                rpcConfig?.smallImg
+                        ).decoderFactory(
+                            if (SDK_INT >= 28) {
+                                ImageDecoderDecoder.Factory()
+                            } else {
+                                GifDecoder.Factory()
+                            }
+                        )
+                            .build(),
                         error = painterResource(id = R.drawable.ic_rpc_placeholder),
                         placeholder = painterResource(R.drawable.ic_rpc_placeholder),
                         contentDescription = null,
@@ -216,7 +256,7 @@ fun ActivityRow(
                 }
             }
         }
-        if (showTs && isPlayingMedia && rpcConfig?.timestampsStart?.toLongOrNull() != null && rpcConfig?.timestampsStop?.toLongOrNull() != null) {
+        if (showTs && isPlayingMedia && rpcConfig?.timestampsStart?.toLongOrNull() != null && rpcConfig.timestampsStop.toLongOrNull() != null) {
             // Seekbar for media
             Box(
                 modifier = Modifier
@@ -252,7 +292,7 @@ fun ActivityRow(
                     modifier = Modifier
                 )
                 ProfileText(
-                    text = getFormatFromMs(rpcConfig.timestampsStop.toLong() - rpcConfig.timestampsStart.toLong()),
+                    text = duration,
                     style = MaterialTheme.typography.labelSmall
                         .copy(
                             fontSize = 12.sp

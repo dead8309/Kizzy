@@ -7,15 +7,15 @@ version-code ="9"
 
 # app level
 accompanist = "0.31.0-alpha"
-activity-compose = "1.9.2"
+activity-compose = "1.9.3"
 android-svg = "1.4"
 androidx-material = "1.12.0"
 app-compat = "1.7.0"
 blankj-utilcodex = "1.31.0"
 coil = "2.1.0"
-compose = "1.7.3"
+compose = "1.7.4"
 compose-compiler = "1.4.0"
-compose-navigation = "2.8.2"
+compose-navigation = "2.8.3"
 core-ktx = "1.13.1"
 crashx = "v6.0.19"
 glide = "1.6.1"
@@ -86,6 +86,7 @@ crashx = { module = "com.github.TutorialsAndroid:crashx", version.ref = "crashx"
 mmkv = { module = "com.tencent:mmkv", version.ref = "mmkv" }
 coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 coil-svg = { module = "io.coil-kt:coil-svg", version.ref = "coil" }
+coil-gif = { module = "io.coil-kt:coil-gif", version.ref = "coil" }
 android-svg = { module = "com.caverock:androidsvg-aar", version.ref = "android-svg" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }

@@ -13,8 +13,10 @@
 package com.my.kizzy.data.rpc
 
 import com.my.kizzy.domain.interfaces.Logger
+import com.my.kizzy.domain.model.rpc.RpcConfig
 import com.my.kizzy.domain.repository.KizzyRepository
 import com.my.kizzy.preference.Prefs
+import com.my.kizzy.preference.Prefs.CURRENT_PRESENCE
 import com.my.kizzy.preference.Prefs.CUSTOM_ACTIVITY_TYPE
 import kizzy.gateway.DiscordWebSocket
 import kizzy.gateway.entities.presence.Activity
@@ -29,7 +31,7 @@ class KizzyRPC(
     private val token: String,
     private val kizzyRepository: KizzyRepository,
     private val discordWebSocket: DiscordWebSocket,
-    private val logger: Logger
+    private val logger: Logger,
 ) {
     private lateinit var presence: Presence
     private var activityName: String? = null
@@ -50,6 +52,7 @@ class KizzyRPC(
 
     fun closeRPC() {
         discordWebSocket.close()
+        Prefs[CURRENT_PRESENCE] = RpcConfig()
     }
 
     fun isRpcRunning(): Boolean {
@@ -277,7 +280,9 @@ class KizzyRPC(
             status = status
         )
         connectToWebSocket()
+        Prefs[CURRENT_PRESENCE] = exportAsRPCConfig()
     }
+
     private suspend fun connectToWebSocket() {
         if (!isUserTokenValid())
             logger.e(
@@ -286,6 +291,29 @@ class KizzyRPC(
             )
         discordWebSocket.connect()
         discordWebSocket.sendActivity(presence)
+    }
+
+    suspend fun exportAsRPCConfig(): RpcConfig {
+        return RpcConfig(
+            name = activityName ?: "",
+            details = details ?: "",
+            state = state ?: "",
+            partyCurrentSize = party?.size?.get(0)?.toString() ?: "",
+            partyMaxSize = party?.size?.get(1)?.toString() ?: "",
+            largeImg = largeImage?.resolveImage(kizzyRepository) ?: "",
+            smallImg = smallImage?.resolveImage(kizzyRepository) ?: "",
+            largeText = largeText ?: "",
+            smallText = smallText ?: "",
+            status = status ?: "",
+            timestampsStart = startTimestamps?.toString() ?: "",
+            timestampsStop = stopTimestamps?.toString() ?: "",
+            type = type.toString(),
+            button1 = buttons.getOrNull(0) ?: "",
+            button1link = buttonUrl.getOrNull(0) ?: "",
+            button2 = buttons.getOrNull(1) ?: "",
+            button2link = buttonUrl.getOrNull(1) ?: "",
+            url = url ?: ""
+        )
     }
 
     suspend fun updateRPC(commonRpc: CommonRpc, enableTimestamps: Boolean? = true) {
@@ -320,6 +348,27 @@ class KizzyRPC(
                 since = startTimestamps,
                 status = Constants.DND
             )
+        )
+
+        Prefs[CURRENT_PRESENCE] = RpcConfig(
+            name = commonRpc.name,
+            details = commonRpc.details ?: "",
+            state = commonRpc.state ?: "",
+            partyCurrentSize = commonRpc.partyCurrentSize.toString(),
+            partyMaxSize = commonRpc.partyMaxSize.toString(),
+            largeImg = commonRpc.largeImage?.resolveImage(kizzyRepository) ?: "",
+            smallImg = commonRpc.smallImage?.resolveImage(kizzyRepository) ?: "",
+            largeText = commonRpc.largeText ?: "",
+            smallText = commonRpc.smallText ?: "",
+            status = Constants.DND,
+            timestampsStart = commonRpc.time?.start.toString(),
+            timestampsStop = commonRpc.time?.end.toString(),
+            type = Prefs[CUSTOM_ACTIVITY_TYPE, 0].toString(),
+            button1 = buttons.getOrNull(0) ?: "",
+            button1link = buttonUrl.getOrNull(0) ?: "",
+            button2 = buttons.getOrNull(1) ?: "",
+            button2link = buttonUrl.getOrNull(1) ?: "",
+            url = url ?: ""
         )
     }
 }

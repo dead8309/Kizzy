@@ -24,5 +24,6 @@ object PreferenceConfig {
         applicationScope = CoroutineScope(SupervisorJob())
         MMKV.initialize(context)
         Prefs.checkAndAutoDeleteSavedImages()
+        Prefs.autoDeleteRPC()
     }
 }

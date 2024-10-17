@@ -25,9 +25,9 @@ class MetadataResolver @Inject constructor() {
     }
 
     fun getArtistOrAuthor(metadata: MediaMetadata): String? {
-        return if (!metadata.getString(MediaMetadata.METADATA_KEY_ARTIST).isNullOrEmpty()) "by " + metadata.getString(
+        return if (!metadata.getString(MediaMetadata.METADATA_KEY_ARTIST).isNullOrEmpty()) metadata.getString(
             MediaMetadata.METADATA_KEY_ARTIST
-        ) else if (!metadata.getString(MediaMetadata.METADATA_KEY_AUTHOR).isNullOrEmpty()) "by " + metadata.getString(
+        ) else if (!metadata.getString(MediaMetadata.METADATA_KEY_AUTHOR).isNullOrEmpty()) metadata.getString(
             MediaMetadata.METADATA_KEY_AUTHOR
         ) else null
     }

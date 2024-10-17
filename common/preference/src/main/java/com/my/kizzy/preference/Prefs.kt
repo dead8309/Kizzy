@@ -13,6 +13,7 @@
 package com.my.kizzy.preference
 
 import com.my.kizzy.domain.model.release.Release
+import com.my.kizzy.domain.model.rpc.RpcConfig
 import com.my.kizzy.domain.model.user.User
 import com.tencent.mmkv.MMKV
 import kotlinx.serialization.decodeFromString
@@ -29,6 +30,7 @@ object Prefs {
             is Boolean -> kv.encode(key, value)
             is Float -> kv.encode(key, value)
             is Long -> kv.encode(key, value)
+            is RpcConfig -> kv.encode(key, Json.encodeToString(value))
             else -> throw UnsupportedOperationException("Not yet implemented")
         }
 
@@ -41,6 +43,9 @@ object Prefs {
         Boolean::class -> kv.decodeBool(key, defaultValue as? Boolean ?: false) as T
         Float::class -> kv.decodeFloat(key, defaultValue as? Float ?: -1f) as T
         Long::class -> kv.decodeLong(key, defaultValue as? Long ?: -1) as T
+        RpcConfig::class -> kv.decodeString(key, defaultValue as String? ?: "{}")?.let {
+            Json.decodeFromString<RpcConfig>(it)
+        } as T
         else -> throw UnsupportedOperationException("Not yet implemented")
     }
 
@@ -98,6 +103,12 @@ object Prefs {
             set(LAST_DELETED, currentTime)
         }
     }
+
+    fun autoDeleteRPC() {
+        remove(CURRENT_PRESENCE)
+    }
+
+    const val CURRENT_PRESENCE = "current_presence"
 
     //User Preferences
     const val USER_DATA = "user" //Json Data Referencing User_Data class

@@ -12,6 +12,7 @@
 
 package com.my.kizzy.feature_profile.ui.user
 
+import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -19,16 +20,21 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.my.kizzy.domain.model.rpc.RpcConfig
 import com.my.kizzy.domain.model.user.User
 import com.my.kizzy.feature_profile.ui.component.Logout
 import com.my.kizzy.feature_profile.ui.component.ProfileCard
 import com.my.kizzy.feature_profile.ui.component.ProfileNetworkError
+import com.my.kizzy.preference.Prefs
+import com.my.kizzy.preference.Prefs.CURRENT_PRESENCE
 import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.shimmer.AnimatedShimmer
 import com.my.kizzy.ui.components.shimmer.ShimmerProfileCard
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -38,8 +44,16 @@ fun UserScreen(
     onBackPressed: () -> Unit
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
+    val presence = remember { mutableStateOf<RpcConfig>(Prefs[CURRENT_PRESENCE]) }
     val scope = rememberCoroutineScope()
     val ctx = LocalContext.current
+
+    LaunchedEffect(presence) {
+        while (true) {
+            presence.value = Prefs[CURRENT_PRESENCE]
+            delay(5000)
+        }
+    }
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -75,7 +89,11 @@ fun UserScreen(
                 }
 
                 is UserState.LoadingCompleted -> {
-                    ProfileCard(state.user)
+                    ProfileCard(
+                        user = state.user,
+                        rpcConfig = presence.value,
+                        type = presence.value.type.getType(ctx, presence.value.name) ?: stringResource(id = R.string.user_profile_rpc_name),
+                    )
                     Logout(
                         modifier = Modifier
                             .align(Alignment.BottomEnd)
@@ -109,6 +127,23 @@ fun UserScreen(
                 }
             }
         }
+    }
+}
+
+private fun String?.getType(ctx: Context, name: String?): String? {
+    val type: Int = try {
+        if (!this.isNullOrEmpty()) this.toDouble().toInt()
+        else 0
+    } catch (ex: NumberFormatException) {
+        0
+    }
+    return when (type) {
+        1 -> ctx.getString(R.string.activity_streaming_title, name)
+        2 -> ctx.getString(R.string.activity_listening_title, name)
+        3 -> ctx.getString(R.string.activity_watching_title, name)
+        4 -> ""
+        5 -> ctx.getString(R.string.activity_competiting_title, name)
+        else -> null
     }
 }
 

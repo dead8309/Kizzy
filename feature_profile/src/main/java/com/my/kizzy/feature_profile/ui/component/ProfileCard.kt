@@ -12,6 +12,7 @@
 
 package com.my.kizzy.feature_profile.ui.component
 
+import android.os.Build.VERSION.SDK_INT
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -32,17 +33,13 @@ import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -52,11 +49,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import coil.decode.GifDecoder
+import coil.decode.ImageDecoderDecoder
 import com.my.kizzy.domain.model.rpc.RpcConfig
 import com.my.kizzy.domain.model.user.User
 import com.my.kizzy.resources.R
 import com.my.kizzy.ui.theme.DISCORD_LIGHT_DARK
-import kotlinx.coroutines.delay
 
 const val NITRO_ICON = "https://cdn.discordapp.com/badge-icons/2ba85e8026a8614b640c2837bcdfe21b.png"
 const val USER_BANNER = "https://discord.com/assets/97ac61a0b98fd6f01b4de370c9ccdb56.png"
@@ -67,21 +66,10 @@ fun ProfileCard(
     borderColors: List<Color> = listOf(Color(0xFFa3a1ed), Color(0xFFA77798)),
     backgroundColors: List<Color> = listOf(Color(0xFFC2C0FA), Color(0xFFFADAF0)),
     padding: Dp = 30.dp,
-    type: String = stringResource(id = R.string.user_profile_rpc_name),
+    type: String? = stringResource(id = R.string.user_profile_rpc_name),
     rpcConfig: RpcConfig? = null,
-    showTs: Boolean = true
+    showTs: Boolean = true,
 ) {
-    var elapsed by remember {
-        mutableStateOf(0)
-    }
-    LaunchedEffect(elapsed) {
-        if (elapsed == 90)
-            elapsed = 0
-        else {
-            delay(1000)
-            elapsed++
-        }
-    }
     Card(
         modifier = Modifier
             .padding(padding)
@@ -104,14 +92,31 @@ fun ProfileCard(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(120.dp),
-                    model = user.getBannerImage() ?: USER_BANNER,
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(user.getBannerImage() ?: USER_BANNER)
+                        .decoderFactory(
+                            if (SDK_INT >= 28) {
+                                ImageDecoderDecoder.Factory()
+                            } else {
+                                GifDecoder.Factory()
+                            }
+                        )
+                        .build(),
                     contentScale = ContentScale.FillWidth,
                     placeholder = painterResource(R.drawable.broken_image),
                     contentDescription = "User Avatar"
                 )
 
                 AsyncImage(
-                    model = user.getAvatarImage(),
+                    model = ImageRequest.Builder(LocalContext.current).data(user.getAvatarImage())
+                        .decoderFactory(
+                            if (SDK_INT >= 28) {
+                                ImageDecoderDecoder.Factory()
+                            } else {
+                                GifDecoder.Factory()
+                            }
+                        )
+                        .build(),
                     placeholder = painterResource(id = R.drawable.error_avatar),
                     error = painterResource(id = R.drawable.error_avatar),
                     contentDescription = null,
@@ -210,7 +215,7 @@ fun ProfileText(
     text: String?,
     style: TextStyle,
     bold: Boolean = true,
-    modifier: Modifier = Modifier.padding(20.dp, 4.dp)
+    modifier: Modifier = Modifier.padding(20.dp, 4.dp),
 ) {
     if (!text.isNullOrEmpty()) {
         Text(
@@ -226,7 +231,7 @@ fun ProfileText(
 @Composable
 fun ProfileButton(label: String?, link: String?) {
     val uriHandler = LocalUriHandler.current
-    if(!label.isNullOrEmpty()) {
+    if (!label.isNullOrEmpty()) {
         ElevatedButton(
             modifier = Modifier
                 .fillMaxWidth()
@@ -266,3 +271,4 @@ fun PreviewProfileCard() {
     )
     ProfileCard(user = user)
 }
+

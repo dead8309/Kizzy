@@ -13,6 +13,7 @@ dependencies {
     implementation (projects.theme)
     implementation (projects.gateway)
     implementation (libs.coil)
+    implementation (libs.coil.gif)
     implementation (libs.activity.compose)
     implementation (libs.kotlinx.serialization.json)
 }
