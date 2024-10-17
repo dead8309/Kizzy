@@ -102,7 +102,7 @@
     <string name="clear">Wyczyść</string>
     <string name="search_placeholder">Szukaj…</string>
     <string name="hide_on_pause">Ukryj RPC przy wstrzymaniu</string>
-    <string name="idling_notification">Idling…</string>
+    <string name="idling_notification">Czuwanie…</string>
     <string name="main_appDetection">Detekcja Aplikacji</string>
     <string name="main_appDetection_details">Kizzy pozwala na udostępnianie twojej aktywności na Discordzie poprzez wykrycie aplikacji której używasz na swoim urządzeniu.</string>
     <string name="main_mediaRpc">Media RPC</string>
