@@ -34,50 +34,62 @@ class ApiService @Inject constructor(
     @Discord private val discordBaseUrl: String,
     @Github private val githubBaseUrl: String,
 ) {
-    suspend fun getImage(url: String) = client.get {
-        url("$baseUrl/image")
-        parameter("url", url)
+    suspend fun getImage(url: String) = runCatching {
+        client.get {
+            url("$baseUrl/image")
+            parameter("url", url)
+        }
     }
-
-    suspend fun uploadImage(file: File) = client.post {
-        url("$baseUrl/upload")
-        setBody(MultiPartFormDataContent(
-            formData {
-                append("\"temp\"", file.readBytes(), Headers.build {
-                    append(HttpHeaders.ContentType, "image/*")
-                    append(HttpHeaders.ContentDisposition, "filename=\"${file.name}\"")
-                })
-            }
-        ))
-    }
-
-    suspend fun getGames() = client.get {
-        url("$baseUrl/games")
-    }
-
-    suspend fun getUser(userid: String) = client.get {
-        url("$baseUrl/user/$userid")
-    }
-
-    suspend fun getContributors() = client.get {
-        url("$baseUrl/contributors")
-    }
-
-    suspend fun setSamsungGalaxyPresence(galaxyPresence: GalaxyPresence,token: String) {
+    suspend fun uploadImage(file: File) = runCatching {
         client.post {
-            url("$discordBaseUrl/presences")
-            headers {
-                append(HttpHeaders.Authorization, token)
-                append(HttpHeaders.UserAgent, USER_AGENT)
-            }
-            contentType(ContentType.Application.Json)
-            setBody(galaxyPresence)
+            url("$baseUrl/upload")
+            setBody(MultiPartFormDataContent(
+                formData {
+                    append("\"temp\"", file.readBytes(), Headers.build {
+                        append(HttpHeaders.ContentType, "image/*")
+                        append(HttpHeaders.ContentDisposition, "filename=\"${file.name}\"")
+                    })
+                }
+            ))
         }
     }
 
-    suspend fun checkForUpdate() = client.get {
-        url("$githubBaseUrl/repos/dead8309/Kizzy/releases/latest")
+    suspend fun getGames() = runCatching {
+        client.get {
+            url("$baseUrl/games")
+        }
+    }
+
+    suspend fun getUser(userid: String) = runCatching {
+        client.get {
+            url("$baseUrl/user/$userid")
+        }
+    }
+
+    suspend fun getContributors() = runCatching {
+        client.get {
+            url("$baseUrl/contributors")
+        }
+    }
+
+    suspend fun setSamsungGalaxyPresence(galaxyPresence: GalaxyPresence, token: String) =
+        runCatching {
+            client.post {
+                url("$discordBaseUrl/presences")
+                headers {
+                    append(HttpHeaders.Authorization, token)
+                    append(HttpHeaders.UserAgent, USER_AGENT)
+                }
+                contentType(ContentType.Application.Json)
+                setBody(galaxyPresence)
+            }
+        }
+    suspend fun checkForUpdate() = runCatching {
+        client.get {
+            url("$githubBaseUrl/repos/dead8309/Kizzy/releases/latest")
+        }
     }
 }
 
-private const val USER_AGENT = "Mozilla/5.0 (Linux; Android 11) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/100.0.4896.127 Mobile OceanHero/6 Safari/537.36"
+private const val USER_AGENT =
+    "Mozilla/5.0 (Linux; Android 11) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/100.0.4896.127 Mobile OceanHero/6 Safari/537.36"
