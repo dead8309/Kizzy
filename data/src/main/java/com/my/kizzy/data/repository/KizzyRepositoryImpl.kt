@@ -33,28 +33,28 @@ class KizzyRepositoryImpl @Inject constructor(
 ): KizzyRepository {
 
     override suspend fun getImage(url: String): String? {
-        return api.getImage(url).toImageAsset()
+        return api.getImage(url).getOrNull()?.toImageAsset()
     }
 
     override suspend fun uploadImage(file: File): String? {
-        return api.uploadImage(file).toImageAsset()
+        return api.uploadImage(file).getOrNull()?.toImageAsset()
     }
 
     override suspend fun getGames(): List<Game> {
-        return api.getGames().body<List<GamesResponse>>().map { it.toGame() }
+        return api.getGames().getOrNull()?.body<List<GamesResponse>>()?.map { it.toGame() } ?: emptyList()
     }
 
     override suspend fun getUser(userid: String): User {
-        return api.getUser(userid).body()
+        return api.getUser(userid).getOrNull()?.body() ?: User()
     }
     override suspend fun getContributors(): List<Contributor> {
-        return api.getContributors().body()
+        return api.getContributors().getOrNull()?.body() ?: emptyList()
     }
     override suspend fun setSamsungGalaxyPresence(galaxyPresence: GalaxyPresence,token: String) {
-        return api.setSamsungGalaxyPresence(galaxyPresence,token)
+        api.setSamsungGalaxyPresence(galaxyPresence,token)
     }
     override suspend fun checkForUpdate(): Release {
-        return api.checkForUpdate().releaseBody()
+        return api.checkForUpdate().getOrNull()?.releaseBody() ?: Release()
     }
 }
 
