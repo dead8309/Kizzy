@@ -14,6 +14,7 @@ package com.my.kizzy.feature_rpc_base.services
 
 import android.app.Dialog
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.graphics.drawable.Icon
 import android.os.Build
@@ -38,7 +39,13 @@ class KizzyTileService : TileService() {
                 ctx.stopService(Intent(ctx, SamsungRpcService::class.java))
             }
             Tile.STATE_INACTIVE -> {
-                showDialog(createRpcChoosingDialog(ctx))
+                if (!isLocked) {
+                    showDialog(createRpcChoosingDialog(ctx))
+                } else {
+                    val intent = Intent(ctx, DialogActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    ContextWrapper(ctx).startActivity(intent)
+                }
             }
             else -> {}
         }
@@ -125,3 +132,4 @@ class KizzyTileService : TileService() {
         val tileAdded = mutableStateOf(false)
     }
 }
+
