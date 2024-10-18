@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -59,6 +60,15 @@
         <activity
             android:name=".feature_crash_handler.CrashHandler"
             android:exported="false" />
+        <activity
+            android:name=".feature_rpc_base.services.DialogActivity"
+            android:exported="true"
+            android:theme="@style/ActivityTranslucent">
+            <intent-filter>
+                <action android:name="android.intent.action.RUN" />
+                <category android:name="android.intent.category.EMBED" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name="com.my.kizzy.feature_rpc_base.services.AppDetectionService"
