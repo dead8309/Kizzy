@@ -97,8 +97,8 @@
     <string name="custom_activity_type_desc">การเขียนทับประเภทดั้งเดิมของกิจกรรม จะใช้ได้เฉพาะแค่ media หรือ experimental rpc เท่านั้น!</string>
     <string name="custom_activity_status">ตั้งค่าสถานะของกิจกรรม</string>
     <string name="custom_activity_status_desc">เขียนทับสถานะดั้งเดิมของกิจกรรม</string>
-    <string name="search">Search</string>
-    <string name="clear">Clear</string>
+    <string name="search">ค้นหา</string>
+    <string name="clear">เคลียร์</string>
     <string name="search_placeholder">Search…</string>
     <string name="hide_on_pause">Hide RPC on Pause</string>
     <string name="idling_notification">Idling…</string>
