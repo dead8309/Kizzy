@@ -318,7 +318,7 @@ class KizzyRPC(
                 ),
                 afk = true,
                 since = startTimestamps,
-                status = Constants.DND
+                status = this.status
             )
         )
     }

@@ -34,7 +34,7 @@ sealed class RpcImage {
 
     class ExternalImage(val image: String) : RpcImage() {
         override suspend fun resolveImage(repository: KizzyRepository): String? {
-            return repository.getImage(image)
+            return repository.getImage(image, Prefs[Prefs.TOKEN])
         }
     }
 
@@ -56,7 +56,7 @@ sealed class RpcImage {
         ): String? {
             val applicationInfo = context.getAppInfo(packageName)
             val bitmap = applicationInfo.toBitmap(context)
-            val response = repository.uploadImage(bitmap.toFile(context, "image"))
+            val response = repository.uploadImage(bitmap.toFile(context, "image"), Prefs[Prefs.TOKEN])
             response?.let {
                 savedImages[packageName] = it
                 Prefs[Prefs.SAVED_IMAGES] = Json.encodeToString(savedImages)
@@ -78,7 +78,7 @@ sealed class RpcImage {
             return if (savedImages.containsKey(schema))
                 savedImages[schema]
             else {
-                val result = repository.uploadImage(bitmap.toFile(this.context, "art"))
+                val result = repository.uploadImage(bitmap.toFile(this.context, "art"), Prefs[Prefs.TOKEN])
                 result?.let {
                     savedImages[schema] = it
                     Prefs[Prefs.SAVED_ARTWORK] = Json.encodeToString(savedImages)

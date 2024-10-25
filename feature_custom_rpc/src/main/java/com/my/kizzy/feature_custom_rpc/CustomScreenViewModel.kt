@@ -54,7 +54,7 @@ class CustomScreenViewModel @Inject constructor(
     }
 
     private suspend fun uploadImage(file: File, result: (String) -> Unit) {
-        uploadGalleryImageUseCase(file)?.let {
+        uploadGalleryImageUseCase(file, Prefs[Prefs.TOKEN])?.let {
             withContext(Dispatchers.Main) {
                 result(it.drop(3))
             }

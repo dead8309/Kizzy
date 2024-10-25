@@ -26,3 +26,6 @@ annotation class Discord
 @Retention(AnnotationRetention.BINARY)
 annotation class Github
 
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class Imgur

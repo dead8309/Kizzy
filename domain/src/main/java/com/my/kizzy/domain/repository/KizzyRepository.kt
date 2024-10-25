@@ -19,8 +19,8 @@ import com.my.kizzy.domain.model.user.User
 import java.io.File
 
 interface KizzyRepository {
-    suspend fun getImage(url: String): String?
-    suspend fun uploadImage(file: File): String?
+    suspend fun getImage(url: String, token: String): String?
+    suspend fun uploadImage(file: File, token: String): String?
     suspend fun getGames(): List<Game>
     suspend fun getUser(userid: String): User
     suspend fun getContributors(): List<Contributor>

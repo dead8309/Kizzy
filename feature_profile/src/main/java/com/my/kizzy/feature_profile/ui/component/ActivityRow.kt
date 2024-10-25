@@ -37,9 +37,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -85,6 +85,11 @@ fun ActivityRow(
             }
         }
     }
+
+    fun isAsset(url: String?): Boolean {
+        return url?.startsWith("attachments") == true || url?.startsWith("external") == true
+    }
+
     Column(
         Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(1.dp)
@@ -103,11 +108,12 @@ fun ActivityRow(
                 contentAlignment = Alignment.Center
             ) {
                 AsyncImage(
-                    model = if (rpcConfig?.largeImg?.startsWith("attachments") == true) "https://media.discordapp.net/${rpcConfig.largeImg}" else
+                    model = if (isAsset(rpcConfig?.largeImg)) "https://media.discordapp.net/${rpcConfig?.largeImg}" else
                         rpcConfig?.largeImg,
                     error = painterResource(id = R.drawable.editing_rpc_pencil),
                     placeholder = painterResource(R.drawable.editing_rpc_pencil),
                     contentDescription = null,
+                    contentScale = ContentScale.FillHeight,
                     modifier = if (!rpcConfig?.largeImg.isNullOrEmpty())
                         Modifier
                             .size(70.dp)
@@ -120,13 +126,14 @@ fun ActivityRow(
                 if (!rpcConfig?.smallImg.isNullOrEmpty()) {
                     AsyncImage(
                         model =
-                        if (rpcConfig?.smallImg?.startsWith("attachments") == true)
-                            "https://media.discordapp.net/${rpcConfig.largeImg}"
+                        if (isAsset(rpcConfig?.smallImg))
+                            "https://media.discordapp.net/${rpcConfig?.smallImg}"
                         else
                             rpcConfig?.smallImg,
                         error = painterResource(id = R.drawable.ic_rpc_placeholder),
                         placeholder = painterResource(R.drawable.ic_rpc_placeholder),
                         contentDescription = null,
+                        contentScale = ContentScale.FillHeight,
                         modifier = Modifier
                             .size(30.dp)
                             .clip(CircleShape)

@@ -78,7 +78,8 @@ class GetCurrentPlayingMedia @Inject constructor(
                         context = context,
                         bitmap = bitmap,
                         packageName = mediaController.packageName,
-                        title = title
+                        // <Main artist>|<Album or Title>
+                        title = "${metadata.let { metadataResolver.getAlbumArtists(it) }}|${metadata.let { metadataResolver.getAlbum(it) } ?: title}"
                     )
                 } else smallIcon = null
                 return CommonRpc(name = appName,

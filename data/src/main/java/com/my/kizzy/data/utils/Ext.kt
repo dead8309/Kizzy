@@ -27,7 +27,8 @@ import androidx.core.content.FileProvider
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.FileIOUtils
 import com.blankj.utilcode.util.FileUtils
-import com.my.kizzy.data.remote.ApiResponse
+import com.my.kizzy.data.remote.ExternalAsset
+import com.my.kizzy.data.remote.ImgurResponse
 import com.my.kizzy.data.rpc.RpcImage
 import com.my.kizzy.preference.Prefs
 import io.ktor.client.call.body
@@ -39,7 +40,19 @@ import java.io.FileOutputStream
 suspend fun HttpResponse.toImageAsset(): String? {
     return try {
         if (this.status == HttpStatusCode.OK)
-            this.body<ApiResponse>().id
+            this.body<ImgurResponse>().data.link
+        else
+            null
+    } catch (e: Exception) {
+        null
+    }
+}
+
+
+suspend fun HttpResponse.toExternalImage(): String? {
+    return try {
+        if (this.status == HttpStatusCode.OK)
+            "mp:" + this.body<Array<ExternalAsset>>().first().externalAssetPath
         else
             null
     } catch (e: Exception) {
@@ -96,7 +109,7 @@ fun ApplicationInfo.toBitmap(context: Context): Bitmap? {
 fun String.toRpcImage(): RpcImage? {
     return if (this.isBlank())
         null
-    else if (this.startsWith("attachments"))
+    else if (this.startsWith("attachments") || this.startsWith("external"))
         RpcImage.DiscordImage(this)
     else
         RpcImage.ExternalImage(this)

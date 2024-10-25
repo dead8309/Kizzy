@@ -11,18 +11,17 @@
  */
 package com.my.kizzy.data.remote
 
+import com.my.kizzy.data.rpc.Constants.APPLICATION_ID
 import com.my.kizzy.domain.model.samsung_rpc.GalaxyPresence
 import io.ktor.client.HttpClient
 import io.ktor.client.request.forms.MultiPartFormDataContent
 import io.ktor.client.request.forms.formData
 import io.ktor.client.request.get
 import io.ktor.client.request.headers
-import io.ktor.client.request.parameter
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.request.url
 import io.ktor.http.ContentType
-import io.ktor.http.Headers
 import io.ktor.http.HttpHeaders
 import io.ktor.http.contentType
 import java.io.File
@@ -33,24 +32,35 @@ class ApiService @Inject constructor(
     @Base private val baseUrl: String,
     @Discord private val discordBaseUrl: String,
     @Github private val githubBaseUrl: String,
+    @Imgur private val imgurBaseUrl: String,
 ) {
-    suspend fun getImage(url: String) = runCatching {
-        client.get {
-            url("$baseUrl/image")
-            parameter("url", url)
+    suspend fun getImage(url: String, token: String) = runCatching {
+        client.post {
+            url("$discordBaseUrl/applications/$APPLICATION_ID/external-assets")
+            headers {
+                append(HttpHeaders.Authorization, token)
+                append(HttpHeaders.ContentType, "application/json")
+            }
+            setBody(mapOf("urls" to arrayOf(url)))
         }
     }
+
     suspend fun uploadImage(file: File) = runCatching {
         client.post {
-            url("$baseUrl/upload")
-            setBody(MultiPartFormDataContent(
-                formData {
-                    append("\"temp\"", file.readBytes(), Headers.build {
-                        append(HttpHeaders.ContentType, "image/*")
-                        append(HttpHeaders.ContentDisposition, "filename=\"${file.name}\"")
-                    })
-                }
-            ))
+            url("$imgurBaseUrl/image")
+            headers {
+                // Imgur web client API key, unchanged for at least >5 years as of 2024
+                append(HttpHeaders.Authorization, "Client-ID 546c25a59c58ad7")
+            }
+            contentType(ContentType.MultiPart.FormData)
+            setBody(
+                MultiPartFormDataContent(
+                    formData {
+                        append("image", file.readBytes())
+                        append("type", "raw")
+                    }
+                )
+            )
         }
     }
 
