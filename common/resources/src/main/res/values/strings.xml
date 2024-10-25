@@ -40,7 +40,7 @@
     <string name="use_low_res_icon">Use Low Resolution Images</string>
     <string name="use_low_res_icon_desc">Use a lower resolution app icon for displaying on RPC (turn this on if the RPC is crashing). This setting will also be applied to Apps.</string>
     <string name="delete_saved_icon_urls">Delete Saved Icon Links</string>
-    <string name="delete_saved_icon_urls_desc">Delete app icon URLs saved in local files (Only use this in if needed as it will send images to Discord servers again which will consume more data)</string>
+    <string name="delete_saved_icon_urls_desc">Delete app icon URLs saved in local files (Only use this as needed as it will send images to Discord servers again, which will consume more data)</string>
     <string name="app_crashed">App Crashed</string>
     <string name="share_crash_logs_desc">Please send the Logs in Discord channel with the following stacktrace :</string>
     <string name="share_crash_logs">SHARE LOGS</string>
