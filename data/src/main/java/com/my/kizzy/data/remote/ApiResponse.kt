@@ -3,6 +3,12 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
+data class ApiResponse(
+    @SerialName("id")
+    val id: String
+)
+
+@Serializable
 data class ExternalAsset(
     @SerialName("external_asset_path")
     val externalAssetPath: String,

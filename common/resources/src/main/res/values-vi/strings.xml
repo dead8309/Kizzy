@@ -187,4 +187,6 @@
     <string name="config_name_empty">Tên cấu hình không được để trống</string>
     <string name="restart">Khởi chạy lại</string>
     <string name="custom_rpc_running">RPC tuỳ chỉnh đang chạy</string>
+    <string name="use_imgur">Lưu trữ hình ảnh trên Imgur</string>
+    <string name="use_imgur_desc">Sử dụng Imgur làm nơi lưu trữ hình ảnh.</string>
 </resources>

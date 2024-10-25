@@ -94,7 +94,8 @@ object AppModule {
     @Provides
     fun providesKizzyRepository(
         apiService: ApiService,
+        imgurApiService: ApiService.ImgurApiService
     ): KizzyRepository {
-        return KizzyRepositoryImpl(apiService)
+        return KizzyRepositoryImpl(apiService, imgurApiService)
     }
 }
