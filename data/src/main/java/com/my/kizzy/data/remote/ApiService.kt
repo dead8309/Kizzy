@@ -11,7 +11,6 @@
  */
 package com.my.kizzy.data.remote
 
-import com.my.kizzy.data.rpc.Constants.APPLICATION_ID
 import com.my.kizzy.domain.model.samsung_rpc.GalaxyPresence
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
