@@ -16,6 +16,9 @@ import com.my.kizzy.data.remote.ApiService
 import com.my.kizzy.data.remote.GamesResponse
 import com.my.kizzy.data.remote.ImgurApiService
 import com.my.kizzy.data.remote.toGame
+import com.my.kizzy.data.utils.toAttachmentAsset
+import com.my.kizzy.data.utils.toExternalAsset
+import com.my.kizzy.data.utils.toImageURL
 import com.my.kizzy.domain.model.Contributor
 import com.my.kizzy.domain.model.Game
 import com.my.kizzy.domain.model.release.Release
@@ -35,17 +38,17 @@ class KizzyRepositoryImpl @Inject constructor(
 
     override suspend fun getImage(url: String): String? {
         return if (Prefs[Prefs.USE_IMGUR, false]) {
-            imgurApi.getImage(url, Prefs[Prefs.TOKEN])
+            imgurApi.getImage(url, Prefs[Prefs.TOKEN]).getOrNull()?.toExternalAsset()
         } else {
-            api.getImage(url)
+            api.getImage(url).getOrNull()?.toAttachmentAsset()
         }
     }
 
     override suspend fun uploadImage(file: File): String? {
         return if (Prefs[Prefs.USE_IMGUR, false]) {
-            imgurApi.uploadImage(file, Prefs[Prefs.TOKEN])
+            imgurApi.uploadImage(file).getOrNull()?.toImageURL()?.let { this.getImage(it) }
         } else {
-            api.uploadImage(file)
+            api.uploadImage(file).getOrNull()?.toAttachmentAsset()
         }
     }
 

@@ -42,7 +42,7 @@ class ApiService @Inject constructor(
             url("$baseUrl/image")
             parameter("url", url)
         }
-    }.getOrNull()?.toImageAsset()
+    }
 
     suspend fun uploadImage(file: File) = runCatching {
         client.post {
@@ -56,19 +56,7 @@ class ApiService @Inject constructor(
                 }
             ))
         }
-    }.getOrNull()?.toImageAsset()
-
-    suspend fun HttpResponse.toImageAsset(): String? {
-        return try {
-            if (this.status == HttpStatusCode.OK)
-                this.body<ApiResponse>().id
-            else
-                null
-        } catch (e: Exception) {
-            null
-        }
     }
-
 
     suspend fun getGames() = runCatching {
         client.get {

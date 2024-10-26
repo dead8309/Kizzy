@@ -43,9 +43,9 @@ class ImgurApiService @Inject constructor(
             }
             setBody(mapOf("urls" to arrayOf(url)))
         }
-    }.getOrNull()?.toExternalImage()
+    }
 
-    suspend fun uploadImage(file: File, token: String) = runCatching {
+    suspend fun uploadImage(file: File) = runCatching {
         client.post {
             url("$imgurBaseUrl/image")
             headers {
@@ -61,28 +61,6 @@ class ImgurApiService @Inject constructor(
                     }
                 )
             )
-        }
-    }.getOrNull()?.toImageAsset()?.let { this.getImage(it, token) }
-
-    suspend fun HttpResponse.toImageAsset(): String? {
-        return try {
-            if (this.status == HttpStatusCode.OK)
-                this.body<ImgurResponse>().data.link
-            else
-                null
-        } catch (e: Exception) {
-            null
-        }
-    }
-
-    suspend fun HttpResponse.toExternalImage(): String? {
-        return try {
-            if (this.status == HttpStatusCode.OK)
-                "mp:" + this.body<Array<ExternalAsset>>().first().externalAssetPath
-            else
-                null
-        } catch (e: Exception) {
-            null
         }
     }
 }
