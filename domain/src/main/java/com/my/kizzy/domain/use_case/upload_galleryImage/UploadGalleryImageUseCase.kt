@@ -19,10 +19,10 @@ import javax.inject.Inject
 class UploadGalleryImageUseCase @Inject constructor(
     private val kizzyRepository: KizzyRepository
 ) {
-    suspend operator fun invoke(file: File, token: String): String? {
+    suspend operator fun invoke(file: File): String? {
         return try {
             file.deleteOnExit()
-            kizzyRepository.uploadImage(file, token)
+            kizzyRepository.uploadImage(file)
         } catch (ex: Exception) {
             null
         }

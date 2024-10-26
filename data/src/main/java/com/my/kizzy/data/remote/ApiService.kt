@@ -32,20 +32,20 @@ import io.ktor.http.contentType
 import java.io.File
 import javax.inject.Inject
 
-open class ApiService @Inject constructor(
+class ApiService @Inject constructor(
     private val client: HttpClient,
     @Base private val baseUrl: String,
     @Discord private val discordBaseUrl: String,
     @Github private val githubBaseUrl: String,
 ) {
-    open suspend fun getImage(url: String, token: String) = runCatching {
+    suspend fun getImage(url: String) = runCatching {
         client.get {
             url("$baseUrl/image")
             parameter("url", url)
         }
     }.getOrNull()?.toImageAsset()
 
-    open suspend fun uploadImage(file: File, token: String) = runCatching {
+    suspend fun uploadImage(file: File) = runCatching {
         client.post {
             url("$baseUrl/upload")
             setBody(MultiPartFormDataContent(
@@ -59,7 +59,7 @@ open class ApiService @Inject constructor(
         }
     }.getOrNull()?.toImageAsset()
 
-    open suspend fun HttpResponse.toImageAsset(): String? {
+    suspend fun HttpResponse.toImageAsset(): String? {
         return try {
             if (this.status == HttpStatusCode.OK)
                 this.body<ApiResponse>().id
@@ -70,63 +70,6 @@ open class ApiService @Inject constructor(
         }
     }
 
-    class ImgurApiService @Inject constructor(
-        private val client: HttpClient,
-        @Discord private val discordBaseUrl: String,
-        @Imgur private val imgurBaseUrl: String,
-    ) : ApiService(client, "", discordBaseUrl, "") {
-        override suspend fun getImage(url: String, token: String) = runCatching {
-            client.post {
-                url("$discordBaseUrl/applications/$APPLICATION_ID/external-assets")
-                headers {
-                    append(HttpHeaders.Authorization, token)
-                    append(HttpHeaders.ContentType, "application/json")
-                }
-                setBody(mapOf("urls" to arrayOf(url)))
-            }
-        }.getOrNull()?.toExternalImage()
-
-        override suspend fun uploadImage(file: File, token: String) = runCatching {
-            client.post {
-                url("$imgurBaseUrl/image")
-                headers {
-                    // Imgur web client API key, unchanged for at least >5 years as of 2024
-                    append(HttpHeaders.Authorization, "Client-ID 546c25a59c58ad7")
-                }
-                contentType(ContentType.MultiPart.FormData)
-                setBody(
-                    MultiPartFormDataContent(
-                        formData {
-                            append("image", file.readBytes())
-                            append("type", "raw")
-                        }
-                    )
-                )
-            }
-        }.getOrNull()?.toImageAsset()?.let { this.getImage(it, token) }
-
-        override suspend fun HttpResponse.toImageAsset(): String? {
-            return try {
-                if (this.status == HttpStatusCode.OK)
-                    this.body<ImgurResponse>().data.link
-                else
-                    null
-            } catch (e: Exception) {
-                null
-            }
-        }
-
-        suspend fun HttpResponse.toExternalImage(): String? {
-            return try {
-                if (this.status == HttpStatusCode.OK)
-                    "mp:" + this.body<Array<ExternalAsset>>().first().externalAssetPath
-                else
-                    null
-            } catch (e: Exception) {
-                null
-            }
-        }
-    }
 
     suspend fun getGames() = runCatching {
         client.get {

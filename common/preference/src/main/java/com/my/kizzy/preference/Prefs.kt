@@ -18,7 +18,7 @@ import com.tencent.mmkv.MMKV
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import kotlin.time.Duration.Companion.days
+import kotlin.time.Duration.Companion.hours
 
 object Prefs {
     val kv = MMKV.defaultMMKV()
@@ -89,11 +89,10 @@ object Prefs {
         val lastDeleted = get(
             key = LAST_DELETED,
             // Force delete everyone's saved images for the first time
-            // Same time as Cloudflare cache invalidation
-            defaultValue = System.currentTimeMillis() - 7.days.inWholeMilliseconds
+            defaultValue = System.currentTimeMillis() - 24.hours.inWholeMilliseconds
         )
         val currentTime = System.currentTimeMillis()
-        if (currentTime - lastDeleted > 7.days.inWholeMilliseconds) {
+        if (currentTime - lastDeleted > 24.hours.inWholeMilliseconds) {
             remove(SAVED_IMAGES)
             remove(SAVED_ARTWORK)
             set(LAST_DELETED, currentTime)

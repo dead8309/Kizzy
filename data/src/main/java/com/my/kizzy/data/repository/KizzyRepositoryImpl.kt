@@ -14,6 +14,7 @@ package com.my.kizzy.data.repository
 
 import com.my.kizzy.data.remote.ApiService
 import com.my.kizzy.data.remote.GamesResponse
+import com.my.kizzy.data.remote.ImgurApiService
 import com.my.kizzy.data.remote.toGame
 import com.my.kizzy.domain.model.Contributor
 import com.my.kizzy.domain.model.Game
@@ -29,22 +30,22 @@ import javax.inject.Inject
 
 class KizzyRepositoryImpl @Inject constructor(
     private val api: ApiService,
-    private val imgurApi: ApiService.ImgurApiService
+    private val imgurApi: ImgurApiService
 ): KizzyRepository {
 
-    override suspend fun getImage(url: String, token: String): String? {
+    override suspend fun getImage(url: String): String? {
         return if (Prefs[Prefs.USE_IMGUR, false]) {
-            imgurApi.getImage(url, token)
+            imgurApi.getImage(url, Prefs[Prefs.TOKEN])
         } else {
-            api.getImage(url, token)
+            api.getImage(url)
         }
     }
 
-    override suspend fun uploadImage(file: File, token: String): String? {
+    override suspend fun uploadImage(file: File): String? {
         return if (Prefs[Prefs.USE_IMGUR, false]) {
-            imgurApi.uploadImage(file, token)
+            imgurApi.uploadImage(file, Prefs[Prefs.TOKEN])
         } else {
-            api.uploadImage(file, token)
+            api.uploadImage(file)
         }
     }
 

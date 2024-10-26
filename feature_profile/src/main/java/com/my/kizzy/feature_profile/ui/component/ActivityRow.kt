@@ -86,9 +86,6 @@ fun ActivityRow(
         }
     }
 
-    fun isAsset(url: String?): Boolean {
-        return url?.startsWith("attachments") == true || url?.startsWith("external") == true
-    }
 
     Column(
         Modifier.fillMaxWidth(),
@@ -288,7 +285,11 @@ fun ActivityRow(
     }
 }
 
-fun getFormatFromMs(ms: Long): String {
+private fun isAsset(url: String?): Boolean {
+    return url?.startsWith("attachments") == true || url?.startsWith("external") == true
+}
+
+private fun getFormatFromMs(ms: Long): String {
     var remainingMs = ms
 
     val daysDifference = TimeUnit.MILLISECONDS.toDays(remainingMs)
@@ -303,7 +304,7 @@ fun getFormatFromMs(ms: Long): String {
             String.format(Locale.US, "%02d:%02d", minutesDifference, secondsDifference)
 }
 
-fun formatTime(start: Long?, end: Long? = null): String {
+private fun formatTime(start: Long?, end: Long? = null): String {
     val startTime = end ?: start ?: return ""
     val endTime = System.currentTimeMillis()
 
