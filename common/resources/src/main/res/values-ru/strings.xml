@@ -187,4 +187,6 @@
     <string name="config_name_empty">Название конфигурации не может быть пустым</string>
     <string name="restart">Перезапустить</string>
     <string name="custom_rpc_running">Свой RPC запущен</string>
+    <string name="use_imgur">Imgur as Image Proxy</string>
+    <string name="use_imgur_desc">Use Imgur as an alternate image proxy.</string>
 </resources>

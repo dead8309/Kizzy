@@ -13,6 +13,7 @@ package com.my.kizzy.data.remote
 
 import com.my.kizzy.domain.model.samsung_rpc.GalaxyPresence
 import io.ktor.client.HttpClient
+import io.ktor.client.call.body
 import io.ktor.client.request.forms.MultiPartFormDataContent
 import io.ktor.client.request.forms.formData
 import io.ktor.client.request.get
@@ -21,9 +22,11 @@ import io.ktor.client.request.parameter
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.request.url
+import io.ktor.client.statement.HttpResponse
 import io.ktor.http.ContentType
 import io.ktor.http.Headers
 import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
 import java.io.File
 import javax.inject.Inject
@@ -40,6 +43,7 @@ class ApiService @Inject constructor(
             parameter("url", url)
         }
     }
+
     suspend fun uploadImage(file: File) = runCatching {
         client.post {
             url("$baseUrl/upload")
@@ -84,6 +88,7 @@ class ApiService @Inject constructor(
                 setBody(galaxyPresence)
             }
         }
+
     suspend fun checkForUpdate() = runCatching {
         client.get {
             url("$githubBaseUrl/repos/dead8309/Kizzy/releases/latest")

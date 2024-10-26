@@ -17,6 +17,8 @@ import com.my.kizzy.data.remote.ApiService
 import com.my.kizzy.data.remote.Base
 import com.my.kizzy.data.remote.Discord
 import com.my.kizzy.data.remote.Github
+import com.my.kizzy.data.remote.Imgur
+import com.my.kizzy.data.remote.ImgurApiService
 import com.my.kizzy.data.repository.KizzyRepositoryImpl
 import com.my.kizzy.domain.repository.KizzyRepository
 import dagger.Module
@@ -54,6 +56,11 @@ object AppModule {
     fun provideGithubBaseUrl() = BuildConfig.GITHUB_API_BASE_URL
 
     @Provides
+    @Singleton
+    @Imgur
+    fun provideImgurBaseUrl() = BuildConfig.IMGUR_API_BASE_URL
+
+    @Provides
     fun provideJson() = Json {
         ignoreUnknownKeys = true
         encodeDefaults = true
@@ -88,7 +95,8 @@ object AppModule {
     @Provides
     fun providesKizzyRepository(
         apiService: ApiService,
+        imgurApiService: ImgurApiService
     ): KizzyRepository {
-        return KizzyRepositoryImpl(apiService)
+        return KizzyRepositoryImpl(apiService, imgurApiService)
     }
 }

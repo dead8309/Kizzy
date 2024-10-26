@@ -188,4 +188,6 @@
     <string name="config_name_empty">설정 이름은 비워둘 수 없습니다</string>
     <string name="restart">재시작</string>
     <string name="custom_rpc_running">사용자 정의 RPC 실행 중</string>
+    <string name="use_imgur">Imgur as Image Proxy</string>
+    <string name="use_imgur_desc">Use Imgur as an alternate image proxy.</string>
 </resources>

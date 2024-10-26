@@ -188,4 +188,6 @@
     <string name="config_name_empty">Nazwa konfiguracji nie może być pusta</string>
     <string name="restart">Restartuj</string>
     <string name="custom_rpc_running">Własne RPC jest uruchomiony</string>
+    <string name="use_imgur">Imgur as Image Proxy</string>
+    <string name="use_imgur_desc">Use Imgur as an alternate image proxy.</string>
 </resources>
