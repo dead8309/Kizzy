@@ -189,4 +189,13 @@
     <string name="custom_rpc_running">RPC tuỳ chỉnh đang chạy</string>
     <string name="use_imgur">Lưu trữ hình ảnh trên Imgur</string>
     <string name="use_imgur_desc">Sử dụng Imgur làm nơi lưu trữ hình ảnh.</string>
+    <string name="start_appDetection">Khởi chạy Nhận diện Ứng dụng</string>
+    <string name="start_mediaRPC">Khởi chạy RPC Trình phát</string>
+    <string name="start_experimentalRPC">Khởi chạy RPC Thử nghiệm</string>
+    <string name="stop_rpc">Dừng RPC</string>
+    <string name="stop">Dừng</string>
+    <string name="start_appDetection_toast">Nhận diện Ứng dụng đã khởi chạy</string>
+    <string name="start_mediaRPC_toast">RPC Trình phát đã khởi chạy</string>
+    <string name="start_experimentalRPC_toast">RPC Thử nghiệm đã khỏi chạy</string>
+    <string name="stop_rpc_toast">Đã dừng hoạt động</string>
 </resources>

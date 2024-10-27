@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /*
+  ~ * ******************************************************************
+  ~  *  * Copyright (C) 2022
+  ~  *  * shortcuts.xml is part of Kizzy
+  ~  *  *  and can not be copied and/or distributed without the express
+  ~  *  * permission of yzziK(Vaibhav)
+  ~  *  *****************************************************************
+  ~  */
+  ~
+  -->
+
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/shortcuts_apps"
+        android:shortcutId="startAppDetection"
+        android:shortcutLongLabel="@string/main_appDetection"
+        android:shortcutShortLabel="@string/start_appDetection">
+        <intent
+            android:action="com.my.kizzy.intent.action.START_APP_DETECTION"
+            android:targetClass="com.my.kizzy.feature_rpc_base.services.ShortcutsActivity"
+            android:targetPackage="com.my.kizzy" />
+    </shortcut>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/shortcuts_media_rpc"
+        android:shortcutId="mediaRPC"
+        android:shortcutLongLabel="@string/main_mediaRpc"
+        android:shortcutShortLabel="@string/start_mediaRPC">
+        <intent
+            android:action="com.my.kizzy.intent.action.START_MEDIA_RPC"
+            android:targetClass="com.my.kizzy.feature_rpc_base.services.ShortcutsActivity"
+            android:targetPackage="com.my.kizzy" />
+    </shortcut>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/shortcuts_dev_rpc"
+        android:shortcutId="experimentalRPC"
+        android:shortcutLongLabel="@string/main_experimentalRpc"
+        android:shortcutShortLabel="@string/start_experimentalRPC">
+        <intent
+            android:action="com.my.kizzy.intent.action.START_EXPERIMENTAL_RPC"
+            android:targetClass="com.my.kizzy.feature_rpc_base.services.ShortcutsActivity"
+            android:targetPackage="com.my.kizzy" />
+    </shortcut>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/shortcuts_stop"
+        android:shortcutId="stopRPC"
+        android:shortcutLongLabel="@string/stop"
+        android:shortcutShortLabel="@string/stop_rpc">
+        <intent
+            android:action="com.my.kizzy.intent.action.STOP_RPC"
+            android:targetClass="com.my.kizzy.feature_rpc_base.services.ShortcutsActivity"
+            android:targetPackage="com.my.kizzy" />
+    </shortcut>
+</shortcuts>

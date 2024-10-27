@@ -189,4 +189,13 @@
     <string name="custom_rpc_running">Свой RPC запущен</string>
     <string name="use_imgur">Imgur как прокси картинок</string>
     <string name="use_imgur_desc">Использовать Imgur как альтернативный прокси картинок.</string>
+    <string name="start_appDetection">Start App Detection</string>
+    <string name="start_mediaRPC">Start Media RPC</string>
+    <string name="start_experimentalRPC">Start Experimental RPC</string>
+    <string name="stop_rpc">Stop RPC</string>
+    <string name="stop">Stop</string>
+    <string name="start_appDetection_toast">App Detection started</string>
+    <string name="start_mediaRPC_toast">Media RPC started</string>
+    <string name="start_experimentalRPC_toast">Experimental RPC started</string>
+    <string name="stop_rpc_toast">All services stopped</string>
 </resources>
