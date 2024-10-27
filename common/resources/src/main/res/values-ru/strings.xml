@@ -198,4 +198,5 @@
     <string name="start_mediaRPC_toast">RPC медиа-контента запущено</string>
     <string name="start_experimentalRPC_toast">Экспериментальны RPC запущен</string>
     <string name="stop_rpc_toast">Все сервисы остановлены</string>
+    <string name="show_playback_state">Show Playback State</string>
 </resources>

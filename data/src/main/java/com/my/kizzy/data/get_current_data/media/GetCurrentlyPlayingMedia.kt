@@ -31,9 +31,26 @@ class GetCurrentPlayingMedia @Inject constructor(
     private val componentName: ComponentName,
     @ApplicationContext private val context: Context
 ) {
+    object Assets {
+        val PLAY = "https://i.imgur.com/UHzKUo2.png";
+        val PAUSE = "https://i.imgur.com/66ucmnD.png";
+        val STOP = "https://i.imgur.com/s0SkqEF.png";
+    }
+
+    private fun getPlaybackStateIcon(playbackState: Int): RpcImage? {
+        return when (playbackState) {
+            PlaybackState.STATE_PLAYING -> RpcImage.URLImage(Assets.PLAY)
+            PlaybackState.STATE_PAUSED -> RpcImage.URLImage(Assets.PAUSE)
+            PlaybackState.STATE_STOPPED -> RpcImage.URLImage(Assets.STOP)
+            else -> RpcImage.URLImage(Assets.PAUSE)
+        }
+    }
+
     operator fun invoke(): CommonRpc {
-        var largeIcon: RpcImage?
-        val smallIcon: RpcImage?
+        var largeIcon: RpcImage? = null
+        var largeText: String? = null
+        var smallIcon: RpcImage? = null
+        var smallText: String? = null
         var timestamps: Timestamps? = null
         val mediaSessionManager =
             context.getSystemService(Service.MEDIA_SESSION_SERVICE) as MediaSessionManager
@@ -74,6 +91,7 @@ class GetCurrentPlayingMedia @Inject constructor(
                     ) else null
                 if (bitmap != null) {
                     smallIcon = largeIcon
+                    smallText = appName
                     largeIcon = RpcImage.BitmapImage(
                         context = context,
                         bitmap = bitmap,
@@ -81,14 +99,21 @@ class GetCurrentPlayingMedia @Inject constructor(
                         // <Main artist>|<Album or Title>
                         title = "${metadata.let { metadataResolver.getAlbumArtists(it) }}|${metadata.let { metadataResolver.getAlbum(it) } ?: title}"
                     )
-                } else smallIcon = null
+                    largeText = album
+                }
+
+                if (Prefs[Prefs.MEDIA_RPC_SHOW_PLAYBACK_STATE, false]) {
+                    smallIcon = getPlaybackStateIcon(mediaController.playbackState?.state ?: PlaybackState.STATE_PAUSED)
+                    smallText = null
+                }
+
                 return CommonRpc(name = appName,
                     details = title,
                     state = author,
                     largeImage = largeIcon,
                     smallImage = smallIcon,
-                    largeText = album,
-                    smallText = appName,
+                    largeText = largeText,
+                    smallText = smallText,
                     packageName = "$title::${mediaController.packageName}",
                     time = timestamps.takeIf { it != null })
             }

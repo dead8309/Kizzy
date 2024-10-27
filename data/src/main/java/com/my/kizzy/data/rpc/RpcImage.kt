@@ -87,4 +87,21 @@ sealed class RpcImage {
             }
         }
     }
+
+    class URLImage(val url: String) : RpcImage() {
+        override suspend fun resolveImage(repository: KizzyRepository): String? {
+            val data = Prefs[Prefs.SAVED_ARTWORK, "{}"]
+            val savedImages = Json.decodeFromString<HashMap<String, String>>(data)
+            return if (savedImages.containsKey(url))
+                savedImages[url]
+            else {
+                val result = repository.getImage(url)
+                result?.let {
+                    savedImages[url] = it
+                    Prefs[Prefs.SAVED_ARTWORK] = Json.encodeToString(savedImages)
+                }
+                result
+            }
+        }
+    }
 }

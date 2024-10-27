@@ -147,10 +147,7 @@ class MediaRpcService : Service() {
                         playingMedia.largeImage,
                         if (Prefs[Prefs.MEDIA_RPC_ALBUM_NAME, false]) playingMedia.largeText else null
                     )
-                    setSmallImage(
-                        if (Prefs[Prefs.MEDIA_RPC_APP_ICON, false]) playingMedia.smallImage else null,
-                        playingMedia.smallText
-                    )
+                    setSmallImage(playingMedia.smallImage, playingMedia.smallText)
                     if (Prefs[Prefs.USE_RPC_BUTTONS, false]) {
                         with(rpcButtons) {
                             setButton1(button1.takeIf { it.isNotEmpty() })
