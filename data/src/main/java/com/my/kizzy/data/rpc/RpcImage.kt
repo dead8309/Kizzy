@@ -38,6 +38,12 @@ sealed class RpcImage {
         }
     }
 
+    class AppAsset(val id: String) : RpcImage() {
+        override suspend fun resolveImage(repository: KizzyRepository): String? {
+            return id;
+        }
+    }
+
     class ApplicationIcon(val packageName: String, private val context: Context) : RpcImage() {
         val data = Prefs[Prefs.SAVED_IMAGES, "{}"]
         private val savedImages: HashMap<String, String> = Json.decodeFromString(data)
@@ -81,23 +87,6 @@ sealed class RpcImage {
                 val result = repository.uploadImage(bitmap.toFile(this.context, "art"))
                 result?.let {
                     savedImages[schema] = it
-                    Prefs[Prefs.SAVED_ARTWORK] = Json.encodeToString(savedImages)
-                }
-                result
-            }
-        }
-    }
-
-    class URLImage(val url: String) : RpcImage() {
-        override suspend fun resolveImage(repository: KizzyRepository): String? {
-            val data = Prefs[Prefs.SAVED_ARTWORK, "{}"]
-            val savedImages = Json.decodeFromString<HashMap<String, String>>(data)
-            return if (savedImages.containsKey(url))
-                savedImages[url]
-            else {
-                val result = repository.getImage(url)
-                result?.let {
-                    savedImages[url] = it
                     Prefs[Prefs.SAVED_ARTWORK] = Json.encodeToString(savedImages)
                 }
                 result

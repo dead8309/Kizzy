@@ -32,17 +32,17 @@ class GetCurrentPlayingMedia @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
     object Assets {
-        val PLAY = "https://i.imgur.com/UHzKUo2.png";
-        val PAUSE = "https://i.imgur.com/66ucmnD.png";
-        val STOP = "https://i.imgur.com/s0SkqEF.png";
+        val PLAY = "1300361266212241430";
+        val PAUSE = "1300361619490209802";
+        val STOP = "1300361702621188160";
     }
 
     private fun getPlaybackStateIcon(playbackState: Int): RpcImage? {
         return when (playbackState) {
-            PlaybackState.STATE_PLAYING -> RpcImage.URLImage(Assets.PLAY)
-            PlaybackState.STATE_PAUSED -> RpcImage.URLImage(Assets.PAUSE)
-            PlaybackState.STATE_STOPPED -> RpcImage.URLImage(Assets.STOP)
-            else -> RpcImage.URLImage(Assets.PAUSE)
+            PlaybackState.STATE_PLAYING -> RpcImage.AppAsset(Assets.PLAY)
+            PlaybackState.STATE_PAUSED -> RpcImage.AppAsset(Assets.PAUSE)
+            PlaybackState.STATE_STOPPED -> RpcImage.AppAsset(Assets.STOP)
+            else -> RpcImage.AppAsset(Assets.PAUSE)
         }
     }
 
