@@ -268,7 +268,7 @@ class KizzyRPC(
                     ).takeIf { largeImage != null || smallImage != null },
                     buttons = buttons.takeIf { buttons.size > 0 },
                     metadata = Metadata(buttonUrls = buttonUrl).takeIf { buttonUrl.size > 0 },
-                    applicationId = Constants.APPLICATION_ID.takeIf { buttons.size > 0 },
+                    applicationId = Constants.APPLICATION_ID,
                     url = url
                 )
             ),
@@ -313,7 +313,7 @@ class KizzyRPC(
                         party = party.takeIf { party != null },
                         buttons = buttons.takeIf { buttons.size > 0 },
                         metadata = Metadata(buttonUrls = buttonUrl).takeIf { buttonUrl.size > 0 },
-                        applicationId = Constants.APPLICATION_ID.takeIf { buttons.size > 0 }
+                        applicationId = Constants.APPLICATION_ID
                     )
                 ),
                 afk = true,

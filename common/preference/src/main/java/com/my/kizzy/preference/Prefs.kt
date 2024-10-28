@@ -116,6 +116,7 @@ object Prefs {
     const val MEDIA_RPC_APP_ICON = "media_rpc_app_icon"
     const val MEDIA_RPC_ENABLE_TIMESTAMPS = "enable_timestamps"
     const val MEDIA_RPC_HIDE_ON_PAUSE = "hide_on_pause"
+    const val MEDIA_RPC_SHOW_PLAYBACK_STATE = "show_playback_state"
 
     //Rpc Setting Preferences
     const val USE_RPC_BUTTONS = "use_saved_rpc_buttons"
