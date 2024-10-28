@@ -48,7 +48,6 @@ class GetCurrentPlayingMedia @Inject constructor(
 
     operator fun invoke(): CommonRpc {
         var largeIcon: RpcImage? = null
-        var largeText: String? = null
         var smallIcon: RpcImage? = null
         var smallText: String? = null
         var timestamps: Timestamps? = null
@@ -99,7 +98,6 @@ class GetCurrentPlayingMedia @Inject constructor(
                         // <Main artist>|<Album or Title>
                         title = "${metadata.let { metadataResolver.getAlbumArtists(it) }}|${metadata.let { metadataResolver.getAlbum(it) } ?: title}"
                     )
-                    largeText = album
                 }
 
                 if (Prefs[Prefs.MEDIA_RPC_SHOW_PLAYBACK_STATE, false]) {
@@ -112,7 +110,7 @@ class GetCurrentPlayingMedia @Inject constructor(
                     state = author,
                     largeImage = largeIcon,
                     smallImage = smallIcon,
-                    largeText = largeText,
+                    largeText = album,
                     smallText = smallText,
                     packageName = "$title::${mediaController.packageName}",
                     time = timestamps.takeIf { it != null })
