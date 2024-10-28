@@ -235,4 +235,5 @@
     <string name="start_experimentalRPC_toast">Experimental RPC started</string>
     <string name="stop_rpc_toast">All services stopped</string>
     <string name="show_playback_state">Show Playback State</string>
+    <string name="copied_to_clipboard">Copied to clipboard</string>
 </resources>
