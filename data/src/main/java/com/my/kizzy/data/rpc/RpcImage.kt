@@ -38,12 +38,6 @@ sealed class RpcImage {
         }
     }
 
-    class AppAsset(val id: String) : RpcImage() {
-        override suspend fun resolveImage(repository: KizzyRepository): String? {
-            return id;
-        }
-    }
-
     class ApplicationIcon(val packageName: String, private val context: Context) : RpcImage() {
         val data = Prefs[Prefs.SAVED_IMAGES, "{}"]
         private val savedImages: HashMap<String, String> = Json.decodeFromString(data)

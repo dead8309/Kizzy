@@ -67,6 +67,5 @@ private fun <TranscodeType> RequestBuilder<TranscodeType>.loadRpcImage(
         is RpcImage.BitmapImage -> load(rpcImage.bitmap)
         is RpcImage.DiscordImage -> load("https://cdn.discordapp.com/${rpcImage.image}")
         is RpcImage.ExternalImage -> load(rpcImage.image)
-        is RpcImage.AppAsset -> load(rpcImage.id)
     }
 }

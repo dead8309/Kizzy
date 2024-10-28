@@ -20,6 +20,7 @@ import android.media.session.MediaSessionManager
 import android.media.session.PlaybackState
 import com.blankj.utilcode.util.AppUtils
 import com.my.kizzy.data.rpc.CommonRpc
+import com.my.kizzy.data.rpc.Constants.APPLICATION_ID
 import com.my.kizzy.data.rpc.Timestamps
 import com.my.kizzy.data.rpc.RpcImage
 import com.my.kizzy.preference.Prefs
@@ -32,17 +33,17 @@ class GetCurrentPlayingMedia @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
     object Assets {
-        val PLAY = "1300361266212241430";
-        val PAUSE = "1300361619490209802";
-        val STOP = "1300361702621188160";
+        val PLAY = "app-assets/$APPLICATION_ID/1300361266212241430.png";
+        val PAUSE = "app-assets/$APPLICATION_ID/1300361619490209802.png";
+        val STOP = "app-assets/$APPLICATION_ID/1300361702621188160.png";
     }
 
     private fun getPlaybackStateIcon(playbackState: Int): RpcImage? {
         return when (playbackState) {
-            PlaybackState.STATE_PLAYING -> RpcImage.AppAsset(Assets.PLAY)
-            PlaybackState.STATE_PAUSED -> RpcImage.AppAsset(Assets.PAUSE)
-            PlaybackState.STATE_STOPPED -> RpcImage.AppAsset(Assets.STOP)
-            else -> RpcImage.AppAsset(Assets.PAUSE)
+            PlaybackState.STATE_PLAYING -> RpcImage.DiscordImage(Assets.PLAY)
+            PlaybackState.STATE_PAUSED -> RpcImage.DiscordImage(Assets.PAUSE)
+            PlaybackState.STATE_STOPPED -> RpcImage.DiscordImage(Assets.STOP)
+            else -> RpcImage.DiscordImage(Assets.PAUSE)
         }
     }
 
