@@ -199,4 +199,5 @@
     <string name="start_experimentalRPC_toast">RPC Thử nghiệm đã khỏi chạy</string>
     <string name="stop_rpc_toast">Đã dừng hoạt động</string>
     <string name="show_playback_state">Hiện trạng thái phát</string>
+    <string name="copied_to_clipboard">Đã sao chép</string>
 </resources>
