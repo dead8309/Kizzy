@@ -17,8 +17,10 @@ import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
@@ -45,6 +47,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -96,10 +99,16 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
     var showActivityStatusDialog by remember {
         mutableStateOf(false)
     }
+    var showApplicationIdDialog by remember {
+        mutableStateOf(false)
+    }
     var setLastRunRpcConfigOption by remember {
         mutableStateOf(Prefs[Prefs.APPLY_FIELDS_FROM_LAST_RUN_RPC, false])
     }
     var isSamsungRpcEnabled by remember { mutableStateOf(Prefs[Prefs.SAMSUNG_RPC_ENABLED, false]) }
+
+    var customApplicationId by remember { mutableStateOf(Prefs[Prefs.CUSTOM_ACTIVITY_APPLICATION_ID, ""]) }
+
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         LargeTopAppBar(title = {
             Text(
@@ -174,6 +183,16 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                     setLastRunRpcConfigOption = !setLastRunRpcConfigOption
                     Prefs[Prefs.APPLY_FIELDS_FROM_LAST_RUN_RPC] = setLastRunRpcConfigOption
                 }
+            }
+            item {
+                SettingItem(
+                    title = stringResource(id = R.string.use_custom_activity_application_id),
+                    description = stringResource(id = R.string.use_custom_activity_application_id_desc),
+                    icon = Icons.Default.Code
+                ) {
+                    showApplicationIdDialog = true
+                }
+
             }
             item {
                 Subtitle(text = stringResource(id = R.string.advance_settings))
@@ -407,5 +426,50 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 }
             )
         }
+
+        if (showApplicationIdDialog) {
+            AlertDialog(
+                onDismissRequest = {
+                    showApplicationIdDialog = false
+                },
+                text = {
+                    Column {
+                        Text(text = stringResource(R.string.application_id))
+                        Spacer(modifier = Modifier.height(8.dp))
+                        TextField(
+                            value = customApplicationId,
+                            onValueChange = { newText ->
+                                // Ensure the text only contains digits and is no longer than 18 characters
+                                if (newText.length <= 18 && newText.all { it.isDigit() }) {
+                                    customApplicationId = newText}
+                                            },
+                            singleLine = true
+                        )
+                    }
+                },
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            if (customApplicationId.length != 18 || !customApplicationId.all { it.isDigit() }) {
+                                Toast.makeText(context, "Please enter a valid Application ID", Toast.LENGTH_SHORT).show()
+                            } else {
+                                Prefs[Prefs.CUSTOM_ACTIVITY_APPLICATION_ID] = customApplicationId
+                                showApplicationIdDialog = false
+                            }
+                        }
+                    ) {
+                        Text("OK")
+                    }
+                },
+                dismissButton = {
+                    TextButton(
+                        onClick = { showApplicationIdDialog = false }
+                    ) {
+                        Text("Cancel")
+                    }
+                }
+            )
+        }
+
     }
 }

@@ -151,4 +151,6 @@ object Prefs {
     const val LAST_DELETED = "last_deleted"
 
     const val SAMSUNG_RPC_ENABLED = "samsung_rpc_enabled"
+
+    const val CUSTOM_ACTIVITY_APPLICATION_ID = "custom_activity_application_id"
 }
