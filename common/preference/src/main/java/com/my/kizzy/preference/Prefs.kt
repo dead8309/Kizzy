@@ -15,7 +15,6 @@ package com.my.kizzy.preference
 import com.my.kizzy.domain.model.release.Release
 import com.my.kizzy.domain.model.user.User
 import com.tencent.mmkv.MMKV
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlin.time.Duration.Companion.hours
@@ -152,5 +151,5 @@ object Prefs {
 
     const val SAMSUNG_RPC_ENABLED = "samsung_rpc_enabled"
 
-    const val CUSTOM_ACTIVITY_APPLICATION_ID = "custom_activity_application_id"
+    const val CUSTOM_ACTIVITY_APPLICATION_ID = "custom_activity_application_id_"
 }

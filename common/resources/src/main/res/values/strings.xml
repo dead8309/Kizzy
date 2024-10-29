@@ -140,6 +140,7 @@
     <string name="select_directory">Select directory</string>
     <string name="enter_details">Enter details</string>
     <string name="enter_your_developer_activity_application_id" tools:ignore="MissingTranslation">Enter your Developer Activity Application ID</string>
+    <string name="ok" tools:ignore="MissingTranslation">OK</string>
     <string name="application_id" tools:ignore="MissingTranslation">Application ID</string>
     <string name="status_online">Online</string>
     <string name="status_idle">Idle</string>
