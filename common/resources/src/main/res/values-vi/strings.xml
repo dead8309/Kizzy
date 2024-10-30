@@ -174,7 +174,7 @@
     <string name="activity_streaming_title">Đang phát trực tiếp tại %1$s</string>
     <string name="delete_config_successfully_toast">%1$s đã được xóa thành công</string>
     <string name="service_enabled">Dịch vụ đã khởi chạy</string>
-    <string name="no_internet_connection">Không kết nối Internet</string>
+    <string name="no_internet_connection">Không kết nối tới máy chủ</string>
     <string name="unknown_error">Mội lỗi bất ngờ đã xảy ra</string>
     <string name="rpc_buttons">Nút hoạt động</string>
     <string name="samsungRPC_settings">Bật Samsung RPC</string>

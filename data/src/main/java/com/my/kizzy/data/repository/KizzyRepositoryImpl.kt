@@ -59,14 +59,21 @@ class KizzyRepositoryImpl @Inject constructor(
     override suspend fun getUser(userid: String): User {
         return api.getUser(userid).getOrNull()?.body() ?: User()
     }
+
     override suspend fun getContributors(): List<Contributor> {
         return api.getContributors().getOrNull()?.body() ?: emptyList()
     }
+
     override suspend fun setSamsungGalaxyPresence(galaxyPresence: GalaxyPresence,token: String) {
         api.setSamsungGalaxyPresence(galaxyPresence,token)
     }
+
     override suspend fun checkForUpdate(): Release {
         return api.checkForUpdate().getOrNull()?.releaseBody() ?: Release()
+    }
+
+    override suspend fun checkConnection(): Boolean {
+        return api.checkConnection().getOrNull() == true
     }
 }
 

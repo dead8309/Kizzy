@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.my.kizzy.domain.model.Resource
 import com.my.kizzy.domain.model.release.Release
+import com.my.kizzy.domain.use_case.check_connection.CheckConnectionUseCase
 import com.my.kizzy.domain.use_case.check_for_update.CheckForUpdateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,7 +27,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeScreenViewModel @Inject constructor(
-    private val checkForUpdateUseCase: CheckForUpdateUseCase
+    private val checkForUpdateUseCase: CheckForUpdateUseCase,
+    private val checkConnectionUseCase: CheckConnectionUseCase
 ): ViewModel() {
     private val _aboutScreenState: MutableStateFlow<HomeScreenState> = MutableStateFlow(
         HomeScreenState.Loading
@@ -53,10 +55,29 @@ class HomeScreenViewModel @Inject constructor(
     fun setReleaseFromPrefs(release: Release){
         _aboutScreenState.value = HomeScreenState.LoadingCompleted(release)
     }
+
+    fun checkConnection() {
+        checkConnectionUseCase().onEach { result ->
+            when(result){
+                is Resource.Success -> {
+                    _aboutScreenState.value =
+                        HomeScreenState.ConnectionStatus(result.data == true)
+                }
+                is Resource.Error -> {
+                    _aboutScreenState.value =
+                        HomeScreenState.Error(result.message ?: "An unexpected error occurred")
+                }
+                is Resource.Loading -> {
+                    _aboutScreenState.value = HomeScreenState.Loading
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
 }
 
 sealed interface HomeScreenState {
     object Loading: HomeScreenState
     class Error(val error: String?): HomeScreenState
     class LoadingCompleted(val release: Release): HomeScreenState
+    class ConnectionStatus(val isConnected: Boolean): HomeScreenState
 }

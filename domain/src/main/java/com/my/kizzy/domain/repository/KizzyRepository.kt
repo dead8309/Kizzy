@@ -26,4 +26,5 @@ interface KizzyRepository {
     suspend fun getContributors(): List<Contributor>
     suspend fun setSamsungGalaxyPresence(galaxyPresence: GalaxyPresence, token: String)
     suspend fun checkForUpdate(): Release
+    suspend fun checkConnection(): Boolean
 }

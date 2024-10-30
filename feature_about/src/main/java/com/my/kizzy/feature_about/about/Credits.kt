@@ -190,7 +190,7 @@ fun CreditsPreview() {
 @Composable
 fun CreditsPreview2() {
     Credits(
-        state = CreditScreenState.Error(error = "No internet connection"),
+        state = CreditScreenState.Error(error = "No Internet connection"),
         onBackPressed = {}
     )
 }

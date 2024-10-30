@@ -174,7 +174,7 @@
     <string name="activity_streaming_title">Streaming at %1$s</string>
     <string name="delete_config_successfully_toast">%1$s was deleted successfully</string>
     <string name="service_enabled">Service enabled</string>
-    <string name="no_internet_connection">No internet connection</string>
+    <string name="no_internet_connection">No Internet connection</string>
     <string name="unknown_error">An unexpected error occurred</string>
     <string name="rpc_buttons">RPC buttons</string>
     <string name="samsungRPC_settings">Enable Samsung RPC</string>

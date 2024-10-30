@@ -12,13 +12,24 @@
 
 package com.my.kizzy.feature_home
 
+import android.annotation.SuppressLint
 import android.content.ComponentName
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.ConnectivityManager.NetworkCallback
+import android.net.Network
 import android.widget.Toast
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -48,17 +59,20 @@ import androidx.compose.material3.rememberDrawerState
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
@@ -83,6 +97,7 @@ import kotlinx.coroutines.launch
 fun Home(
     state: HomeScreenState,
     checkForUpdates: () -> Unit,
+    checkConnection: () -> Unit,
     showBadge: Boolean,
     features: List<HomeFeature>,
     user: User?,
@@ -92,16 +107,13 @@ fun Home(
     navigateToLanguages: () -> Unit,
     navigateToAbout: () -> Unit,
     navigateToRpcSettings: () -> Unit,
-    navigateToLogsScreen: () -> Unit
+    navigateToLogsScreen: () -> Unit,
 ) {
     val ctx = LocalContext.current
     var timestamp by remember { mutableStateOf(System.currentTimeMillis()) }
-    var homeItems by remember(timestamp) {
-        mutableStateOf(features)
-    }
-    var showUpdateDialog by remember {
-        mutableStateOf(false)
-    }
+    var homeItems by remember(timestamp) { mutableStateOf(features) }
+    var showUpdateDialog by remember { mutableStateOf(false) }
+    var isConnected by remember { mutableStateOf(true) }
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     val scrollBehavior =
@@ -114,10 +126,21 @@ fun Home(
         when (event) {
             Lifecycle.Event.ON_RESUME -> {
                 timestamp = System.currentTimeMillis()
+                checkConnection()
             }
             else -> {}
         }
     }
+
+    // Check for internet connectivity
+    InternetConnectivityChanges(
+        onAvailable = {
+            checkConnection()
+        },
+        onLost = {
+            isConnected = false
+        }
+    )
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -230,6 +253,26 @@ fun Home(
                     },
                     scrollBehavior = scrollBehavior,
                 )
+                AnimatedVisibility(
+                    visible = !isConnected,
+                    enter = fadeIn(),
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .offset(y = TopAppBarDefaults.LargeAppBarExpandedHeight - TopAppBarDefaults.LargeAppBarCollapsedHeight)
+                            .background(MaterialTheme.colorScheme.surfaceVariant),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.no_internet_connection),
+                            modifier = Modifier.padding(8.dp),
+                            style = MaterialTheme.typography.bodySmall,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                }
             }
         ) { paddingValues ->
             LazyColumn(
@@ -277,10 +320,17 @@ fun Home(
                                 )
                             }
                         } else {
-                            Toast.makeText(ctx, ctx.getString(R.string.update_no_updates_available), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                ctx,
+                                ctx.getString(R.string.update_no_updates_available),
+                                Toast.LENGTH_SHORT
+                            ).show()
                             showUpdateDialog = false
                         }
                     }
+                }
+                is HomeScreenState.ConnectionStatus -> {
+                    isConnected = state.isConnected
                 }
                 else -> {}
             }
@@ -306,23 +356,56 @@ fun OnLifecycleEvent(onEvent: (owner: LifecycleOwner, event: Lifecycle.Event) ->
     }
 }
 
+@SuppressLint("MissingPermission")
+@Composable
+fun InternetConnectivityChanges(
+    onAvailable: (network: Network) -> Unit, onLost: (network: Network) -> Unit,
+) {
+    val context = LocalContext.current
+    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+    val networkCallback = remember {
+        object : NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                onAvailable(network)
+            }
+
+            override fun onLost(network: Network) {
+                onLost(network)
+            }
+        }
+    }
+
+    LaunchedEffect(key1 = context) {
+        connectivityManager.registerDefaultNetworkCallback(networkCallback)
+    }
+
+    DisposableEffect(key1 = Unit) {
+        onDispose {
+            connectivityManager.unregisterNetworkCallback(networkCallback)
+        }
+    }
+}
+
 @Preview
 @Composable
 fun HomeScreenPreview() {
     Home(
         state = HomeScreenState.Loading,
         checkForUpdates = {},
+        checkConnection = {},
         showBadge = true,
         features = fakeFeatures,
         user = fakeUser,
-        navigateToProfile = {  },
-        navigateToStyleAndAppearance = {  },
-        navigateToLanguages = {  },
-        navigateToAbout = {  },
-        navigateToRpcSettings = {  }) {
+        navigateToProfile = { },
+        navigateToStyleAndAppearance = { },
+        navigateToLanguages = { },
+        navigateToAbout = { },
+        navigateToRpcSettings = { }) {
 
     }
 }
+
 val fakeFeatures = listOf(
     HomeFeature(
         title = "App Detection",

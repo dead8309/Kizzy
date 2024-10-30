@@ -102,6 +102,9 @@ internal fun ComponentActivity.Kizzy() {
                             viewModel.getLatestUpdate()
                         }
                     },
+                    checkConnection = {
+                        viewModel.checkConnection()
+                    },
                     showBadge = showBadge,
                     features = homeFeaturesProvider(
                         navigateTo = { navController.navigate(it) },
