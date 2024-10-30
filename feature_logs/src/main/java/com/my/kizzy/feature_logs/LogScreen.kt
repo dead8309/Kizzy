@@ -14,8 +14,11 @@ package com.my.kizzy.feature_logs
 
 import android.annotation.SuppressLint
 import android.icu.text.SimpleDateFormat
+import android.widget.Toast
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -30,7 +33,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.platform.ClipboardManager
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -48,19 +55,22 @@ import com.my.kizzy.ui.theme.LogColors.color
 import java.text.DateFormat
 import java.util.*
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun LogScreen(viewModel: LogsViewModel) {
+    val ctx = LocalContext.current
     val lazyListState = rememberLazyListState()
     val logs by remember {
         derivedStateOf {
             viewModel.filter()
         }
     }
+    val clipboardManager: ClipboardManager = LocalClipboardManager.current
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = { ToolBar(viewModel) }
     ) { paddingValues ->
-        LaunchedEffect(viewModel.logs.size)  {
+        LaunchedEffect(viewModel.logs.size) {
             if (viewModel.logs.size > 0 && viewModel.autoScroll.value)
                 lazyListState.animateScrollToItem(viewModel.logs.size - 1)
         }
@@ -74,18 +84,29 @@ fun LogScreen(viewModel: LogsViewModel) {
             itemsIndexed(
                 logs,// viewModel.logs,
             ) { i, it ->
-                if (viewModel.showCompat.value)
+                if (viewModel.showCompat.value) {
+                    val isExpanded = remember { mutableStateOf(false) }
                     Text(
                         text = it.annotated(),
                         style = MaterialTheme.typography.labelMedium.copy(
                             color = if (i % 2 == 0)
                                 MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f) else MaterialTheme.typography.labelMedium.color
                         ),
-                        modifier = Modifier.padding(4.dp),
+                        modifier = Modifier
+                            .combinedClickable(
+                                onClick = { // Increase maxLines on click
+                                    isExpanded.value = !isExpanded.value
+                                },
+                                onLongClick = {
+                                    clipboardManager.setText(AnnotatedString(it.text))
+                                    Toast.makeText(ctx, ctx.getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT).show()
+                                },
+                            )
+                            .padding(4.dp),
                         overflow = TextOverflow.Ellipsis,
-                        maxLines = 10
+                        maxLines = if (isExpanded.value) Int.MAX_VALUE else 10
                     )
-                else
+                } else
                     LogsCard(it)
             }
         }
@@ -100,7 +121,7 @@ fun ToolBar(viewModel: LogsViewModel) {
     }
     TopAppBar(
         title = {
-            if(viewModel.isSearchBarVisible.value) {
+            if (viewModel.isSearchBarVisible.value) {
                 SearchBar(
                     text = viewModel.filterStrings.value,
                     placeholder = stringResource(id = R.string.search_placeholder),
@@ -115,7 +136,7 @@ fun ToolBar(viewModel: LogsViewModel) {
                 )
         },
         actions = {
-            if(!viewModel.isSearchBarVisible.value){
+            if (!viewModel.isSearchBarVisible.value) {
                 IconButton(onClick = { viewModel.isSearchBarVisible.value = true }) {
                     Icon(Icons.Default.Search, stringResource(id = R.string.search))
                 }
@@ -183,8 +204,12 @@ fun ToolBar(viewModel: LogsViewModel) {
 /**
  * source https://github.com/wingio/Logra
  */
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun LogsCard(logEvent: LogEvent) {
+    val ctx = LocalContext.current
+    val isExpanded = remember { mutableStateOf(false) }
+    val clipboardManager: ClipboardManager = LocalClipboardManager.current
     ElevatedCard(
         colors = CardDefaults.elevatedCardColors(
             containerColor = MaterialTheme.colorScheme.surface
@@ -222,12 +247,20 @@ fun LogsCard(logEvent: LogEvent) {
                             .background(MaterialTheme.colorScheme.surfaceColorAtElevation(10.dp))
                             .padding(5.dp)
                     )
-
                     Text(
                         text = logEvent.text,
                         style = MaterialTheme.typography.labelMedium,
                         overflow = TextOverflow.Ellipsis,
-                        maxLines = 10
+                        maxLines = if (isExpanded.value) Int.MAX_VALUE else 10,
+                        modifier = Modifier.combinedClickable(
+                            onClick = { // Increase maxLines on click
+                                isExpanded.value = !isExpanded.value
+                            },
+                            onLongClick = {
+                                clipboardManager.setText(AnnotatedString(logEvent.text))
+                                Toast.makeText(ctx, ctx.getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT).show()
+                            },
+                        )
                     )
                     Text(
                         text = DateFormat.getTimeInstance().format(Date(logEvent.createdAt)),

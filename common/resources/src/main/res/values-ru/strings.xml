@@ -199,4 +199,5 @@
     <string name="start_experimentalRPC_toast">Экспериментальны RPC запущен</string>
     <string name="stop_rpc_toast">Все сервисы остановлены</string>
     <string name="show_playback_state">Show Playback State</string>
+    <string name="copied_to_clipboard">Copied to clipboard</string>
 </resources>
