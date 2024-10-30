@@ -442,21 +442,11 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                             errorMessage = "Please enter a valid Application ID",
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             onValueChange = { newText ->
-                                // Ensure the text only contains digits and is no longer than 18 characters
                                 if (newText.length <= 18 && newText.all { it.isDigit() }) {
                                     customApplicationId = newText
                                 }
                             }
                         )
-//                        TextField(
-//                            value = customApplicationId,
-//                            onValueChange = { newText ->
-//                                // Ensure the text only contains digits and is no longer than 18 characters
-//                                if (newText.length <= 18 && newText.all { it.isDigit() }) {
-//                                    customApplicationId = newText}
-//                                            },
-//                            singleLine = true
-//                        )
                     }
                 },
                 confirmButton = {
@@ -473,13 +463,6 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                         Text(stringResource(R.string.save))
                     }
                 },
-//                dismissButton = {
-//                    TextButton(
-//                        onClick = { showApplicationIdDialog = false }
-//                    ) {
-//                        Text("Cancel")
-//                    }
-//                }
             )
         }
 
