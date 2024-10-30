@@ -47,7 +47,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -431,19 +430,33 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 onDismissRequest = {
                     showApplicationIdDialog = false
                 },
+                title = { Text(stringResource(R.string.application_id)) },
                 text = {
                     Column {
                         Text(text = stringResource(R.string.application_id))
                         Spacer(modifier = Modifier.height(8.dp))
-                        TextField(
+                        RpcField(
                             value = customApplicationId,
+                            label = R.string.application_id,
+                            isError = customApplicationId.length != 18 || !customApplicationId.all { it.isDigit() },
+                            errorMessage = "Please enter a valid Application ID",
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             onValueChange = { newText ->
                                 // Ensure the text only contains digits and is no longer than 18 characters
                                 if (newText.length <= 18 && newText.all { it.isDigit() }) {
-                                    customApplicationId = newText}
-                                            },
-                            singleLine = true
+                                    customApplicationId = newText
+                                }
+                            }
                         )
+//                        TextField(
+//                            value = customApplicationId,
+//                            onValueChange = { newText ->
+//                                // Ensure the text only contains digits and is no longer than 18 characters
+//                                if (newText.length <= 18 && newText.all { it.isDigit() }) {
+//                                    customApplicationId = newText}
+//                                            },
+//                            singleLine = true
+//                        )
                     }
                 },
                 confirmButton = {
@@ -457,16 +470,16 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                             }
                         }
                     ) {
-                        Text(stringResource(R.string.ok))
+                        Text(stringResource(R.string.save))
                     }
                 },
-                dismissButton = {
-                    TextButton(
-                        onClick = { showApplicationIdDialog = false }
-                    ) {
-                        Text("Cancel")
-                    }
-                }
+//                dismissButton = {
+//                    TextButton(
+//                        onClick = { showApplicationIdDialog = false }
+//                    ) {
+//                        Text("Cancel")
+//                    }
+//                }
             )
         }
 
