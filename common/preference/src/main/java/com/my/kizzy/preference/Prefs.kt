@@ -116,12 +116,14 @@ object Prefs {
     const val MEDIA_RPC_APP_ICON = "media_rpc_app_icon"
     const val MEDIA_RPC_ENABLE_TIMESTAMPS = "enable_timestamps"
     const val MEDIA_RPC_HIDE_ON_PAUSE = "hide_on_pause"
+    const val MEDIA_RPC_SHOW_PLAYBACK_STATE = "show_playback_state"
 
     //Rpc Setting Preferences
     const val USE_RPC_BUTTONS = "use_saved_rpc_buttons"
     const val RPC_BUTTONS_DATA = "saved_rpc_buttons_data"
     const val RPC_USE_LOW_RES_ICON = "use_low_res_app_icons"
     const val CONFIGS_DIRECTORY = "configs_directory"
+    const val USE_IMGUR = "use_imgur"
     // Saved Image Asset ids
     const val SAVED_IMAGES = "saved_images"
     // Saved ArtWork

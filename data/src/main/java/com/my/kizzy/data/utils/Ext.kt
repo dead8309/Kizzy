@@ -28,6 +28,8 @@ import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.FileIOUtils
 import com.blankj.utilcode.util.FileUtils
 import com.my.kizzy.data.remote.ApiResponse
+import com.my.kizzy.data.remote.ExternalAsset
+import com.my.kizzy.data.remote.ImgurResponse
 import com.my.kizzy.data.rpc.RpcImage
 import com.my.kizzy.preference.Prefs
 import io.ktor.client.call.body
@@ -36,7 +38,29 @@ import io.ktor.http.HttpStatusCode
 import java.io.File
 import java.io.FileOutputStream
 
-suspend fun HttpResponse.toImageAsset(): String? {
+suspend fun HttpResponse.toImageURL(): String? {
+    return try {
+        if (this.status == HttpStatusCode.OK)
+            this.body<ImgurResponse>().data.link
+        else
+            null
+    } catch (e: Exception) {
+        null
+    }
+}
+
+suspend fun HttpResponse.toExternalAsset(): String? {
+    return try {
+        if (this.status == HttpStatusCode.OK)
+            "mp:" + this.body<Array<ExternalAsset>>().first().externalAssetPath
+        else
+            null
+    } catch (e: Exception) {
+        null
+    }
+}
+
+suspend fun HttpResponse.toAttachmentAsset(): String? {
     return try {
         if (this.status == HttpStatusCode.OK)
             this.body<ApiResponse>().id
@@ -96,7 +120,7 @@ fun ApplicationInfo.toBitmap(context: Context): Bitmap? {
 fun String.toRpcImage(): RpcImage? {
     return if (this.isBlank())
         null
-    else if (this.startsWith("attachments"))
+    else if (this.startsWith("attachments") || this.startsWith("external"))
         RpcImage.DiscordImage(this)
     else
         RpcImage.ExternalImage(this)

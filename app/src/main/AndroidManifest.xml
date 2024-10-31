@@ -56,6 +56,8 @@
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES"/>
             </intent-filter>
+            <meta-data android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
         </activity>
         <activity
             android:name=".feature_crash_handler.CrashHandler"
@@ -67,6 +69,14 @@
             <intent-filter>
                 <action android:name="android.intent.action.RUN" />
                 <category android:name="android.intent.category.EMBED" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".feature_rpc_base.services.ShortcutsActivity"
+            android:exported="true"
+            android:theme="@style/ActivityTranslucent">
+            <intent-filter>
+                <action android:name="android.intent.action.RUN" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 

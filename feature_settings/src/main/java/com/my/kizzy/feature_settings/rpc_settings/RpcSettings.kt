@@ -28,6 +28,7 @@ import androidx.compose.material.icons.filled.Code
 import androidx.compose.material.icons.filled.DeleteForever
 import androidx.compose.material.icons.filled.DoNotDisturbOn
 import androidx.compose.material.icons.filled.HighQuality
+import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.SmartButton
@@ -75,6 +76,7 @@ import kotlinx.serialization.json.Json
 fun RpcSettings(onBackPressed: () -> Boolean) {
     val context = LocalContext.current
     var isLowResIconsEnabled by remember { mutableStateOf(Prefs[Prefs.RPC_USE_LOW_RES_ICON, false]) }
+    var useImgur by remember { mutableStateOf(Prefs[Prefs.USE_IMGUR, false]) }
     var configsDir by remember { mutableStateOf(Prefs[Prefs.CONFIGS_DIRECTORY, ""]) }
     var showDirConfigDialog by remember { mutableStateOf(false) }
     var useButtonConfigs by remember { mutableStateOf(Prefs[Prefs.USE_RPC_BUTTONS, false]) }
@@ -185,6 +187,17 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 ) {
                     isSamsungRpcEnabled = !isSamsungRpcEnabled
                     Prefs[Prefs.SAMSUNG_RPC_ENABLED] = isSamsungRpcEnabled
+                }
+            }
+            item {
+                PreferenceSwitch(
+                    title = stringResource(id = R.string.use_imgur),
+                    description = stringResource(id = R.string.use_imgur_desc),
+                    icon = Icons.Default.Image,
+                    isChecked = useImgur
+                ) {
+                    useImgur = !useImgur
+                    Prefs[Prefs.USE_IMGUR] = useImgur
                 }
             }
             item {

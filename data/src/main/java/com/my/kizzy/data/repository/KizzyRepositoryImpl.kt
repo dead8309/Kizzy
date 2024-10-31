@@ -14,8 +14,11 @@ package com.my.kizzy.data.repository
 
 import com.my.kizzy.data.remote.ApiService
 import com.my.kizzy.data.remote.GamesResponse
+import com.my.kizzy.data.remote.ImgurApiService
 import com.my.kizzy.data.remote.toGame
-import com.my.kizzy.data.utils.toImageAsset
+import com.my.kizzy.data.utils.toAttachmentAsset
+import com.my.kizzy.data.utils.toExternalAsset
+import com.my.kizzy.data.utils.toImageURL
 import com.my.kizzy.domain.model.Contributor
 import com.my.kizzy.domain.model.Game
 import com.my.kizzy.domain.model.release.Release
@@ -30,14 +33,23 @@ import javax.inject.Inject
 
 class KizzyRepositoryImpl @Inject constructor(
     private val api: ApiService,
+    private val imgurApi: ImgurApiService
 ): KizzyRepository {
 
     override suspend fun getImage(url: String): String? {
-        return api.getImage(url).getOrNull()?.toImageAsset()
+        return if (Prefs[Prefs.USE_IMGUR, false]) {
+            imgurApi.getImage(url, Prefs[Prefs.TOKEN]).getOrNull()?.toExternalAsset()
+        } else {
+            api.getImage(url).getOrNull()?.toAttachmentAsset()
+        }
     }
 
     override suspend fun uploadImage(file: File): String? {
-        return api.uploadImage(file).getOrNull()?.toImageAsset()
+        return if (Prefs[Prefs.USE_IMGUR, false]) {
+            imgurApi.uploadImage(file).getOrNull()?.toImageURL()?.let { this.getImage(it) }
+        } else {
+            api.uploadImage(file).getOrNull()?.toAttachmentAsset()
+        }
     }
 
     override suspend fun getGames(): List<Game> {

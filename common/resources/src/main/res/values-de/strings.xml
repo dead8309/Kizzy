@@ -188,4 +188,17 @@
     <string name="config_name_empty">Config name cannot be empty</string>
     <string name="restart">Restart</string>
     <string name="custom_rpc_running">Custom RPC is running</string>
+    <string name="use_imgur">Imgur as Image Proxy</string>
+    <string name="use_imgur_desc">Use Imgur as an alternate image proxy.</string>
+    <string name="start_appDetection">Start App Detection</string>
+    <string name="start_mediaRPC">Start Media RPC</string>
+    <string name="start_experimentalRPC">Start Experimental RPC</string>
+    <string name="stop_rpc">Stop RPC</string>
+    <string name="stop">Stop</string>
+    <string name="start_appDetection_toast">App Detection started</string>
+    <string name="start_mediaRPC_toast">Media RPC started</string>
+    <string name="start_experimentalRPC_toast">Experimental RPC started</string>
+    <string name="stop_rpc_toast">All services stopped</string>
+    <string name="show_playback_state">Show Playback State</string>
+    <string name="copied_to_clipboard">Copied to clipboard</string>
 </resources>

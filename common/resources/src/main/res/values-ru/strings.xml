@@ -187,4 +187,17 @@
     <string name="config_name_empty">Название конфигурации не может быть пустым</string>
     <string name="restart">Перезапустить</string>
     <string name="custom_rpc_running">Свой RPC запущен</string>
+    <string name="use_imgur">Imgur как прокси картинок</string>
+    <string name="use_imgur_desc">Использовать Imgur как альтернативный прокси картинок.</string>
+    <string name="start_appDetection">Запустить обнаружение приложений</string>
+    <string name="start_mediaRPC">Запустить RPC медиа-контента</string>
+    <string name="start_experimentalRPC">Запустить экспериментальный RPC</string>
+    <string name="stop_rpc">Остановить RPC</string>
+    <string name="stop">Остановить</string>
+    <string name="start_appDetection_toast">Обнаружение приложений запущено</string>
+    <string name="start_mediaRPC_toast">RPC медиа-контента запущено</string>
+    <string name="start_experimentalRPC_toast">Экспериментальны RPC запущен</string>
+    <string name="stop_rpc_toast">Все сервисы остановлены</string>
+    <string name="show_playback_state">Показать статус воспроизведения</string>
+    <string name="copied_to_clipboard">Скопировано в буфер обмена</string>
 </resources>
