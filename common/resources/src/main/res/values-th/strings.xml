@@ -155,7 +155,7 @@
     <string name="party_less_than_zero">Party size must be greater than zero</string>
     <string name="party_greater_than_max">Current party size must not exceed max party size</string>
     <string name="party_max_cannot_be_empty">Max party size cannot be empty</string>
-    <string name="learn_more">เรียนรู้อัตโนมัติ</string>
+    <string name="learn_more">เรียนรู้เพิ่มเติม</string>
     <string name="browse_files">เลือกไฟล์</string>
     <string name="upload_image">อัปโหลดรูปภาพ</string>
     <string name="save">ข้าม</string>
