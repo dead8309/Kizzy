@@ -20,6 +20,7 @@ import android.graphics.drawable.Icon
 import android.os.Build
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
+import android.widget.Toast
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.compose.runtime.mutableStateOf
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -37,6 +38,7 @@ class KizzyTileService : TileService() {
                 ctx.stopService(Intent(ctx, MediaRpcService::class.java))
                 ctx.stopService(Intent(ctx, ExperimentalRpc::class.java))
                 ctx.stopService(Intent(ctx, SamsungRpcService::class.java))
+                Toast.makeText(ctx, getString(R.string.stop_rpc_toast), Toast.LENGTH_SHORT).show()
             }
             Tile.STATE_INACTIVE -> {
                 if (!isLocked) {
@@ -75,12 +77,15 @@ class KizzyTileService : TileService() {
                 when (which) {
                     0 -> {
                         ctx.startForegroundService(Intent(ctx, AppDetectionService::class.java))
+                        Toast.makeText(ctx, getString(R.string.start_appDetection_toast), Toast.LENGTH_SHORT).show()
                     }
                     1 -> {
                         ctx.startForegroundService(Intent(ctx, MediaRpcService::class.java))
+                        Toast.makeText(ctx, getString(R.string.start_mediaRPC_toast), Toast.LENGTH_SHORT).show()
                     }
                     2 -> {
                         ctx.startForegroundService(Intent(ctx, ExperimentalRpc::class.java))
+                        Toast.makeText(ctx, getString(R.string.start_experimentalRPC_toast), Toast.LENGTH_SHORT).show()
                     }
                     3 -> {
                         ctx.startForegroundService(Intent(ctx, SamsungRpcService::class.java))
