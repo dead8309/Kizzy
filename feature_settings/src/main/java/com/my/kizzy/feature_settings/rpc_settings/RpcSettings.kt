@@ -33,6 +33,7 @@ import androidx.compose.material.icons.filled.HighQuality
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.Pin
 import androidx.compose.material.icons.filled.SmartButton
 import androidx.compose.material.icons.filled.Storage
 import androidx.compose.material.icons.filled.Tune
@@ -184,9 +185,9 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
             }
             item {
                 SettingItem(
-                    title = stringResource(id = R.string.use_custom_activity_application_id),
-                    description = stringResource(id = R.string.use_custom_activity_application_id_desc),
-                    icon = Icons.Default.Code
+                    title = "Use Custom Activity Application ID",
+                    description = "Enter ID number to use Rich Presence based on discord Developer Application ID",
+                    icon = Icons.Default.Pin
                 ) {
                     showApplicationIdDialog = true
                 }
@@ -430,16 +431,14 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 onDismissRequest = {
                     showApplicationIdDialog = false
                 },
-                title = { Text(stringResource(R.string.application_id)) },
+                title = { Text("Application ID") },
                 text = {
                     Column {
-                        Text(text = stringResource(R.string.application_id))
                         Spacer(modifier = Modifier.height(8.dp))
                         RpcField(
                             value = customApplicationId,
                             label = R.string.application_id,
                             isError = customApplicationId.length != 18 || !customApplicationId.all { it.isDigit() },
-                            errorMessage = "Please enter a valid Application ID",
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             onValueChange = { newText ->
                                 if (newText.length <= 18 && newText.all { it.isDigit() }) {

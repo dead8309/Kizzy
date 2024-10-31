@@ -65,8 +65,6 @@
     <string name="rpc_settings_button_configs">Button configuration for Media and AppDetection RPC</string>
     <string name="use_custom_buttons">Use Custom Buttons</string>
     <string name="use_custom_buttons_desc">Use Predefined buttons to show on Media and AppDetection RPC</string>
-    <string name="use_custom_activity_application_id" tools:ignore="MissingTranslation">Use Custom Activity Application ID </string>
-    <string name="use_custom_activity_application_id_desc" tools:ignore="MissingTranslation"> Enter Custom Activity Application ID </string>
     <string name="follow_system">Follow System</string>
     <string name="advance_settings">Advanced Settings</string>
     <string name="amoled">AMOLED Theme</string>
@@ -139,9 +137,6 @@
     <string name="custom_rpc_directory">Directory to store Custom RPC configs</string>
     <string name="select_directory">Select directory</string>
     <string name="enter_details">Enter details</string>
-    <string name="enter_your_developer_activity_application_id" tools:ignore="MissingTranslation">Enter your Developer Activity Application ID</string>
-    <string name="ok" tools:ignore="MissingTranslation">OK</string>
-    <string name="application_id" tools:ignore="MissingTranslation">Application ID</string>
     <string name="status_online">Online</string>
     <string name="status_idle">Idle</string>
     <string name="status_dnd">Do Not Disturb</string>
@@ -206,4 +201,6 @@
     <string name="stop_rpc_toast">All services stopped</string>
     <string name="show_playback_state">Show Playback State</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
+
+    <string name="application_id" tools:ignore="MissingTranslation">Application ID</string>
 </resources>
