@@ -33,6 +33,7 @@ class KizzyRPC(
 ) {
     private lateinit var presence: Presence
     private var activityName: String? = null
+    private var applicationIdNumber = Prefs[Prefs.CUSTOM_ACTIVITY_APPLICATION_ID, Constants.APPLICATION_ID]
     private var details: String? = null
     private var state: String? = null
     private var party: Party? = null
@@ -47,6 +48,8 @@ class KizzyRPC(
     private var buttons = ArrayList<String>()
     private var buttonUrl = ArrayList<String>()
     private var url: String? = null
+
+
 
     fun closeRPC() {
         discordWebSocket.close()
@@ -268,7 +271,7 @@ class KizzyRPC(
                     ).takeIf { largeImage != null || smallImage != null },
                     buttons = buttons.takeIf { buttons.size > 0 },
                     metadata = Metadata(buttonUrls = buttonUrl).takeIf { buttonUrl.size > 0 },
-                    applicationId = Constants.APPLICATION_ID,
+                    applicationId = applicationIdNumber.takeIf { it.isNotEmpty() } ?: Constants.APPLICATION_ID,
                     url = url
                 )
             ),
@@ -313,7 +316,8 @@ class KizzyRPC(
                         party = party.takeIf { party != null },
                         buttons = buttons.takeIf { buttons.size > 0 },
                         metadata = Metadata(buttonUrls = buttonUrl).takeIf { buttonUrl.size > 0 },
-                        applicationId = Constants.APPLICATION_ID
+                        applicationId = applicationIdNumber.takeIf { it.isNotEmpty() } ?: Constants.APPLICATION_ID
+
                     )
                 ),
                 afk = true,
