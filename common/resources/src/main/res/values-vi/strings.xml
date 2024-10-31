@@ -200,4 +200,5 @@
     <string name="stop_rpc_toast">Đã dừng hoạt động</string>
     <string name="show_playback_state">Hiện trạng thái phát</string>
     <string name="copied_to_clipboard">Đã sao chép</string>
+    <string name="application_id">Application ID</string>
 </resources>
