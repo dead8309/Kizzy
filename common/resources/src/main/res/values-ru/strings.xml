@@ -201,6 +201,6 @@
     <string name="show_playback_state">Показать статус воспроизведения</string>
     <string name="copied_to_clipboard">Скопировано в буфер обмена</string>
     <string name="application_id">ID приложения</string>
-    <string name="custom_application_id">Custom Activity Application ID</string>
-    <string name="custom_application_id_desc">Overrides the default Discord Application ID</string>
+    <string name="custom_application_id">Свой ID приложения активности</string>
+    <string name="custom_application_id_desc">Меняет стандартный ID приложения Discord на ваш</string>
 </resources>
