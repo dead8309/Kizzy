@@ -202,4 +202,6 @@
     <string name="show_playback_state">Show Playback State</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="application_id">Application ID</string>
+    <string name="custom_application_id">Custom Activity Application ID</string>
+    <string name="custom_application_id_desc">Overrides the default Discord Application ID</string>
 </resources>

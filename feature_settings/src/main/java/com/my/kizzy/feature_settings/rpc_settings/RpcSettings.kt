@@ -185,8 +185,8 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
             }
             item {
                 SettingItem(
-                    title = "Use Custom Activity Application ID",
-                    description = "Enter ID number to use Rich Presence based on discord Developer Application ID",
+                    title = stringResource(id = R.string.custom_application_id),
+                    description = stringResource(id = R.string.custom_application_id_desc),
                     icon = Icons.Default.Pin
                 ) {
                     showApplicationIdDialog = true
