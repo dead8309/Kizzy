@@ -38,6 +38,7 @@ private const val FARSI = 15
 private const val GERMAN = 16
 private const val THAI = 17
 private const val JAPANESE = 18
+private const val KOREAN = 19
 
 val languages: Map<Int, String> =
     mapOf(
@@ -58,8 +59,9 @@ val languages: Map<Int, String> =
         Pair(FARSI, "fa"),
         Pair(GERMAN, "de"),
         Pair(THAI, "th"),
-        Pair(JAPANESE, "ja")
-    )
+        Pair(JAPANESE, "ja"),
+        Pair(KOREAN, "kr")
+    ).toList().sortedBy { (_, value) -> value }.toMap()
 
 fun getLanguageConfig(languageNumber: Int = Prefs[Prefs.LANGUAGE]): String {
     return if (languages.containsKey(languageNumber)) languages[languageNumber].toString() else ""
@@ -102,6 +104,7 @@ fun getLanguageDesc(language: Int = getLanguageNumber()): String {
             GERMAN -> R.string.locale_de
             THAI -> R.string.locale_th
             JAPANESE -> R.string.locale_ja
+            KOREAN -> R.string.locale_kr
             else -> R.string.follow_system
         }
     )
