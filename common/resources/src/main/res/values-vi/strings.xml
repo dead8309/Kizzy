@@ -200,4 +200,7 @@
     <string name="stop_rpc_toast">Đã dừng hoạt động</string>
     <string name="show_playback_state">Hiện trạng thái phát</string>
     <string name="copied_to_clipboard">Đã sao chép</string>
+    <string name="application_id">ID Ứng dụng</string>
+    <string name="custom_application_id">ID Ứng dụng tùy chỉnh</string>
+    <string name="custom_application_id_desc">Ghi đè ID Ứng dụng Discord</string>
 </resources>

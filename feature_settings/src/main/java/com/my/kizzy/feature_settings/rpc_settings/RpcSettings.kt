@@ -17,8 +17,10 @@ import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
@@ -31,6 +33,7 @@ import androidx.compose.material.icons.filled.HighQuality
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.Pin
 import androidx.compose.material.icons.filled.SmartButton
 import androidx.compose.material.icons.filled.Storage
 import androidx.compose.material.icons.filled.Tune
@@ -67,7 +70,6 @@ import com.my.kizzy.ui.components.SettingItem
 import com.my.kizzy.ui.components.Subtitle
 import com.my.kizzy.ui.components.dialog.SingleChoiceItem
 import com.my.kizzy.ui.components.preference.PreferenceSwitch
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -96,10 +98,16 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
     var showActivityStatusDialog by remember {
         mutableStateOf(false)
     }
+    var showApplicationIdDialog by remember {
+        mutableStateOf(false)
+    }
     var setLastRunRpcConfigOption by remember {
         mutableStateOf(Prefs[Prefs.APPLY_FIELDS_FROM_LAST_RUN_RPC, false])
     }
     var isSamsungRpcEnabled by remember { mutableStateOf(Prefs[Prefs.SAMSUNG_RPC_ENABLED, false]) }
+
+    var customApplicationId by remember { mutableStateOf(Prefs[Prefs.CUSTOM_ACTIVITY_APPLICATION_ID, ""]) }
+
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         LargeTopAppBar(title = {
             Text(
@@ -174,6 +182,16 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                     setLastRunRpcConfigOption = !setLastRunRpcConfigOption
                     Prefs[Prefs.APPLY_FIELDS_FROM_LAST_RUN_RPC] = setLastRunRpcConfigOption
                 }
+            }
+            item {
+                SettingItem(
+                    title = stringResource(id = R.string.custom_application_id),
+                    description = stringResource(id = R.string.custom_application_id_desc),
+                    icon = Icons.Default.Pin
+                ) {
+                    showApplicationIdDialog = true
+                }
+
             }
             item {
                 Subtitle(text = stringResource(id = R.string.advance_settings))
@@ -407,5 +425,45 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 }
             )
         }
+
+        if (showApplicationIdDialog) {
+            AlertDialog(
+                onDismissRequest = {
+                    showApplicationIdDialog = false
+                },
+                title = { Text("Application ID") },
+                text = {
+                    Column {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        RpcField(
+                            value = customApplicationId,
+                            label = R.string.application_id,
+                            isError = customApplicationId.length != 18 || !customApplicationId.all { it.isDigit() },
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                            onValueChange = { newText ->
+                                if (newText.length <= 18 && newText.all { it.isDigit() }) {
+                                    customApplicationId = newText
+                                }
+                            }
+                        )
+                    }
+                },
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            if (customApplicationId.length != 18 || !customApplicationId.all { it.isDigit() }) {
+                                Toast.makeText(context, "Please enter a valid Application ID", Toast.LENGTH_SHORT).show()
+                            } else {
+                                Prefs[Prefs.CUSTOM_ACTIVITY_APPLICATION_ID] = customApplicationId
+                                showApplicationIdDialog = false
+                            }
+                        }
+                    ) {
+                        Text(stringResource(R.string.save))
+                    }
+                },
+            )
+        }
+
     }
 }

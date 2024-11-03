@@ -200,4 +200,7 @@
     <string name="stop_rpc_toast">services ทั้งหมดหยุดการทำงานแล้ว</string>
     <string name="show_playback_state">แสดงสถานะการเล่น</string>
     <string name="copied_to_clipboard">ก็อปไปยังคลิปบอร์ดแล้ว</string>
+    <string name="application_id">Application ID</string>
+    <string name="custom_application_id">Custom Activity Application ID</string>
+    <string name="custom_application_id_desc">Overrides the default Discord Application ID</string>
 </resources>
