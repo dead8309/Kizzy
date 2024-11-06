@@ -189,7 +189,7 @@
     <string name="restart">Restartuj</string>
     <string name="custom_rpc_running">Własne RPC jest uruchomiony</string>
     <string name="use_imgur">Imgur jako Proxy Obrazu</string>
-    <string name="use_imgur_desc">Użyj Imgur jako alternatywny proxy do obrazów.</string>
+    <string name="use_imgur_desc">Użyj Imgur jako alternatywne proxy do obrazów.</string>
     <string name="start_appDetection">Uruchom Wykrywanie Aplikacji</string>
     <string name="start_mediaRPC">Uruchom RPC Multimediów</string>
     <string name="start_experimentalRPC">Uruchom Eksperymentalne RPC</string>
