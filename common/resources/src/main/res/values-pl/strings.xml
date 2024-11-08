@@ -199,9 +199,9 @@
     <string name="start_mediaRPC_toast">Uruchomiono RPC Multimediów</string>
     <string name="start_experimentalRPC_toast">Uruchomiono Eksperymentalne RPC</string>
     <string name="stop_rpc_toast">Zatrzymano wszystkie usługi</string>
-    <string name="show_playback_state">Pokaż stan Playback'u</string>
+    <string name="show_playback_state">Pokaż stan Playback\'u</string>
     <string name="copied_to_clipboard">Skopiowano do schowka</string>
     <string name="application_id">ID Aplikacji</string>
     <string name="custom_application_id">ID aplikacji własnej aktywności</string>
-    <string name="custom_application_id_desc">Podmienia domyślne ID Aplikacji Discord'a</string>
+    <string name="custom_application_id_desc">Podmienia domyślne ID Aplikacji Discord\'a</string>
 </resources>
