@@ -139,6 +139,14 @@ If you want to contribute:
 - Familiarity with Gradle, Kotlin, Jetpack Compose
 - GitHub account
 
+**For edits on the web:**
+- Open GitHub
+- Fork the repository
+- Make your edits
+- Commit changes
+- Create a pull request
+
+**For local edits:**
 > Clone the project
 ```console
 git clone https://github.com/dead8309/Kizzy.git
@@ -148,6 +156,7 @@ git clone https://github.com/dead8309/Kizzy.git
 - Import the project
 - Make Edits
 - Test your changes
+- Create a commit
 > When you are done making edits, create a pull request. 
 
 > **Warning**
