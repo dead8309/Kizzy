@@ -45,8 +45,8 @@
 </div>
 
 ## System Requirements
-OS: Android 8.1 through 14 *(note: Android 14 may have some bugs with experimental features. want to help fix? check out the [contributing](https://github.com/dead8309/Kizzy?tab=readme-ov-file#Contributing) section!)* <br />
-RAM: 3GB minimum <br />
+- OS: Android 8.1 through 14 *(note: Android 14 may have some bugs with experimental features.)* <br />
+- RAM: 3GB minimum <br />
 *(please keep in mind all systems are different and may have their own bugs. create an [issue](https://github.com/dead8309/Kizzy/issues/new/choose) if you find a bug.)*
 
 ## Quickstart
@@ -131,39 +131,6 @@ However people have been using custom rich presence for past 4-5 years and there
 
 ## Translate
 See [Contribute for Translation](https://github.com/dead8309/Kizzy/issues/2#issue-1370365856)
-
-## Contributing
-If you want to contribute:
-> Prerequisites:
-- Android Studio
-- Familiarity with Gradle, Kotlin, Jetpack Compose
-- GitHub account
-
-**For edits on the web:**
-- Open GitHub
-- Fork the repository
-- Make your edits
-- Commit changes
-- Create a pull request
-
-**For local edits:**
-> Clone the project
-```console
-git clone https://github.com/dead8309/Kizzy.git
-```
-> Making edits to app structure
-- Open Android Studio
-- Import the project
-- Make Edits
-- Test your changes
-- Create a commit
-> When you are done making edits, create a pull request. 
-
-> **Warning**
-> Once again, this app uses the Discord Gateway connection. Use this at your own risk.
-However people have been using custom rich presence for past 4-5 years and there's is still no case of account getting terminated.
-
-
 
 ## Credits
 ✨ [Read You](https://github.com/Ashinch/ReadYou) and [Seal](https://github.com/JunkFood02/Seal) for Ui Components
