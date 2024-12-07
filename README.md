@@ -1,29 +1,39 @@
+
 <div align="center">
     <img src="https://user-images.githubusercontent.com/68665948/207296272-d1985003-1681-4df4-b8ea-ca71f2043f89.png">
 </div>
 <br>
 
+
 <div align="center">
 <img src="https://img.shields.io/badge/Minimum%20SDK-27-%23?&style=flat-square&color=5b5ef7">
 
+
 <img src="https://img.shields.io/github/downloads/dead8309/Kizzy/total?&style=flat-square&color=5b5ef7">
+
 
 <a href="https://github.com/dead8309/Kizzy/releases/latest">
 <img alt="Release" src="https://img.shields.io/github/v/release/dead8309/Kizzy?&style=flat-square&color=5b5ef7&display_name=release">
 </a>
 
+
 <img src="https://img.shields.io/github/actions/workflow/status/dead8309/Kizzy/build.yml?branch=master?&style=flat-square&color=5b5ef7">
+
 
 <img src="https://img.shields.io/badge/kotlin-5b5ef7.svg?logo=kotlin&logoColor=white&style=flat-square">
 
+
 <img src="https://img.shields.io/badge/Android_Studio-5b5ef7?logo=android-studio&logoColor=white&style=flat-square">
 
+
 <img src="https://dcbadge.vercel.app/api/shield/888890990956511263?style=flat-square&compact=true">
+
 
 <a href="https://discord.gg/vUPc7zzpV5">
 <img src="https://dcbadge.vercel.app/api/server/vUPc7zzpV5">
 </a>
 </div>
+
 
 <div align="center">
 <h1>Kizzy</h1>
@@ -34,19 +44,29 @@
 </p>
 </div>
 
+## System Requirements
+- OS: Android 8.1 through 14 *(note: Android 14 may have some bugs with experimental features.)* <br />
+- RAM: 3GB minimum <br />
+*(please keep in mind all systems are different and may have their own bugs. create an [issue](https://github.com/dead8309/Kizzy/issues/new/choose) if you find a bug.)*
+
 ## Quickstart
 Check out our [QuickStart Guide](https://kizzydocs.vercel.app/quickstart/install)
+
+
 
 
 ## Download
 > **Warning**
 > If you're thinking about downloading a Kizzy clone or app from any third-party service (other than the ones listed in our repository), think again! We can't be held responsible for any issues that may arise with your account as a result. Stay safe and stick to our trusted download links for the genuine app.
 
+
 <a href="https://github.com/dead8309/Kizzy/releases/latest">
 <img src="https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white"
      alt="Download from GitHub"
      height="60">
 </a>
+
+
 
 
 ## Screenshots
@@ -60,7 +80,10 @@ Check out our [QuickStart Guide](https://kizzydocs.vercel.app/quickstart/install
 </div>
 
 
+
+
 ## Features
+
 
 - [x] Clickable buttons
 - [x] Detects current Running app
@@ -79,16 +102,19 @@ Check out our [QuickStart Guide](https://kizzydocs.vercel.app/quickstart/install
 - [x] External Url support (meaning you can give a url which points to an image on the web and discord will show it!)
 - [x] Use Images from Gallery
 
+
 ## Getting Started
 Read the Setup Guide from
 [![DOCS](https://kizzydocs.vercel.app/api/og?title=Kizzy+Docs)](https://kizzydocs.vercel.app)
+
+
 
 
 ## Build
 For building the app locally
 > Prerequisites:
 - Android Studio
-- Familiar with Gradle, Kotlin, Jetpack Compose
+- Familiarity with Gradle, Kotlin, Jetpack Compose
 
 > Clone the project
 ```console
@@ -105,7 +131,6 @@ However people have been using custom rich presence for past 4-5 years and there
 
 ## Translate
 See [Contribute for Translation](https://github.com/dead8309/Kizzy/issues/2#issue-1370365856)
-
 
 ## Credits
 ✨ [Read You](https://github.com/Ashinch/ReadYou) and [Seal](https://github.com/JunkFood02/Seal) for Ui Components
@@ -124,4 +149,3 @@ See [Contribute for Translation](https://github.com/dead8309/Kizzy/issues/2#issu
 **Kizzy** is an open source project under the GNU GPL 3.0 Open Source License ①, which allows you to use, reference, and modify the source code of **Kizzy** for free, but does not allow the modified and derived code to be distributed and sold as closed-source commercial software. For details, please see the full GNU GPL 3.0 Open Source License ②.
 
 See [Terms Of Service](https://github.com/dead8309/Kizzy/blob/2bd547217688d91e5ee12a294faed477e9d4fa08/TERMS_OF_SERVICE.md) for more info
-
