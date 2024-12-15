@@ -248,7 +248,7 @@ class KizzyRPC(
         return this
     }
 
-    fun String.sanitize(): String {
+    private fun String.sanitize(): String {
         return if (this.length > 128) {
             this.substring(0, 128)
         } else {
