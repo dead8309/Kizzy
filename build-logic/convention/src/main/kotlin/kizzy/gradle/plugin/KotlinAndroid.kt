@@ -39,7 +39,16 @@ internal fun Project.configureKotlinAndroid(
 
         buildTypes {
             getByName("release") {
+                /*
+                Starting with agp 8.4.0 setting isMinifyEnabled for libraries will minify the lib much sooner in the build process,
+                as opposed to doing it at the end of the build process. This will cause the app module to use a minified
+                version of the library which will throw missing classes error during compiling for release build.
+
+                https://stackoverflow.com/a/79148742/25688500
+
                 isMinifyEnabled = true
+                 */
+
                 /*
                 cannot be used by libraries
                 isShrinkResources = true
