@@ -16,6 +16,8 @@ import android.content.ClipboardManager
 import android.content.Context
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -59,27 +61,41 @@ fun ProfileNetworkError(
     val context = LocalContext.current
 
     if (showDialog) {
-        AlertDialog(
-            onDismissRequest = { showDialog = false },
-            confirmButton = {
-                TextButton(onClick = { showDialog = false }) {
-                    Text("OK")
-                }
-            },
-            dismissButton = {
-                TextButton(
-                    onClick = {
-                        copyToClipboard(context, error)
-                        showDialog = false
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(vertical = 25.dp)
+        ) {
+            AlertDialog(
+                onDismissRequest = { showDialog = false },
+                confirmButton = {
+                    TextButton(onClick = { showDialog = false }) {
+                        Text("OK")
                     }
-                ) {
-                    Text("Copy")
-                }
-            },
-            text = {
-                Text(text = error)
-            }
-        )
+                },
+                dismissButton = {
+                    TextButton(
+                        onClick = {
+                            copyToClipboard(context, error)
+                            showDialog = false
+                        }
+                    ) {
+                        Text("Copy")
+                    }
+                },
+                text = {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                            .verticalScroll(rememberScrollState())
+                    ) {
+                        Text(text = error)
+                    }
+                },
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
     }
 
     LaunchedEffect(Unit) {
