@@ -201,7 +201,7 @@
     <string name="stop_rpc_toast">모든 서비스가 중지되었습니다</string>
     <string name="show_playback_state">재생 상태 표시</string>
     <string name="copied_to_clipboard">클립보드에 복사됨</string>
-    <string name="application_id">Application ID</string>
-    <string name="custom_application_id">Custom Activity Application ID</string>
-    <string name="custom_application_id_desc">Overrides the default Discord Application ID</string>
+    <string name="application_id">애플리케이션 ID</string>
+    <string name="custom_application_id">사용자 지정 활동 애플리케이션 ID</string>
+    <string name="custom_application_id_desc">기본 디스코드 애플리케이션 ID를 재정의합니다.</string>
 </resources>
