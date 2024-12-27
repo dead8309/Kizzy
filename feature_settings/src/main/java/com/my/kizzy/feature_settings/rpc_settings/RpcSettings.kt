@@ -61,6 +61,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.rpc.Constants.MAX_ALLOWED_CHARACTER_LENGTH
+import com.my.kizzy.data.rpc.Constants.MAX_APPLICATION_ID_LENGTH_RANGE
 import com.my.kizzy.domain.model.rpc.RpcButtons
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.resources.R
@@ -438,10 +439,10 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                         RpcField(
                             value = customApplicationId,
                             label = R.string.application_id,
-                            isError = customApplicationId.length != 18 || !customApplicationId.all { it.isDigit() },
+                            isError = customApplicationId.length !in MAX_APPLICATION_ID_LENGTH_RANGE || !customApplicationId.all { it.isDigit() },
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             onValueChange = { newText ->
-                                if (newText.length <= 18 && newText.all { it.isDigit() }) {
+                                if (newText.length in MAX_APPLICATION_ID_LENGTH_RANGE && newText.all { it.isDigit() }) {
                                     customApplicationId = newText
                                 }
                             }
@@ -451,7 +452,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 confirmButton = {
                     TextButton(
                         onClick = {
-                            if (customApplicationId.length != 18 || !customApplicationId.all { it.isDigit() }) {
+                            if (customApplicationId.length !in MAX_APPLICATION_ID_LENGTH_RANGE || !customApplicationId.all { it.isDigit() }) {
                                 Toast.makeText(context, "Please enter a valid Application ID", Toast.LENGTH_SHORT).show()
                             } else {
                                 Prefs[Prefs.CUSTOM_ACTIVITY_APPLICATION_ID] = customApplicationId

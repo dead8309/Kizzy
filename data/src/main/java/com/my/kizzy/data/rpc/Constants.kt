@@ -30,4 +30,8 @@ object Constants {
     const val APP_DIRECTORY = "App Directory"
     const val DOWNLOADS_DIRECTORY = "Downloads Directory"
     const val MAX_ALLOWED_CHARACTER_LENGTH = 32
+    /*
+    See https://discord.com/developers/docs/reference#snowflakes
+    */
+    val MAX_APPLICATION_ID_LENGTH_RANGE = 18..19
 }
