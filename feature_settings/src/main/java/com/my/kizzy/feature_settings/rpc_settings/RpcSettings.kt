@@ -442,7 +442,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                             isError = customApplicationId.length !in MAX_APPLICATION_ID_LENGTH_RANGE || !customApplicationId.all { it.isDigit() },
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             onValueChange = { newText ->
-                                if (newText.length in MAX_APPLICATION_ID_LENGTH_RANGE && newText.all { it.isDigit() }) {
+                                if (newText.length <= MAX_APPLICATION_ID_LENGTH_RANGE.last && newText.all { it.isDigit() }) {
                                     customApplicationId = newText
                                 }
                             }
