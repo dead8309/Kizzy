@@ -178,9 +178,6 @@
     <string name="no_internet_connection">Keine Internetverbindung</string>
     <string name="unknown_error">Ein unerwarteter Fehler ist aufgetreten</string>
     <string name="rpc_buttons">RPC-Knöpfe</string>
-    <string name="samsungRPC_settings">Samsung-RPC aktivieren</string>
-    <string name="samsungRPC_settings_desc">Aktiviert Samsung-RPC für verifizierte Benutzer.\nEs wird bei der nächsten Aktualisierung entfernt.</string>
-    <string name="main_samsungRpc">Samsung-RPC</string>
     <string name="choose_rpc">Wähle ein RPC</string>
     <string name="off">Aus</string>
     <string name="time_elapsed">%1$s verstrichen</string>

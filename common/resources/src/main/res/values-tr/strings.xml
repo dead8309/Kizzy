@@ -177,9 +177,6 @@
     <string name="no_internet_connection">Ağ bağlantısı yok</string>
     <string name="unknown_error">Beklenmedik bir hata oluştu</string>
     <string name="rpc_buttons">RPC butonları</string>
-    <string name="samsungRPC_settings">Samsung RPC\'yi etkinleştir</string>
-    <string name="samsungRPC_settings_desc">Doğrulanmış kullanıcılar için Samsung RPC\'yi etkinleştirir..\nSonraki güncellemelerde kaldırılacak.</string>
-    <string name="main_samsungRpc">Samsung RPC</string>
     <string name="choose_rpc">Bir RPC seç</string>
     <string name="off">kapalı</string>
     <string name="time_elapsed">%1$s geçti</string>

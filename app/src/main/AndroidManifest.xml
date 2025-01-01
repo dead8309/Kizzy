@@ -123,9 +123,6 @@
                 <action android:name="android.service.quicksettings.action.QS_TILE"/>
             </intent-filter>
         </service>
-        <service android:name=".feature_rpc_base.services.SamsungRpcService"
-            android:exported="false" />
-
     </application>
 
 </manifest>

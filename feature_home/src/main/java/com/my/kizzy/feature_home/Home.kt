@@ -352,11 +352,6 @@ val fakeFeatures = listOf(
         tooltipText = ToolTipContent.EXPERIMENTAL_RPC_DOCS
     ),
     HomeFeature(
-        title = "Samsung RPC",
-        icon = R.drawable.ic_samsung_logo,
-        shape = RoundedCornerShape(44.dp, 20.dp, 44.dp, 20.dp)
-    ),
-    HomeFeature(
         title = "Coming Soon",
         icon = R.drawable.ic_info,
         shape = RoundedCornerShape(20.dp, 44.dp, 20.dp, 44.dp),

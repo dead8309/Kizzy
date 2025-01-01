@@ -37,7 +37,6 @@ import androidx.compose.material.icons.filled.Pin
 import androidx.compose.material.icons.filled.SmartButton
 import androidx.compose.material.icons.filled.Storage
 import androidx.compose.material.icons.filled.Tune
-import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -105,8 +104,6 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
     var setLastRunRpcConfigOption by remember {
         mutableStateOf(Prefs[Prefs.APPLY_FIELDS_FROM_LAST_RUN_RPC, false])
     }
-    var isSamsungRpcEnabled by remember { mutableStateOf(Prefs[Prefs.SAMSUNG_RPC_ENABLED, false]) }
-
     var customApplicationId by remember { mutableStateOf(Prefs[Prefs.CUSTOM_ACTIVITY_APPLICATION_ID, ""]) }
 
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
@@ -196,17 +193,6 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
             }
             item {
                 Subtitle(text = stringResource(id = R.string.advance_settings))
-            }
-            item {
-                PreferenceSwitch(
-                    title = stringResource(R.string.samsungRPC_settings),
-                    description = stringResource(R.string.samsungRPC_settings_desc),
-                    icon = Icons.Default.Warning,
-                    isChecked = isSamsungRpcEnabled
-                ) {
-                    isSamsungRpcEnabled = !isSamsungRpcEnabled
-                    Prefs[Prefs.SAMSUNG_RPC_ENABLED] = isSamsungRpcEnabled
-                }
             }
             item {
                 PreferenceSwitch(

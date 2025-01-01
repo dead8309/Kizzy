@@ -20,7 +20,6 @@ import com.my.kizzy.feature_rpc_base.services.AppDetectionService
 import com.my.kizzy.feature_rpc_base.services.CustomRpcService
 import com.my.kizzy.feature_rpc_base.services.ExperimentalRpc
 import com.my.kizzy.feature_rpc_base.services.MediaRpcService
-import com.my.kizzy.feature_rpc_base.services.SamsungRpcService
 import javax.inject.Singleton
 
 @Singleton
@@ -43,9 +42,6 @@ object AppUtils {
 
     fun experimentalRpcRunning(): Boolean {
         return checkForRunningService<ExperimentalRpc>()
-    }
-    fun samsungRpcRunning(): Boolean {
-        return checkForRunningService<SamsungRpcService>()
     }
     private inline fun <reified T : Any> checkForRunningService(): Boolean {
         for (runningServiceInfo in activityManager.getRunningServices(

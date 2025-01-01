@@ -178,9 +178,6 @@
     <string name="no_internet_connection">Brak dostępu do internetu</string>
     <string name="unknown_error">Wystąpił nieoczekiwany błąd</string>
     <string name="rpc_buttons">Przyciski RPC</string>
-    <string name="samsungRPC_settings">Włącz Samsung RPC</string>
-    <string name="samsungRPC_settings_desc">Włącza Samsung RPC dla zweryfikowanych użytkowników.\nZostanie to usunięte w kolejnej aktualizacji.</string>
-    <string name="main_samsungRpc">Samsung RPC</string>
     <string name="choose_rpc">Wybierz RPC</string>
     <string name="off">Wyłącz</string>
     <string name="time_elapsed">Upłyneło %1$s</string>

@@ -178,9 +178,6 @@
     <string name="no_internet_connection">عدم اتصال به اینترنت</string>
     <string name="unknown_error">یک خطای غیرمنتظره رخ داد</string>
     <string name="rpc_buttons">دکمه‌های RPC</string>
-    <string name="samsungRPC_settings">فعال کردن RPC سامسونگ</string>
-    <string name="samsungRPC_settings_desc">Samsung RPC را برای کاربران تأیید شده فعال می‌کند.\nاز به‌روزرسانی بعدی حذف خواهد شد.</string>
-    <string name="main_samsungRpc">RPC سامسونگ</string>
     <string name="choose_rpc">انتخاب یک RPC</string>
     <string name="off">خاموش</string>
     <string name="time_elapsed">%1$s elapsed</string>

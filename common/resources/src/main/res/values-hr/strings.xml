@@ -178,9 +178,6 @@
     <string name="no_internet_connection">No internet connection</string>
     <string name="unknown_error">An unexpected error occurred</string>
     <string name="rpc_buttons">RPC buttons</string>
-    <string name="samsungRPC_settings">Enable Samsung RPC</string>
-    <string name="samsungRPC_settings_desc">Enables Samsung RPC for verified users.\nIt will be removed from next update.</string>
-    <string name="main_samsungRpc">Samsung RPC</string>
     <string name="choose_rpc">Choose an RPC</string>
     <string name="off">Off</string>
     <string name="time_elapsed">%1$s elapsed</string>

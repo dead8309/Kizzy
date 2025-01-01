@@ -175,10 +175,7 @@
     <string name="no_internet_connection">No hay conexión a internet</string>
     <string name="unknown_error">Ocurrió un error inesperado</string>
     <string name="rpc_buttons">Botones RPC</string>
-    <string name="samsungRPC_settings">Habilitar Samsung RPC</string>
-    <string name="samsungRPC_settings_desc">Habilita Samsung RPC para usuarios verificados.\nSerá eliminado en la próxima actualización.</string>
-    <string name="main_samsungRpc">Samsung RPC</string>
-    <string name="choose_rpc">Elegir un RPC</string>
+        <string name="choose_rpc">Elegir un RPC</string>
     <string name="off">Apagado</string>
     <string name="time_elapsed">%1$s transcurrido</string>
     <string name="time_left">%1$s restante</string>

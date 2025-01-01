@@ -13,10 +13,10 @@
 package com.my.kizzy.data
 
 import com.my.kizzy.data.remote.ApiService
+import com.my.kizzy.data.remote.Imgur
+import com.my.kizzy.data.remote.ImgurApiService
 import com.my.kizzy.data.repository.KizzyRepositoryImpl
 import com.my.kizzy.data.rpc.Constants
-import com.my.kizzy.domain.model.samsung_rpc.GalaxyPresence
-import com.my.kizzy.domain.model.samsung_rpc.UpdateEvent
 import com.my.kizzy.domain.repository.KizzyRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
@@ -34,6 +34,7 @@ import java.io.File
 
 class KizzyRepositoryTest {
     private lateinit var apiService: ApiService
+    private lateinit var imgurService: ImgurApiService
     private lateinit var kizzyRepository: KizzyRepository
     @Before
     fun setup() {
@@ -41,10 +42,14 @@ class KizzyRepositoryTest {
         apiService = ApiService(
             client = client,
             baseUrl = BuildConfig.BASE_URL,
-            discordBaseUrl = BuildConfig.DISCORD_API_BASE_URL,
             githubBaseUrl = BuildConfig.GITHUB_API_BASE_URL
         )
-        kizzyRepository = KizzyRepositoryImpl(apiService)
+        imgurService = ImgurApiService(
+            client = client,
+            discordBaseUrl = BuildConfig.DISCORD_API_BASE_URL,
+            imgurBaseUrl = BuildConfig.IMGUR_API_BASE_URL,
+        )
+        kizzyRepository = KizzyRepositoryImpl(apiService,imgurService)
     }
 
     private fun setupClient(): HttpClient = HttpClient(CIO) {
@@ -95,17 +100,6 @@ class KizzyRepositoryTest {
     fun `Get Contributors Through Api`() = runBlocking {
         val response = kizzyRepository.getContributors()
         println(response)
-    }
-    @Test
-
-    fun `Set Samsung Galaxy Presence`() = runBlocking {
-        kizzyRepository.setSamsungGalaxyPresence(
-            galaxyPresence = GalaxyPresence(
-                packageName = "com.riotgames.league.wildrift",
-                update = UpdateEvent.START
-            ),
-            token = System.getenv("DISCORD_TOKEN")!!
-        )
     }
 
     @Test

@@ -177,9 +177,6 @@
     <string name="no_internet_connection">Нет подключения к интернету</string>
     <string name="unknown_error">Возникла неизвестная ошибка</string>
     <string name="rpc_buttons">Кнопки RPC</string>
-    <string name="samsungRPC_settings">Включить Samsung RPC</string>
-    <string name="samsungRPC_settings_desc">Включает Samsung RPC для верифицированных пользователей.\nБудет удалён в следующем обновлении.</string>
-    <string name="main_samsungRpc">Samsung RPC</string>
     <string name="choose_rpc">Выберите тип RPC</string>
     <string name="off">Отключено</string>
     <string name="time_elapsed">%1$s прошло</string>

@@ -177,9 +177,6 @@
     <string name="no_internet_connection">ไม่มีการเชื่อมต่ออินเตอร์เน็ต [มั่นใจนะว่าไม่โดนครูบาเล่น]</string>
     <string name="unknown_error">มีข้อผิดพลาดเกิดขึ้น</string>
     <string name="rpc_buttons">ปุ่ม RPC</string>
-    <string name="samsungRPC_settings">เปิดใช้งาน Samsung RPC</string>
-    <string name="samsungRPC_settings_desc">เปิดใช้งาน Samsung RPC สำหรับผู้ใช้ที่ยืนยันไปแล้ว\nอัพเดทหน้าเดี๋ยวก็โดนเอาออกละ</string>
-    <string name="main_samsungRpc">Samsung RPC</string>
     <string name="choose_rpc">เลือก RPC</string>
     <string name="off">ปิด</string>
     <string name="time_elapsed">เวลาผ่านไปแล้ว %1$s</string>
