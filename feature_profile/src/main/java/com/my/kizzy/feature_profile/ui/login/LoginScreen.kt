@@ -13,6 +13,8 @@
 package com.my.kizzy.feature_profile.ui.login
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.telephony.TelephonyManager
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -20,6 +22,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.my.kizzy.feature_profile.getUserInfo
 import com.my.kizzy.feature_profile.ui.component.DiscordLoginButton
@@ -45,6 +48,30 @@ fun LoginScreen(
     val modalBottomSheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = true
     )
+    var showAlertDialog by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+
+    LaunchedEffect(Unit) {
+        val country = getUserCountry(context)
+        if (country in listOf("TR", "RU")) {
+            showAlertDialog = true
+        }
+    }
+
+    if (showAlertDialog) {
+        AlertDialog(
+            onDismissRequest = { showAlertDialog = false },
+            confirmButton = {
+                TextButton(onClick = { showAlertDialog = false }) {
+                    Text("OK")
+                }
+            },
+            text = {
+                Text("Discord login may not work in your country without a VPN/DPI. Please use a VPN/DPI to proceed.")
+            }
+        )
+    }
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize(),
@@ -94,6 +121,11 @@ fun LoginScreen(
             )
         }
     }
+}
+
+fun getUserCountry(context: Context): String {
+    val tm = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+    return tm.networkCountryIso.uppercase()
 }
 
 @Preview
