@@ -36,6 +36,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.my.kizzy.resources.R
 import com.my.kizzy.ui.theme.DISCORD_GREY
+import java.util.Locale
 
 @Composable
 internal fun DiscordLoginButton(
@@ -94,5 +95,10 @@ internal fun DiscordLoginButton(
 
 fun getUserCountry(context: Context): String {
     val tm = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-    return tm.networkCountryIso.uppercase()
+    val country = tm.networkCountryIso
+    return if (country.isNullOrEmpty()) {
+        Locale.getDefault().country.uppercase()
+    } else {
+        country.uppercase()
+    }
 }
