@@ -14,6 +14,7 @@ package com.my.kizzy.feature_profile.ui.component
 
 import android.content.Context
 import android.telephony.TelephonyManager
+import android.app.Activity
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
@@ -57,8 +58,19 @@ internal fun DiscordLoginButton(
         AlertDialog(
             onDismissRequest = { showAlertDialog = false },
             confirmButton = {
-                TextButton(onClick = { showAlertDialog = false }) {
-                    Text("OK")
+                TextButton(onClick = {
+                    showAlertDialog = false
+                    onClick()
+                }) {
+                    Text("Proceed")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = {
+                    showAlertDialog = false
+                    (context as? Activity)?.finish()
+                }) {
+                    Text("Exit")
                 }
             },
             text = {
