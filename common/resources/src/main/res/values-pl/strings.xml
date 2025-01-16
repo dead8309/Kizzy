@@ -201,4 +201,5 @@
     <string name="application_id">ID Aplikacji</string>
     <string name="custom_application_id">ID aplikacji własnej aktywności</string>
     <string name="custom_application_id_desc">Podmienia domyślne ID Aplikacji Discord\'a</string>
+    <string name="use_a_vpn_desc">Discord login may not work in your country without a VPN/DPI. Please use a VPN/DPI to proceed.</string>
 </resources>

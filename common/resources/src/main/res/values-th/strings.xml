@@ -200,4 +200,5 @@
     <string name="application_id">ไอดีแอปพลิเคชั่น</string>
     <string name="custom_application_id">กำหนดสถานะกิจกรรมไอดีแอปพลิเคชั่น</string>
     <string name="custom_application_id_desc">เขียนทับไอดีแอปพลิเคชั่นดั้งเดิมของ Discord</string>
+    <string name="use_a_vpn_desc">Discord login may not work in your country without a VPN/DPI. Please use a VPN/DPI to proceed.</string>
 </resources>

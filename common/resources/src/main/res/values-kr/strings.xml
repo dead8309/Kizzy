@@ -201,4 +201,5 @@
     <string name="application_id">애플리케이션 ID</string>
     <string name="custom_application_id">사용자 지정 활동 애플리케이션 ID</string>
     <string name="custom_application_id_desc">기본 디스코드 애플리케이션 ID를 재정의합니다.</string>
+    <string name="use_a_vpn_desc">Discord login may not work in your country without a VPN/DPI. Please use a VPN/DPI to proceed.</string>
 </resources>

@@ -39,42 +39,44 @@ import com.my.kizzy.resources.R
 import com.my.kizzy.ui.theme.DISCORD_GREY
 import java.util.Locale
 
+private val NON_ACCESSIBLE_COUNTRIES = listOf("TR", "RU")
+
 @Composable
 internal fun DiscordLoginButton(
     onClick: () -> Unit,
     enabled: Boolean
 ) {
     val context = LocalContext.current
-    var showAlertDialog by remember { mutableStateOf(false) }
+    var showVpnDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         val country = getUserCountry(context)
-        if (country in listOf("TR", "RU")) {
-            showAlertDialog = true
+        if (country in NON_ACCESSIBLE_COUNTRIES) {
+            showVpnDialog = true
         }
     }
 
-    if (showAlertDialog) {
+    if (showVpnDialog) {
         AlertDialog(
-            onDismissRequest = { showAlertDialog = false },
+            onDismissRequest = { showVpnDialog = false },
             confirmButton = {
                 TextButton(onClick = {
-                    showAlertDialog = false
+                    showVpnDialog = false
                     onClick()
                 }) {
-                    Text("Proceed")
+                    Text(stringResource(R.string.confirm))
                 }
             },
             dismissButton = {
                 TextButton(onClick = {
-                    showAlertDialog = false
+                    showVpnDialog = false
                     (context as? Activity)?.finish()
                 }) {
-                    Text("Exit")
+                    Text(stringResource(R.string.exit))
                 }
             },
             text = {
-                Text("Discord login may not work in your country without a VPN/DPI. Please use a VPN/DPI to proceed.")
+                Text(stringResource(R.string.use_a_vpn_desc))
             }
         )
     }
@@ -82,8 +84,8 @@ internal fun DiscordLoginButton(
     if (enabled) {
         ElevatedButton(
             onClick = {
-                if (showAlertDialog) {
-                    showAlertDialog = true
+                if (showVpnDialog) {
+                    showVpnDialog = true
                 } else {
                     onClick()
                 }
@@ -105,7 +107,7 @@ internal fun DiscordLoginButton(
     }
 }
 
-fun getUserCountry(context: Context): String {
+private fun getUserCountry(context: Context): String {
     val tm = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
     val country = tm.networkCountryIso
     return if (country.isNullOrEmpty()) {

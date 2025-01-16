@@ -201,4 +201,5 @@
     <string name="application_id">شناسه برنامه</string>
     <string name="custom_application_id">شناسه برنامه فعالیت سفارشی</string>
     <string name="custom_application_id_desc">شناسه پیش‌فرض Discord Application را لغو می‌کند</string>
+    <string name="use_a_vpn_desc">Discord login may not work in your country without a VPN/DPI. Please use a VPN/DPI to proceed.</string>
 </resources>
