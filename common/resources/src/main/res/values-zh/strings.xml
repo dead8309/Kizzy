@@ -200,4 +200,5 @@
     <string name="application_id">Application ID</string>
     <string name="custom_application_id">Custom Activity Application ID</string>
     <string name="custom_application_id_desc">Overrides the default Discord Application ID</string>
+    <string name="use_a_vpn_desc">Discord login may not work in your country without a VPN/DPI. Please use a VPN/DPI to proceed.</string>
 </resources>

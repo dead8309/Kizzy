@@ -200,4 +200,5 @@
     <string name="application_id">ID Ứng dụng</string>
     <string name="custom_application_id">ID Ứng dụng tùy chỉnh</string>
     <string name="custom_application_id_desc">Ghi đè ID Ứng dụng Discord</string>
+    <string name="use_a_vpn_desc">Discord login may not work in your country without a VPN/DPI. Please use a VPN/DPI to proceed.</string>
 </resources>
