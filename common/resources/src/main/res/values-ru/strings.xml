@@ -200,5 +200,5 @@
     <string name="application_id">ID приложения</string>
     <string name="custom_application_id">Свой ID приложения активности</string>
     <string name="custom_application_id_desc">Меняет стандартный ID приложения Discord на ваш</string>
-    <string name="use_a_vpn_desc">Discord login may not work in your country without a VPN/DPI. Please use a VPN/DPI to proceed.</string>
+    <string name="use_a_vpn_desc">Discord заблокирован в России, поэтому вход может не работать без обхода блокировки.</string>
 </resources>
