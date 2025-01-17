@@ -137,6 +137,10 @@ fun MediaRPC(onBackPressed: () -> Unit) {
                     ) {
                         isAppIconEnabled = !isAppIconEnabled
                         Prefs[MEDIA_RPC_APP_ICON] = isAppIconEnabled
+                        if (isAppIconEnabled) {
+                            isShowPlaybackState = false
+                            Prefs[MEDIA_RPC_SHOW_PLAYBACK_STATE] = false
+                      }
                     }
                 }
                 item {
@@ -157,6 +161,10 @@ fun MediaRPC(onBackPressed: () -> Unit) {
                     ) {
                         isShowPlaybackState = !isShowPlaybackState
                         Prefs[MEDIA_RPC_SHOW_PLAYBACK_STATE] = isShowPlaybackState
+                        if (isShowPlaybackState) {
+                            isAppIconEnabled = false
+                            Prefs[MEDIA_RPC_APP_ICON] = false
+                        }
                     }
                 }
                 item {
