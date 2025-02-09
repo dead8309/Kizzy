@@ -9,8 +9,6 @@ android {
 }
 
 dependencies {
-    implementation (libs.blankj.utilcodex)
-    implementation (libs.glide)
     implementation(projects.featureRpcBase)
     implementation (libs.material.icons.extended)
 }

@@ -10,7 +10,7 @@
  *
  */
 
-package com.my.kizzy.feature_apps_rpc
+package com.my.kizzy.ui.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -24,7 +24,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.blankj.utilcode.util.AppUtils
-import com.my.kizzy.ui.components.KSwitch
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
