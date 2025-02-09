@@ -41,6 +41,7 @@ import com.my.kizzy.feature_rpc_base.services.ExperimentalRpc
 import com.my.kizzy.feature_rpc_base.services.MediaRpcService
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.resources.R
+import com.my.kizzy.ui.components.AppsItem
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.SwitchBar
 import com.my.kizzy.ui.components.SearchBar
