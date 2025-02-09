@@ -33,8 +33,8 @@
     <string name="enable_album_name">Abilita nome album</string>
     <string name="show_app_icon">Mostra icona app</string>
     <string name="enable_timestamps">Abilita tempo trascorso</string>
-    <string name="text_after_permission_denied">L'accesso ai file è importante per salvare le configurazioni nelle cartelle pubbliche. Concedi questa autorizzazione.</string>
-    <string name="request_for_storage_access">L'accesso ai file è richiesto per le funzioni di configurazione. Concedi questa autorizzazione.</string>
+    <string name="text_after_permission_denied">L\'accesso ai file è importante per salvare le configurazioni nelle cartelle pubbliche. Concedi questa autorizzazione.</string>
+    <string name="request_for_storage_access">L\'accesso ai file è richiesto per le funzioni di configurazione. Concedi questa autorizzazione.</string>
     <string name="grant_permission">Concedi autorizzazione</string>
     <string name="use_low_res_icon">Usa immagini a bassa risoluzione</string>
     <string name="use_low_res_icon_desc">Usa icone app a risoluzione inferiore da visualizzare su RPC (attivala se RPC si arresta in modo anomalo). Questa impostazione verrà applicata anche alle app.</string>
@@ -53,7 +53,7 @@
     <string name="design_credits">Crediti design</string>
     <string name="enable_appsRpc">Abilita Rilevazione App</string>
     <string name="usage_access">Accesso ai dati di utilizzo richiesto</string>
-    <string name="usage_access_desc">L'accesso ai dati di utilizzo è necessario per rilevare le app in esecuzione</string>
+    <string name="usage_access_desc">L\'accesso ai dati di utilizzo è necessario per rilevare le app in esecuzione</string>
     <string name="enable_mediaRpc">Abilita RPC media</string>
     <string name="permission_required">Autorizzazione richiesta</string>
     <string name="enable_customRpc">Abilita RPC personalizzato</string>
@@ -77,7 +77,7 @@
     <string name="android_off">Disattivato</string>
     <string name="setup">Configurazione</string>
     <string name="user_data_policy">Questa app non raccoglie alcun dato utente</string>
-    <string name="setup_desc">Prima di proseguire, si consiglia di eseguire le azioni necessarie per garantire il funzionamento completo dell'app.</string>
+    <string name="setup_desc">Prima di proseguire, si consiglia di eseguire le azioni necessarie per garantire il funzionamento completo dell\'app.</string>
     <string name="permission_granted">Autorizzato</string>
     <string name="permission_not_granted">Non autorizzato, tocca per autorizzare</string> <!--Considering this is a phone app, I replaced the translation for "clic" with the one for "tap"-->
     <string name="activity_large_text">Descrizione Attività grande</string>
@@ -87,7 +87,7 @@
     <string name="stream_url_info">Funzioneranno solo URL https://twitch.tv/ e https://youtube.com/</string>
     <string name="activity_button_max_character">Il limite massimo di caratteri è 31</string>
     <string name="set_previous_run_config_in_custom_rpc">Imposta configurazione RPC precedente come campi RPC personalizzati</string>
-    <string name="set_previous_run_config_in_custom_rpc_desc">Imposta automaticamente i campi RPC personalizzato come quelli dell'ultimo RPC eseguito</string>
+    <string name="set_previous_run_config_in_custom_rpc_desc">Imposta automaticamente i campi RPC personalizzato come quelli dell\'ultimo RPC eseguito</string>
     <string name="clear_all_fields">Cancella tutti i campi</string>
     <string name="share_config">Condividi configurazione</string>
     <string name="change_log">Changelog</string>
@@ -120,7 +120,7 @@
     <string name="go_to_profile">Vai al profilo</string>
     <string name="version">Versione</string>
     <string name="try_again">Riprova</string>
-    <string name="request_for_notification_access">L'accesso alle notifiche è necessario per ottenere informazioni su riproduzioni multimediali.</string>
+    <string name="request_for_notification_access">L\'accesso alle notifiche è necessario per ottenere informazioni su riproduzioni multimediali.</string>
     <string name="update_check_for_update">Controllo aggiornamenti…</string>
     <string name="update_no_updates_available">Nessun aggiornamento disponibile</string>
     <string name="compact_mode">Modalità compatta</string>
@@ -171,7 +171,7 @@
     <string name="activity_listening_title">Sta ascoltando %1$s</string>
     <string name="activity_watching_title">Sta guardando %1$s</string>
     <string name="activity_competiting_title">Compete in %1$s</string>
-    <string name="activity_streaming_title">Streaming: %1$s</string>   
+    <string name="activity_streaming_title">Streaming: %1$s</string>
     <string name="delete_config_successfully_toast">%1$s eliminato con successo</string>
     <string name="service_enabled">Servizio attivato</string>
     <string name="no_internet_connection">Nessuna connessione a internet</string>
@@ -199,6 +199,6 @@
     <string name="copied_to_clipboard">Copiato negli appunti</string>
     <string name="application_id">ID applicazione</string>
     <string name="custom_application_id">ID applicazione Attività personalizzato</string>
-    <string name="custom_application_id_desc">Ignora l'ID applicazione predefinito di Discord</string>
+    <string name="custom_application_id_desc">Ignora l\'ID applicazione predefinito di Discord</string>
     <string name="use_a_vpn_desc">Il login di Discord potrebbe non funzionare nel tuo Paese senza una VPN/DPI. Utilizza una VPN/DPI per continuare.</string>
 </resources>
