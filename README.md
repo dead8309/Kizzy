@@ -59,6 +59,10 @@ Check out our [QuickStart Guide](https://kizzydocs.vercel.app/quickstart/install
 > **Warning**
 > If you're thinking about downloading a Kizzy clone or app from any third-party service (other than the ones listed in our repository), think again! We can't be held responsible for any issues that may arise with your account as a result. Stay safe and stick to our trusted download links for the genuine app.
 
+> **Warning**
+> This app uses the Discord Gateway connection. Use this at your own risk.
+However people have been using custom rich presence for past 4-5 years and there's is still no case of account getting terminated.
+
 
 <a href="https://github.com/dead8309/Kizzy/releases/latest">
 <img src="https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white"
@@ -124,10 +128,6 @@ git clone https://github.com/dead8309/Kizzy.git
 - Open Android Studio
 - Import the project
 - Click on Build and Run
-
-> **Warning**
-> This app uses the Discord Gateway connection. Use this at your own risk.
-However people have been using custom rich presence for past 4-5 years and there's is still no case of account getting terminated.
 
 ## Translate
 See [Contribute for Translation](https://github.com/dead8309/Kizzy/issues/2#issue-1370365856)
