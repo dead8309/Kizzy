@@ -182,7 +182,7 @@
     <string name="time_elapsed">%1$s geçti</string>
     <string name="time_left">%1$s kaldı</string>
     <string name="config_name_empty">Yapılandırma adı boş olamaz</string>
-    <string name="restart">Yeniden başlat</string>
+    <string name="restart">Yeniden Başlat</string>
     <string name="custom_rpc_running">Özel RPC çalışıyor</string>
     <string name="use_imgur">Görsel Proxy\'si olarak Imgur kullan</string>
     <string name="use_imgur_desc">Imgur\'u Alternatif bir görsel proxy\'si olarak kullan</string>
@@ -200,5 +200,6 @@
     <string name="application_id">Uygulama ID\'si</string>
     <string name="custom_application_id">Özel Aktivite Uygulama ID\'si</string>
     <string name="custom_application_id_desc">Varsayılan Discord Uygulama ID\'sini geçersiz kılar</string>
-    <string name="use_a_vpn_desc">Discord login may not work in your country without a VPN/DPI. Please use a VPN/DPI to proceed.</string>
+    <string name="use_a_vpn_desc">Discord girişi VPN/DPI servisi olmadan ülkenizde çalışmayabilir. Lütfen devam etmek için bir VPN/DPI servisi kullanın.</string>
 </resources>
+        
