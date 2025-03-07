@@ -23,8 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.blankj.utilcode.util.AppUtils
-import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
 fun AppsItem(
@@ -44,8 +44,8 @@ fun AppsItem(
                 .padding(16.dp, 20.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            GlideImage(
-                    imageModel = AppUtils.getAppIcon(pkg),
+            AsyncImage(
+                model = AppUtils.getAppIcon(pkg),
                     contentDescription = null,
                     modifier = Modifier
                         .size(70.dp)
