@@ -21,7 +21,9 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.viewinterop.AndroidView
-import com.my.kizzy.feature_profile.ui.login.JS_SNIPPET
+
+const val JS_SNIPPET =
+    "javascript:(function()%7Bvar%20i%3Ddocument.createElement('iframe')%3Bdocument.body.appendChild(i)%3Balert(i.contentWindow.localStorage.token.slice(1,-1))%7D)()"
 
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
