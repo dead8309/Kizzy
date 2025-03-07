@@ -1,4 +1,4 @@
-    <resources>
+<resources>
     <string name="app_name">Kizzy</string>
     <string name="activity_name">Nombre de la Actividad</string>
     <string name="activity_details">Detalles de la Actividad</string>
@@ -175,9 +175,6 @@
     <string name="no_internet_connection">No hay conexión a internet</string>
     <string name="unknown_error">Ocurrió un error inesperado</string>
     <string name="rpc_buttons">Botones RPC</string>
-    <string name="samsungRPC_settings">Habilitar Samsung RPC</string>
-    <string name="samsungRPC_settings_desc">Habilita Samsung RPC para usuarios verificados.\nSerá eliminado en la próxima actualización.</string>
-    <string name="main_samsungRpc">Samsung RPC</string>
     <string name="choose_rpc">Elegir un RPC</string>
     <string name="off">Apagado</string>
     <string name="time_elapsed">%1$s transcurrido</string>
@@ -201,4 +198,5 @@
     <string name="application_id">ID de Aplicación</string>
     <string name="custom_application_id">ID de Aplicación de Actividad Personalizada</string>
     <string name="custom_application_id_desc">Reemplaza el ID de Aplicación de Discord predeterminado</string>
+    <string name="use_a_vpn_desc">Discord login may not work in your country without a VPN/DPI. Please use a VPN/DPI to proceed.</string>
 </resources>

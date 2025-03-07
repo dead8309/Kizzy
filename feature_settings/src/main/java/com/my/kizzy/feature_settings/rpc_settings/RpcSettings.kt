@@ -37,7 +37,6 @@ import androidx.compose.material.icons.filled.Pin
 import androidx.compose.material.icons.filled.SmartButton
 import androidx.compose.material.icons.filled.Storage
 import androidx.compose.material.icons.filled.Tune
-import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -61,6 +60,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.rpc.Constants.MAX_ALLOWED_CHARACTER_LENGTH
+import com.my.kizzy.data.rpc.Constants.MAX_APPLICATION_ID_LENGTH_RANGE
 import com.my.kizzy.domain.model.rpc.RpcButtons
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.resources.R
@@ -104,8 +104,6 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
     var setLastRunRpcConfigOption by remember {
         mutableStateOf(Prefs[Prefs.APPLY_FIELDS_FROM_LAST_RUN_RPC, false])
     }
-    var isSamsungRpcEnabled by remember { mutableStateOf(Prefs[Prefs.SAMSUNG_RPC_ENABLED, false]) }
-
     var customApplicationId by remember { mutableStateOf(Prefs[Prefs.CUSTOM_ACTIVITY_APPLICATION_ID, ""]) }
 
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
@@ -195,17 +193,6 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
             }
             item {
                 Subtitle(text = stringResource(id = R.string.advance_settings))
-            }
-            item {
-                PreferenceSwitch(
-                    title = stringResource(R.string.samsungRPC_settings),
-                    description = stringResource(R.string.samsungRPC_settings_desc),
-                    icon = Icons.Default.Warning,
-                    isChecked = isSamsungRpcEnabled
-                ) {
-                    isSamsungRpcEnabled = !isSamsungRpcEnabled
-                    Prefs[Prefs.SAMSUNG_RPC_ENABLED] = isSamsungRpcEnabled
-                }
             }
             item {
                 PreferenceSwitch(
@@ -438,10 +425,10 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                         RpcField(
                             value = customApplicationId,
                             label = R.string.application_id,
-                            isError = customApplicationId.length != 18 || !customApplicationId.all { it.isDigit() },
+                            isError = customApplicationId.length !in MAX_APPLICATION_ID_LENGTH_RANGE || !customApplicationId.all { it.isDigit() },
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             onValueChange = { newText ->
-                                if (newText.length <= 18 && newText.all { it.isDigit() }) {
+                                if (newText.length <= MAX_APPLICATION_ID_LENGTH_RANGE.last && newText.all { it.isDigit() }) {
                                     customApplicationId = newText
                                 }
                             }
@@ -451,7 +438,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 confirmButton = {
                     TextButton(
                         onClick = {
-                            if (customApplicationId.length != 18 || !customApplicationId.all { it.isDigit() }) {
+                            if (customApplicationId.length !in MAX_APPLICATION_ID_LENGTH_RANGE || !customApplicationId.all { it.isDigit() }) {
                                 Toast.makeText(context, "Please enter a valid Application ID", Toast.LENGTH_SHORT).show()
                             } else {
                                 Prefs[Prefs.CUSTOM_ACTIVITY_APPLICATION_ID] = customApplicationId

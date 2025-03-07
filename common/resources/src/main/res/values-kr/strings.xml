@@ -178,9 +178,6 @@
     <string name="no_internet_connection">인터넷 연결이 없습니다</string>
     <string name="unknown_error">알 수 없는 오류가 발생했습니다</string>
     <string name="rpc_buttons">RPC 버튼</string>
-    <string name="samsungRPC_settings">Samsung RPC 활성화</string>
-    <string name="samsungRPC_settings_desc">확인된 사용자에게 Samsung RPC를 활성화합니다.\n다음 업데이트에서 제거됩니다.</string>
-    <string name="main_samsungRpc">Samsung RPC</string>
     <string name="choose_rpc">RPC 선택</string>
     <string name="off">끄기</string>
     <string name="time_elapsed">%1$s 경과</string>
@@ -201,7 +198,8 @@
     <string name="stop_rpc_toast">모든 서비스가 중지되었습니다</string>
     <string name="show_playback_state">재생 상태 표시</string>
     <string name="copied_to_clipboard">클립보드에 복사됨</string>
-    <string name="application_id">Application ID</string>
-    <string name="custom_application_id">Custom Activity Application ID</string>
-    <string name="custom_application_id_desc">Overrides the default Discord Application ID</string>
+    <string name="application_id">애플리케이션 ID</string>
+    <string name="custom_application_id">사용자 지정 활동 애플리케이션 ID</string>
+    <string name="custom_application_id_desc">기본 디스코드 애플리케이션 ID를 재정의합니다.</string>
+    <string name="use_a_vpn_desc">Discord login may not work in your country without a VPN/DPI. Please use a VPN/DPI to proceed.</string>
 </resources>

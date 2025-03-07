@@ -22,7 +22,6 @@ import com.my.kizzy.data.utils.toImageURL
 import com.my.kizzy.domain.model.Contributor
 import com.my.kizzy.domain.model.Game
 import com.my.kizzy.domain.model.release.Release
-import com.my.kizzy.domain.model.samsung_rpc.GalaxyPresence
 import com.my.kizzy.domain.model.user.User
 import com.my.kizzy.domain.repository.KizzyRepository
 import com.my.kizzy.preference.Prefs
@@ -61,9 +60,6 @@ class KizzyRepositoryImpl @Inject constructor(
     }
     override suspend fun getContributors(): List<Contributor> {
         return api.getContributors().getOrNull()?.body() ?: emptyList()
-    }
-    override suspend fun setSamsungGalaxyPresence(galaxyPresence: GalaxyPresence,token: String) {
-        api.setSamsungGalaxyPresence(galaxyPresence,token)
     }
     override suspend fun checkForUpdate(): Release {
         return api.checkForUpdate().getOrNull()?.releaseBody() ?: Release()

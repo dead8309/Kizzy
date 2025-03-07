@@ -64,6 +64,38 @@ object Prefs {
         set(ENABLED_APPS, Json.encodeToString(enabledPackages))
     }
 
+    /**
+     * Checks if the given app is enabled in the preferences for media rpc. This is used to filter
+     * the media RPC based on the enabled media apps.
+     *
+     * @param packageName The package name of the app to check
+     */
+    fun isMediaAppEnabled(packageName: String?): Boolean {
+        val apps = get(ENABLED_MEDIA_APPS, Json.encodeToString(predefinedMediaApps))
+        val enabledPackages: ArrayList<String> = Json.decodeFromString(apps)
+        return enabledPackages.contains(packageName)
+    }
+
+    /**
+     * Saves the given package name to the preferences for media rpc. This is used to filter the
+     * media RPC based on the enabled media apps.
+     *
+     * If the package name is already saved, it will be removed. If it is not saved, it will be
+     * added.
+     *
+     * @param pkg The package name of the app to save
+     */
+    fun saveMediaAppToPrefs(pkg: String) {
+        val apps = get(ENABLED_MEDIA_APPS, Json.encodeToString(predefinedMediaApps))
+        val enabledPackages: ArrayList<String> = Json.decodeFromString(apps)
+        if (enabledPackages.contains(pkg))
+            enabledPackages.remove(pkg)
+        else
+            enabledPackages.add(pkg)
+
+        set(ENABLED_MEDIA_APPS, Json.encodeToString(enabledPackages))
+    }
+
     fun getUser(): User? {
         val userJson = get(USER_DATA, "")
         return when {
@@ -108,6 +140,7 @@ object Prefs {
     const val LAST_RUN_CUSTOM_RPC = "last_run_custom_rpc"
     const val LANGUAGE = "language"
     const val ENABLED_APPS = "enabled_apps"
+    const val ENABLED_MEDIA_APPS = "enabled_media_apps"
 
     //Media Rpc Preferences
     const val MEDIA_RPC_ARTIST_NAME = "media_rpc_artist_name"
@@ -149,7 +182,46 @@ object Prefs {
     // Last Deleted Time of Saved Images
     const val LAST_DELETED = "last_deleted"
 
-    const val SAMSUNG_RPC_ENABLED = "samsung_rpc_enabled"
-
     const val CUSTOM_ACTIVITY_APPLICATION_ID = "custom_activity_application_id_"
+
+    /**
+     * The list of media apps that are enabled by default. See [isMediaAppEnabled] and
+     * [saveMediaAppToPrefs] for more information.
+     */
+    val predefinedMediaApps: List<String> = listOf(
+        // music steaming apps
+        "com.google.android.apps.youtube.music",
+        "com.spotify.music",
+        "com.google.android.music",
+        "com.amazon.mp3",
+        "com.apple.android.music",
+        "com.soundcloud.android",
+        "deezer.android.app",
+        "com.jrtstudio.AnotherMusicPlayer",
+        "com.pandora.android",
+        "com.rhapsody",
+        "com.sonyericsson.music",
+        "com.aspiro.tidal",
+
+        // music player apps
+        "com.sec.android.app.music",
+        "com.tbig.playerpro",
+
+        // video streaming apps
+        "com.google.android.apps.youtube.kids",
+        "com.google.android.apps.youtube.unplugged",
+        "com.google.android.youtube.googletv",
+        "com.google.android.youtube.tv",
+        "com.google.android.youtube",
+        "com.netflix.mediaclient",
+        "com.kick.mobile",
+        "tv.twitch.android.app",
+
+        // video player apps
+        "com.mxtech.videoplayer.ad",
+        "com.mxtech.videoplayer.pro",
+        "com.google.android.apps.mediashell",
+        "com.google.android.videos",
+        "org.videolan.vlc",
+    )
 }

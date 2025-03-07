@@ -49,8 +49,6 @@ class KizzyRPC(
     private var buttonUrl = ArrayList<String>()
     private var url: String? = null
 
-
-
     fun closeRPC() {
         discordWebSocket.close()
     }
@@ -250,13 +248,21 @@ class KizzyRPC(
         return this
     }
 
+    private fun String.sanitize(): String {
+        return if (this.length > 128) {
+            this.substring(0, 128)
+        } else {
+            this
+        }
+    }
+
     suspend fun build() {
         presence = Presence(
             activities = listOf(
                 Activity(
                     name = activityName,
-                    state = state,
-                    details = details,
+                    state = state?.sanitize(),
+                    details = details?.sanitize(),
                     party = party.takeIf { party != null },
                     type = type,
                     timestamps = Timestamps(
@@ -266,8 +272,8 @@ class KizzyRPC(
                     assets = Assets(
                         largeImage = largeImage?.resolveImage(kizzyRepository),
                         smallImage = smallImage?.resolveImage(kizzyRepository),
-                        largeText = largeText,
-                        smallText = smallText
+                        largeText = largeText?.sanitize(),
+                        smallText = smallText?.sanitize()
                     ).takeIf { largeImage != null || smallImage != null },
                     buttons = buttons.takeIf { buttons.size > 0 },
                     metadata = Metadata(buttonUrls = buttonUrl).takeIf { buttonUrl.size > 0 },
@@ -303,15 +309,15 @@ class KizzyRPC(
                 activities = listOf(
                     Activity(
                         name = commonRpc.name,
-                        details = commonRpc.details?.takeIf { it.isNotEmpty() },
-                        state = commonRpc.state?.takeIf { it.isNotEmpty() },
+                        details = commonRpc.details?.takeIf { it.isNotEmpty() }?.sanitize(),
+                        state = commonRpc.state?.takeIf { it.isNotEmpty() }?.sanitize(),
                         type = Prefs[CUSTOM_ACTIVITY_TYPE, 0],
                         timestamps = time.takeIf { enableTimestamps == true },
                         assets = Assets(
                                 largeImage = commonRpc.largeImage?.resolveImage(kizzyRepository),
                                 smallImage = commonRpc.smallImage?.resolveImage(kizzyRepository),
-                                largeText = commonRpc.largeText,
-                                smallText = commonRpc.smallText,
+                                largeText = commonRpc.largeText?.sanitize(),
+                                smallText = commonRpc.smallText?.sanitize()
                             ).takeIf { commonRpc.largeImage != null || commonRpc.smallImage != null },
                         party = party.takeIf { party != null },
                         buttons = buttons.takeIf { buttons.size > 0 },

@@ -7,11 +7,18 @@
  *  *  * permission of yzziK(Vaibhav)
  *  *  *****************************************************************
  *
- *
  */
 
 package com.my.kizzy.feature_profile.ui.component
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.runtime.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -25,6 +32,11 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,60 +52,86 @@ import com.my.kizzy.resources.R
 
 @Composable
 fun ProfileNetworkError(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     error: String
 ) {
-    ElevatedCard(
-        modifier = modifier,
-        colors = CardDefaults.elevatedCardColors(
-            containerColor = Color(0xFFFFDB92)
-        )
-    ) {
+    var showDialog by remember { mutableStateOf(false) }
+    val snackbarHostState = remember { SnackbarHostState() }
+    val errorMessage = stringResource(R.string.user_profile_error)
+    val context = LocalContext.current
+
+    if (showDialog) {
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .drawWithCache {
-                    onDrawBehind {
-                        drawRect(
-                            color = Color(0xFFFFBC41),
-                            topLeft = Offset.Zero,
-                            size = Size(15f, size.height),
-                        )
-                    }
-                }
+                .fillMaxSize()
+                .padding(vertical = 25.dp)
         ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp),
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    Icons.Outlined.Warning,
-                    "networkError",
-                    modifier = Modifier.size(32.dp),
-                    tint = Color(0xFFCE8500)
-                )
-                Text(
-                    text = stringResource(R.string.user_profile_error) + "\n$error",
-                    style = MaterialTheme.typography.titleMedium.copy(
-                        fontWeight = FontWeight.ExtraBold,
-                        color = Color(0xFFCE8500)
-                    )
-                )
+            AlertDialog(
+                onDismissRequest = { showDialog = false },
+                confirmButton = {
+                    TextButton(onClick = { showDialog = false }) {
+                        Text("OK")
+                    }
+                },
+                dismissButton = {
+                    TextButton(
+                        onClick = {
+                            copyToClipboard(context, error)
+                            showDialog = false
+                        }
+                    ) {
+                        Text("Copy")
+                    }
+                },
+                text = {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                            .verticalScroll(rememberScrollState())
+                    ) {
+                        Text(text = error)
+                    }
+                },
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        snackbarHostState.showSnackbar(
+            message = errorMessage,
+            actionLabel = "View Details"
+        ).also { result ->
+            if (result == SnackbarResult.ActionPerformed) {
+                showDialog = true
             }
         }
     }
+
+    Box(modifier = modifier.fillMaxSize()) {
+        SnackbarHost(
+            hostState = snackbarHostState,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(16.dp)
+        )
+    }
+}
+
+fun copyToClipboard(context: Context, text: String) {
+    val clipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    val clipData = ClipData.newPlainText("Error Details", text)
+    clipboardManager.setPrimaryClip(clipData)
 }
 
 @Preview
 @Composable
-fun Preview_Profile_Network_Error_Card() {
+fun Preview_Profile_Network_Error() {
     ProfileNetworkError(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(10.dp),
-        error = stringResource(R.string.user_profile_error)
+            .fillMaxSize()
+            .padding(16.dp),
+        error = "Unable to connect to the network."
     )
 }

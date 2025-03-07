@@ -177,9 +177,6 @@
     <string name="no_internet_connection">Không kết nối Internet</string>
     <string name="unknown_error">Mội lỗi bất ngờ đã xảy ra</string>
     <string name="rpc_buttons">Nút hoạt động</string>
-    <string name="samsungRPC_settings">Bật Samsung RPC</string>
-    <string name="samsungRPC_settings_desc">Cho phép sử dụng tính năng Samsung RPC cho người dùng đã được xác minh.\nTính năng này sẽ bị loại bỏ ở phiên bản sắp tới.</string>
-    <string name="main_samsungRpc">Samsung RPC</string>
     <string name="choose_rpc">Chọn dịch vụ RPC</string>
     <string name="off">Tắt</string>
     <string name="time_elapsed">%1$s đã trôi qua</string>
@@ -203,4 +200,5 @@
     <string name="application_id">ID Ứng dụng</string>
     <string name="custom_application_id">ID Ứng dụng tùy chỉnh</string>
     <string name="custom_application_id_desc">Ghi đè ID Ứng dụng Discord</string>
+    <string name="use_a_vpn_desc">Discord login may not work in your country without a VPN/DPI. Please use a VPN/DPI to proceed.</string>
 </resources>

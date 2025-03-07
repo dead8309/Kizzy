@@ -38,7 +38,7 @@ class GetCurrentPlayingMedia @Inject constructor(
         val STOP = "app-assets/$APPLICATION_ID/1300361702621188160.png";
     }
 
-    private fun getPlaybackStateIcon(playbackState: Int): RpcImage? {
+    private fun getPlaybackStateIcon(playbackState: Int): RpcImage {
         return when (playbackState) {
             PlaybackState.STATE_PLAYING -> RpcImage.DiscordImage(Assets.PLAY)
             PlaybackState.STATE_PAUSED -> RpcImage.DiscordImage(Assets.PAUSE)
@@ -55,15 +55,21 @@ class GetCurrentPlayingMedia @Inject constructor(
         val mediaSessionManager =
             context.getSystemService(Service.MEDIA_SESSION_SERVICE) as MediaSessionManager
         val sessions = mediaSessionManager.getActiveSessions(componentName)
-        if (sessions.size > 0) {
-            val mediaController = sessions[0]
+        for (mediaController in sessions) {
+            // If the app is not enabled for media rpc, skip it
+            if (!Prefs.isMediaAppEnabled(mediaController.packageName)) {
+                continue
+            }
+
             if (
                 Prefs[Prefs.MEDIA_RPC_HIDE_ON_PAUSE, false] &&
                 (
                     mediaController.playbackState?.state == PlaybackState.STATE_PAUSED ||
                     mediaController.playbackState?.state == PlaybackState.STATE_STOPPED
                 )
-            ) return CommonRpc()
+            ) {
+                continue
+            }
 
             val metadata = mediaController.metadata
             val title = metadata?.getString(MediaMetadata.METADATA_KEY_TITLE)

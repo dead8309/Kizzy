@@ -21,19 +21,20 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.viewinterop.AndroidView
-import com.my.kizzy.feature_profile.ui.login.JS_SNIPPET
+
+const val JS_SNIPPET =
+    "javascript:(function()%7Bvar%20i%3Ddocument.createElement('iframe')%3Bdocument.body.appendChild(i)%3Balert(i.contentWindow.localStorage.token.slice(1,-1))%7D)()"
 
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
 internal fun DiscordLoginWebView(
-    onLoginCompleted: (String) -> Unit
+    onLoginCompleted: (String) -> Unit,
 ) {
     val url = "https://discord.com/login"
     AndroidView(factory = {
         WebView(it).apply {
             layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
             )
             webViewClient = object : WebViewClient() {
 
@@ -52,6 +53,7 @@ internal fun DiscordLoginWebView(
             }
             settings.javaScriptEnabled = true
             settings.domStorageEnabled = true
+            settings.userAgentString = USER_AGENT
             webChromeClient = object : WebChromeClient() {
                 override fun onJsAlert(
                     view: WebView,
@@ -68,3 +70,8 @@ internal fun DiscordLoginWebView(
         }
     })
 }
+/*
+see why https://github.com/dead8309/Kizzy/issues/345
+ */
+private const val USER_AGENT =
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
