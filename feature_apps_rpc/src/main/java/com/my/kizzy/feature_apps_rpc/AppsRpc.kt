@@ -14,21 +14,35 @@
 
 package com.my.kizzy.feature_apps_rpc
 
-
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.pm.ApplicationInfo
-import android.content.pm.ResolveInfo
+import android.content.pm.PackageManager
 import android.provider.Settings
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AppsOutage
 import androidx.compose.material.icons.outlined.Search
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.LargeTopAppBar
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
@@ -43,8 +57,8 @@ import com.my.kizzy.preference.Prefs
 import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.AppsItem
 import com.my.kizzy.ui.components.BackButton
-import com.my.kizzy.ui.components.SwitchBar
 import com.my.kizzy.ui.components.SearchBar
+import com.my.kizzy.ui.components.SwitchBar
 import com.my.kizzy.ui.components.preference.PreferencesHint
 
 @SuppressLint("MutableCollectionMutableState")
@@ -100,13 +114,16 @@ fun AppsRPC(
             )
         }
     ) {
-        Column(modifier = Modifier
-            .fillMaxSize()
-            .padding(it)) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(it)
+        ) {
 
             LazyColumn {
                 item {
-                    AnimatedVisibility(visible = !hasUsageAccess
+                    AnimatedVisibility(
+                        visible = !hasUsageAccess
                     ) {
                         PreferencesHint(
                             title = stringResource(id = R.string.usage_access),
@@ -134,12 +151,17 @@ fun AppsRPC(
                                 ctx.stopService(Intent(ctx, ExperimentalRpc::class.java))
                                 ctx.startService(Intent(ctx, AppDetectionService::class.java))
                             }
+
                             false -> ctx.stopService(Intent(ctx, AppDetectionService::class.java))
                         }
                     }
                 }
                 items(apps.size) { i ->
-                    if (searchText.isEmpty() || apps[i].name.contains(searchText, ignoreCase = true) || apps[i].pkg.contains(searchText, ignoreCase = true)) {
+                    if (searchText.isEmpty() || apps[i].name.contains(
+                            searchText,
+                            ignoreCase = true
+                        ) || apps[i].pkg.contains(searchText, ignoreCase = true)
+                    ) {
                         AppsItem(
                             name = apps[i].name,
                             pkg = apps[i].pkg,
@@ -161,46 +183,25 @@ fun AppsRPC(
         }
     }
 }
-@Suppress("DEPRECATION")
+
+/*
+  TODO: Move this and MediaRpc's getInstalledApps function in a common place
+ */
 fun getInstalledApps(context1: Context): List<AppsInfo> {
     val appList: ArrayList<AppsInfo> = ArrayList()
-    val intent = Intent(Intent.ACTION_MAIN, null)
-    intent.addCategory(Intent.CATEGORY_LAUNCHER)
-    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
-    val resolveInfoList: List<ResolveInfo> = context1.packageManager.queryIntentActivities(intent, 0)
+    val pm = context1.packageManager
+    val resolvedAppsInfo = pm.getInstalledApplications(PackageManager.GET_GIDS)
 
-    for (resolveInfo in resolveInfoList) {
-        val activityInfo = resolveInfo.activityInfo
-        if (!resolveInfo.isSystemPackage()) {
+    for (appInfo in resolvedAppsInfo) {
+        if (pm.getLaunchIntentForPackage(appInfo.packageName) != null) {
             appList.add(
                 AppsInfo(
-                name = context1.packageManager.getApplicationLabel(activityInfo.applicationInfo).toString(),
-                pkg = activityInfo.applicationInfo.packageName.toString(),
-                isChecked = Prefs.isAppEnabled(activityInfo.packageName),
-            )
+                    name = appInfo.loadLabel(pm).toString(),
+                    pkg = appInfo.packageName,
+                    isChecked = Prefs.isAppEnabled(appInfo.packageName),
+                )
             )
         }
     }
     return appList.sortedBy { it.name }.sortedBy { !it.isChecked }
 }
-
-private fun ResolveInfo.isSystemPackage(): Boolean {
-    return this.activityInfo.applicationInfo.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != 0
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
