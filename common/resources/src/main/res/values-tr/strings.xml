@@ -22,17 +22,17 @@
     <string name="select_a_config">Bir yapılandırma seç</string>
     <string name="login_with_discord">Discord ile Giriş Yap</string>
     <string name="github_readme">BENİOKU</string>
-    <string name="github_readme_desc">Github deposunu kontrol edin</string>
+    <string name="github_readme_desc">Github reposunu kontrol edin</string>
     <string name="github_latest_release">En son yayınlanan sürüm</string>
     <string name="github_latest_release_desc">Yeni sürüme ve değişim kaydına bakın</string>
     <string name="github_issue">Github konusu</string>
     <string name="github_issue_desc">Hata raporu veya özellik önerisi için bir Github konusu açın</string>
     <string name="credits">Katkıda Bulunanlar</string>
-    <string name="credits_desc">Kullanılan kitaplıklar ve Katkıda bulunan çevirmenler</string>
-    <string name="enable_artist_name">Sanatçı İsmini Etkinleştir</string>
-    <string name="enable_album_name">Enable Album Name</string>
-    <string name="show_app_icon">Uygulama Simgesini Göster</string>
-    <string name="enable_timestamps">Süre Bilgisini Etkinleştir</string>
+    <string name="credits_desc">Kullanılan kitaplıklar ve katkıda bulunan çevirmenler</string>
+    <string name="enable_artist_name">Sanatçı ismini etkinleştir</string>
+    <string name="enable_album_name">Albüm adını etkinleştir</string>
+    <string name="show_app_icon">Uygulama simgesini göster</string>
+    <string name="enable_timestamps">Süre bilgisini etkinleştir</string>
     <string name="text_after_permission_denied">Depolama erişimi bu uygulama için herkese açık dizinlerde yapılandırma kaydetmek için önemlidir. Lütfen izin verin.</string>
     <string name="request_for_storage_access">Depolama izni yapılandırma özelliğinin çalışması için gereklidir. Lütfen izin verin.</string>
     <string name="grant_permission">İzin Ver</string>
@@ -114,7 +114,7 @@
     <string name="main_customRpc_details">Kizzy, Discord için tamamen özelleştirilebilir kendinize ait özel RPC oluşturmanıza olanak sağlar.</string>
     <string name="main_comingSoon">Yakında</string>
     <string name="exit">Çıkış</string>
-    <string name="logs">Log\'lar</string>
+    <string name="logs">Kayıtlar</string>
     <string name="drawer_subtitle_help">YARDIM</string>
     <string name="drawer_faq">SSS</string>
     <string name="go_to_profile">Profile git</string>
@@ -128,7 +128,7 @@
     <string name="yes">Evet</string>
     <string name="user_profile_error">Kullanıcı Profili Güncellenemedi:</string>
     <string name="no_internet_user_profile">Ağ bağlantısı yok. Daha sonra tekrar dene.</string>
-    <string name="user_profile_rpc_name">KIZZY RICH PRESENCE KULLANARAK</string>
+    <string name="user_profile_rpc_name">KIZZY RICH PRESENCE KULLANIYOR</string>
     <string name="user_profile_bio">HAKKIMDA</string>
     <string name="user_profile_special_button">Özel Buton</string>
     <string name="user_profile">Kullanıcı Profili</string>
@@ -148,14 +148,14 @@
     <string name="start_app_now">Şimdi Uygulamayı Başlat</string>
     <string name="skip">Geç</string>
     <string name="party_current">Mevcut Parti Boyutu</string>
-    <string name="party_max">Maks Parti Boyıtu</string>
+    <string name="party_max">Maks Parti Boyutu</string>
     <string name="user_profile_party">(%1$d / %2$d)</string>
     <string name="auto_scroll">Otomatik kaydır</string>
     <string name="party_invalid_number">Parti boyutu bir tamsayı olmalıdır</string>
     <string name="party_less_than_zero">Parti boyutu sıfırdan büyük olmalıdır</string>
     <string name="party_greater_than_max">Mevcut parti boyutu maks parti boyutunu aşamaz</string>
     <string name="party_max_cannot_be_empty">Maks parti boyutu boş olamaz</string>
-    <string name="learn_more">Daha fazlasını öğren</string>
+    <string name="learn_more">Daha fazla bilgi edin</string>
     <string name="browse_files">Dosyalara göz at</string>
     <string name="upload_image">Görsel Yükle</string>
     <string name="save">Kaydet</string>
@@ -185,7 +185,7 @@
     <string name="restart">Yeniden Başlat</string>
     <string name="custom_rpc_running">Özel RPC çalışıyor</string>
     <string name="use_imgur">Görsel Proxy\'si olarak Imgur kullan</string>
-    <string name="use_imgur_desc">Imgur\'u Alternatif bir görsel proxy\'si olarak kullan</string>
+    <string name="use_imgur_desc">Imgur\'u alternatif bir görsel proxy\'si olarak kullan</string>
     <string name="start_appDetection">Uygulama Algılamayı Başlat</string>
     <string name="start_mediaRPC">Medya RPC\'sini başlat</string>
     <string name="start_experimentalRPC">Deneysel RPC\'yi başlat</string>
@@ -202,4 +202,3 @@
     <string name="custom_application_id_desc">Varsayılan Discord Uygulama ID\'sini geçersiz kılar</string>
     <string name="use_a_vpn_desc">Discord girişi VPN/DPI servisi olmadan ülkenizde çalışmayabilir. Lütfen devam etmek için bir VPN/DPI servisi kullanın.</string>
 </resources>
-        
