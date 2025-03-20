@@ -14,27 +14,39 @@ package com.my.kizzy.feature_media_rpc
 
 import android.content.Context
 import android.content.Intent
-import android.content.pm.ApplicationInfo
-import android.content.pm.ResolveInfo
+import android.content.pm.PackageManager
 import android.provider.Settings
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Album
 import androidx.compose.material.icons.filled.Apps
 import androidx.compose.material.icons.filled.Audiotrack
-import androidx.compose.material.icons.filled.Album
 import androidx.compose.material.icons.filled.PauseCircle
 import androidx.compose.material.icons.filled.PlayCircle
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material.icons.outlined.Search
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.LargeTopAppBar
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
@@ -46,17 +58,18 @@ import com.my.kizzy.feature_rpc_base.services.CustomRpcService
 import com.my.kizzy.feature_rpc_base.services.ExperimentalRpc
 import com.my.kizzy.feature_rpc_base.services.MediaRpcService
 import com.my.kizzy.preference.Prefs
+import com.my.kizzy.preference.Prefs.MEDIA_RPC_ALBUM_NAME
 import com.my.kizzy.preference.Prefs.MEDIA_RPC_APP_ICON
 import com.my.kizzy.preference.Prefs.MEDIA_RPC_ARTIST_NAME
-import com.my.kizzy.preference.Prefs.MEDIA_RPC_ALBUM_NAME
 import com.my.kizzy.preference.Prefs.MEDIA_RPC_ENABLE_TIMESTAMPS
 import com.my.kizzy.preference.Prefs.MEDIA_RPC_HIDE_ON_PAUSE
 import com.my.kizzy.preference.Prefs.MEDIA_RPC_SHOW_PLAYBACK_STATE
 import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.AppsItem
 import com.my.kizzy.ui.components.BackButton
-import com.my.kizzy.ui.components.SwitchBar
 import com.my.kizzy.ui.components.SearchBar
+import com.my.kizzy.ui.components.Subtitle
+import com.my.kizzy.ui.components.SwitchBar
 import com.my.kizzy.ui.components.preference.PreferenceSwitch
 import com.my.kizzy.ui.components.preference.PreferencesHint
 
@@ -116,7 +129,8 @@ fun MediaRPC(onBackPressed: () -> Unit) {
         }
     ) {
         Column(modifier = Modifier.padding(it)) {
-            AnimatedVisibility(visible = !hasNotificationAccess
+            AnimatedVisibility(
+                visible = !hasNotificationAccess
             ) {
                 PreferencesHint(
                     title = stringResource(id = R.string.permission_required),
@@ -142,6 +156,7 @@ fun MediaRPC(onBackPressed: () -> Unit) {
                         context.stopService(Intent(context, ExperimentalRpc::class.java))
                         context.startService(Intent(context, MediaRpcService::class.java))
                     }
+
                     false -> context.stopService(Intent(context, MediaRpcService::class.java))
                 }
             }
@@ -215,8 +230,11 @@ fun MediaRPC(onBackPressed: () -> Unit) {
                     }
                 }
                 item {
-                    HorizontalDivider(
-                        modifier = Modifier.padding(horizontal = 16.dp)
+                    Subtitle(
+                        text = "Apps",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(15.dp, 8.dp)
                     )
                 }
                 items(apps.size) { i ->
@@ -247,34 +265,24 @@ fun MediaRPC(onBackPressed: () -> Unit) {
     }
 }
 
+/*
+  TODO: Move this and AppsRpc's getInstalledApps function in a common place
+ */
 private fun getInstalledApps(context: Context): List<MediaAppInfo> {
     val appList: ArrayList<MediaAppInfo> = ArrayList()
-    val intent = Intent(Intent.ACTION_MAIN, null)
-    intent.addCategory(Intent.CATEGORY_LAUNCHER)
-    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED
-    val resolveInfoList: List<ResolveInfo> =
-        context.packageManager.queryIntentActivities(intent, 0)
+    val pm = context.packageManager
+    val resolvedAppsInfo = pm.getInstalledApplications(PackageManager.GET_GIDS)
 
-    for (resolveInfo in resolveInfoList) {
-        val activityInfo = resolveInfo.activityInfo
-
-        if (resolveInfo.isSystemPackage()) continue
-
-        appList.add(
-            MediaAppInfo(
-                name = context.packageManager.getApplicationLabel(activityInfo.applicationInfo).toString(),
-                pkg = activityInfo.applicationInfo.packageName,
-                isChecked = Prefs.isMediaAppEnabled(activityInfo.packageName),
+    for (appInfo in resolvedAppsInfo) {
+        if (pm.getLaunchIntentForPackage(appInfo.packageName) != null) {
+            appList.add(
+                MediaAppInfo(
+                    name = appInfo.loadLabel(pm).toString(),
+                    pkg = appInfo.packageName,
+                    isChecked = Prefs.isMediaAppEnabled(appInfo.packageName),
+                )
             )
-        )
+        }
     }
-
     return appList.sortedBy { it.name }.sortedBy { !it.isChecked }
-}
-
-private fun ResolveInfo.isSystemPackage(): Boolean {
-    // If the app is a predefined media app, return false even if it is a system app. (e.g. YouTube)
-    if (Prefs.predefinedMediaApps.contains(this.activityInfo.packageName)) return false
-
-    return this.activityInfo.applicationInfo.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != 0
 }

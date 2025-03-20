@@ -29,9 +29,6 @@ import com.my.kizzy.preference.Prefs.TOKEN
 import com.my.kizzy.ui.components.BackButton
 import kotlinx.coroutines.launch
 
-const val JS_SNIPPET =
-    "javascript:(function()%7Bvar%20i%3Ddocument.createElement('iframe')%3Bdocument.body.appendChild(i)%3Balert(i.contentWindow.localStorage.token.slice(1,-1))%7D)()"
-
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
