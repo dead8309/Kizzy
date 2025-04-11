@@ -44,6 +44,10 @@
 </p>
 </div>
 
+## GitAds Sponsored
+[![Sponsored by GitAds](https://gitads.dev/v1/ad-serve?source=dead8309/kizzy@github)](https://gitads.dev/v1/ad-track?source=dead8309/kizzy@github)
+
+
 ## System Requirements
 - OS: Android 8.1 through 14 *(note: Android 14 may have some bugs with experimental features.)* <br />
 - RAM: 3GB minimum <br />
