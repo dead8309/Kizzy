@@ -149,3 +149,5 @@ See [Contribute for Translation](https://github.com/dead8309/Kizzy/issues/2#issu
 **Kizzy** is an open source project under the GNU GPL 3.0 Open Source License ①, which allows you to use, reference, and modify the source code of **Kizzy** for free, but does not allow the modified and derived code to be distributed and sold as closed-source commercial software. For details, please see the full GNU GPL 3.0 Open Source License ②.
 
 See [Terms Of Service](https://github.com/dead8309/Kizzy/blob/2bd547217688d91e5ee12a294faed477e9d4fa08/TERMS_OF_SERVICE.md) for more info
+
+<!-- GitAds-Verify: NL8NC5HUT8U5FABBUO26JCE583GNYS6M -->
