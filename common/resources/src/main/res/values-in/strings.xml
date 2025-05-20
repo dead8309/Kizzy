@@ -8,7 +8,7 @@
     <string name="activity_state">Status Aktivitas</string>
     <string name="activity_start_timestamps">Waktu Mulai</string>
     <string name="activity_stop_timestamps">Waktu Berhenti</string>
-    <string name="activity_status_online_idle_dnd">Status (online, idle, dnd)</string>
+    <string name="activity_status_online_idle_dnd">Status (\"online\", \"idle\", \"dnd\")</string>
     <string name="activity_button1_text">Teks Tombol 1</string>
     <string name="activity_button2_text">Teks Tombol 2</string>
     <string name="activity_button1_url">URL Tombol 1</string>
@@ -25,11 +25,11 @@
     <string name="github_readme">README</string>
     <string name="github_readme_desc">Lihat repositori GitHub</string>
     <string name="github_latest_release">Rilis Terbaru</string>
-    <string name="github_latest_release_desc">Cek versi baru & changelog</string>
+    <string name="github_latest_release_desc">Cek versi baru dan changelog</string>
     <string name="github_issue">Issue GitHub</string>
     <string name="github_issue_desc">Laporkan bug atau minta fitur</string>
     <string name="credits">Penghargaan</string>
-    <string name="credits_desc">Terima kasih untuk library & kontributor</string>
+    <string name="credits_desc">Terima kasih untuk library dan kontributor</string>
     <string name="enable_artist_name">Tampilkan Nama Artis</string>
     <string name="enable_album_name">Tampilkan Nama Album</string>
     <string name="show_app_icon">Tampilkan Ikon Aplikasi</string>
@@ -62,9 +62,9 @@
     <string name="privacy_policy">Kebijakan Privasi</string>
     <string name="privacy_policy_desc">Lihat Kebijakan Privasi</string>
     <string name="enable_console_rpc">Aktifkan Console RPC</string>
-    <string name="rpc_settings_button_configs">Konfig Tombol untuk Media & AppDetection RPC</string>
+    <string name="rpc_settings_button_configs">Konfig Tombol untuk Media dan AppDetection RPC</string>
     <string name="use_custom_buttons">Gunakan Tombol Kustom</string>
-    <string name="use_custom_buttons_desc">Pakai tombol yang kamu atur sendiri untuk RPC Media & AppDetection</string>
+    <string name="use_custom_buttons_desc">Pakai tombol yang kamu atur sendiri untuk RPC Media dan AppDetection</string>
     <string name="follow_system">Ikuti Sistem</string>
     <string name="advance_settings">Pengaturan Lanjutan</string>
     <string name="amoled">Tema AMOLED</string>
@@ -85,7 +85,7 @@
     <string name="activity_small_text">Teks Kecil</string>
     <string name="contributors">Kontributor</string>
     <string name="stream_url">URL Stream</string>
-    <string name="stream_url_info">Hanya https://twitch.tv/ & https://youtube.com/ yang bisa.</string>
+    <string name="stream_url_info">Hanya https://twitch.tv/ dan https://youtube.com/ yang bisa.</string>
     <string name="activity_button_max_character">Maks 31 karakter</string>
     <string name="set_previous_run_config_in_custom_rpc">Isi Custom RPC dari Konfigurasi Sebelumnya</string>
     <string name="set_previous_run_config_in_custom_rpc_desc">Otomatis isi field Custom RPC dari RPC terakhir</string>
@@ -95,7 +95,7 @@
     <string name="update">Perbarui</string>
     <string name="configs_directory">Folder Konfigurasi</string>
     <string name="custom_activity_type">Jenis Aktivitas Kustom</string>
-    <string name="custom_activity_type_desc">Ganti jenis aktivitas default. Untuk media & experimental RPC</string>
+    <string name="custom_activity_type_desc">Ganti jenis aktivitas default. Untuk media dan experimental RPC</string>
     <string name="custom_activity_status">Status Aktivitas Kustom</string>
     <string name="custom_activity_status_desc">Ganti status aktivitas default</string>
     <string name="search">Cari</string>
