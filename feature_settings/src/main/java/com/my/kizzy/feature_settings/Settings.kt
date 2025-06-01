@@ -1,4 +1,5 @@
 package com.my.kizzy.feature_settings
+
 import android.app.StatusBarManager
 import android.content.ComponentName
 import android.os.Build
@@ -11,7 +12,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.rounded.ArrowForwardIos
 import androidx.compose.material.icons.automirrored.rounded.HelpOutline
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
@@ -19,11 +19,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
-import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.buildAnnotatedString
@@ -33,11 +32,11 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.my.kizzy.domain.model.user.User
 import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.Subtitle
 import com.my.kizzy.ui.components.chips
-import com.skydoves.landscapist.glide.GlideImage
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -50,12 +49,14 @@ fun SettingsDrawer(
     navigateToLanguages: () -> Unit,
     navigateToAbout: () -> Unit,
     navigateToRpcSettings: () -> Unit,
-    navigateToLogsScreen: () -> Unit
+    navigateToLogsScreen: () -> Unit,
 ) {
     val uriHandler = LocalUriHandler.current
-    Surface(modifier = Modifier
-        .fillMaxHeight()
-        .width(300.dp)) {
+    Surface(
+        modifier = Modifier
+            .fillMaxHeight()
+            .width(300.dp)
+    ) {
         Column(
             modifier = Modifier.padding(15.dp)
         ) {
@@ -76,16 +77,16 @@ fun SettingsDrawer(
                     style = MaterialTheme.typography.titleSmall
                 )
             }
-            LazyColumn (
+            LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(5.dp),
                 modifier = Modifier.weight(8f)
-            ){
+            ) {
                 item {
                     SettingsItemCard(
                         title = stringResource(id = R.string.display),
                         icon = Icons.Outlined.Palette
-                    ){
-                       navigateToStyleAndAppearance()
+                    ) {
+                        navigateToStyleAndAppearance()
                     }
                 }
                 item {
@@ -153,7 +154,7 @@ fun SettingsDrawer(
                     )
                 }
             }
-            if (user != null){
+            if (user != null) {
                 ProfileCardSmall(user = user) { navigateToProfile() }
             }
         }
@@ -163,7 +164,7 @@ fun SettingsDrawer(
 @Composable
 fun RequestQsTile(
     visible: Boolean = true,
-    componentName: ComponentName
+    componentName: ComponentName,
 ) {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
     val ctx = LocalContext.current
@@ -172,7 +173,7 @@ fun RequestQsTile(
     AnimatedVisibility(
         visible = visible,
         exit = fadeOut(tween(800))
-    ){
+    ) {
         SettingsItemCard(
             title = label,
             icon = Icons.Outlined.Star,
@@ -202,7 +203,8 @@ fun SettingsItemCard(
             Text(
                 text = title,
                 maxLines = 1,
-                style = MaterialTheme.typography.titleLarge.copy(fontSize = 20.sp).copy(fontWeight = FontWeight.SemiBold),
+                style = MaterialTheme.typography.titleLarge.copy(fontSize = 20.sp)
+                    .copy(fontWeight = FontWeight.SemiBold),
             )
         },
         icon = {
@@ -222,7 +224,7 @@ fun SettingsItemCard(
 @Composable
 fun ProfileCardSmall(
     user: User?,
-    navigateToProfile: () -> Unit
+    navigateToProfile: () -> Unit,
 ) {
     ElevatedCard(
         modifier = Modifier
@@ -233,20 +235,22 @@ fun ProfileCardSmall(
         ),
         onClick = navigateToProfile
     ) {
-        Row(modifier = Modifier
-            .padding(8.dp)
-            .fillMaxWidth(),
+        Row(
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Row {
-                GlideImage(
-                    imageModel = user?.getAvatarImage(),
+                AsyncImage(
+                    model = user?.getAvatarImage(),
                     modifier = Modifier
                         .padding(end = 10.dp)
                         .size(50.dp)
                         .clip(CircleShape),
-                    error = ImageBitmap.imageResource(id = R.drawable.error_avatar),
-                    previewPlaceholder = R.drawable.error_avatar
+                    contentDescription = user?.username,
+                    error = painterResource(R.drawable.error_avatar),
+                    placeholder = painterResource(R.drawable.error_avatar),
                 )
                 Text(
                     buildAnnotatedString {
@@ -279,12 +283,14 @@ fun ProfileCardSmall(
 @Preview
 @Composable
 fun SettingsDrawerPreview() {
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .background(Color.LightGray)){
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.LightGray)
+    ) {
         SettingsDrawer(
             showKizzyQuickieRequestItem = false,
-            componentName = ComponentName("",""),
+            componentName = ComponentName("", ""),
             user = null,
             navigateToProfile = {},
             navigateToStyleAndAppearance = {},

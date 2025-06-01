@@ -12,17 +12,30 @@
 
 package com.my.kizzy.feature_about.about
 
-import androidx.compose.animation.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LargeTopAppBar
+import androidx.compose.material3.LocalAbsoluteTonalElevation
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,16 +43,17 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.my.kizzy.domain.model.Contributor
 import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.CreditItem
 import com.my.kizzy.ui.components.Subtitle
-import com.skydoves.landscapist.glide.GlideImage
 import kotlin.math.floor
 
 data class Credit(val title: String = "", val license: String = "", val url: String = "")
@@ -87,18 +101,20 @@ fun Credits(state: CreditScreenState, onBackPressed: () -> Unit) {
                         style = MaterialTheme.typography.headlineLarge,
                     )
                 },
-                navigationIcon = { BackButton{ onBackPressed() } },
+                navigationIcon = { BackButton { onBackPressed() } },
                 scrollBehavior = scrollBehavior
             )
         }
-    ){ paddingValues ->
-        LazyColumn(modifier = Modifier.padding(paddingValues)){
+    ) { paddingValues ->
+        LazyColumn(modifier = Modifier.padding(paddingValues)) {
             item {
                 Subtitle(text = stringResource(id = R.string.design_credits))
-                }
-            items(creditsList){item: Credit ->
-                CreditItem(title = item.title,
-                description = item.license) {
+            }
+            items(creditsList) { item: Credit ->
+                CreditItem(
+                    title = item.title,
+                    description = item.license
+                ) {
                     openUrl(item.url)
                 }
             }
@@ -114,16 +130,20 @@ fun Credits(state: CreditScreenState, onBackPressed: () -> Unit) {
                                 .padding(16.dp, 20.dp),
                         )
                     }
+
                     CreditScreenState.Loading -> {
                         CircularProgressIndicator(
                             modifier = Modifier
-                                .padding(16.dp, 20.dp))
+                                .padding(16.dp, 20.dp)
+                        )
                     }
+
                     is CreditScreenState.LoadingCompleted -> {
                         // dirty way to enable LazyVerticalGird,
                         // TODO update this part once compose team release out a better
                         //  implementation of nested scrolling
-                        val itemsPerRowAccordingToScreenWidth = floor((LocalConfiguration.current.screenWidthDp.dp / 90).value)
+                        val itemsPerRowAccordingToScreenWidth =
+                            floor((LocalConfiguration.current.screenWidthDp.dp / 90).value)
                         val totalHeightForLazyGrid =
                             state.contributors.size.div(itemsPerRowAccordingToScreenWidth)
                                 .times((96)).dp
@@ -156,14 +176,14 @@ fun ContributorItem(contributor: Contributor) {
                 uriHandler.openUri(contributor.url)
             }
     ) {
-        GlideImage(
-            imageModel = contributor.avatar,
+        AsyncImage(
+            model = contributor.avatar,
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .padding(top = 5.dp)
                 .size(60.dp)
                 .clip(RoundedCornerShape(26.dp)),
-            previewPlaceholder = R.drawable.error_avatar
+            contentDescription = contributor.avatar
         )
         Text(
             modifier = Modifier
@@ -198,13 +218,15 @@ fun CreditsPreview2() {
 @Composable
 fun CreditsPreview3() {
     Credits(
-        state = CreditScreenState.LoadingCompleted(listOf(
-            Contributor(
-            avatar = "",
-            name = "dead8309",
-            url = "https://github.com/dead8309"
-        )
-        )),
+        state = CreditScreenState.LoadingCompleted(
+            listOf(
+                Contributor(
+                    avatar = "",
+                    name = "dead8309",
+                    url = "https://github.com/dead8309"
+                )
+            )
+        ),
         onBackPressed = {}
     )
 }

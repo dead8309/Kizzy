@@ -13,9 +13,19 @@
 package com.my.kizzy.feature_console_rpc
 
 import android.content.Intent
-import androidx.compose.animation.*
+import androidx.compose.animation.expandIn
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkOut
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -23,8 +33,20 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.Check
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,6 +57,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.my.kizzy.domain.model.Game
 import com.my.kizzy.domain.model.rpc.RpcConfig
 import com.my.kizzy.feature_rpc_base.services.AppDetectionService
@@ -48,7 +71,6 @@ import com.my.kizzy.ui.components.SearchBar
 import com.my.kizzy.ui.components.SwitchBar
 import com.my.kizzy.ui.components.shimmer.AnimatedShimmer
 import com.my.kizzy.ui.components.shimmer.ShimmerGamesScreen
-import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -59,7 +81,7 @@ fun GamesScreen(
     onEvent: (UiEvent) -> Unit,
     state: GamesState,
     serviceEnabled: Boolean,
-    isSearchBarVisible: Boolean
+    isSearchBarVisible: Boolean,
 ) {
     var selected by remember {
         mutableStateOf("")
@@ -72,14 +94,15 @@ fun GamesScreen(
     var searchText by remember { mutableStateOf("") }
 
     val intent = Intent(context, CustomRpcService::class.java)
-    Scaffold(Modifier.fillMaxSize(),
+    Scaffold(
+        Modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
                 title = {
                     if (isSearchBarVisible) {
                         SearchBar(
                             onTextChanged = {
-                                searchText  = it
+                                searchText = it
                                 onEvent(UiEvent.Search(it))
                             },
                             text = searchText,
@@ -88,8 +111,7 @@ fun GamesScreen(
                                 onEvent(UiEvent.CloseSearchBar)
                             }
                         )
-                    }
-                    else {
+                    } else {
                         Text(
                             text = stringResource(id = R.string.main_consoleRpc),
                             style = MaterialTheme.typography.headlineLarge,
@@ -97,11 +119,11 @@ fun GamesScreen(
                     }
                 },
                 actions = {
-                        if(!isSearchBarVisible) {
-                            IconButton(onClick = { onEvent(UiEvent.OpenSearchBar) }) {
-                                Icon(Icons.Default.Search, stringResource(id = R.string.search))
-                            }
+                    if (!isSearchBarVisible) {
+                        IconButton(onClick = { onEvent(UiEvent.OpenSearchBar) }) {
+                            Icon(Icons.Default.Search, stringResource(id = R.string.search))
                         }
+                    }
                 },
                 navigationIcon = { BackButton { onBackPressed() } }
             )
@@ -128,6 +150,7 @@ fun GamesScreen(
                         }
                     }
                 }
+
                 GamesState.Loading -> {
                     Column(
                         Modifier
@@ -141,7 +164,11 @@ fun GamesScreen(
                 }
 
                 is GamesState.Success -> {
-                    Column(Modifier.fillMaxSize().padding(padding)) {
+                    Column(
+                        Modifier
+                            .fillMaxSize()
+                            .padding(padding)
+                    ) {
                         SwitchBar(
                             title = stringResource(id = R.string.enable_console_rpc),
                             isChecked = isConsoleRpcRunning
@@ -173,6 +200,7 @@ fun GamesScreen(
                                         context.startService(intent)
                                     }
                                 }
+
                                 false -> context.stopService(
                                     Intent(
                                         context,
@@ -227,20 +255,23 @@ fun SingleChoiceGameItem(
             .padding(8.dp)
             .clip(RoundedCornerShape(25.dp))
     ) {
-        Row(modifier = Modifier
-            .padding(8.dp)
-            .fillMaxWidth(),
+        Row(
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            Box(modifier = Modifier
-                .size(80.dp)
-                .clip(RoundedCornerShape(15.dp))){
-                GlideImage(
-                    imageModel = game.large_image,
+            Box(
+                modifier = Modifier
+                    .size(80.dp)
+                    .clip(RoundedCornerShape(15.dp))
+            ) {
+                AsyncImage(
+                    model = game.large_image,
                     modifier = Modifier
                         .size(80.dp)
                         .clip(RoundedCornerShape(15.dp)),
-                    previewPlaceholder = R.drawable.ic_console_games
+                    contentDescription = game.game_title,
                 )
                 androidx.compose.animation.AnimatedVisibility(
                     visible = selected,
@@ -275,12 +306,12 @@ fun SingleChoiceGameItem(
                     overflow = TextOverflow.Ellipsis
                 )
             }
-            GlideImage(
-                imageModel = game.small_image,
+            AsyncImage(
+                model = game.small_image,
                 modifier = Modifier
                     .size(40.dp)
                     .clip(CircleShape),
-                previewPlaceholder = R.drawable.ic_console_games
+                contentDescription = game.platform
             )
         }
     }
