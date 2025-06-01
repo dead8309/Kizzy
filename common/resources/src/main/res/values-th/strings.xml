@@ -121,8 +121,8 @@
     <string name="version">เวอร์ชั่น</string>
     <string name="try_again">ลองใหม่อีกครั้ง</string>
     <string name="request_for_notification_access">การอนุญาตเข้าถึงการแจ้งเตือนจะทำให้สามารถถึงข้อมูลจากสื่อแอปต่างๆได้ไงล่ะ!</string>
-    <string name="update_check_for_update">กำลังตรวจสอบอัปเดท…</string>
-    <string name="update_no_updates_available">ไม่มีอัปเดท นี้คือเวอร์ชั่นปัจจุบันแล้ว</string>
+    <string name="update_check_for_update">กำลังตรวจสอบอัปเดต…</string>
+    <string name="update_no_updates_available">ไม่มีอัปเดต นี้คือเวอร์ชั่นปัจจุบันแล้ว</string>
     <string name="compact_mode">โหมดกะทัดรัด</string>
     <string name="are_you_sure">คุณแน่ใจนะ?</string>
     <string name="yes">ใช่</string>
@@ -171,10 +171,10 @@
     <string name="activity_listening_title">กำลังฟังเพลง %1$s</string>
     <string name="activity_watching_title">กำลังดู %1$s</string>
     <string name="activity_competiting_title">กำลังแข่งขัน %1$s</string>
-    <string name="activity_streaming_title">ถ่ายทอดสดที่ %1$s</string>
+    <string name="activity_streaming_title">กำลังถ่ายทอดสดที่ %1$s</string>
     <string name="delete_config_successfully_toast">%1$s ถูกลบเสร็จเรียบร้อยแล้ว</string>
     <string name="service_enabled">Service เปิดใช้งานแล้ว</string>
-    <string name="no_internet_connection">ไม่มีการเชื่อมต่ออินเตอร์เน็ต [มั่นใจนะว่าไม่โดนครูบาเล่น]</string>
+    <string name="no_internet_connection">ไม่มีการเชื่อมต่ออินเตอร์เน็ต [ฮั่นแน่มีเน็ตรึยาง?]</string>
     <string name="unknown_error">มีข้อผิดพลาดเกิดขึ้น</string>
     <string name="rpc_buttons">ปุ่ม RPC</string>
     <string name="choose_rpc">เลือก RPC</string>
@@ -184,7 +184,7 @@
     <string name="config_name_empty">ชื่อ Config ไม่สามารถว่างเปล่าได้นะ</string>
     <string name="restart">รีสตาร์ทใหม่</string>
     <string name="custom_rpc_running">Custom RPC กำลังใช้งานอยู่</string>
-    <string name="use_imgur">ใช้ Imgur เป็นพร็อกซี่รูปภาพแทน </string>
+    <string name="use_imgur">ใช้ Imgur เป็นพร็อกซี่รูปภาพแทน</string>
     <string name="use_imgur_desc">จะใช้ Imgur เป็นพร็อกซี่ของภาพที่จะใช้แทน</string>
     <string name="start_appDetection">เริ่มการใช้ App Detection แล้ว</string>
     <string name="start_mediaRPC">เริ่มการใช้ Media RPC แล้ว</string>
