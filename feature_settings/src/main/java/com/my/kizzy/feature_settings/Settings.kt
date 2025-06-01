@@ -230,7 +230,8 @@ fun ProfileCardSmall(
             .clip(RoundedCornerShape(15.dp)),
         colors = CardDefaults.elevatedCardColors(
             containerColor = MaterialTheme.colorScheme.secondaryContainer
-        )
+        ),
+        onClick = navigateToProfile
     ) {
         Row(modifier = Modifier
             .padding(8.dp)
@@ -269,14 +270,6 @@ fun ProfileCardSmall(
                                 append("#${user?.discriminator}")
                         }
                     }
-                )
-            }
-            IconButton(onClick = { navigateToProfile() }) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Rounded.ArrowForwardIos,
-                    modifier = Modifier.size(28.dp),
-                    contentDescription = stringResource(R.string.go_to_profile),
-                    tint = MaterialTheme.colorScheme.secondary
                 )
             }
         }
