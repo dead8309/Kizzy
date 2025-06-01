@@ -12,11 +12,10 @@
 
 package com.my.kizzy.feature_media_rpc
 
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.provider.Settings
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,6 +32,7 @@ import androidx.compose.material.icons.filled.PlayCircle
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -47,6 +47,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
@@ -75,7 +76,11 @@ import com.my.kizzy.ui.components.preference.PreferencesHint
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MediaRPC(onBackPressed: () -> Unit) {
+fun MediaRPC(
+    onBackPressed: () -> Unit,
+    state: MediaAppsState,
+    updateMediaAppEnabled: (String) -> Unit,
+) {
     val context = LocalContext.current
     var mediaRpcRunning by remember { mutableStateOf(AppUtils.mediaRpcRunning()) }
     var isArtistEnabled by remember { mutableStateOf(Prefs[MEDIA_RPC_ARTIST_NAME, false]) }
@@ -86,7 +91,6 @@ fun MediaRPC(onBackPressed: () -> Unit) {
     var isShowPlaybackState by remember { mutableStateOf(Prefs[MEDIA_RPC_SHOW_PLAYBACK_STATE, false]) }
     var hasNotificationAccess by remember { mutableStateOf(context.hasNotificationAccess()) }
 
-    var apps by remember { mutableStateOf(getInstalledApps(context)) }
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
         rememberTopAppBarState(),
         canScroll = { true })
@@ -237,52 +241,34 @@ fun MediaRPC(onBackPressed: () -> Unit) {
                             .padding(15.dp, 8.dp)
                     )
                 }
-                items(apps.size) { i ->
-                    if (searchText.isEmpty() || apps[i].name.contains(
-                            searchText,
-                            ignoreCase = true
-                        ) || apps[i].pkg.contains(searchText, ignoreCase = true)
-                    ) {
-                        AppsItem(
-                            name = apps[i].name,
-                            pkg = apps[i].pkg,
-                            isChecked = apps[i].isChecked
+                if (state.isLoading) {
+                    item {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
                         ) {
-                            apps = apps.mapIndexed { j, app ->
-                                if (i == j) {
-                                    Prefs.saveMediaAppToPrefs(app.pkg)
-                                    app.copy(isChecked = !app.isChecked)
-                                } else
-                                    app
-                            }
+                            CircularProgressIndicator()
                         }
-                    } else {
-                        Spacer(modifier = Modifier.height(0.dp))
+                    }
+                } else {
+                    items(state.apps.size, key = { idx -> state.apps[idx].pkg }) { i ->
+                        if (searchText.isEmpty() || state.apps[i].name.contains(
+                                searchText,
+                                ignoreCase = true
+                            ) || state.apps[i].pkg.contains(searchText, ignoreCase = true)
+                        ) {
+                            AppsItem(
+                                name = state.apps[i].name,
+                                pkg = state.apps[i].pkg,
+                                isChecked = state.enabledApps[state.apps[i].pkg] ?: false,
+                                onClick = { updateMediaAppEnabled(state.apps[i].pkg) }
+                            )
+                        } else {
+                            Spacer(modifier = Modifier.height(0.dp))
+                        }
                     }
                 }
             }
         }
     }
-}
-
-/*
-  TODO: Move this and AppsRpc's getInstalledApps function in a common place
- */
-private fun getInstalledApps(context: Context): List<MediaAppInfo> {
-    val appList: ArrayList<MediaAppInfo> = ArrayList()
-    val pm = context.packageManager
-    val resolvedAppsInfo = pm.getInstalledApplications(PackageManager.GET_GIDS)
-
-    for (appInfo in resolvedAppsInfo) {
-        if (pm.getLaunchIntentForPackage(appInfo.packageName) != null) {
-            appList.add(
-                MediaAppInfo(
-                    name = appInfo.loadLabel(pm).toString(),
-                    pkg = appInfo.packageName,
-                    isChecked = Prefs.isMediaAppEnabled(appInfo.packageName),
-                )
-            )
-        }
-    }
-    return appList.sortedBy { it.name }.sortedBy { !it.isChecked }
 }
