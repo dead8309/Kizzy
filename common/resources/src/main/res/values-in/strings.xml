@@ -37,10 +37,10 @@
     <string name="text_after_permission_denied">Akses penyimpanan diperlukan agar aplikasi ini dapat menyimpan konfigurasi di folder publik. Mohon izinkan.</string>
     <string name="request_for_storage_access">Izin penyimpanan diperlukan agar fitur konfigurasi dapat berfungsi. Mohon izinkan.</string>
     <string name="grant_permission">Izinkan</string>
-    <string name="use_low_res_icon">Gunakan Gambar Resolusi Rendah</string>
-    <string name="use_low_res_icon_desc">Gunakan gambar beresolusi rendah untuk ditampilkan di RPC (Aktifkan ini jika RPC mengalami crash). Pengaturan ini juga berlaku untuk Apps RPC.</string>
+    <string name="use_low_res_icon">Gunakan Ikon Resolusi Rendah</string>
+    <string name="use_low_res_icon_desc">Gunakan ikon beresolusi rendah untuk ditampilkan di RPC (Aktifkan ini jika RPC mengalami crash). Pengaturan ini juga berlaku untuk Apps RPC.</string>
     <string name="delete_saved_icon_urls">Hapus Tautan Ikon Yang Tersimpan</string>
-    <string name="delete_saved_icon_urls_desc">Menghapus URL ikon yang tersimpan (Gunakan ini jika diperlukan, karena ini akan mengirimkan ulang gambar ke server Discord lagi, sehingga akan menghabiskan banyak data)</string>
+    <string name="delete_saved_icon_urls_desc">Menghapus URL ikon yang tersimpan (Gunakan ini jika diperlukan, karena ini akan mengirimkan ulang ikon ke server Discord lagi, sehingga akan menghabiskan banyak data)</string>
     <string name="app_crashed">Aplikasi Error</string>
     <string name="share_crash_logs_desc">Mohon kirim log ini di channel Discord dengan stacktrace:</string>
     <string name="share_crash_logs">BAGIKAN LOG</string>
