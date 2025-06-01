@@ -19,15 +19,41 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.surfaceColorAtElevation
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithCache
@@ -53,25 +79,20 @@ import com.my.kizzy.ui.components.KSwitch
 import com.my.kizzy.ui.components.SearchBar
 import com.my.kizzy.ui.theme.LogColors.color
 import java.text.DateFormat
-import java.util.*
+import java.util.Date
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun LogScreen(viewModel: LogsViewModel) {
     val ctx = LocalContext.current
     val lazyListState = rememberLazyListState()
-    val logs by remember {
-        derivedStateOf {
-            viewModel.filter()
-        }
-    }
     val clipboardManager: ClipboardManager = LocalClipboardManager.current
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = { ToolBar(viewModel) }
     ) { paddingValues ->
         LaunchedEffect(viewModel.logs.size) {
-            if (viewModel.logs.size > 0 && viewModel.autoScroll.value)
+            if (viewModel.logs.isNotEmpty() && viewModel.autoScroll.value)
                 lazyListState.animateScrollToItem(viewModel.logs.size - 1)
         }
         LazyColumn(
@@ -82,7 +103,8 @@ fun LogScreen(viewModel: LogsViewModel) {
                 .padding(paddingValues)
         ) {
             itemsIndexed(
-                logs,// viewModel.logs,
+                viewModel.filter().toList(),// viewModel.logs,
+                key = { idx, item -> "$idx/${item.createdAt}" }
             ) { i, it ->
                 if (viewModel.showCompat.value) {
                     val isExpanded = remember { mutableStateOf(false) }
@@ -99,7 +121,11 @@ fun LogScreen(viewModel: LogsViewModel) {
                                 },
                                 onLongClick = {
                                     clipboardManager.setText(AnnotatedString(it.text))
-                                    Toast.makeText(ctx, ctx.getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        ctx,
+                                        ctx.getString(R.string.copied_to_clipboard),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 },
                             )
                             .padding(4.dp),
@@ -145,7 +171,8 @@ fun ToolBar(viewModel: LogsViewModel) {
                 Icon(
                     imageVector = Icons.Default.MoreVert, contentDescription = "menu"
                 )
-                DropdownMenu(expanded = menuClicked,
+                DropdownMenu(
+                    expanded = menuClicked,
                     onDismissRequest = { menuClicked = !menuClicked }) {
                     DropdownMenuItem(
                         onClick = {},
@@ -176,7 +203,8 @@ fun ToolBar(viewModel: LogsViewModel) {
                                     .fillMaxSize()
                                     .clickable {
                                         viewModel.showCompat.value = !viewModel.showCompat.value
-                                        Prefs[Prefs.SHOW_LOGS_IN_COMPACT_MODE] = viewModel.showCompat.value
+                                        Prefs[Prefs.SHOW_LOGS_IN_COMPACT_MODE] =
+                                            viewModel.showCompat.value
                                     }, horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 Text(
@@ -190,7 +218,12 @@ fun ToolBar(viewModel: LogsViewModel) {
                             }
                         })
                     DropdownMenuItem(
-                        text = { Text(text = stringResource(R.string.clear), style = MaterialTheme.typography.bodyLarge) },
+                        text = {
+                            Text(
+                                text = stringResource(R.string.clear),
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                        },
                         onClick = {
                             viewModel.clearLogs()
                             menuClicked = false
@@ -258,7 +291,11 @@ fun LogsCard(logEvent: LogEvent) {
                             },
                             onLongClick = {
                                 clipboardManager.setText(AnnotatedString(logEvent.text))
-                                Toast.makeText(ctx, ctx.getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    ctx,
+                                    ctx.getString(R.string.copied_to_clipboard),
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             },
                         )
                     )
