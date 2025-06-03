@@ -135,6 +135,8 @@ fun homeFeaturesProvider(
         HomeFeature(
             title = stringResource(id = R.string.main_experimentalRpc),
             icon = R.drawable.ic_dev_rpc,
+            route = Routes.EXPERIMENTAL_RPC,
+            onClick = { navigateTo(it) },
             isChecked = AppUtils.experimentalRpcRunning(),
             onCheckedChange = {
                 if (it) {

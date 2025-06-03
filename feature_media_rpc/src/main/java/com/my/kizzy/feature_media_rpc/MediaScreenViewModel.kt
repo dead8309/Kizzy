@@ -27,7 +27,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MediaScreenViewModel @Inject constructor(
-    @ApplicationContext private val context: Context
+    @ApplicationContext private val context: Context,
 ) : ViewModel() {
     private val _state: MutableStateFlow<MediaAppsState> = MutableStateFlow(MediaAppsState())
     val state = _state
@@ -38,7 +38,10 @@ class MediaScreenViewModel @Inject constructor(
 
     private fun getInstalledApps() {
         viewModelScope.launch(context = Dispatchers.Default) {
-            val appList = getInstalledApps(context).sortedBy { !it.isChecked }
+            val appList = getInstalledApps(
+                context = context,
+                isEnabled = Prefs::isMediaAppEnabled
+            ).sortedBy { !it.isChecked }
             val enabledApps = appList.associate { it.pkg to it.isChecked }
             _state.update {
                 MediaAppsState(

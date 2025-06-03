@@ -39,7 +39,10 @@ class AppsScreenViewModel @Inject constructor(
 
     fun getInstalledApps() {
         viewModelScope.launch(context = Dispatchers.Default) {
-            val appList = getInstalledApps(context).sortedBy { !it.isChecked }
+            val appList = getInstalledApps(
+                context = context,
+                isEnabled = Prefs::isAppEnabled
+            ).sortedBy { !it.isChecked }
             val enabledApps = appList.associate { it.pkg to it.isChecked }
             _state.update {
                 AppsState(
