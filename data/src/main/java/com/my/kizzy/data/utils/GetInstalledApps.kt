@@ -14,7 +14,6 @@ package com.my.kizzy.data.utils
 
 import android.content.Context
 import android.content.pm.PackageManager
-import com.my.kizzy.preference.Prefs
 
 data class AppsInfo(
     val name: String,
@@ -22,7 +21,10 @@ data class AppsInfo(
     val isChecked: Boolean = false,
 )
 
-fun getInstalledApps(context: Context): List<AppsInfo> {
+fun getInstalledApps(
+    context: Context,
+    isEnabled: (String) -> Boolean,
+): List<AppsInfo> {
     val pm = context.packageManager
     val installedApps = pm.getInstalledApplications(PackageManager.GET_GIDS)
     val appDetailsList = installedApps
@@ -32,7 +34,7 @@ fun getInstalledApps(context: Context): List<AppsInfo> {
             AppsInfo(
                 name = app.loadLabel(pm).toString(),
                 pkg = app.packageName,
-                isChecked = Prefs.isAppEnabled(packageName = app.packageName)
+                isChecked = isEnabled(app.packageName)
             )
         }
         .sortedBy { it.name }
