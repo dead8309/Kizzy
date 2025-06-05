@@ -7,7 +7,7 @@
     <string name="activity_state">Estado da atividade</string>
     <string name="activity_start_timestamps">Hora do início da atividade</string>
     <string name="activity_stop_timestamps">Hora do fim da atividade</string>
-    <string name="activity_status_online_idle_dnd">Definir status (online, ausente, etc.)</string>
+    <string name="activity_status_online_idle_dnd">Definir status (online, ausente, np)</string>
     <string name="activity_button1_text">Texto do botão 1</string>
     <string name="activity_button2_text">Texto do botão 2</string>
     <string name="activity_button1_url">URL do botão 1</string>
@@ -138,7 +138,7 @@
     <string name="enter_details">Insira os detalhes</string>
     <string name="status_online">Online</string>
     <string name="status_idle">Ausente</string>
-    <string name="status_dnd">Não Perturbe</string>
+    <string name="status_dnd">Não Perturbar</string>
     <string name="status_invisible_offline">Invisível e mostrado como offline</string>
     <string name="status_offline">Offline</string>
     <string name="notification_access">Acesso às notificações</string>
