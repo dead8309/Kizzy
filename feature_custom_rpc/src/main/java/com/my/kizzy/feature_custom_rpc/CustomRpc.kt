@@ -375,6 +375,75 @@ private fun RpcTextFieldsColumn(
 
             item {
                 RpcField(
+                    value = platform,
+                    label = R.string.activity_platform,
+                    trailingIcon = {
+                        Icon(imageVector = iconStatus,
+                            contentDescription = null,
+                            modifier = Modifier.clickable {
+                                onEvent(UiEvent.TriggerPlatformDropDownMenu)
+                            })
+                    }
+                ) {
+                    onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(platform = it)))
+                }
+
+                DropdownMenu(
+                    expanded = uiState.platformIsExpanded, onDismissRequest = {
+                        onEvent(UiEvent.TriggerPlatformDropDownMenu)
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    val platforms = listOf(
+                        Pair(
+                            "Android",
+                            "android"
+                        ),
+                        Pair(
+                            "Desktop",
+                            "desktop"
+                        ),
+                        Pair(
+                            "Embedded",
+                            "embedded"
+                        ),
+                        Pair(
+                            "IOS",
+                            "ios"
+                        ),
+                        Pair(
+                            "PlayStation 4",
+                            "ps4"
+                        ),
+                        Pair(
+                            "PlayStation 5",
+                            "ps5"
+                        ),
+                        Pair(
+                            "Samsung",
+                            "samsung"
+                        ),
+                        Pair(
+                            "Xbox",
+                            "xbox"
+                        ),
+                    )
+                    platforms.forEach {
+                        DropdownMenuItem(
+                            text = {
+                                Text(text = it.first)
+                            },
+                            onClick = {
+                                onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(platform = it.second)))
+                                onEvent(UiEvent.TriggerPlatformDropDownMenu)
+                            },
+                        )
+                    }
+                }
+            }
+
+            item {
+                RpcField(
                     value = status,
                     label = R.string.activity_status_online_idle_dnd,
                     trailingIcon = {

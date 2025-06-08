@@ -88,6 +88,11 @@ class CustomScreenViewModel @Inject constructor(
                     _uiState.value.copy(statusIsExpanded = !_uiState.value.statusIsExpanded)
             }
 
+            UiEvent.TriggerPlatformDropDownMenu -> {
+                _uiState.value =
+                    _uiState.value.copy(platformIsExpanded = !_uiState.value.platformIsExpanded)
+            }
+
             UiEvent.TriggerStartTimeStampsDialog -> {
                 _uiState.value =
                     _uiState.value.copy(showStartTimeStampsPickerDialog = !_uiState.value.showStartTimeStampsPickerDialog)

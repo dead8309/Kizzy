@@ -19,6 +19,7 @@ sealed interface UiEvent {
     object TriggerBottomSheet: UiEvent
     object TriggerActivityTypeDropDownMenu: UiEvent
     object TriggerStatusDropDownMenu: UiEvent
+    object TriggerPlatformDropDownMenu: UiEvent
     class SetFieldsFromConfig(val config: RpcConfig): UiEvent
     object TriggerStartTimeStampsDialog: UiEvent
     object TriggerStopTimeStampsDialog: UiEvent

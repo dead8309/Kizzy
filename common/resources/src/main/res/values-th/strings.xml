@@ -15,6 +15,7 @@
     <string name="activity_large_image">ใส่ภาพขนาดใหญ่สุดเฟี้ยวฟ๊าวของคุณ!</string>
     <string name="activity_small_image">ใส่ภาพขนาดเล็กสุดแสนน่ารักของคุณ!</string>
     <string name="activity_type">เลือกประเภทของกิจกรรมที่คุณต้องการ!</string>
+    <string name="activity_platform">Activity Platform</string>
     <string name="load_config">โหลดการตั้งค่าจากไฟล์อื่น</string>
     <string name="save_config">บันทึกการตั้งค่าอันนี้</string>
     <string name="delete_configs">ลบการตั้งค่าอันนี้ทิ้ง</string>

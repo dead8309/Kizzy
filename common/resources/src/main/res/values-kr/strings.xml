@@ -16,6 +16,7 @@
     <string name="activity_large_image">활동 큰 이미지</string>
     <string name="activity_small_image">활동 작은 이미지</string>
     <string name="activity_type">활동 유형</string>
+    <string name="activity_platform">Activity Platform</string>
     <string name="load_config">파일에서 불러오기</string>
     <string name="save_config">설정 저장</string>
     <string name="delete_configs">설정 삭제</string>

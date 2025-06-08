@@ -15,7 +15,8 @@
      <string name="activity_large_image">الصورة الكبيرة للنشاط</string>
      <string name="activity_small_image">الصورة الصغيرة للنشاط</string>
      <string name="activity_type">نوع النشاط</string>
-     <string name="load_config">تحميل من الملفات</string>
+    <string name="activity_platform">Activity Platform</string>
+    <string name="load_config">تحميل من الملفات</string>
      <string name="save_config">حفظ الإعدادات</string>
      <string name="delete_configs">حذف الإعدادات</string>
      <string name="preview_rpc">معاينة RPC</string>
