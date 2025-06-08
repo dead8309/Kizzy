@@ -15,6 +15,7 @@
     <string name="activity_large_image">Ảnh hoạt động (lớn)</string>
     <string name="activity_small_image">Ảnh hoạt động (nhỏ)</string>
     <string name="activity_type">Loại hoạt động</string>
+    <string name="activity_platform">Activity Platform</string>
     <string name="load_config">Tải tệp cấu hình</string>
     <string name="save_config">Lưu cấu hình</string>
     <string name="delete_configs">Xóa cấu hình</string>

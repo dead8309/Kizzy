@@ -16,6 +16,7 @@
     <string name="activity_large_image">Aktivität großes Bild</string>
     <string name="activity_small_image">Aktivität kleines Bild</string>
     <string name="activity_type">Art der Aktivität</string>
+    <string name="activity_platform">Activity Platform</string>
     <string name="load_config">Aus Dateien laden</string>
     <string name="save_config">Konfig speichern</string>
     <string name="delete_configs">Konfig löschen</string>

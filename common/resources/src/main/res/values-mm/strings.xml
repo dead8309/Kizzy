@@ -15,6 +15,7 @@
     <string name="activity_large_image">လုပ်ဆောင်မှု ဓာတ်ပုံ အကြီး</string>
     <string name="activity_small_image">လုပ်ဆောင်မှု ဓာတ်ပုံ အသေ</string>
     <string name="activity_type">လုပ်ဆောင်မှု အမျိုးအစား</string>
+    <string name="activity_platform">Activity Platform</string>
     <string name="load_config">ဖိုင်မှ ယူပါ</string>
     <string name="save_config">အချက်အလက်များအား သိမ်းဆည်းပါ</string>
     <string name="delete_configs">အချက်အလက်များအား ဖျောက်ဖျက်ပါ</string>

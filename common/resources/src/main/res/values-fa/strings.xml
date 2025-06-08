@@ -16,6 +16,7 @@
     <string name="activity_large_image">تصویر بزرگ فعالیت</string>
     <string name="activity_small_image">تصویر کوچک فعالیت</string>
     <string name="activity_type">نوع فعالیت</string>
+    <string name="activity_platform">Activity Platform</string>
     <string name="load_config">بارگیری از فایل ها</string>
     <string name="save_config">ذخیره پیکربندی</string>
     <string name="delete_configs">حذف پیکربندی</string>

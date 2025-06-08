@@ -13,6 +13,7 @@
     <string name="activity_large_image">Imagen Grande de la Actividad</string>
     <string name="activity_small_image">Imagen Pequeña de la Actividad</string>
     <string name="activity_type">Tipo de Actividad</string>
+    <string name="activity_platform">Activity Platform</string>
     <string name="load_config">Cargar Desde Archivos</string>
     <string name="save_config">Guardar Configuración</string>
     <string name="delete_configs">Eliminar Configuración</string>

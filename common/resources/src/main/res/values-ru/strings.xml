@@ -15,6 +15,7 @@
     <string name="activity_large_image">Большая картинка активности</string>
     <string name="activity_small_image">Малая картинка активности</string>
     <string name="activity_type">Тип активности</string>
+    <string name="activity_platform">Activity Platform</string>
     <string name="load_config">Загрузить из файлов</string>
     <string name="save_config">Сохранить конфигурацию</string>
     <string name="delete_configs">Удалить конфигурацию</string>

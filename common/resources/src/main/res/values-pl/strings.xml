@@ -16,6 +16,7 @@
     <string name="activity_large_image">Większy Obrazek Aktywności</string>
     <string name="activity_small_image">Mniejszy Obrazek Aktywności</string>
     <string name="activity_type">Rodzaj Aktywności</string>
+    <string name="activity_platform">Platforma Aktywności</string>
     <string name="load_config">Załaduj z Pliku</string>
     <string name="save_config">Zapisz Konfigurację</string>
     <string name="delete_configs">Usuń Konfigurację</string>

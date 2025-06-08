@@ -15,6 +15,7 @@
     <string name="activity_large_image">活動大圖示</string>
     <string name="activity_small_image">活動小圖示</string>
     <string name="activity_type">活動類型</string>
+    <string name="activity_platform">Activity Platform</string>
     <string name="load_config">從檔案中載入</string>
     <string name="save_config">儲存配置</string>
     <string name="delete_configs">刪除配置</string>

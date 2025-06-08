@@ -15,6 +15,7 @@
     <string name="activity_large_image">Aktivite Büyük Resmi</string>
     <string name="activity_small_image">Aktivite Küçük Resmi</string>
     <string name="activity_type">Aktivite Türü</string>
+    <string name="activity_platform">Activity Platform</string>
     <string name="load_config">Dosyadan Yükle</string>
     <string name="save_config">Yapılandırmayı Kaydet</string>
     <string name="delete_configs">Yapılandırma Sil</string>

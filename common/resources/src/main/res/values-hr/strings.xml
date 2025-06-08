@@ -15,6 +15,7 @@
     <string name="activity_large_image">Velika slika aktivnosti</string>
     <string name="activity_small_image">Mala slika aktivnosti</string>
     <string name="activity_type">Vrsta aktivnosti</string>
+    <string name="activity_platform">Activity Platform</string>
     <string name="load_config">Učitaj iz datoteka</string>
     <string name="save_config">Spremi postavke</string>
     <string name="delete_configs">Izbriši postavke</string>

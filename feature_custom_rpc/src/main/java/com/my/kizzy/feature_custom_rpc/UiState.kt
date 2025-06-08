@@ -26,5 +26,6 @@ data class UiState(
     val showStartTimeStampsPickerDialog: Boolean = false,
     val showStopTimeStampsPickerDialog: Boolean = false,
     val statusIsExpanded: Boolean = false,
+    val platformIsExpanded: Boolean = false,
     val rpcConfig: RpcConfig = RpcConfig()
 )

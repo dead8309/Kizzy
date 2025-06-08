@@ -15,6 +15,7 @@
     <string name="activity_large_image">Activiteit groot icoon</string>
     <string name="activity_small_image">Activiteit klein icoon</string>
     <string name="activity_type">Soort Activiteit</string>
+    <string name="activity_platform">Activity Platform</string>
     <string name="load_config">Laad configuratie bestand</string>
     <string name="save_config">Sla huidige configuratie op</string>
     <string name="delete_configs">Verwijder configuraties</string>

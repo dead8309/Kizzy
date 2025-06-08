@@ -16,6 +16,7 @@
     <string name="activity_large_image">Gambar Besar</string>
     <string name="activity_small_image">Gambar Kecil</string>
     <string name="activity_type">Jenis Aktivitas</string>
+    <string name="activity_platform">Activity Platform</string>
     <string name="load_config">Muat dari File</string>
     <string name="save_config">Simpan Konfigurasi</string>
     <string name="delete_configs">Hapus Konfigurasi</string>
