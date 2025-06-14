@@ -477,9 +477,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
         if (showImgurClientIdDialog) {
             AlertDialog(
                 onDismissRequest = {
-                    if (imgurClientId.isBlank()) {
-                        imgurClientId = Prefs[Prefs.IMGUR_CLIENT_ID, IMGUR_CLIENT_ID]
-                    }
+                    imgurClientId = Prefs[Prefs.IMGUR_CLIENT_ID, IMGUR_CLIENT_ID]
                     showImgurClientIdDialog = false
                 },
                 title = { Text(stringResource(R.string.set_imgur_client_id)) },
