@@ -45,7 +45,7 @@ class KizzyRepositoryImpl @Inject constructor(
 
     override suspend fun uploadImage(file: File): String? {
         return if (Prefs[Prefs.USE_IMGUR, false]) {
-            imgurApi.uploadImage(file).getOrNull()?.toImageURL()?.let { this.getImage(it) }
+            imgurApi.uploadImage(file, Prefs[Prefs.IMGUR_CLIENT_ID, "d70305e7c3ac5c6"]).getOrNull()?.toImageURL()?.let { this.getImage(it) }
         } else {
             api.uploadImage(file).getOrNull()?.toAttachmentAsset()
         }

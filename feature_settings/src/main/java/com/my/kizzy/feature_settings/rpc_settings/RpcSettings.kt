@@ -101,10 +101,14 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
     var showApplicationIdDialog by remember {
         mutableStateOf(false)
     }
+    var showImgurClientIdDialog by remember {
+        mutableStateOf(false)
+    }
     var setLastRunRpcConfigOption by remember {
         mutableStateOf(Prefs[Prefs.APPLY_FIELDS_FROM_LAST_RUN_RPC, false])
     }
     var customApplicationId by remember { mutableStateOf(Prefs[Prefs.CUSTOM_ACTIVITY_APPLICATION_ID, ""]) }
+    var imgurClientId by remember { mutableStateOf(Prefs[Prefs.IMGUR_CLIENT_ID, "d70305e7c3ac5c6"]) }
 
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         LargeTopAppBar(title = {
@@ -203,6 +207,17 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 ) {
                     useImgur = !useImgur
                     Prefs[Prefs.USE_IMGUR] = useImgur
+                }
+            }
+            item {
+                AnimatedVisibility(visible = useImgur) {
+                    SettingItem(
+                        title = stringResource(id = R.string.set_imgur_client_id),
+                        description = stringResource(id = R.string.set_imgur_client_id_desc),
+                        icon = Icons.Default.Code
+                    ) {
+                        showImgurClientIdDialog = true
+                    }
                 }
             }
             item {
@@ -452,5 +467,39 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
             )
         }
 
+        if (showImgurClientIdDialog) {
+            AlertDialog(
+                onDismissRequest = {
+                    showImgurClientIdDialog = false
+                },
+                title = { Text(stringResource(R.string.set_imgur_client_id)) },
+                text = {
+                    Column {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        RpcField(
+                            value = imgurClientId,
+                            label = R.string.imgur_client_id,
+                            onValueChange = { newText ->
+                                if (newText.isBlank()) {
+                                    imgurClientId = "d70305e7c3ac5c6"
+                                } else {
+                                    imgurClientId = newText
+                                }
+                            }
+                        )
+                    }
+                },
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            Prefs[Prefs.IMGUR_CLIENT_ID] = imgurClientId
+                            showImgurClientIdDialog = false
+                        }
+                    ) {
+                        Text(stringResource(R.string.save))
+                    }
+                },
+            )
+        }
     }
 }

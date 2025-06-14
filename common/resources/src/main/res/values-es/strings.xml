@@ -212,4 +212,7 @@
     <string name="show_cover_art_desc">Display album cover art as large image</string>
     <string name="enable_experimental_rpc">Enable Experimental RPC</string>
     <string name="completion_media_author">Main Author</string>
+    <string name="imgur_client_id">Imgur Client ID</string>
+    <string name="set_imgur_client_id">Set Imgur Client ID</string>
+    <string name="set_imgur_client_id_desc">If images aren\'t showing using Imgur, you can try setting your own Client ID</string>
 </resources>
