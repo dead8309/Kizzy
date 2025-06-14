@@ -16,6 +16,7 @@ import com.my.kizzy.data.remote.ApiService
 import com.my.kizzy.data.remote.GamesResponse
 import com.my.kizzy.data.remote.ImgurApiService
 import com.my.kizzy.data.remote.toGame
+import com.my.kizzy.data.rpc.Constants.IMGUR_CLIENT_ID
 import com.my.kizzy.data.utils.toAttachmentAsset
 import com.my.kizzy.data.utils.toExternalAsset
 import com.my.kizzy.data.utils.toImageURL
@@ -45,7 +46,7 @@ class KizzyRepositoryImpl @Inject constructor(
 
     override suspend fun uploadImage(file: File): String? {
         return if (Prefs[Prefs.USE_IMGUR, false]) {
-            imgurApi.uploadImage(file, Prefs[Prefs.IMGUR_CLIENT_ID, "d70305e7c3ac5c6"]).getOrNull()?.toImageURL()?.let { this.getImage(it) }
+            imgurApi.uploadImage(file, Prefs[Prefs.IMGUR_CLIENT_ID, IMGUR_CLIENT_ID]).getOrNull()?.toImageURL()?.let { this.getImage(it) }
         } else {
             api.uploadImage(file).getOrNull()?.toAttachmentAsset()
         }

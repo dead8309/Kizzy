@@ -59,6 +59,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.my.kizzy.data.rpc.Constants
+import com.my.kizzy.data.rpc.Constants.IMGUR_CLIENT_ID
 import com.my.kizzy.data.rpc.Constants.MAX_ALLOWED_CHARACTER_LENGTH
 import com.my.kizzy.data.rpc.Constants.MAX_APPLICATION_ID_LENGTH_RANGE
 import com.my.kizzy.domain.model.rpc.RpcButtons
@@ -108,7 +109,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
         mutableStateOf(Prefs[Prefs.APPLY_FIELDS_FROM_LAST_RUN_RPC, false])
     }
     var customApplicationId by remember { mutableStateOf(Prefs[Prefs.CUSTOM_ACTIVITY_APPLICATION_ID, ""]) }
-    var imgurClientId by remember { mutableStateOf(Prefs[Prefs.IMGUR_CLIENT_ID, "d70305e7c3ac5c6"]) }
+    var imgurClientId by remember { mutableStateOf(Prefs[Prefs.IMGUR_CLIENT_ID, IMGUR_CLIENT_ID]) }
 
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         LargeTopAppBar(title = {
@@ -341,24 +342,26 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                     var activityTypeisExpanded by remember {
                         mutableStateOf(false)
                     }
-                    val icon = 
-                    if (activityTypeisExpanded) {
-                      Icons.Default.KeyboardArrowUp
-                    } else {
-                      Icons.Default.KeyboardArrowDown
-                    }
-                    RpcField(value = customActivityType,
-                            label = R.string.activity_type,
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                            trailingIcon = {
-                                Icon(imageVector = icon,
-                                    contentDescription = null,
-                                    modifier = Modifier.clickable {
-                                        activityTypeisExpanded = !activityTypeisExpanded
-                                    })
-                            }) {
-                            customActivityType = it
+                    val icon =
+                        if (activityTypeisExpanded) {
+                            Icons.Default.KeyboardArrowUp
+                        } else {
+                            Icons.Default.KeyboardArrowDown
                         }
+                    RpcField(
+                        value = customActivityType,
+                        label = R.string.activity_type,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        trailingIcon = {
+                            Icon(
+                                imageVector = icon,
+                                contentDescription = null,
+                                modifier = Modifier.clickable {
+                                    activityTypeisExpanded = !activityTypeisExpanded
+                                })
+                        }) {
+                        customActivityType = it
+                    }
                     DropdownMenu(
                         expanded = activityTypeisExpanded, onDismissRequest = {
                             activityTypeisExpanded = !activityTypeisExpanded
@@ -387,10 +390,10 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 },
                 confirmButton = {
                     TextButton(onClick = {
-                            if (customActivityType.toInt() in 0..5) {
-                                Prefs[Prefs.CUSTOM_ACTIVITY_TYPE] = customActivityType.toInt()
-                                showActivityTypeDialog = false
-                            }
+                        if (customActivityType.toInt() in 0..5) {
+                            Prefs[Prefs.CUSTOM_ACTIVITY_TYPE] = customActivityType.toInt()
+                            showActivityTypeDialog = false
+                        }
                     }) {
                         Text(text = stringResource(R.string.save))
                     }
@@ -454,7 +457,11 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                     TextButton(
                         onClick = {
                             if (customApplicationId.length !in MAX_APPLICATION_ID_LENGTH_RANGE || !customApplicationId.all { it.isDigit() }) {
-                                Toast.makeText(context, "Please enter a valid Application ID", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    context,
+                                    "Please enter a valid Application ID",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             } else {
                                 Prefs[Prefs.CUSTOM_ACTIVITY_APPLICATION_ID] = customApplicationId
                                 showApplicationIdDialog = false
@@ -470,6 +477,9 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
         if (showImgurClientIdDialog) {
             AlertDialog(
                 onDismissRequest = {
+                    if (imgurClientId.isBlank()) {
+                        imgurClientId = Prefs[Prefs.IMGUR_CLIENT_ID, IMGUR_CLIENT_ID]
+                    }
                     showImgurClientIdDialog = false
                 },
                 title = { Text(stringResource(R.string.set_imgur_client_id)) },
@@ -480,11 +490,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                             value = imgurClientId,
                             label = R.string.imgur_client_id,
                             onValueChange = { newText ->
-                                if (newText.isBlank()) {
-                                    imgurClientId = "d70305e7c3ac5c6"
-                                } else {
-                                    imgurClientId = newText
-                                }
+                                imgurClientId = newText
                             }
                         )
                     }
@@ -492,6 +498,9 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 confirmButton = {
                     TextButton(
                         onClick = {
+                            if (imgurClientId.isBlank()) {
+                                imgurClientId = IMGUR_CLIENT_ID
+                            }
                             Prefs[Prefs.IMGUR_CLIENT_ID] = imgurClientId
                             showImgurClientIdDialog = false
                         }
