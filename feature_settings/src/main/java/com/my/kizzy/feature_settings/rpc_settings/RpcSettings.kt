@@ -59,9 +59,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.my.kizzy.data.rpc.Constants
-import com.my.kizzy.data.rpc.Constants.IMGUR_CLIENT_ID
-import com.my.kizzy.data.rpc.Constants.MAX_ALLOWED_CHARACTER_LENGTH
-import com.my.kizzy.data.rpc.Constants.MAX_APPLICATION_ID_LENGTH_RANGE
 import com.my.kizzy.domain.model.rpc.RpcButtons
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.resources.R
@@ -109,7 +106,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
         mutableStateOf(Prefs[Prefs.APPLY_FIELDS_FROM_LAST_RUN_RPC, false])
     }
     var customApplicationId by remember { mutableStateOf(Prefs[Prefs.CUSTOM_ACTIVITY_APPLICATION_ID, ""]) }
-    var imgurClientId by remember { mutableStateOf(Prefs[Prefs.IMGUR_CLIENT_ID, IMGUR_CLIENT_ID]) }
+    var imgurClientId by remember { mutableStateOf(Prefs[Prefs.IMGUR_CLIENT_ID, Constants.IMGUR_CLIENT_ID]) }
 
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         LargeTopAppBar(title = {
@@ -300,7 +297,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                         RpcField(
                             value = rpcButtons.button1,
                             label = R.string.activity_button1_text,
-                            isError = rpcButtons.button1.length >= MAX_ALLOWED_CHARACTER_LENGTH,
+                            isError = rpcButtons.button1.length >= Constants.MAX_ALLOWED_CHARACTER_LENGTH,
                             errorMessage = stringResource(R.string.activity_button_max_character)
                         ) {
                             rpcButtons = rpcButtons.copy(button1 = it)
@@ -316,7 +313,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                         RpcField(
                             value = rpcButtons.button2,
                             label = R.string.activity_button2_text,
-                            isError = rpcButtons.button2.length >= MAX_ALLOWED_CHARACTER_LENGTH,
+                            isError = rpcButtons.button2.length >= Constants.MAX_ALLOWED_CHARACTER_LENGTH,
                             errorMessage = stringResource(R.string.activity_button_max_character)
                         ) {
                             rpcButtons = rpcButtons.copy(button2 = it)
@@ -443,10 +440,10 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                         RpcField(
                             value = customApplicationId,
                             label = R.string.application_id,
-                            isError = customApplicationId.length !in MAX_APPLICATION_ID_LENGTH_RANGE || !customApplicationId.all { it.isDigit() },
+                            isError = customApplicationId.length !in Constants.MAX_APPLICATION_ID_LENGTH_RANGE || !customApplicationId.all { it.isDigit() },
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             onValueChange = { newText ->
-                                if (newText.length <= MAX_APPLICATION_ID_LENGTH_RANGE.last && newText.all { it.isDigit() }) {
+                                if (newText.length <= Constants.MAX_APPLICATION_ID_LENGTH_RANGE.last && newText.all { it.isDigit() }) {
                                     customApplicationId = newText
                                 }
                             }
@@ -456,7 +453,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 confirmButton = {
                     TextButton(
                         onClick = {
-                            if (customApplicationId.length !in MAX_APPLICATION_ID_LENGTH_RANGE || !customApplicationId.all { it.isDigit() }) {
+                            if (customApplicationId.length !in Constants.MAX_APPLICATION_ID_LENGTH_RANGE || !customApplicationId.all { it.isDigit() }) {
                                 Toast.makeText(
                                     context,
                                     "Please enter a valid Application ID",
@@ -477,7 +474,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
         if (showImgurClientIdDialog) {
             AlertDialog(
                 onDismissRequest = {
-                    imgurClientId = Prefs[Prefs.IMGUR_CLIENT_ID, IMGUR_CLIENT_ID]
+                    imgurClientId = Prefs[Prefs.IMGUR_CLIENT_ID, Constants.IMGUR_CLIENT_ID]
                     showImgurClientIdDialog = false
                 },
                 title = { Text(stringResource(R.string.set_imgur_client_id)) },
@@ -497,7 +494,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                     TextButton(
                         onClick = {
                             if (imgurClientId.isBlank()) {
-                                imgurClientId = IMGUR_CLIENT_ID
+                                imgurClientId = Constants.IMGUR_CLIENT_ID
                             }
                             Prefs[Prefs.IMGUR_CLIENT_ID] = imgurClientId
                             showImgurClientIdDialog = false
