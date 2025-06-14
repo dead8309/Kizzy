@@ -25,6 +25,7 @@ object Constants {
     const val WII_U = "Wii-U"
     const val XBOX = "Xbox"
     const val APPLICATION_ID = "962990036020756480"
+    const val IMGUR_CLIENT_ID = "d70305e7c3ac5c6"
     const val ONLINE = "online"
     const val DND = "dnd"
     const val APP_DIRECTORY = "App Directory"

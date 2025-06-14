@@ -214,4 +214,7 @@
     <string name="show_cover_art_desc">Mostrar arte do cover do álbum como imagem grande</string>
     <string name="enable_experimental_rpc">Ativar RPC experimental</string>
     <string name="completion_media_author">Autor principal</string>
+    <string name="imgur_client_id">Imgur Client ID</string>
+    <string name="set_imgur_client_id">Set Imgur Client ID</string>
+    <string name="set_imgur_client_id_desc">If images aren\'t showing using Imgur, you can try setting your own Client ID</string>
 </resources>
