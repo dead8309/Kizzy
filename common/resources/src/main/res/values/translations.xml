@@ -25,5 +25,6 @@
     <string name="locale_ja" translatable="false">日本語</string>
     <string name="locale_kr" translatable="false">한국어</string>
     <string name="locale_ar" translatable="false">العربية</string>|
+    <string name="locale_he" translatable="false">עִברִית</string>|
     <!-- Until here -->
 </resources>
