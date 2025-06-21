@@ -215,6 +215,6 @@
     <string name="enable_experimental_rpc">Включить экспериментальный RPC</string>
     <string name="completion_media_author">Основной автор</string>
     <string name="imgur_client_id">Imgur Client ID</string>
-    <string name="set_imgur_client_id">Set Imgur Client ID</string>
-    <string name="set_imgur_client_id_desc">If images aren\'t showing using Imgur, you can try setting your own Client ID</string>
+    <string name="set_imgur_client_id">Установить Imgur Client ID</string>
+    <string name="set_imgur_client_id_desc">Если изображения с Imgur не показываются, вы можете попробовать установить свой Client ID</string>
 </resources>
