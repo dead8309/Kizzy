@@ -19,6 +19,7 @@ import androidx.activity.viewModels
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,19 +30,21 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.my.kizzy.domain.model.toVersion
 import com.my.kizzy.feature_about.about.About
-import com.my.kizzy.feature_home.HomeScreenViewModel
 import com.my.kizzy.feature_about.about.Credits
 import com.my.kizzy.feature_about.about.CreditsScreenViewModel
 import com.my.kizzy.feature_apps_rpc.AppsRPC
+import com.my.kizzy.feature_apps_rpc.AppsScreenViewModel
 import com.my.kizzy.feature_console_rpc.GamesScreen
 import com.my.kizzy.feature_console_rpc.GamesViewModel
 import com.my.kizzy.feature_custom_rpc.CustomRPC
 import com.my.kizzy.feature_custom_rpc.CustomScreenViewModel
 import com.my.kizzy.feature_home.Home
+import com.my.kizzy.feature_home.HomeScreenViewModel
 import com.my.kizzy.feature_home.feature.homeFeaturesProvider
 import com.my.kizzy.feature_logs.LogScreen
 import com.my.kizzy.feature_logs.LogsViewModel
 import com.my.kizzy.feature_media_rpc.MediaRPC
+import com.my.kizzy.feature_media_rpc.MediaScreenViewModel
 import com.my.kizzy.feature_profile.ui.login.LoginScreen
 import com.my.kizzy.feature_profile.ui.user.UserScreen
 import com.my.kizzy.feature_profile.ui.user.UserViewModel
@@ -55,31 +58,40 @@ import com.my.kizzy.feature_startup.StartUp
 import com.my.kizzy.navigation.Routes
 import com.my.kizzy.navigation.animatedComposable
 import com.my.kizzy.preference.Prefs
+import xyz.dead8309.feature_experimental_rpc.ExperimentalRpcScreen
+import xyz.dead8309.feature_experimental_rpc.ExperimentalRpcViewmodel
+import xyz.dead8309.feature_experimental_rpc.apps.ExperimentalRpcAppsScreen
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-internal fun ComponentActivity.Kizzy() {
+internal fun ComponentActivity.Kizzy(
+    usageAccessStatus: MutableState<Boolean>,
+    notificationListenerAccess: MutableState<Boolean>,
+) {
     Scaffold()
     {
         val navController = rememberAnimatedNavController()
         AnimatedNavHost(
             navController = navController,
-            startDestination = if (Prefs[Prefs.IS_FIRST_LAUNCHED,true]) Routes.SETUP else Routes.HOME
+            startDestination = if (Prefs[Prefs.IS_FIRST_LAUNCHED, true]) Routes.SETUP else Routes.HOME
         ) {
             animatedComposable(Routes.SETUP) {
                 StartUp(
-                    usageAccessStatus = MainActivity.usageAccessStatus,
-                    mediaControlStatus = MainActivity.notificationListenerAccess, navigateToLanguages = {
-                        navController.navigate(Routes.LANGUAGES){
+                    usageAccessStatus = usageAccessStatus,
+                    mediaControlStatus = notificationListenerAccess,
+                    navigateToLanguages = {
+                        navController.navigate(Routes.LANGUAGES) {
                             launchSingleTop = true
                         }
-                    }, navigateToHome = {
+                    },
+                    navigateToHome = {
                         Prefs[Prefs.IS_FIRST_LAUNCHED] = false
                         navController.navigate(Routes.HOME) {
                             popUpTo(Routes.SETUP) { inclusive = true }
                         }
-                    }, navigateToLogin = {
+                    },
+                    navigateToLogin = {
                         navController.navigate(Routes.PROFILE)
                     })
             }
@@ -105,8 +117,8 @@ internal fun ComponentActivity.Kizzy() {
                     showBadge = showBadge,
                     features = homeFeaturesProvider(
                         navigateTo = { navController.navigate(it) },
-                        hasUsageAccess = MainActivity.usageAccessStatus,
-                        hasNotificationAccess = MainActivity.notificationListenerAccess,
+                        hasUsageAccess = usageAccessStatus,
+                        hasNotificationAccess = notificationListenerAccess,
                         userVerified = user?.verified == true
                     ),
                     user = user,
@@ -132,9 +144,12 @@ internal fun ComponentActivity.Kizzy() {
                 )
             }
             animatedComposable(Routes.APPS_DETECTION) {
+                val viewModel by viewModels<AppsScreenViewModel>()
                 AppsRPC(
                     onBackPressed = { navController.popBackStack() },
-                    hasUsageAccess = MainActivity.usageAccessStatus.value
+                    hasUsageAccess = usageAccessStatus.value,
+                    state = viewModel.state.collectAsState().value,
+                    updateAppEnabled = viewModel::updateAppEnabled,
                 )
             }
             animatedComposable(Routes.CUSTOM_RPC) {
@@ -145,7 +160,15 @@ internal fun ComponentActivity.Kizzy() {
                     onEvent = viewModel::onEvent
                 )
             }
-            animatedComposable(Routes.MEDIA_RPC) { MediaRPC(onBackPressed = { navController.popBackStack() }) }
+            animatedComposable(Routes.MEDIA_RPC) {
+                val viewModel by viewModels<MediaScreenViewModel>()
+                MediaRPC(
+                    onBackPressed = { navController.popBackStack() },
+                    state = viewModel.state.collectAsState().value,
+                    hasNotificationAccess = notificationListenerAccess.value,
+                    updateMediaAppEnabled = viewModel::updateMediaAppEnabled
+                )
+            }
             animatedComposable(Routes.PROFILE) {
                 var loggedIn by remember {
                     mutableStateOf(Prefs[Prefs.TOKEN, ""].isNotEmpty())
@@ -196,7 +219,7 @@ internal fun ComponentActivity.Kizzy() {
             animatedComposable(Routes.RPC_SETTINGS) {
                 RpcSettings { navController.popBackStack() }
             }
-            animatedComposable(Routes.LOGS_SCREEN){
+            animatedComposable(Routes.LOGS_SCREEN) {
                 val viewModel by viewModels<LogsViewModel>()
                 LogScreen(viewModel)
             }
@@ -217,6 +240,30 @@ internal fun ComponentActivity.Kizzy() {
                     onBackPressed = {
                         navController.popBackStack()
                     }
+                )
+            }
+
+            val experimentalRpcViewModel by lazy {
+                viewModels<ExperimentalRpcViewmodel>()
+            }
+
+            animatedComposable(Routes.EXPERIMENTAL_RPC) {
+                ExperimentalRpcScreen(
+                    state = experimentalRpcViewModel.value.uiState.collectAsState().value,
+                    onEvent = experimentalRpcViewModel.value::onEvent,
+                    onBackPressed = { navController.popBackStack() },
+                    hasUsageAccess = usageAccessStatus.value,
+                    hasNotificationAccess = notificationListenerAccess.value,
+                    navigateToAppSelection = {
+                        navController.navigate(Routes.EXPERIMENTAL_RPC_APPS)
+                    },
+                )
+            }
+
+            animatedComposable(Routes.EXPERIMENTAL_RPC_APPS) {
+                ExperimentalRpcAppsScreen(
+                    onBackPressed = { navController.popBackStack() },
+                    viewModel = experimentalRpcViewModel.value
                 )
             }
         }

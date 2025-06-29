@@ -14,7 +14,7 @@ dependencies {
     implementation(libs.accompanist.permission)
     implementation(libs.activity.compose)
     implementation(libs.blankj.utilcodex)
-    implementation(libs.glide)
+    implementation(libs.coil)
     implementation(libs.kotlinx.serialization.json)
     implementation(projects.featureRpcBase)
     implementation(projects.featureProfile)

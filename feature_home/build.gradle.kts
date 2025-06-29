@@ -17,6 +17,6 @@ dependencies {
     implementation (projects.featureRpcBase)
     implementation (projects.featureSettings)
     implementation (projects.common.navigation)
-    implementation (libs.glide)
+    implementation (libs.coil)
     implementation (libs.activity.compose)
 }

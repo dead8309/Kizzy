@@ -14,7 +14,7 @@ android {
 }
 
 dependencies {
-    implementation (libs.glide)
+    implementation (libs.coil)
     implementation (libs.material.icons.extended)
     implementation (libs.activity.compose)
 }

@@ -15,6 +15,7 @@
     <string name="activity_large_image">Большая картинка активности</string>
     <string name="activity_small_image">Малая картинка активности</string>
     <string name="activity_type">Тип активности</string>
+    <string name="activity_platform">Activity Platform</string>
     <string name="load_config">Загрузить из файлов</string>
     <string name="save_config">Сохранить конфигурацию</string>
     <string name="delete_configs">Удалить конфигурацию</string>
@@ -200,5 +201,20 @@
     <string name="application_id">ID приложения</string>
     <string name="custom_application_id">Свой ID приложения активности</string>
     <string name="custom_application_id_desc">Меняет стандартный ID приложения Discord на ваш</string>
-    <string name="use_a_vpn_desc">Discord заблокирован в России, поэтому вход может не работать без обхода блокировки.</string>
+    <string name="use_a_vpn_desc">Discord заблокирован в России, поэтому вход может не работать.</string>
+    <string name="rpc_templates_note">Используйте плейсхолдеры: {{app_name}}, {{media_title}}, {{media_artist}}, и т.д. Пустые поля будут работать по умолчанию или же останутся пусты.</string>
+    <string name="experimental_rpc_detect_apps">Разрешить экспериментальному RPC видеть запущенные программы</string>
+    <string name="experimental_rpc_detect_media">Разрешить экспериментальному RPC видеть медиа-данные</string>
+    <string name="app_preferences">Настройки программ</string>
+    <string name="app_preferences_desc">Выберите, какие программы сможет видеть экспериментальный RPC</string>
+    <string name="completion_media_title">Название песни/видео</string>
+    <string name="completion_media_artist">Основной артист</string>
+    <string name="completion_app_name">Найденное название приложения</string>
+    <string name="show_cover_art">Показать обложку альбома</string>
+    <string name="show_cover_art_desc">Показать обложку альбома как большое изображение</string>
+    <string name="enable_experimental_rpc">Включить экспериментальный RPC</string>
+    <string name="completion_media_author">Основной автор</string>
+    <string name="imgur_client_id">Imgur Client ID</string>
+    <string name="set_imgur_client_id">Установить Imgur Client ID</string>
+    <string name="set_imgur_client_id_desc">Если изображения с Imgur не показываются, вы можете попробовать установить свой Client ID</string>
 </resources>

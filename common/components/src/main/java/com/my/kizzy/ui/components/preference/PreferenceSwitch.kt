@@ -13,7 +13,11 @@
 package com.my.kizzy.ui.components.preference
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -36,15 +40,10 @@ fun PreferenceSwitch(
     isChecked: Boolean = true,
     onClick: () -> Unit = {},
 ) {
-    Surface(
-        modifier = if (enabled) Modifier.clickable { onClick() } else Modifier
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp, 20.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
+    PreferenceSwitch(
+        title = title,
+        description = description,
+        icon = {
             icon?.let {
                 Icon(
                     imageVector = icon,
@@ -55,6 +54,32 @@ fun PreferenceSwitch(
                     tint = MaterialTheme.colorScheme.secondary
                 )
             }
+        },
+        enabled = enabled,
+        isChecked = isChecked,
+        onClick = onClick
+    )
+}
+
+@Composable
+fun PreferenceSwitch(
+    title: String = "",
+    description: String? = null,
+    icon: @Composable () -> Unit,
+    enabled: Boolean = true,
+    isChecked: Boolean = true,
+    onClick: () -> Unit = {},
+) {
+    Surface(
+        modifier = if (enabled) Modifier.clickable { onClick() } else Modifier
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp, 20.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            icon()
             Column(
                 modifier = Modifier.weight(1f)
             ) {
@@ -78,7 +103,6 @@ fun PreferenceSwitch(
                 modifier = Modifier.padding(start = 20.dp, end = 6.dp),
                 enable = enabled
             )
-
         }
     }
 }

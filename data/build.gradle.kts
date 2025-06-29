@@ -23,6 +23,7 @@ dependencies {
     implementation (libs.ktor.content.negotiation)
     implementation (libs.ktor.logging)
     implementation (projects.common.preference)
+    implementation (projects.common.resources)
     implementation (projects.gateway)
     implementation (libs.blankj.utilcodex)
     testImplementation(libs.junit)

@@ -59,8 +59,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.my.kizzy.data.rpc.Constants
-import com.my.kizzy.data.rpc.Constants.MAX_ALLOWED_CHARACTER_LENGTH
-import com.my.kizzy.data.rpc.Constants.MAX_APPLICATION_ID_LENGTH_RANGE
 import com.my.kizzy.domain.model.rpc.RpcButtons
 import com.my.kizzy.preference.Prefs
 import com.my.kizzy.resources.R
@@ -101,10 +99,14 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
     var showApplicationIdDialog by remember {
         mutableStateOf(false)
     }
+    var showImgurClientIdDialog by remember {
+        mutableStateOf(false)
+    }
     var setLastRunRpcConfigOption by remember {
         mutableStateOf(Prefs[Prefs.APPLY_FIELDS_FROM_LAST_RUN_RPC, false])
     }
     var customApplicationId by remember { mutableStateOf(Prefs[Prefs.CUSTOM_ACTIVITY_APPLICATION_ID, ""]) }
+    var imgurClientId by remember { mutableStateOf(Prefs[Prefs.IMGUR_CLIENT_ID, Constants.IMGUR_CLIENT_ID]) }
 
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         LargeTopAppBar(title = {
@@ -206,6 +208,17 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 }
             }
             item {
+                AnimatedVisibility(visible = useImgur) {
+                    SettingItem(
+                        title = stringResource(id = R.string.set_imgur_client_id),
+                        description = stringResource(id = R.string.set_imgur_client_id_desc),
+                        icon = Icons.Default.Code
+                    ) {
+                        showImgurClientIdDialog = true
+                    }
+                }
+            }
+            item {
                 PreferenceSwitch(
                     title = stringResource(id = R.string.use_low_res_icon),
                     description = stringResource(id = R.string.use_low_res_icon_desc),
@@ -284,7 +297,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                         RpcField(
                             value = rpcButtons.button1,
                             label = R.string.activity_button1_text,
-                            isError = rpcButtons.button1.length >= MAX_ALLOWED_CHARACTER_LENGTH,
+                            isError = rpcButtons.button1.length >= Constants.MAX_ALLOWED_CHARACTER_LENGTH,
                             errorMessage = stringResource(R.string.activity_button_max_character)
                         ) {
                             rpcButtons = rpcButtons.copy(button1 = it)
@@ -300,7 +313,7 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                         RpcField(
                             value = rpcButtons.button2,
                             label = R.string.activity_button2_text,
-                            isError = rpcButtons.button2.length >= MAX_ALLOWED_CHARACTER_LENGTH,
+                            isError = rpcButtons.button2.length >= Constants.MAX_ALLOWED_CHARACTER_LENGTH,
                             errorMessage = stringResource(R.string.activity_button_max_character)
                         ) {
                             rpcButtons = rpcButtons.copy(button2 = it)
@@ -326,43 +339,38 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                     var activityTypeisExpanded by remember {
                         mutableStateOf(false)
                     }
-                    val icon = 
-                    if (activityTypeisExpanded) {
-                      Icons.Default.KeyboardArrowUp
-                    } else {
-                      Icons.Default.KeyboardArrowDown
-                    }
-                    RpcField(value = customActivityType,
-                            label = R.string.activity_type,
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                            trailingIcon = {
-                                Icon(imageVector = icon,
-                                    contentDescription = null,
-                                    modifier = Modifier.clickable {
-                                        activityTypeisExpanded = !activityTypeisExpanded
-                                    })
-                            }) {
-                            customActivityType = it
+                    val icon =
+                        if (activityTypeisExpanded) {
+                            Icons.Default.KeyboardArrowUp
+                        } else {
+                            Icons.Default.KeyboardArrowDown
                         }
+                    RpcField(
+                        value = customActivityType,
+                        label = R.string.activity_type,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        trailingIcon = {
+                            Icon(
+                                imageVector = icon,
+                                contentDescription = null,
+                                modifier = Modifier.clickable {
+                                    activityTypeisExpanded = !activityTypeisExpanded
+                                })
+                        }) {
+                        customActivityType = it
+                    }
                     DropdownMenu(
                         expanded = activityTypeisExpanded, onDismissRequest = {
                             activityTypeisExpanded = !activityTypeisExpanded
                         }, modifier = Modifier.fillMaxWidth()
                     ) {
-                        val rpcTypes = listOf(
-                            Pair("Playing", 0),
-                            Pair("Streaming", 1),
-                            Pair("Listening", 2),
-                            Pair("Watching", 3),
-                            Pair("Competing", 5)
-                        )
-                        rpcTypes.forEach {
+                        Constants.ACTIVITY_TYPE.forEach { (label, value) ->
                             DropdownMenuItem(
                                 text = {
-                                    Text(text = it.first)
+                                    Text(text = label)
                                 },
                                 onClick = {
-                                    customActivityType = it.second.toString()
+                                    customActivityType = value.toString()
                                     activityTypeisExpanded = false
                                 },
                             )
@@ -372,10 +380,10 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 },
                 confirmButton = {
                     TextButton(onClick = {
-                            if (customActivityType.toInt() in 0..5) {
-                                Prefs[Prefs.CUSTOM_ACTIVITY_TYPE] = customActivityType.toInt()
-                                showActivityTypeDialog = false
-                            }
+                        if (customActivityType.toInt() in 0..5) {
+                            Prefs[Prefs.CUSTOM_ACTIVITY_TYPE] = customActivityType.toInt()
+                            showActivityTypeDialog = false
+                        }
                     }) {
                         Text(text = stringResource(R.string.save))
                     }
@@ -390,17 +398,11 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 },
                 confirmButton = {},
                 text = {
-                    val statusMap = mapOf(
-                        stringResource(R.string.status_online) to "online",
-                        stringResource(R.string.status_idle) to "idle",
-                        stringResource(R.string.status_dnd) to "dnd",
-                        stringResource(R.string.status_offline) to "offline",
-                        stringResource(R.string.status_invisible_offline) to "invisible"
-                    )
+
                     Column {
-                        statusMap.forEach { (key, value) ->
+                        Constants.ACTIVITY_STATUS.forEach { (resId, value) ->
                             SingleChoiceItem(
-                                text = key,
+                                text = stringResource(resId),
                                 selected = value == customActivityStatus
                             ) {
                                 customActivityStatus = value
@@ -425,10 +427,10 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                         RpcField(
                             value = customApplicationId,
                             label = R.string.application_id,
-                            isError = customApplicationId.length !in MAX_APPLICATION_ID_LENGTH_RANGE || !customApplicationId.all { it.isDigit() },
+                            isError = customApplicationId.length !in Constants.MAX_APPLICATION_ID_LENGTH_RANGE || !customApplicationId.all { it.isDigit() },
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                             onValueChange = { newText ->
-                                if (newText.length <= MAX_APPLICATION_ID_LENGTH_RANGE.last && newText.all { it.isDigit() }) {
+                                if (newText.length <= Constants.MAX_APPLICATION_ID_LENGTH_RANGE.last && newText.all { it.isDigit() }) {
                                     customApplicationId = newText
                                 }
                             }
@@ -438,8 +440,12 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 confirmButton = {
                     TextButton(
                         onClick = {
-                            if (customApplicationId.length !in MAX_APPLICATION_ID_LENGTH_RANGE || !customApplicationId.all { it.isDigit() }) {
-                                Toast.makeText(context, "Please enter a valid Application ID", Toast.LENGTH_SHORT).show()
+                            if (customApplicationId.length !in Constants.MAX_APPLICATION_ID_LENGTH_RANGE || !customApplicationId.all { it.isDigit() }) {
+                                Toast.makeText(
+                                    context,
+                                    "Please enter a valid Application ID",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             } else {
                                 Prefs[Prefs.CUSTOM_ACTIVITY_APPLICATION_ID] = customApplicationId
                                 showApplicationIdDialog = false
@@ -452,5 +458,39 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
             )
         }
 
+        if (showImgurClientIdDialog) {
+            AlertDialog(
+                onDismissRequest = {
+                    imgurClientId = Prefs[Prefs.IMGUR_CLIENT_ID, Constants.IMGUR_CLIENT_ID]
+                    showImgurClientIdDialog = false
+                },
+                title = { Text(stringResource(R.string.set_imgur_client_id)) },
+                text = {
+                    Column {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        RpcField(
+                            value = imgurClientId,
+                            label = R.string.imgur_client_id,
+                            onValueChange = { newText ->
+                                imgurClientId = newText
+                            }
+                        )
+                    }
+                },
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            if (imgurClientId.isBlank()) {
+                                imgurClientId = Constants.IMGUR_CLIENT_ID
+                            }
+                            Prefs[Prefs.IMGUR_CLIENT_ID] = imgurClientId
+                            showImgurClientIdDialog = false
+                        }
+                    ) {
+                        Text(stringResource(R.string.save))
+                    }
+                },
+            )
+        }
     }
 }

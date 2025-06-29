@@ -49,6 +49,7 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -58,6 +59,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -65,6 +67,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import coil.compose.AsyncImage
 import com.my.kizzy.domain.model.toVersion
 import com.my.kizzy.domain.model.user.User
 import com.my.kizzy.feature_home.feature.Features
@@ -75,7 +78,6 @@ import com.my.kizzy.feature_settings.SettingsDrawer
 import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.ChipSection
 import com.my.kizzy.ui.components.UpdateDialog
-import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -92,10 +94,10 @@ fun Home(
     navigateToLanguages: () -> Unit,
     navigateToAbout: () -> Unit,
     navigateToRpcSettings: () -> Unit,
-    navigateToLogsScreen: () -> Unit
+    navigateToLogsScreen: () -> Unit,
 ) {
     val ctx = LocalContext.current
-    var timestamp by remember { mutableStateOf(System.currentTimeMillis()) }
+    var timestamp by remember { mutableLongStateOf(System.currentTimeMillis()) }
     var homeItems by remember(timestamp) {
         mutableStateOf(features)
     }
@@ -105,7 +107,8 @@ fun Home(
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     val scrollBehavior =
-        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState(),
+        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
+            rememberTopAppBarState(),
             canScroll = { true })
     val isCollapsed = scrollBehavior.state.collapsedFraction > 0.55f
 
@@ -115,6 +118,7 @@ fun Home(
             Lifecycle.Event.ON_RESUME -> {
                 timestamp = System.currentTimeMillis()
             }
+
             else -> {}
         }
     }
@@ -168,7 +172,7 @@ fun Home(
                                 badge = {
                                     Badge(
                                         modifier = Modifier
-                                            .offset(8.dp, -14.dp)
+                                            .offset(8.dp, (-14).dp)
                                             .size(8.dp)
                                             .clip(CircleShape),
                                         containerColor = MaterialTheme.colorScheme.error,
@@ -208,8 +212,8 @@ fun Home(
                         Spacer(modifier = Modifier.width(8.dp))
                         IconButton(onClick = { navigateToProfile() }) {
                             if (user != null) {
-                                GlideImage(
-                                    imageModel = user.getAvatarImage(),
+                                AsyncImage(
+                                    model = user.getAvatarImage(),
                                     modifier = Modifier
                                         .size(52.dp)
                                         .border(
@@ -218,7 +222,8 @@ fun Home(
                                             CircleShape,
                                         )
                                         .clip(CircleShape),
-                                    previewPlaceholder = R.drawable.error_avatar,
+                                    placeholder = painterResource(R.drawable.error_avatar),
+                                    contentDescription = user.username
                                 )
                             } else {
                                 Icon(
@@ -277,11 +282,16 @@ fun Home(
                                 )
                             }
                         } else {
-                            Toast.makeText(ctx, ctx.getString(R.string.update_no_updates_available), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                ctx,
+                                ctx.getString(R.string.update_no_updates_available),
+                                Toast.LENGTH_SHORT
+                            ).show()
                             showUpdateDialog = false
                         }
                     }
                 }
+
                 else -> {}
             }
         }
@@ -315,14 +325,15 @@ fun HomeScreenPreview() {
         showBadge = true,
         features = fakeFeatures,
         user = fakeUser,
-        navigateToProfile = {  },
-        navigateToStyleAndAppearance = {  },
-        navigateToLanguages = {  },
-        navigateToAbout = {  },
-        navigateToRpcSettings = {  }) {
+        navigateToProfile = { },
+        navigateToStyleAndAppearance = { },
+        navigateToLanguages = { },
+        navigateToAbout = { },
+        navigateToRpcSettings = { }) {
 
     }
 }
+
 val fakeFeatures = listOf(
     HomeFeature(
         title = "App Detection",

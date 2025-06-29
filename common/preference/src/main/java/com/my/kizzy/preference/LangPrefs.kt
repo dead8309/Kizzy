@@ -28,18 +28,21 @@ private const val POLISH = 5
 private const val PORTUGUESE = 6
 private const val INDONESIAN = 7
 private const val SIMPLIFIED_CHINESE = 8
-private const val BURMESE = 9
-private const val VIETNAMESE = 10
-private const val ITALIAN = 11
-private const val FILIPINO = 12
-private const val FRENCH = 13
-private const val CROATIAN = 14
-private const val FARSI = 15
-private const val GERMAN = 16
-private const val THAI = 17
-private const val JAPANESE = 18
-private const val KOREAN = 19
-private const val ARABIC = 20
+private const val TRADITIONAL_CHINESE = 9
+private const val BURMESE = 10
+private const val VIETNAMESE = 11
+private const val ITALIAN = 12
+private const val FILIPINO = 13
+private const val FRENCH = 14
+private const val CROATIAN = 15
+private const val FARSI = 16
+private const val GERMAN = 17
+private const val THAI = 18
+private const val JAPANESE = 19
+private const val KOREAN = 20
+private const val ARABIC = 21
+private const val SPANISH = 22
+private const val HEBREW = 23
 
 val languages: Map<Int, String> =
     mapOf(
@@ -51,6 +54,7 @@ val languages: Map<Int, String> =
         Pair(PORTUGUESE, "pt"),
         Pair(INDONESIAN, "in"),
         Pair(SIMPLIFIED_CHINESE, "zh"),
+        Pair(TRADITIONAL_CHINESE, "zh-rTW"),
         Pair(BURMESE, "mm"),
         Pair(VIETNAMESE, "vi"),
         Pair(ITALIAN, "it"),
@@ -62,7 +66,9 @@ val languages: Map<Int, String> =
         Pair(THAI, "th"),
         Pair(JAPANESE, "ja"),
         Pair(KOREAN, "kr"),
-        Pair(ARABIC, "ar")
+        Pair(ARABIC, "ar"),
+        Pair(SPANISH, "es"),
+        Pair(HEBREW, "he")
     ).toList().sortedBy { (_, value) -> value }.toMap()
 
 fun getLanguageConfig(languageNumber: Int = Prefs[Prefs.LANGUAGE]): String {
@@ -89,6 +95,7 @@ fun getLanguageDesc(language: Int = getLanguageNumber()): String {
     return stringResource(
         when (language) {
             SIMPLIFIED_CHINESE -> R.string.locale_zh
+            TRADITIONAL_CHINESE -> R.string.locale_zh_rtw
             ENGLISH -> R.string.locale_en
             TURKISH -> R.string.locale_tr
             RUSSIAN -> R.string.locale_ru
@@ -108,6 +115,8 @@ fun getLanguageDesc(language: Int = getLanguageNumber()): String {
             JAPANESE -> R.string.locale_ja
             KOREAN -> R.string.locale_kr
             ARABIC -> R.string.locale_ar
+            SPANISH -> R.string.locale_es
+            HEBREW -> R.string.locale_he
             else -> R.string.follow_system
         }
     )
