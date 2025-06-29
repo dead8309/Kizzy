@@ -182,9 +182,9 @@ fun ExperimentalRpcAppsScreen(
                     }) { app ->
                         val isChecked = state.enabledApps[app.pkg] ?: false
                         val selectedTypeId = state.appActivityTypes[app.pkg] ?: 0
-                        val selectedType = Constants.ACTIVITY_TYPE.entries.firstOrNull {
-                            it.value == selectedTypeId
-                        }?.key ?: "Playing"
+                        val selectedType = Constants.ACTIVITY_TYPE.entries
+                            .find { it.value == selectedTypeId }?.key ?: "Playing"
+
                         var expanded by remember { mutableStateOf(false) }
                         val iconBitmap = loadAppIcon(app.pkg)
 
@@ -317,10 +317,7 @@ fun ExperimentalRpcAppsScreen(
                                                 },
                                                 onClick = {
                                                     onEvent(
-                                                        UiEvent.SetAppActivityType(
-                                                            app.pkg,
-                                                            label
-                                                        )
+                                                        UiEvent.SetAppActivityType(app.pkg, type)
                                                     )
                                                     expanded = false
                                                 }

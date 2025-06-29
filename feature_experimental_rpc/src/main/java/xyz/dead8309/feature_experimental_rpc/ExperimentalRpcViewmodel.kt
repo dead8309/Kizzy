@@ -112,7 +112,7 @@ class ExperimentalRpcViewmodel @Inject constructor(
                 }
 
                 is UiEvent.SetAppActivityType -> {
-                    val typeInt = event.activityType.toIntOrNull() ?: 0
+                    val typeInt = event.activityType
                     Prefs.saveAppActivityType(event.packageName, typeInt)
                     _uiState.update { state ->
                         state.copy(
