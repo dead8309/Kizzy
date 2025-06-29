@@ -364,20 +364,13 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                             activityTypeisExpanded = !activityTypeisExpanded
                         }, modifier = Modifier.fillMaxWidth()
                     ) {
-                        val rpcTypes = listOf(
-                            Pair("Playing", 0),
-                            Pair("Streaming", 1),
-                            Pair("Listening", 2),
-                            Pair("Watching", 3),
-                            Pair("Competing", 5)
-                        )
-                        rpcTypes.forEach {
+                        Constants.ACTIVITY_TYPE.forEach { (label, value) ->
                             DropdownMenuItem(
                                 text = {
-                                    Text(text = it.first)
+                                    Text(text = label)
                                 },
                                 onClick = {
-                                    customActivityType = it.second.toString()
+                                    customActivityType = value.toString()
                                     activityTypeisExpanded = false
                                 },
                             )
@@ -405,17 +398,11 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                 },
                 confirmButton = {},
                 text = {
-                    val statusMap = mapOf(
-                        stringResource(R.string.status_online) to "online",
-                        stringResource(R.string.status_idle) to "idle",
-                        stringResource(R.string.status_dnd) to "dnd",
-                        stringResource(R.string.status_offline) to "offline",
-                        stringResource(R.string.status_invisible_offline) to "invisible"
-                    )
+
                     Column {
-                        statusMap.forEach { (key, value) ->
+                        Constants.ACTIVITY_STATUS.forEach { (resId, value) ->
                             SingleChoiceItem(
-                                text = key,
+                                text = stringResource(resId),
                                 selected = value == customActivityStatus
                             ) {
                                 customActivityStatus = value

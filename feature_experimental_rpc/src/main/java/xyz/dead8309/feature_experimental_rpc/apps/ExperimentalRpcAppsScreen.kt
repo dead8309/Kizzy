@@ -73,6 +73,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toBitmap
+import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.KSwitch
@@ -80,14 +81,6 @@ import com.my.kizzy.ui.components.SearchBar
 import xyz.dead8309.feature_experimental_rpc.ExperimentalRpcViewmodel
 import xyz.dead8309.feature_experimental_rpc.UiEvent
 import xyz.dead8309.feature_experimental_rpc.UiState
-
-private val activityTypeMap = mapOf(
-    0 to "Playing",
-    1 to "Streaming",
-    2 to "Listening",
-    3 to "Watching",
-    5 to "Competing"
-)
 
 @Composable
 private fun loadAppIcon(packageName: String): ImageBitmap? {
@@ -134,9 +127,8 @@ fun ExperimentalRpcAppsScreen(
     onBackPressed: () -> Unit,
     viewModel: ExperimentalRpcViewmodel,
     state: UiState = viewModel.uiState.collectAsState().value,
-    onEvent: (UiEvent) -> Unit = viewModel::onEvent
+    onEvent: (UiEvent) -> Unit = viewModel::onEvent,
 ) {
-    val activityTypes = activityTypeMap.entries.toList()
     var searchText by remember { mutableStateOf("") }
     var isSearchBarVisible by remember { mutableStateOf(false) }
     Scaffold(
@@ -185,12 +177,14 @@ fun ExperimentalRpcAppsScreen(
                 ) {
                     items(state.installedApps.filter {
                         searchText.isEmpty() ||
-                        it.name.contains(searchText, ignoreCase = true) ||
-                        it.pkg.contains(searchText, ignoreCase = true)
+                                it.name.contains(searchText, ignoreCase = true) ||
+                                it.pkg.contains(searchText, ignoreCase = true)
                     }) { app ->
                         val isChecked = state.enabledApps[app.pkg] ?: false
                         val selectedTypeId = state.appActivityTypes[app.pkg] ?: 0
-                        val selectedType = activityTypeMap[selectedTypeId] ?: "Playing"
+                        val selectedType = Constants.ACTIVITY_TYPE.entries.firstOrNull {
+                            it.value == selectedTypeId
+                        }?.key ?: "Playing"
                         var expanded by remember { mutableStateOf(false) }
                         val iconBitmap = loadAppIcon(app.pkg)
 
@@ -280,7 +274,9 @@ fun ExperimentalRpcAppsScreen(
                                             )
                                         },
                                         colors = SuggestionChipDefaults.suggestionChipColors(
-                                            containerColor = getActivityTypeColor(selectedType).copy(alpha = 0.2f),
+                                            containerColor = getActivityTypeColor(selectedType).copy(
+                                                alpha = 0.2f
+                                            ),
                                             labelColor = getActivityTypeColor(selectedType)
                                         ),
                                         border = null,
@@ -294,24 +290,24 @@ fun ExperimentalRpcAppsScreen(
                                             .width(200.dp)
                                             .background(MaterialTheme.colorScheme.surface)
                                     ) {
-                                        activityTypes.forEach { (id, type) ->
+                                        Constants.ACTIVITY_TYPE.forEach { (label, type) ->
                                             DropdownMenuItem(
                                                 text = {
                                                     Text(
-                                                        text = type,
-                                                        color = getActivityTypeColor(type)
+                                                        text = label,
+                                                        color = getActivityTypeColor(label)
                                                     )
                                                 },
                                                 leadingIcon = {
                                                     Icon(
-                                                        imageVector = getActivityTypeIcon(type),
+                                                        imageVector = getActivityTypeIcon(label),
                                                         contentDescription = null,
-                                                        tint = getActivityTypeColor(type)
+                                                        tint = getActivityTypeColor(label)
                                                     )
 
                                                 },
                                                 trailingIcon = {
-                                                    if (selectedTypeId == id) {
+                                                    if (selectedTypeId == type) {
                                                         Icon(
                                                             imageVector = Icons.Default.Check,
                                                             contentDescription = null,
@@ -320,7 +316,12 @@ fun ExperimentalRpcAppsScreen(
                                                     }
                                                 },
                                                 onClick = {
-                                                    onEvent(UiEvent.SetAppActivityType(app.pkg, id.toString()))
+                                                    onEvent(
+                                                        UiEvent.SetAppActivityType(
+                                                            app.pkg,
+                                                            label
+                                                        )
+                                                    )
                                                     expanded = false
                                                 }
                                             )
