@@ -54,7 +54,7 @@ val languages: Map<Int, String> =
         Pair(PORTUGUESE, "pt"),
         Pair(INDONESIAN, "in"),
         Pair(SIMPLIFIED_CHINESE, "zh"),
-        Pair(TRADITIONAL_CHINESE, "zh-rTW"),
+        Pair(TRADITIONAL_CHINESE, "zh-TW"),
         Pair(BURMESE, "mm"),
         Pair(VIETNAMESE, "vi"),
         Pair(ITALIAN, "it"),
@@ -94,7 +94,7 @@ fun getLanguageNumber(): Int {
 fun getLanguageDesc(language: Int = getLanguageNumber()): String {
     return stringResource(
         when (language) {
-            SIMPLIFIED_CHINESE -> R.string.locale_zh
+            SIMPLIFIED_CHINESE -> R.string.locale_zh_rcn
             TRADITIONAL_CHINESE -> R.string.locale_zh_rtw
             ENGLISH -> R.string.locale_en
             TURKISH -> R.string.locale_tr
