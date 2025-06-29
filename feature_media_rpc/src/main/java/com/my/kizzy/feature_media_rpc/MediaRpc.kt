@@ -79,6 +79,7 @@ import com.my.kizzy.ui.components.preference.PreferencesHint
 fun MediaRPC(
     onBackPressed: () -> Unit,
     state: MediaAppsState,
+    hasNotificationAccess: Boolean,
     updateMediaAppEnabled: (String) -> Unit,
 ) {
     val context = LocalContext.current
@@ -89,7 +90,6 @@ fun MediaRPC(
     var isTimestampsEnabled by remember { mutableStateOf(Prefs[MEDIA_RPC_ENABLE_TIMESTAMPS, false]) }
     var hideOnPause by remember { mutableStateOf(Prefs[MEDIA_RPC_HIDE_ON_PAUSE, false]) }
     var isShowPlaybackState by remember { mutableStateOf(Prefs[MEDIA_RPC_SHOW_PLAYBACK_STATE, false]) }
-    var hasNotificationAccess by remember { mutableStateOf(context.hasNotificationAccess()) }
 
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
         rememberTopAppBarState(),
@@ -141,9 +141,8 @@ fun MediaRPC(
                     description = stringResource(id = R.string.request_for_notification_access),
                     icon = Icons.Default.Warning,
                 ) {
-                    when (context.hasNotificationAccess()) {
-                        true -> hasNotificationAccess = true
-                        false -> context.startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
+                    if (!hasNotificationAccess) {
+                        context.startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
                     }
                 }
             }

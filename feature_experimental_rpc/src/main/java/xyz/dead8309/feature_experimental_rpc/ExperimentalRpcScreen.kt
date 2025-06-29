@@ -13,6 +13,8 @@
 package xyz.dead8309.feature_experimental_rpc
 
 import android.content.Intent
+import android.provider.Settings
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,9 +23,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AppsOutage
 import androidx.compose.material.icons.filled.PauseCircle
 import androidx.compose.material.icons.filled.PlayCircle
 import androidx.compose.material.icons.filled.Timer
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material.icons.outlined.AppSettingsAlt
 import androidx.compose.material.icons.outlined.Apps
 import androidx.compose.material.icons.outlined.Image
@@ -62,6 +66,7 @@ import com.my.kizzy.ui.components.SettingItem
 import com.my.kizzy.ui.components.Subtitle
 import com.my.kizzy.ui.components.SwitchBar
 import com.my.kizzy.ui.components.preference.PreferenceSwitch
+import com.my.kizzy.ui.components.preference.PreferencesHint
 
 private val completions = listOf(
     TemplateKeys.MEDIA_TITLE to R.string.completion_media_title,
@@ -75,6 +80,8 @@ private val completions = listOf(
 fun ExperimentalRpcScreen(
     onBackPressed: () -> Unit,
     state: UiState,
+    hasUsageAccess: Boolean,
+    hasNotificationAccess: Boolean,
     navigateToAppSelection: () -> Unit,
     onEvent: (UiEvent) -> Unit,
 ) {
@@ -104,9 +111,38 @@ fun ExperimentalRpcScreen(
     ) { paddingValues ->
 
         Column(modifier = Modifier.padding(paddingValues)) {
+            AnimatedVisibility(
+                visible = !hasUsageAccess
+            ) {
+                PreferencesHint(
+                    title = stringResource(id = R.string.usage_access),
+                    description = stringResource(id = R.string.usage_access_desc),
+                    icon = Icons.Default.AppsOutage,
+                ) {
+                    when (hasUsageAccess) {
+                        false -> context.startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
+                        else -> Unit
+                    }
+                }
+            }
+            AnimatedVisibility(
+                visible = !hasNotificationAccess
+            ) {
+                PreferencesHint(
+                    title = stringResource(id = R.string.permission_required),
+                    description = stringResource(id = R.string.request_for_notification_access),
+                    icon = Icons.Default.Warning,
+                ) {
+                    if (!hasNotificationAccess) {
+                        context.startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
+                    }
+                }
+            }
+
             SwitchBar(
                 title = stringResource(id = R.string.enable_experimental_rpc),
                 isChecked = experimentalRpcRunning,
+                enabled = hasUsageAccess && hasNotificationAccess,
             ) {
                 experimentalRpcRunning = !experimentalRpcRunning
                 when (experimentalRpcRunning) {
