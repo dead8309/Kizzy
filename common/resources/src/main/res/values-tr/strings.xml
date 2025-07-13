@@ -217,4 +217,5 @@
     <string name="imgur_client_id">Imgur Client ID</string>
     <string name="set_imgur_client_id">Imgur Client ID ayarla</string>
     <string name="set_imgur_client_id_desc">Imgur kullanırken görseller görünmüyorsa, kendi Client ID\'ni ayarlamayı deneyebilirsin</string>
+    <string name="show_song_as_title">Show Song as Title</string>
 </resources>
