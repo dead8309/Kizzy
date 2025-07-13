@@ -103,7 +103,6 @@
     <string name="clear">Clear</string>
     <string name="search_placeholder">Search…</string>
     <string name="hide_on_pause">Hide RPC on Pause</string>
-    <string name="show_song_as_title">Show song as title</string>
     <string name="idling_notification">Idling…</string>
     <string name="main_appDetection">App Detection</string>
     <string name="main_appDetection_details">Kizzy allows you to share your current activity on Discord by detecting what app you\'re using on your device.</string>
@@ -219,4 +218,5 @@
     <string name="imgur_client_id">Imgur Client ID</string>
     <string name="set_imgur_client_id">Set Imgur Client ID</string>
     <string name="set_imgur_client_id_desc">If images aren\'t showing using Imgur, you can try setting your own Client ID</string>
+    <string name="show_song_as_title">Show song as title</string>
 </resources>

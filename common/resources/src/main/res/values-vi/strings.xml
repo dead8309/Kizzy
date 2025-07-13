@@ -217,4 +217,5 @@
     <string name="imgur_client_id">Imgur Client ID</string>
     <string name="set_imgur_client_id">Đặt Imgur Client ID</string>
     <string name="set_imgur_client_id_desc">Nếu hình ảnh không hiện lên khi sử dụng Imgur, bạn có thể sử dung Client ID của mình</string>
+    <string name="show_song_as_title">Show song as title</string>
 </resources>
