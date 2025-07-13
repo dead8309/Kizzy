@@ -218,5 +218,5 @@
     <string name="imgur_client_id">Imgur Client ID</string>
     <string name="set_imgur_client_id">Ustaw Imgur Client ID</string>
     <string name="set_imgur_client_id_desc">Jeśli obrazy nie będą wyświetlane poprzez Imgur, możesz spróbować ustawić swój własny Client ID</string>
-    <string name="show_song_as_title">Show song as title</string>
+    <string name="show_song_as_title">Show Song as Title</string>
 </resources>

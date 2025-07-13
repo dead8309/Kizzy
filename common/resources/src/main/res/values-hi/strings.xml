@@ -218,5 +218,5 @@
     <string name="imgur_client_id">Imgur Client ID</string>
     <string name="set_imgur_client_id">Imgur Client ID सेट करे</string>
     <string name="set_imgur_client_id_desc">अगर  पिक्चर नहीं दिख रहे है तो आप अपने Imgur Client ID सेट कर सकते है</string>
-    <string name="show_song_as_title">Show song as title</string>
+    <string name="show_song_as_title">Show Song as Title</string>
 </resources>
