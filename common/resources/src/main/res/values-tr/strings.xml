@@ -5,8 +5,8 @@
     <string name="activity_name">Aktivite Adı</string>
     <string name="activity_details">Aktivite Detayı</string>
     <string name="activity_state">Aktivite Durumu</string>
-    <string name="activity_start_timestamps">Zaman Bilgisi Başlangıcı</string>
-    <string name="activity_stop_timestamps">Zaman Bilgisi Bitişi</string>
+    <string name="activity_start_timestamps">Süre Bilgisi Başlangıcı</string>
+    <string name="activity_stop_timestamps">Süre Bilgisi Bitişi</string>
     <string name="activity_status_online_idle_dnd">Aktivite durumu(online,idle,dnd)</string>
     <string name="activity_button1_text">Aktivite 1.buton yazısı</string>
     <string name="activity_button2_text">Aktivite 2.buton yazısı</string>
@@ -15,7 +15,7 @@
     <string name="activity_large_image">Aktivite Büyük Resmi</string>
     <string name="activity_small_image">Aktivite Küçük Resmi</string>
     <string name="activity_type">Aktivite Türü</string>
-    <string name="activity_platform">Activity Platform</string>
+    <string name="activity_platform">Aktivite Platformu</string>
     <string name="load_config">Dosyadan Yükle</string>
     <string name="save_config">Yapılandırmayı Kaydet</string>
     <string name="delete_configs">Yapılandırma Sil</string>
@@ -217,5 +217,5 @@
     <string name="imgur_client_id">Imgur Client ID</string>
     <string name="set_imgur_client_id">Imgur Client ID ayarla</string>
     <string name="set_imgur_client_id_desc">Imgur kullanırken görseller görünmüyorsa, kendi Client ID\'ni ayarlamayı deneyebilirsin</string>
-    <string name="show_song_as_title">Show Song as Title</string>
+    <string name="show_song_as_title">Şarkıyı başlık olarak göster</string>
 </resources>
