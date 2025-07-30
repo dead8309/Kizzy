@@ -29,9 +29,10 @@ class LogsViewModel: ViewModel() {
 
     fun filter(): List<LogEvent> {
         return try {
-            logs.matches(filterStrings.value).toMutableStateList()
-        } catch (ex: ConcurrentModificationException){
-            logs
+            val currentLogsSnapshot = logs.toList()
+            currentLogsSnapshot.matches(filterStrings.value)
+        } catch (_: ConcurrentModificationException){
+            logs.toList()
         }
     }
 

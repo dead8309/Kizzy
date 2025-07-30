@@ -95,6 +95,7 @@ class CustomRpcService : Service() {
                         setPartySize(it.partyCurrentSize.toIntOrNull(), it.partyMaxSize.toIntOrNull())
                         setStatus(it.status.ifEmpty { "online" })
                         setType(it.type.toIntOrNull() ?: 0)
+                        setPlatform(it.platform.ifEmpty { null })
                         setStartTimestamps(it.timestampsStart.toLongOrNull())
                         setStopTimestamps(it.timestampsStop.toLongOrNull())
                         setButton1(it.button1.ifEmpty { null })

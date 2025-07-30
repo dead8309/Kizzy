@@ -15,13 +15,41 @@ package com.my.kizzy.feature_custom_rpc
 import android.content.Intent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.EditCalendar
+import androidx.compose.material.icons.filled.Image
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.LargeTopAppBar
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
@@ -29,6 +57,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.my.kizzy.data.rpc.Constants
 import com.my.kizzy.data.rpc.Constants.MAX_ALLOWED_CHARACTER_LENGTH
 import com.my.kizzy.data.utils.uriToFile
 import com.my.kizzy.domain.model.user.User
@@ -53,14 +82,13 @@ import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.RpcField
 import com.my.kizzy.ui.components.SwitchBar
 import kotlinx.coroutines.launch
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
 @Composable
 fun CustomRPC(
     state: UiState = UiState(),
     onBackPressed: () -> Unit,
-    onEvent: (UiEvent) -> Unit = {}
+    onEvent: (UiEvent) -> Unit = {},
 ) {
     val snackBarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
@@ -139,24 +167,27 @@ fun CustomRpcScreen(
     snackBarHostState: SnackbarHostState,
     state: UiState,
     onBackPressed: () -> Unit,
-    onEvent: (UiEvent) -> Unit
+    onEvent: (UiEvent) -> Unit,
 
-) {
+    ) {
     val scrollBehavior =
-        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState(),
+        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
+            rememberTopAppBarState(),
             canScroll = { true })
 
-    Scaffold(snackbarHost = { SnackbarHost(snackBarHostState) },
+    Scaffold(
+        snackbarHost = { SnackbarHost(snackBarHostState) },
         modifier = Modifier
             .fillMaxSize()
             .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            LargeTopAppBar(title = {
-                Text(
-                    text = stringResource(id = R.string.main_customRpc),
-                    style = MaterialTheme.typography.headlineLarge,
-                )
-            },
+            LargeTopAppBar(
+                title = {
+                    Text(
+                        text = stringResource(id = R.string.main_customRpc),
+                        style = MaterialTheme.typography.headlineLarge,
+                    )
+                },
                 navigationIcon = { BackButton { onBackPressed() } },
                 scrollBehavior = scrollBehavior,
                 actions = {
@@ -182,7 +213,7 @@ fun CustomRpcScreen(
 private fun RpcTextFieldsColumn(
     onEvent: (UiEvent) -> Unit,
     uiState: UiState,
-    snackBarHostState: SnackbarHostState
+    snackBarHostState: SnackbarHostState,
 ) {
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
@@ -247,10 +278,10 @@ private fun RpcTextFieldsColumn(
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                         isError =
                             partyCurrentSize.isNotEmpty() && (
-                                partyCurrentSize.toIntOrNull() == null ||
-                                0 >= partyCurrentSize.toInt() ||
-                                (partyMaxSize.toIntOrNull() != null && partyCurrentSize.toInt() > partyMaxSize.toInt())
-                            ),
+                                    partyCurrentSize.toIntOrNull() == null ||
+                                            0 >= partyCurrentSize.toInt() ||
+                                            (partyMaxSize.toIntOrNull() != null && partyCurrentSize.toInt() > partyMaxSize.toInt())
+                                    ),
                         errorMessage =
                             if (partyCurrentSize.isNotEmpty()) {
                                 if (partyCurrentSize.toIntOrNull() == null) {
@@ -280,10 +311,10 @@ private fun RpcTextFieldsColumn(
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
                         isError =
                             partyMaxSize.isNotEmpty() && (
-                                partyMaxSize.toIntOrNull() == null ||
-                                0 >= partyMaxSize.toInt() ||
-                                (partyCurrentSize.toIntOrNull() != null && partyCurrentSize.toInt() > partyMaxSize.toInt())
-                            ),
+                                    partyMaxSize.toIntOrNull() == null ||
+                                            0 >= partyMaxSize.toInt() ||
+                                            (partyCurrentSize.toIntOrNull() != null && partyCurrentSize.toInt() > partyMaxSize.toInt())
+                                    ),
                         errorMessage =
                             if (partyMaxSize.isNotEmpty()) {
                                 if (partyMaxSize.toIntOrNull() == null) {
@@ -307,11 +338,13 @@ private fun RpcTextFieldsColumn(
             }
 
             item {
-                RpcField(value = timestampsStart,
+                RpcField(
+                    value = timestampsStart,
                     label = R.string.activity_start_timestamps,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     trailingIcon = {
-                        Icon(imageVector = Icons.Default.EditCalendar,
+                        Icon(
+                            imageVector = Icons.Default.EditCalendar,
                             contentDescription = null,
                             modifier = Modifier.clickable {
                                 onEvent(UiEvent.TriggerStartTimeStampsDialog)
@@ -338,11 +371,13 @@ private fun RpcTextFieldsColumn(
             }
 
             item {
-                RpcField(value = timestampsStop,
+                RpcField(
+                    value = timestampsStop,
                     label = R.string.activity_stop_timestamps,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     trailingIcon = {
-                        Icon(imageVector = Icons.Default.EditCalendar,
+                        Icon(
+                            imageVector = Icons.Default.EditCalendar,
                             contentDescription = null,
                             modifier = Modifier.clickable {
                                 onEvent(UiEvent.TriggerStopTimeStampsDialog)
@@ -375,50 +410,87 @@ private fun RpcTextFieldsColumn(
 
             item {
                 RpcField(
+                    value = platform,
+                    label = R.string.activity_platform,
+                    trailingIcon = {
+                        Icon(
+                            imageVector = iconStatus,
+                            contentDescription = null,
+                            modifier = Modifier.clickable {
+                                onEvent(UiEvent.TriggerPlatformDropDownMenu)
+                            })
+                    },
+                    content = {
+                        DropdownMenu(
+                            expanded = uiState.platformIsExpanded, onDismissRequest = {
+                                onEvent(UiEvent.TriggerPlatformDropDownMenu)
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Constants.ACTIVITY_PLATFORMS.forEach { (label, value) ->
+                                DropdownMenuItem(
+                                    text = {
+                                        Text(text = label)
+                                    },
+                                    onClick = {
+                                        onEvent(
+                                            UiEvent.SetFieldsFromConfig(
+                                                uiState.rpcConfig.copy(
+                                                    platform = value
+                                                )
+                                            )
+                                        )
+                                        onEvent(UiEvent.TriggerPlatformDropDownMenu)
+                                    },
+                                )
+                            }
+                        }
+                    }
+                ) {
+                    onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(platform = it)))
+                }
+            }
+
+            item {
+                RpcField(
                     value = status,
                     label = R.string.activity_status_online_idle_dnd,
                     trailingIcon = {
-                        Icon(imageVector = iconStatus,
+                        Icon(
+                            imageVector = iconStatus,
                             contentDescription = null,
                             modifier = Modifier.clickable {
                                 onEvent(UiEvent.TriggerStatusDropDownMenu)
                             })
+                    },
+                    content = {
+                        DropdownMenu(
+                            expanded = uiState.statusIsExpanded, onDismissRequest = {
+                                onEvent(UiEvent.TriggerStatusDropDownMenu)
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Constants.ACTIVITY_STATUS.forEach { (resId, value) ->
+                                DropdownMenuItem(
+                                    text = {
+                                        Text(text = stringResource(resId))
+                                    },
+                                    onClick = {
+                                        onEvent(
+                                            UiEvent.SetFieldsFromConfig(
+                                                uiState.rpcConfig.copy(
+                                                    status = value
+                                                )
+                                            )
+                                        )
+                                        onEvent(UiEvent.TriggerStatusDropDownMenu)
+                                    },
+                                )
+                            }
+                        }
                     }
                 ) {
                     onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(status = it)))
-                }
-
-                DropdownMenu(
-                    expanded = uiState.statusIsExpanded, onDismissRequest = {
-                        onEvent(UiEvent.TriggerStatusDropDownMenu)
-                    },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    val statuses = listOf(
-                        Pair(
-                            stringResource(id = R.string.status_online),
-                            "online"
-                        ),
-                        Pair(
-                            stringResource(id = R.string.status_idle),
-                            "idle"
-                        ),
-                        Pair(
-                            stringResource(id = R.string.status_dnd),
-                            "dnd"
-                        ),
-                    )
-                    statuses.forEach {
-                        DropdownMenuItem(
-                            text = {
-                                Text(text = it.first)
-                            },
-                            onClick = {
-                                onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(status = it.second)))
-                                onEvent(UiEvent.TriggerStatusDropDownMenu)
-                            },
-                        )
-                    }
                 }
             }
 
@@ -469,7 +541,8 @@ private fun RpcTextFieldsColumn(
                 var showProgress by remember {
                     mutableStateOf(false)
                 }
-                RpcField(value = largeImg,
+                RpcField(
+                    value = largeImg,
                     label = R.string.activity_large_image,
                     trailingIcon = {
                         Icon(
@@ -513,10 +586,12 @@ private fun RpcTextFieldsColumn(
                 var showProgress by remember {
                     mutableStateOf(false)
                 }
-                RpcField(value = smallImg,
+                RpcField(
+                    value = smallImg,
                     label = R.string.activity_small_image,
                     trailingIcon = {
-                        Icon(imageVector = Icons.Default.Image,
+                        Icon(
+                            imageVector = Icons.Default.Image,
                             contentDescription = "openGallery",
                             modifier = Modifier.clickable {
                                 openPickerDialog = true
@@ -555,11 +630,13 @@ private fun RpcTextFieldsColumn(
                 Icons.Default.KeyboardArrowDown
 
             item {
-                RpcField(value = type,
+                RpcField(
+                    value = type,
                     label = R.string.activity_type,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     trailingIcon = {
-                        Icon(imageVector = icon,
+                        Icon(
+                            imageVector = icon,
                             contentDescription = null,
                             modifier = Modifier.clickable {
                                 onEvent(UiEvent.TriggerActivityTypeDropDownMenu)
@@ -573,20 +650,13 @@ private fun RpcTextFieldsColumn(
                         onEvent(UiEvent.TriggerActivityTypeDropDownMenu)
                     }, modifier = Modifier.fillMaxWidth()
                 ) {
-                    val rpcTypes = listOf(
-                        Pair("Playing", 0),
-                        Pair("Streaming", 1),
-                        Pair("Listening", 2),
-                        Pair("Watching", 3),
-                        Pair("Competing", 5)
-                    )
-                    rpcTypes.forEach {
+                    Constants.ACTIVITY_TYPE.forEach { (label, value) ->
                         DropdownMenuItem(
                             text = {
-                                Text(text = it.first)
+                                Text(text = label)
                             },
                             onClick = {
-                                onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(type = it.second.toString())))
+                                onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(type = value.toString())))
                                 onEvent(UiEvent.TriggerActivityTypeDropDownMenu)
                             },
                         )
@@ -600,7 +670,8 @@ private fun RpcTextFieldsColumn(
                         value = url,
                         label = R.string.stream_url,
                         trailingIcon = {
-                            Icon(imageVector = Icons.Default.Info,
+                            Icon(
+                                imageVector = Icons.Default.Info,
                                 contentDescription = null,
                                 modifier = Modifier.clickable {
                                     scope.launch {

@@ -11,7 +11,7 @@
     <string name="locale_pt" translatable="false">Português Brasileiro</string>
     <string name="locale_in" translatable="false">Bahasa Indonesia</string>
     <string name="locale_zh_rtw" translatable="false">繁體中文</string>
-    <string name="locale_zh" translatable="false">简体中文</string>
+    <string name="locale_zh_rcn" translatable="false">简体中文</string>
     <string name="locale_mm" translatable="false">ဗမာဘာသာ</string>
     <string name="locale_vi" translatable="false">Tiếng Việt</string>
     <string name="locale_it" translatable="false">Italiano</string>
@@ -25,5 +25,7 @@
     <string name="locale_ja" translatable="false">日本語</string>
     <string name="locale_kr" translatable="false">한국어</string>
     <string name="locale_ar" translatable="false">العربية</string>|
+    <string name="locale_he" translatable="false">עִברִית</string>|
+    <string name="locale_hi" translatable="false">हिन्दी</string>
     <!-- Until here -->
 </resources>

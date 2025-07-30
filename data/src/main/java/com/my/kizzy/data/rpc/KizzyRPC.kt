@@ -45,6 +45,7 @@ class KizzyRPC(
     private var startTimestamps: Long? = null
     private var stopTimestamps: Long? = null
     private var type: Int = 0
+    private var platform: String? = null
     private var buttons = ArrayList<String>()
     private var buttonUrl = ArrayList<String>()
     private var url: String? = null
@@ -199,6 +200,16 @@ class KizzyRPC(
         return this
     }
 
+    /** Platform type for profile xbox,playstation,pc,ios,android etc.
+     *
+     * @param platform
+     * @return
+     */
+    fun setPlatform(platform: String?): KizzyRPC {
+        this.platform = platform
+        return this
+    }
+
     /**
      * Button1 text
      * @param button1_Text
@@ -265,6 +276,7 @@ class KizzyRPC(
                     details = details?.sanitize(),
                     party = party.takeIf { party != null },
                     type = type,
+                    platform = platform?.sanitize(),
                     timestamps = Timestamps(
                         start = startTimestamps,
                         end = stopTimestamps
@@ -312,6 +324,7 @@ class KizzyRPC(
                         details = commonRpc.details?.takeIf { it.isNotEmpty() }?.sanitize(),
                         state = commonRpc.state?.takeIf { it.isNotEmpty() }?.sanitize(),
                         type = Prefs[CUSTOM_ACTIVITY_TYPE, 0],
+                        platform = commonRpc.platform?.sanitize(),
                         timestamps = time.takeIf { enableTimestamps == true },
                         assets = Assets(
                                 largeImage = commonRpc.largeImage?.resolveImage(kizzyRepository),

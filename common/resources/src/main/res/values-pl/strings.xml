@@ -16,6 +16,7 @@
     <string name="activity_large_image">Większy Obrazek Aktywności</string>
     <string name="activity_small_image">Mniejszy Obrazek Aktywności</string>
     <string name="activity_type">Rodzaj Aktywności</string>
+    <string name="activity_platform">Platforma Aktywności</string>
     <string name="load_config">Załaduj z Pliku</string>
     <string name="save_config">Zapisz Konfigurację</string>
     <string name="delete_configs">Usuń Konfigurację</string>
@@ -202,4 +203,20 @@
     <string name="custom_application_id">ID aplikacji własnej aktywności</string>
     <string name="custom_application_id_desc">Podmienia domyślne ID Aplikacji Discord\'a</string>
     <string name="use_a_vpn_desc">Logowanie do Discorda w twoim kraju może nie działać bez użycia VPN/DPI. Proszę użyć VPN/DPI aby kontynuować.</string>
+    <string name="rpc_templates_note">Użyj placeholderów takich jak {{app_name}}, {{media_title}}, {{media_artist}}, itd. Puste pola będą używać domyślnych wartości lub zostaną pominięte.</string>
+    <string name="experimental_rpc_detect_apps">Pozwól Eksperymentalnemu RPC do wykrywania uruchomionych aplikacji</string>
+    <string name="experimental_rpc_detect_media">Pozwól Eksperymentalnemu RPC do wykrywania odtwarzacza multimediów</string>
+    <string name="app_preferences">Preferencje Aplikacji</string>
+    <string name="app_preferences_desc">Wybierz, które aplikacje mają być włączone pod Eksperymentalne RPC</string>
+    <string name="completion_media_title">Tytuł Piosenki/Filmu</string>
+    <string name="completion_media_artist">Główny Artysta</string>
+    <string name="completion_app_name">Wykryta Nazwa Aplikacji</string>
+    <string name="show_cover_art">Pokaż Okładkę</string>
+    <string name="show_cover_art_desc">Wyświetlaj okładkę albumu jako duży obraz</string>
+    <string name="enable_experimental_rpc">Włącz Eksperymentalne RPC</string>
+    <string name="completion_media_author">Główny Autor</string>
+    <string name="imgur_client_id">Imgur Client ID</string>
+    <string name="set_imgur_client_id">Ustaw Imgur Client ID</string>
+    <string name="set_imgur_client_id_desc">Jeśli obrazy nie będą wyświetlane poprzez Imgur, możesz spróbować ustawić swój własny Client ID</string>
+    <string name="show_song_as_title">Show Song as Title</string>
 </resources>

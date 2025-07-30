@@ -15,11 +15,10 @@
 package com.my.kizzy.feature_apps_rpc
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.provider.Settings
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -29,6 +28,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AppsOutage
 import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -43,6 +43,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
@@ -53,7 +54,6 @@ import com.my.kizzy.feature_rpc_base.services.AppDetectionService
 import com.my.kizzy.feature_rpc_base.services.CustomRpcService
 import com.my.kizzy.feature_rpc_base.services.ExperimentalRpc
 import com.my.kizzy.feature_rpc_base.services.MediaRpcService
-import com.my.kizzy.preference.Prefs
 import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.AppsItem
 import com.my.kizzy.ui.components.BackButton
@@ -65,6 +65,8 @@ import com.my.kizzy.ui.components.preference.PreferencesHint
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppsRPC(
+    state: AppsState,
+    updateAppEnabled: (String) -> Unit,
     onBackPressed: () -> Unit,
     hasUsageAccess: Boolean,
 ) {
@@ -73,7 +75,6 @@ fun AppsRPC(
         canScroll = { true })
     val ctx = LocalContext.current
     var serviceEnabled by remember { mutableStateOf(AppUtils.appDetectionRunning()) }
-    var apps by remember { mutableStateOf(getInstalledApps(ctx)) }
     var searchText by remember { mutableStateOf("") }
     var isSearchBarVisible by remember { mutableStateOf(false) }
 
@@ -119,89 +120,76 @@ fun AppsRPC(
                 .fillMaxSize()
                 .padding(it)
         ) {
-
-            LazyColumn {
-                item {
-                    AnimatedVisibility(
-                        visible = !hasUsageAccess
-                    ) {
-                        PreferencesHint(
-                            title = stringResource(id = R.string.usage_access),
-                            description = stringResource(id = R.string.usage_access_desc),
-                            icon = Icons.Default.AppsOutage,
+            if (state.isLoading) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+            } else {
+                LazyColumn {
+                    item {
+                        AnimatedVisibility(
+                            visible = !hasUsageAccess
                         ) {
-                            when (hasUsageAccess) {
-                                false -> ctx.startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
-                                else -> Unit
+                            PreferencesHint(
+                                title = stringResource(id = R.string.usage_access),
+                                description = stringResource(id = R.string.usage_access_desc),
+                                icon = Icons.Default.AppsOutage,
+                            ) {
+                                when (hasUsageAccess) {
+                                    false -> ctx.startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
+                                    else -> Unit
+                                }
                             }
                         }
                     }
-                }
-                item {
-                    SwitchBar(
-                        title = stringResource(id = R.string.enable_appsRpc),
-                        isChecked = serviceEnabled,
-                        enabled = hasUsageAccess
-                    ) {
-                        serviceEnabled = !serviceEnabled
-                        when (serviceEnabled) {
-                            true -> {
-                                ctx.stopService(Intent(ctx, MediaRpcService::class.java))
-                                ctx.stopService(Intent(ctx, CustomRpcService::class.java))
-                                ctx.stopService(Intent(ctx, ExperimentalRpc::class.java))
-                                ctx.startService(Intent(ctx, AppDetectionService::class.java))
-                            }
+                    item {
+                        SwitchBar(
+                            title = stringResource(id = R.string.enable_appsRpc),
+                            isChecked = serviceEnabled,
+                            enabled = hasUsageAccess
+                        ) {
+                            serviceEnabled = !serviceEnabled
+                            when (serviceEnabled) {
+                                true -> {
+                                    ctx.stopService(Intent(ctx, MediaRpcService::class.java))
+                                    ctx.stopService(Intent(ctx, CustomRpcService::class.java))
+                                    ctx.stopService(Intent(ctx, ExperimentalRpc::class.java))
+                                    ctx.startService(Intent(ctx, AppDetectionService::class.java))
+                                }
 
-                            false -> ctx.stopService(Intent(ctx, AppDetectionService::class.java))
+                                false -> ctx.stopService(
+                                    Intent(
+                                        ctx,
+                                        AppDetectionService::class.java
+                                    )
+                                )
+                            }
                         }
                     }
-                }
-                items(apps.size) { i ->
-                    if (searchText.isEmpty() || apps[i].name.contains(
-                            searchText,
-                            ignoreCase = true
-                        ) || apps[i].pkg.contains(searchText, ignoreCase = true)
-                    ) {
-                        AppsItem(
-                            name = apps[i].name,
-                            pkg = apps[i].pkg,
-                            isChecked = apps[i].isChecked
+                    items(
+                        state.apps.size,
+                        key = { idx -> state.apps[idx].pkg }
+                    ) { i ->
+                        if (searchText.isEmpty() || state.apps[i].name.contains(
+                                searchText,
+                                ignoreCase = true
+                            ) || state.apps[i].pkg.contains(searchText, ignoreCase = true)
                         ) {
-                            apps = apps.mapIndexed { j, app ->
-                                if (i == j) {
-                                    Prefs.saveToPrefs(app.pkg)
-                                    app.copy(isChecked = !app.isChecked)
-                                } else
-                                    app
-                            }
+                            AppsItem(
+                                name = state.apps[i].name,
+                                pkg = state.apps[i].pkg,
+                                isChecked = state.enabledApps[state.apps[i].pkg] ?: false,
+                                onClick = { updateAppEnabled(state.apps[i].pkg) }
+                            )
+                        } else {
+                            Spacer(modifier = Modifier.height(0.dp))
                         }
-                    } else {
-                        Spacer(modifier = Modifier.height(0.dp))
                     }
                 }
             }
         }
     }
-}
-
-/*
-  TODO: Move this and MediaRpc's getInstalledApps function in a common place
- */
-fun getInstalledApps(context1: Context): List<AppsInfo> {
-    val appList: ArrayList<AppsInfo> = ArrayList()
-    val pm = context1.packageManager
-    val resolvedAppsInfo = pm.getInstalledApplications(PackageManager.GET_GIDS)
-
-    for (appInfo in resolvedAppsInfo) {
-        if (pm.getLaunchIntentForPackage(appInfo.packageName) != null) {
-            appList.add(
-                AppsInfo(
-                    name = appInfo.loadLabel(pm).toString(),
-                    pkg = appInfo.packageName,
-                    isChecked = Prefs.isAppEnabled(appInfo.packageName),
-                )
-            )
-        }
-    }
-    return appList.sortedBy { it.name }.sortedBy { !it.isChecked }
 }

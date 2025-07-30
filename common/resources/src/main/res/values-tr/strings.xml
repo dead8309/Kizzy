@@ -5,8 +5,8 @@
     <string name="activity_name">Aktivite Adı</string>
     <string name="activity_details">Aktivite Detayı</string>
     <string name="activity_state">Aktivite Durumu</string>
-    <string name="activity_start_timestamps">Zaman Bilgisi Başlangıcı</string>
-    <string name="activity_stop_timestamps">Zaman Bilgisi Bitişi</string>
+    <string name="activity_start_timestamps">Süre Bilgisi Başlangıcı</string>
+    <string name="activity_stop_timestamps">Süre Bilgisi Bitişi</string>
     <string name="activity_status_online_idle_dnd">Aktivite durumu(online,idle,dnd)</string>
     <string name="activity_button1_text">Aktivite 1.buton yazısı</string>
     <string name="activity_button2_text">Aktivite 2.buton yazısı</string>
@@ -15,6 +15,7 @@
     <string name="activity_large_image">Aktivite Büyük Resmi</string>
     <string name="activity_small_image">Aktivite Küçük Resmi</string>
     <string name="activity_type">Aktivite Türü</string>
+    <string name="activity_platform">Aktivite Platformu</string>
     <string name="load_config">Dosyadan Yükle</string>
     <string name="save_config">Yapılandırmayı Kaydet</string>
     <string name="delete_configs">Yapılandırma Sil</string>
@@ -201,4 +202,20 @@
     <string name="custom_application_id">Özel Aktivite Uygulama ID\'si</string>
     <string name="custom_application_id_desc">Varsayılan Discord Uygulama ID\'sini geçersiz kılar</string>
     <string name="use_a_vpn_desc">Discord girişi VPN/DPI servisi olmadan ülkenizde çalışmayabilir. Lütfen devam etmek için bir VPN/DPI servisi kullanın.</string>
+    <string name="rpc_templates_note">{{app_name}}, {{media_title}}, {{media_artist}} gibi değişkenler kullanabilirsin. Boş bırakılan alanlar varsayılan davranışı uygular veya gösterilmez.</string>
+    <string name="experimental_rpc_detect_apps">Deneysel RPC\'nin çalışan uygulamaları algılamasına izin ver</string>
+    <string name="experimental_rpc_detect_media">Deneysel RPC\’nin medya oynatımını algılamasına izin ver”</string>
+    <string name="app_preferences">Uyg. Tercihleri</string>
+    <string name="app_preferences_desc">Deneysel RPC için hangi uygulamaların etkinleştirileceğini seç</string>
+    <string name="completion_media_title">Şarkı/Video Başlığı</string>
+    <string name="completion_media_artist">Ana Sanatçı</string>
+    <string name="completion_app_name">Algılanan Uygulama Adı</string>
+    <string name="show_cover_art">Kapak Resmini Göster</string>
+    <string name="show_cover_art_desc">Albüm kapağını büyük resim olarak göster</string>
+    <string name="enable_experimental_rpc">Deneysel RPC\'yi Etkinleştir</string>
+    <string name="completion_media_author">Ana Yazar</string>
+    <string name="imgur_client_id">Imgur Client ID</string>
+    <string name="set_imgur_client_id">Imgur Client ID ayarla</string>
+    <string name="set_imgur_client_id_desc">Imgur kullanırken görseller görünmüyorsa, kendi Client ID\'ni ayarlamayı deneyebilirsin</string>
+    <string name="show_song_as_title">Şarkıyı başlık olarak göster</string>
 </resources>

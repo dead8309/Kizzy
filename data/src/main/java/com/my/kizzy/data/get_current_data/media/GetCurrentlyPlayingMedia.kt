@@ -112,15 +112,31 @@ class GetCurrentPlayingMedia @Inject constructor(
                     smallText = null
                 }
 
-                return CommonRpc(name = appName,
-                    details = title,
-                    state = author,
-                    largeImage = largeIcon,
-                    smallImage = smallIcon,
-                    largeText = album,
-                    smallText = smallText,
-                    packageName = "$title::${mediaController.packageName}",
-                    time = timestamps.takeIf { it != null })
+                return if (Prefs[Prefs.MEDIA_RPC_SHOW_SONG_AS_TITLE, false]) {
+                    CommonRpc(
+                        name = title,
+                        details = author,
+                        state = album,
+                        largeImage = largeIcon,
+                        smallImage = smallIcon,
+                        largeText = appName,
+                        smallText = smallText,
+                        packageName = "$title::${mediaController.packageName}",
+                        time = timestamps.takeIf { it != null }
+                    )
+                } else {
+                    CommonRpc(
+                        name = appName,
+                        details = title,
+                        state = author,
+                        largeImage = largeIcon,
+                        smallImage = smallIcon,
+                        largeText = album,
+                        smallText = smallText,
+                        packageName = "$title::${mediaController.packageName}",
+                        time = timestamps.takeIf { it != null }
+                    )
+                }
             }
         }
         return CommonRpc()
