@@ -255,9 +255,14 @@ class ExperimentalRpc : Service() {
             effectivePackageName = richMediaInfo?.packageName
 
             logger.d(TAG, "Processing Rich Media Context")
-            finalName = processor.process(templateName) ?: richMediaInfo?.appName
-            finalDetails = processor.process(templateDetails) ?: richMediaInfo?.title
-            finalState = processor.process(templateState) ?: richMediaInfo?.artist
+            // Read template values from preferences to ensure current configuration is used
+            val currentTemplateName = Prefs[Prefs.EXPERIMENTAL_RPC_TEMPLATE_NAME, TemplateKeys.APP_NAME]
+            val currentTemplateDetails = Prefs[Prefs.EXPERIMENTAL_RPC_TEMPLATE_DETAILS, TemplateKeys.MEDIA_TITLE]
+            val currentTemplateState = Prefs[Prefs.EXPERIMENTAL_RPC_TEMPLATE_STATE, TemplateKeys.MEDIA_ARTIST]
+            
+            finalName = processor.process(currentTemplateName) ?: richMediaInfo?.appName
+            finalDetails = processor.process(currentTemplateDetails) ?: richMediaInfo?.title
+            finalState = processor.process(currentTemplateState) ?: richMediaInfo?.artist
 
             finalLargeImage = when {
                 Prefs[Prefs.EXPERIMENTAL_RPC_SHOW_COVER_ART, true] -> richMediaInfo?.coverArt
@@ -285,9 +290,14 @@ class ExperimentalRpc : Service() {
         } else if (currentContextIsApp) {
             effectivePackageName = appInfo?.packageName
             logger.d(TAG, "Processing App Context")
-            finalName = processor.process(templateName) ?: appInfo?.name
-            finalDetails = processor.process(templateDetails) ?: appInfo?.details
-            finalState = processor.process(templateState) ?: appInfo?.state
+            // Read template values from preferences to ensure current configuration is used
+            val currentTemplateName = Prefs[Prefs.EXPERIMENTAL_RPC_TEMPLATE_NAME, TemplateKeys.APP_NAME]
+            val currentTemplateDetails = Prefs[Prefs.EXPERIMENTAL_RPC_TEMPLATE_DETAILS, TemplateKeys.MEDIA_TITLE]
+            val currentTemplateState = Prefs[Prefs.EXPERIMENTAL_RPC_TEMPLATE_STATE, TemplateKeys.MEDIA_ARTIST]
+            
+            finalName = processor.process(currentTemplateName) ?: appInfo?.name
+            finalDetails = processor.process(currentTemplateDetails) ?: appInfo?.details
+            finalState = processor.process(currentTemplateState) ?: appInfo?.state
 
             finalLargeImage = appInfo?.largeImage
             finalSmallImage = appInfo?.smallImage
