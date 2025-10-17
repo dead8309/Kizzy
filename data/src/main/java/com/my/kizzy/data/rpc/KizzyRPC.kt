@@ -323,7 +323,7 @@ class KizzyRPC(
                         name = commonRpc.name,
                         details = commonRpc.details?.takeIf { it.isNotEmpty() }?.sanitize(),
                         state = commonRpc.state?.takeIf { it.isNotEmpty() }?.sanitize(),
-                        type = Prefs[CUSTOM_ACTIVITY_TYPE, 0],
+                        type = commonRpc.type ?: Prefs[CUSTOM_ACTIVITY_TYPE, 0],
                         platform = commonRpc.platform?.sanitize(),
                         timestamps = time.takeIf { enableTimestamps == true },
                         assets = Assets(
