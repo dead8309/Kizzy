@@ -14,6 +14,7 @@ package com.my.kizzy.data.rpc
 
 data class CommonRpc(
     val name: String = "",
+    val type: Int? = null,
     val details: String? = "",
     val state: String? = "",
     val partyCurrentSize: Int? = null,
