@@ -25,7 +25,7 @@
     <string name="github_readme">README</string>
     <string name="github_readme_desc">กดตรงนี้เพื่อเข้าดู Github repository ของเรา!</string>
     <string name="github_latest_release">ดูเวอร์ชั่นล่าสุดที่ออกมาใหม่</string>
-    <string name="github_latest_release_desc">บางทีแอปนี้อาจจะอัปเดทอะไรใหม่ ลองกดไปดูที่ changelog ได้นะ</string>
+    <string name="github_latest_release_desc">บางทีแอปนี้อาจจะอัปเดตอะไรใหม่ ลองกดไปดูที่ changelog ได้นะ</string>
     <string name="github_issue">รายงานพบปัญหาการใช้งาน</string>
     <string name="github_issue_desc">รายงานปัญหาในการใช้งานเพื่อให้เราช่วยแก้ บัค ให้ท่าน หรือมีไอเดียฟีเจอร์สุดเจ๋งแจ๋วก็สามารถส่งคำขอให้พวกเราได้!</string>
     <string name="credits">เครดิต</string>
