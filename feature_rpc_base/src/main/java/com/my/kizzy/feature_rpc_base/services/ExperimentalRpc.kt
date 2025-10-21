@@ -322,6 +322,7 @@ class ExperimentalRpc : Service() {
             kizzyRPC.updateRPC(
                 commonRpc = CommonRpc(
                     name = finalName ?: "",
+                    type = appActivityTypes[effectivePackageName] ?: 0,
                     details = finalDetails,
                     state = finalState,
                     largeImage = finalLargeImage,
