@@ -3,8 +3,8 @@
 
     <!-- Activities -->
     <string name="activity_name">ชื่อของกิจกรรมที่คุณต้องการตามใจนึก!</string>
-    <string name="activity_details">ข้อความรายละเอียดกิจกรรมเพิ่มเติมที่คุณอยากเฉิดฉาย!</string>
-    <string name="activity_state">สถานะของกิจกรรมเพิ่มเติมที่ตั้งไปเขาก็ไม่รักคุณอยู่ดี!</string>
+    <string name="activity_details">ข้อความกิจกรรมเพิ่มเติมที่คุณอยากเฉิดฉาย!</string>
+    <string name="activity_state">สถานะกิจกรรมที่ตั้งไปเขาก็ไม่รักคุณอยู่ดี!</string>
     <string name="activity_start_timestamps">เริ่มนับเวลา</string>
     <string name="activity_stop_timestamps">เวลาที่จะหยุด</string>
     <string name="activity_status_online_idle_dnd">สถานะของกิจกรรม(ออนไลน์,ไม่อยู่,ห้ามรบกวน)</string>
@@ -14,7 +14,7 @@
     <string name="activity_button2_url">ใส่ url อะไรก็ได้ในปุ่มที่ 2</string>
     <string name="activity_large_image">ใส่ภาพขนาดใหญ่สุดเฟี้ยวฟ๊าวของคุณ!</string>
     <string name="activity_small_image">ใส่ภาพขนาดเล็กสุดแสนน่ารักของคุณ!</string>
-    <string name="activity_type">เลือกประเภทของกิจกรรมที่คุณต้องการ!</string>
+    <string name="activity_type">เลือกชนิดของกิจกรรมที่คุณต้องการ!</string>
     <string name="activity_platform">Activity Platform</string>
     <string name="load_config">โหลดการตั้งค่าจากไฟล์อื่น</string>
     <string name="save_config">บันทึกการตั้งค่าอันนี้</string>
@@ -25,23 +25,23 @@
     <string name="github_readme">README</string>
     <string name="github_readme_desc">กดตรงนี้เพื่อเข้าดู Github repository ของเรา!</string>
     <string name="github_latest_release">ดูเวอร์ชั่นล่าสุดที่ออกมาใหม่</string>
-    <string name="github_latest_release_desc">บางทีแอพนี้อาจจะอัพเดทอะไรใหม่ ลองกดไปดูที่ changelog ได้นะ</string>
+    <string name="github_latest_release_desc">บางทีแอปนี้อาจจะอัปเดตอะไรใหม่ ลองกดไปดูที่ changelog ได้นะ</string>
     <string name="github_issue">รายงานพบปัญหาการใช้งาน</string>
-    <string name="github_issue_desc">รายงานปัญหาในการใช้งานเพื่อให้เราช่วยแก้ bug ให้ท่าน หรือมีไอเดียฟีเจอร์สุดเจ๋งแจ๋วก็สามารถส่งคำขอให้พวกเราได้!</string>
+    <string name="github_issue_desc">รายงานปัญหาในการใช้งานเพื่อให้เราช่วยแก้ บัค ให้ท่าน หรือมีไอเดียฟีเจอร์สุดเจ๋งแจ๋วก็สามารถส่งคำขอให้พวกเราได้!</string>
     <string name="credits">เครดิต</string>
-    <string name="credits_desc">เครดิตแก่ libraries ที่ใช้และผู้ที่มีส่วนร่วมที่ทำให้แอพนี้เป็นแอพสุดเจ๋ง!</string>
+    <string name="credits_desc">เครดิตแก่ libraries ที่ใช้และผู้ที่มีส่วนร่วมที่ทำให้แอปนี้เป็นแอปสุดเจ๋ง!</string>
     <string name="enable_artist_name">เปิดใช้งาน การแสดงชื่อของศิลปินสุดแสนวิเศษ</string>
-    <string name="enable_album_name">Enable Album Name</string>
-    <string name="show_app_icon">แสดงไอคอนของแอพสุดเฟี้ยว</string>
+    <string name="enable_album_name">เปิดใช้งานชื่อศิลปิน</string>
+    <string name="show_app_icon">แสดงไอคอนของแอปสุดเฟี้ยว</string>
     <string name="enable_timestamps">เปิดใช้งานการประทับเวลา</string>
-    <string name="text_after_permission_denied">เฮ้! การเข้าถึงพื้นที่จัดเก็บข้อมูลในโทรศัพท์ของคุณเป็นความสำคัญต่อแอพในการเก็บพวกเหล่าการตั้งค่าต่างๆของคุณให้มี ที่ซุกหัวนอนภายในพื้นที่โทรศัพท์อ่ะนะ ขอมาขนาดนี้ให้สิทธิ์การเข้าถึงพื้นที่จัดเก็บมือถือด้วยล่ะ มันง่ายกว่าไปรักเขาข้างเดียวอีก!</string>
+    <string name="text_after_permission_denied">เฮ้! การเข้าถึงพื้นที่จัดเก็บข้อมูลในโทรศัพท์ของคุณเป็นความสำคัญต่อแอปในการเก็บพวกเหล่าการตั้งค่าต่างๆของคุณให้มี ที่ซุกหัวนอนภายในพื้นที่โทรศัพท์อ่ะนะ ขอมาขนาดนี้ให้สิทธิ์การเข้าถึงพื้นที่จัดเก็บมือถือด้วยล่ะ มันง่ายกว่าไปรักเขาข้างเดียวอีก!</string>
     <string name="request_for_storage_access">นี้พวกคือ.. เปิดใช้งานการเข้าถึงพื้นที่จัดเก็บข้อมูลเถอะ เพื่อเป็นการให้เหล่า ตั้งค่าฟีเจอร์ต่างๆ ได้ออกมาเฉิดฉายอย่างสง่างามไง! อย่าลืมเปิดด้วยล่ะ</string>
     <string name="grant_permission">อนุญาตการเข้าถึง</string>
     <string name="use_low_res_icon">ลดคุณภาพของภาพลง</string>
-    <string name="use_low_res_icon_desc">การลดคุณภาพของภาพลงของเหล่าไอคอนแอพที่กำลังจะได้เฉิดฉายบน RPC (ถ้าเกิด RPC มันค้างก็เปิดใช้งานอันนี้ดูนะ!) การตั้งค่านี้จะนำไปใช้กับ Apps Rpc ด้วยนะ!</string>
-    <string name="delete_saved_icon_urls">ลบการบันทึกของ Icon Links</string>
-    <string name="delete_saved_icon_urls_desc">ลบ app icon urls ที่บันทึกอยู่ในพื้นที่โทรศัพท์ของคุณ(ใช้เจ้านี้ในช่วงแค่เคสสุดแสนทรหดเท่านั้นนะ เพราะว่ามันจะส่งภาพทั้งหมดอีกครั้งไปยังเซิร์ฟเวอร์ของ discord ซึ่งแน่นอนมันจะใช้ทรัพยากรข้อมูลมากขึ้น อย่าหาทำล่ะ!)</string>
-    <string name="app_crashed">แอพเกิดข้อผิดพลาด!</string>
+    <string name="use_low_res_icon_desc">การลดคุณภาพของภาพลงของเหล่าไอคอนแอปที่กำลังจะได้เฉิดฉายบน RPC (ถ้า RPC ขัดข้องลองเปิดดูนะ!) การตั้งค่านี้จะนำไปใช้กับ Apps Rpc ด้วยนะ!</string>
+    <string name="delete_saved_icon_urls">ลบลิงค์ไอคอนที่บันทึกไว้</string>
+    <string name="delete_saved_icon_urls_desc">ลบไอคอนแอปที่บันทึกไว้ในไฟล์ในเครื่องของคุณ (ใช้เจ้านี้ในช่วงในช่วงยามจำเป็นเท่านั้นนะ เพราะว่ามันจะส่งภาพทั้งหมดอีกครั้งไปยังเซิร์ฟเวอร์ของ discord ซึ่งแน่นอนมันจะใช้ทรัพยากรข้อมูลมากขึ้น!)</string>
+    <string name="app_crashed">แอปเกิดข้อผิดพลาด!</string>
     <string name="share_crash_logs_desc">โปรดส่ง Logs ในช่อง Discord พร้อมด้วย stacktrace ต่อไปนี้:</string>
     <string name="share_crash_logs">แชร์ LOGS</string>
     <string name="welcome">ยินดีต้อนรับ</string>
@@ -51,7 +51,7 @@
     <string name="about">เกี่ยวกับ</string>
     <string name="settings">การตั้งค่า</string>
     <string name="language">เปลี่ยนภาษา</string>
-    <string name="design_credits">ให้เครดิตแก่ พวก Design </string>
+    <string name="design_credits">เครดิตการออกแบบ</string>
     <string name="enable_appsRpc">เปิดใช้งาน App Detection</string>
     <string name="usage_access">จำเป็นต้องเข้าถึงการใช้งาน</string>
     <string name="usage_access_desc">จำเป็นต้องมีการเข้าถึงการใช้งานสำหรับแอปเพื่อรับแอปที่กำลังทำงานอย่างขยันสุดความสามารถในตอนนี้</string>
@@ -77,7 +77,7 @@
     <string name="android_on">เปิด</string>
     <string name="android_off">ปิด</string>
     <string name="setup">มาตั้งค่าสิทธิ์กันก่อน!</string>
-    <string name="user_data_policy">แอพนี้จะไม่เก็บข้อมูลส่วนตัวของท่านหรือลักลอบเอาข้อมูลของท่านระหว่างมีปาร์ตี้เฮฮา ใดๆทั้งสิ้น!</string>
+    <string name="user_data_policy">แอปนี้จะไม่เก็บข้อมูลส่วนตัวของท่านหรือลักลอบเอาข้อมูลของท่านระหว่างมีปาร์ตี้เฮฮา ใดๆทั้งสิ้น!</string>
     <string name="setup_desc">ช้าก่อนพวก! ก่อนที่จะไปส่วนอื่น รบกวนสักนิด พอดีขอแนะนำให้คุณดำเนินการอะไรที่จำเป็นนิดหน่อยเพื่อให้แน่ใจว่าคุณสมบัติทั้งหมดของแอปทำงานได้ปกติอ่ะนะ</string>
     <string name="permission_granted">อนุญาตการเข้าถึงแล้ว!</string>
     <string name="permission_not_granted">ยังไม่ได้ให้การอนุญาตการเข้าถึง, กดตรงนี้เพื่ออนุญาตสิทธิ์</string>
@@ -92,7 +92,7 @@
     <string name="clear_all_fields">ลบข้อความที่กรอกไปทั้งหมด</string>
     <string name="share_config">แชร์ log</string>
     <string name="change_log">Change Log</string>
-    <string name="update">อัพเดท</string>
+    <string name="update">อัปเดต</string>
     <string name="configs_directory">ตั้งค่าไดเรกทอรี</string>
     <string name="custom_activity_type">ตั้งค่าประเภทกิจกรรม</string>
     <string name="custom_activity_type_desc">การเขียนทับประเภทดั้งเดิมของกิจกรรม จะใช้ได้เฉพาะแค่ media หรือ experimental rpc เท่านั้น!</string>
@@ -115,7 +115,7 @@
     <string name="main_customRpc_details">Kizzy ยอมให้คุณสร้างสถานะกิจกรรมของdiscord ตามใจชอบแบบเต็มพิกัดได้เลย!</string>
     <string name="main_comingSoon">อดใจไว้ก่อน ฟีเจอร์ใหม่ยังไม่มา</string>
     <string name="exit">ออก</string>
-    <string name="logs">บันทึกการทำงานของแอพ</string>
+    <string name="logs">บันทึกการทำงาน</string>
     <string name="drawer_subtitle_help">HELP</string>
     <string name="drawer_faq">FAQ</string>
     <string name="go_to_profile">ไปที่โปรไฟล์ของคุณ</string>
@@ -127,7 +127,7 @@
     <string name="compact_mode">โหมดกะทัดรัด</string>
     <string name="are_you_sure">คุณแน่ใจนะ?</string>
     <string name="yes">ใช่</string>
-    <string name="user_profile_error">ไม่สามารถอัพเดทข้อมูลโปรไฟล์ผู้ใช้งานได้:</string>
+    <string name="user_profile_error">ไม่สามารถอัปเดตข้อมูลโปรไฟล์ผู้ใช้งานได้:</string>
     <string name="no_internet_user_profile">ลืมเปิดเชื่อมต่ออินเตอร์เน็ตรึเปล่า? ลองเช็คดูก่อนนะ!</string>
     <string name="user_profile_rpc_name">กำลังใช้ KIZZY RICH PRESENCE</string>
     <string name="user_profile_bio">เกี่ยวกับฉัน</string>
