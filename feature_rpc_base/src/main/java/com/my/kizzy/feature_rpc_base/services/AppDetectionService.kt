@@ -21,6 +21,8 @@ import android.app.Service
 import android.app.usage.UsageStats
 import android.app.usage.UsageStatsManager
 import android.content.Intent
+import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK
+import android.os.Build
 import android.os.IBinder
 import com.blankj.utilcode.util.AppUtils
 import com.my.kizzy.data.rpc.KizzyRPC
@@ -36,7 +38,6 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.util.SortedMap
 import java.util.TreeMap
@@ -100,7 +101,11 @@ class AppDetectionService : Service() {
             .addAction(R.drawable.ic_apps, getString(R.string.exit), pendingIntent)
 
 
-        startForeground(Constants.NOTIFICATION_ID, createDefaultNotification())
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            startForeground(Constants.NOTIFICATION_ID, createDefaultNotification())
+        } else {
+            startForeground(Constants.NOTIFICATION_ID, createDefaultNotification(), FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK)
+        }
 
         val rpcButtons = getRpcButtons()
 

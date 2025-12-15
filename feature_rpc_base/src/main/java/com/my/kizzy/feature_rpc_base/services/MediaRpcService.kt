@@ -16,10 +16,12 @@ import android.annotation.SuppressLint
 import android.app.*
 import android.content.ComponentName
 import android.content.Intent
+import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK
 import android.media.MediaMetadata
 import android.media.session.MediaController
 import android.media.session.MediaSessionManager
 import android.media.session.PlaybackState
+import android.os.Build
 import android.os.IBinder
 import android.os.PowerManager
 import android.os.PowerManager.WakeLock
@@ -86,14 +88,17 @@ class MediaRpcService : Service() {
             0, restartIntent, PendingIntent.FLAG_IMMUTABLE
         )
 
-        startForeground(
-            Constants.NOTIFICATION_ID, notificationBuilder
-                .setSmallIcon(R.drawable.ic_media_rpc)
-                .addAction(R.drawable.ic_media_rpc, getString(R.string.restart), restartPendingIntent)
-                .addAction(R.drawable.ic_media_rpc, getString(R.string.exit), pendingIntent)
-                .setContentText(getString(R.string.idling_notification))
-                .build()
-        )
+        val notification = notificationBuilder
+            .setSmallIcon(R.drawable.ic_media_rpc)
+            .addAction(R.drawable.ic_media_rpc, getString(R.string.restart), restartPendingIntent)
+            .addAction(R.drawable.ic_media_rpc, getString(R.string.exit), pendingIntent)
+            .setContentText(getString(R.string.idling_notification))
+            .build()
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+            startForeground(Constants.NOTIFICATION_ID, notification)
+        } else {
+            startForeground(Constants.NOTIFICATION_ID, notification, FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK)
+        }
 
         mediaSessionManager = getSystemService(MEDIA_SESSION_SERVICE) as MediaSessionManager
         mediaSessionManager.addOnActiveSessionsChangedListener(::activeSessionsListener, ComponentName(this, NotificationListener::class.java))

@@ -18,10 +18,12 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.ComponentName
 import android.content.Intent
+import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK
 import android.media.MediaMetadata
 import android.media.session.MediaController
 import android.media.session.MediaSessionManager
 import android.media.session.PlaybackState
+import android.os.Build
 import android.os.IBinder
 import com.my.kizzy.data.get_current_data.app.GetCurrentlyRunningApp
 import com.my.kizzy.data.get_current_data.media.GetCurrentPlayingMediaAll
@@ -117,19 +119,21 @@ class ExperimentalRpc : Service() {
                 this, 0, restartIntent, PendingIntent.FLAG_IMMUTABLE
             )
 
-            startForeground(
-                Constants.NOTIFICATION_ID,
-                notificationBuilder
-                    .setSmallIcon(R.drawable.ic_dev_rpc)
-                    .setContentTitle(getString(R.string.service_enabled))
-                    .addAction(
-                        R.drawable.ic_dev_rpc,
-                        getString(R.string.restart),
-                        restartPendingIntent
-                    )
-                    .addAction(R.drawable.ic_dev_rpc, getString(R.string.exit), pendingIntent)
-                    .build()
-            )
+            val notification = notificationBuilder
+                .setSmallIcon(R.drawable.ic_dev_rpc)
+                .setContentTitle(getString(R.string.service_enabled))
+                .addAction(
+                    R.drawable.ic_dev_rpc,
+                    getString(R.string.restart),
+                    restartPendingIntent
+                )
+                .addAction(R.drawable.ic_dev_rpc, getString(R.string.exit), pendingIntent)
+                .build()
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                startForeground(Constants.NOTIFICATION_ID, notification)
+            } else {
+                startForeground(Constants.NOTIFICATION_ID, notification, FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK)
+            }
 
 
             mediaSessionManager = getSystemService(MEDIA_SESSION_SERVICE) as MediaSessionManager

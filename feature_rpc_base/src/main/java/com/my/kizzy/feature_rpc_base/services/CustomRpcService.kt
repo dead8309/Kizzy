@@ -15,6 +15,8 @@ package com.my.kizzy.feature_rpc_base.services
 import android.annotation.SuppressLint
 import android.app.*
 import android.content.Intent
+import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK
+import android.os.Build
 import android.os.IBinder
 import android.os.PowerManager
 import android.os.PowerManager.WakeLock
@@ -27,7 +29,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
@@ -64,14 +65,18 @@ class CustomRpcService : Service() {
                 this, 0, stopIntent, PendingIntent.FLAG_IMMUTABLE
             )
 
-            startForeground(
-                Constants.NOTIFICATION_ID, notificationBuilder
-                    .setContentTitle(getString(R.string.custom_rpc_running))
-                    .setContentText(rpcData?.name ?: "")
-                    .setSmallIcon(R.drawable.ic_rpc_placeholder)
-                    .addAction(R.drawable.ic_rpc_placeholder, getString(R.string.exit), pendingIntent)
-                    .build()
-            )
+            val notification = notificationBuilder
+                .setContentTitle(getString(R.string.custom_rpc_running))
+                .setContentText(rpcData?.name ?: "")
+                .setSmallIcon(R.drawable.ic_rpc_placeholder)
+                .addAction(R.drawable.ic_rpc_placeholder, getString(R.string.exit), pendingIntent)
+                .build()
+
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                startForeground(Constants.NOTIFICATION_ID, notification)
+            } else {
+                startForeground(Constants.NOTIFICATION_ID, notification, FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK)
+            }
 
             val powerManager = getSystemService(POWER_SERVICE) as PowerManager
             wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WAKELOCK)
