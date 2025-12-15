@@ -32,7 +32,7 @@ internal val FILE_FILTER = FilenameFilter { _: File?, f: String ->
 }
 
 internal fun Context.dir() =
-    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.TIRAMISU)
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
         File(this.filesDir, "Configs")
     else {
         val selected = Prefs[Prefs.CONFIGS_DIRECTORY, Constants.DOWNLOADS_DIRECTORY]
