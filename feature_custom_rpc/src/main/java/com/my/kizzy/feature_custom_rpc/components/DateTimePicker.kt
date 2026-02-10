@@ -48,6 +48,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.my.kizzy.resources.R
 import java.util.Calendar
+import java.util.TimeZone
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -192,12 +193,21 @@ internal fun getDateTimeInMillis(
     hours: Int,
     minutes: Int,
 ): Long {
-    val calender = Calendar.getInstance().apply {
+    val utcCalendar = Calendar.getInstance(TimeZone.getTimeZone("UTC")).apply {
         timeInMillis = dateMillis
-        set(Calendar.HOUR_OF_DAY, hours % 12 + if (hours >= 12) 12 else 0)
-        set(Calendar.MINUTE, minutes)
     }
-    return calender.timeInMillis
+    
+    val localCalendar = Calendar.getInstance().apply {
+        set(Calendar.YEAR, utcCalendar.get(Calendar.YEAR))
+        set(Calendar.MONTH, utcCalendar.get(Calendar.MONTH))
+        set(Calendar.DAY_OF_MONTH, utcCalendar.get(Calendar.DAY_OF_MONTH))
+        set(Calendar.HOUR_OF_DAY, hours)
+        set(Calendar.MINUTE, minutes)
+        set(Calendar.SECOND, 0)
+        set(Calendar.MILLISECOND, 0)
+    }
+    
+    return localCalendar.timeInMillis
 }
 
 @Preview
