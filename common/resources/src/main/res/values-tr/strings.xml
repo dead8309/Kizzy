@@ -142,8 +142,8 @@
     <string name="status_dnd">Rahatsız Etmeyin</string>
     <string name="status_invisible_offline">Görünmez ve çevrimdışı</string>
     <string name="status_offline">Çevrimdışı</string>
-    <string name="notification_access">Bildirim İzni</string>
-    <string name="post_notification">Bildirim izni</string>
+    <string name="notification_access">Bildirim Erişim İzni</string>
+    <string name="post_notification">Bildirim İzni</string>
     <string name="request_for_post_notification">Bildirimlerin gösterilmesi için bildirim izni ver</string>
     <string name="storage_access">Depolama Erişimi</string>
     <string name="start_app_now">Şimdi Uygulamayı Başlat</string>
