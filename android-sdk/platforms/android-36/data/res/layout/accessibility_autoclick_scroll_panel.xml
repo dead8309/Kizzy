@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2025 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/accessibility_autoclick_scroll_panel"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:background="@drawable/accessibility_autoclick_type_panel_rounded_background"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Up arrow -->
+    <LinearLayout
+        android:id="@+id/scroll_up_layout"
+        style="@style/AccessibilityAutoclickScrollPanelButtonLayoutStyle"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/accessibility_autoclick_type_panel_button_spacing">
+        <ImageButton
+            android:id="@+id/scroll_up"
+            style="@style/AccessibilityAutoclickScrollPanelImageButtonStyle"
+            android:contentDescription="@string/accessibility_autoclick_scroll_up"
+            android:src="@drawable/accessibility_autoclick_scroll_up" />
+    </LinearLayout>
+
+    <!-- Middle row: Left, Exit, Right -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/scroll_left_layout"
+            style="@style/AccessibilityAutoclickScrollPanelButtonLayoutStyle"
+            android:layout_marginEnd="@dimen/accessibility_autoclick_type_panel_button_spacing">
+            <ImageButton
+                android:id="@+id/scroll_left"
+                style="@style/AccessibilityAutoclickScrollPanelImageButtonStyle"
+                android:contentDescription="@string/accessibility_autoclick_scroll_left"
+                android:src="@drawable/accessibility_autoclick_scroll_left" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/scroll_exit_layout"
+            style="@style/AccessibilityAutoclickScrollPanelButtonLayoutStyle"
+            android:layout_marginEnd="@dimen/accessibility_autoclick_type_panel_button_spacing">
+            <ImageButton
+                android:id="@+id/scroll_exit"
+                style="@style/AccessibilityAutoclickScrollPanelImageButtonStyle"
+                android:contentDescription="@string/accessibility_autoclick_scroll_exit"
+                android:src="@drawable/ic_close" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/scroll_right_layout"
+            style="@style/AccessibilityAutoclickScrollPanelButtonLayoutStyle">
+            <ImageButton
+                android:id="@+id/scroll_right"
+                style="@style/AccessibilityAutoclickScrollPanelImageButtonStyle"
+                android:contentDescription="@string/accessibility_autoclick_scroll_right"
+                android:src="@drawable/accessibility_autoclick_scroll_right" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Down arrow -->
+    <LinearLayout
+        android:id="@+id/scroll_down_layout"
+        style="@style/AccessibilityAutoclickScrollPanelButtonLayoutStyle"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/accessibility_autoclick_type_panel_button_spacing">
+        <ImageButton
+            android:id="@+id/scroll_down"
+            style="@style/AccessibilityAutoclickScrollPanelImageButtonStyle"
+            android:contentDescription="@string/accessibility_autoclick_scroll_down"
+            android:src="@drawable/accessibility_autoclick_scroll_down" />
+    </LinearLayout>
+
+</LinearLayout>

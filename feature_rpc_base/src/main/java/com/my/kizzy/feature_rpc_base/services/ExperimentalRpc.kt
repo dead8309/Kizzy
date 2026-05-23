@@ -34,6 +34,7 @@ import com.my.kizzy.data.rpc.RpcImage
 import com.my.kizzy.data.rpc.TemplateKeys
 import com.my.kizzy.data.rpc.TemplateProcessor
 import com.my.kizzy.data.rpc.Timestamps
+import com.my.kizzy.data.get_current_data.media.MediaMetadataSanitizer.summarizeStreamingDetails
 import com.my.kizzy.domain.interfaces.Logger
 import com.my.kizzy.domain.model.rpc.RpcButtons
 import com.my.kizzy.feature_rpc_base.Constants
@@ -89,11 +90,11 @@ class ExperimentalRpc : Service() {
     private var useMediaRpc = Prefs[Prefs.EXPERIMENTAL_RPC_USE_MEDIA_RPC, true]
 
     private var templateName =
-        Prefs[Prefs.EXPERIMENTAL_RPC_TEMPLATE_NAME, TemplateKeys.APP_NAME]
+        Prefs[Prefs.EXPERIMENTAL_RPC_TEMPLATE_NAME, TemplateKeys.MEDIA_TITLE]
     private var templateDetails =
-        Prefs[Prefs.EXPERIMENTAL_RPC_TEMPLATE_DETAILS, TemplateKeys.MEDIA_TITLE]
+        Prefs[Prefs.EXPERIMENTAL_RPC_TEMPLATE_DETAILS, TemplateKeys.MEDIA_ARTIST]
     private var templateState =
-        Prefs[Prefs.EXPERIMENTAL_RPC_TEMPLATE_STATE, TemplateKeys.MEDIA_ARTIST]
+        Prefs[Prefs.EXPERIMENTAL_RPC_TEMPLATE_STATE, TemplateKeys.MEDIA_AUTHOR]
 
     private var appActivityTypes: Map<String, Int> = Prefs.getAppActivityTypes()
     private var enabledExperimentalApps: List<String> = try {
@@ -143,9 +144,9 @@ class ExperimentalRpc : Service() {
             )
 
             // Always reload settings on start
-            templateName = Prefs[Prefs.EXPERIMENTAL_RPC_TEMPLATE_NAME, TemplateKeys.APP_NAME]
-            templateDetails = Prefs[Prefs.EXPERIMENTAL_RPC_TEMPLATE_DETAILS, TemplateKeys.MEDIA_TITLE]
-            templateState = Prefs[Prefs.EXPERIMENTAL_RPC_TEMPLATE_STATE, TemplateKeys.MEDIA_ARTIST]
+            templateName = Prefs[Prefs.EXPERIMENTAL_RPC_TEMPLATE_NAME, TemplateKeys.MEDIA_TITLE]
+            templateDetails = Prefs[Prefs.EXPERIMENTAL_RPC_TEMPLATE_DETAILS, TemplateKeys.MEDIA_ARTIST]
+            templateState = Prefs[Prefs.EXPERIMENTAL_RPC_TEMPLATE_STATE, TemplateKeys.MEDIA_AUTHOR]
             useAppsRpc = Prefs[Prefs.EXPERIMENTAL_RPC_USE_APPS_RPC, true]
             useMediaRpc = Prefs[Prefs.EXPERIMENTAL_RPC_USE_MEDIA_RPC, true]
             appActivityTypes = Prefs.getAppActivityTypes()
@@ -261,7 +262,8 @@ class ExperimentalRpc : Service() {
             logger.d(TAG, "Processing Rich Media Context")
             finalName = processor.process(templateName) ?: richMediaInfo?.appName
             finalDetails = processor.process(templateDetails) ?: richMediaInfo?.title
-            finalState = processor.process(templateState) ?: richMediaInfo?.artist
+            finalState = processor.process(templateState)
+                ?: summarizeStreamingDetails(richMediaInfo?.packageName ?: "", richMediaInfo?.title, richMediaInfo?.album, richMediaInfo?.artist)
 
             finalLargeImage = when {
                 Prefs[Prefs.EXPERIMENTAL_RPC_SHOW_COVER_ART, true] -> richMediaInfo?.coverArt

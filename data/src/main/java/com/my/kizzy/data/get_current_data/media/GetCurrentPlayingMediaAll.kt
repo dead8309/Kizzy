@@ -19,6 +19,8 @@ import android.media.MediaMetadata
 import android.media.session.MediaSessionManager
 import android.media.session.PlaybackState
 import com.blankj.utilcode.util.AppUtils
+import com.my.kizzy.data.get_current_data.media.MediaMetadataSanitizer.sanitizeMediaText
+import com.my.kizzy.data.get_current_data.media.MediaMetadataSanitizer.summarizeStreamingDetails
 import com.my.kizzy.data.rpc.Constants.APPLICATION_ID
 import com.my.kizzy.data.rpc.RpcImage
 import com.my.kizzy.data.rpc.Timestamps
@@ -51,10 +53,10 @@ class GetCurrentPlayingMediaAll @Inject constructor(
         val sessions = mediaSessionManager.getActiveSessions(componentName)
         for (mediaController in sessions) {
             val metadata = mediaController.metadata
-            val title = metadata?.getString(MediaMetadata.METADATA_KEY_TITLE)
+            val title = sanitizeMediaText(mediaController.packageName, metadata?.getString(MediaMetadata.METADATA_KEY_TITLE))
             val appName = AppUtils.getAppName(mediaController.packageName)
-            val author = metadata?.let { metadataResolver.getArtistOrAuthor(it) }
-            val album = metadata?.let { metadataResolver.getAlbum(it) }
+            val author = sanitizeMediaText(mediaController.packageName, metadata?.let { metadataResolver.getArtistOrAuthor(it) })
+            val album = sanitizeMediaText(mediaController.packageName, metadata?.let { metadataResolver.getAlbum(it) })
             val bitmap = metadata?.let { metadataResolver.getCoverArt(it) }
             val duration = metadata?.getLong(MediaMetadata.METADATA_KEY_DURATION)
             val position = mediaController.playbackState?.position

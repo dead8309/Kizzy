@@ -23,6 +23,8 @@ import com.my.kizzy.data.rpc.CommonRpc
 import com.my.kizzy.data.rpc.Constants.APPLICATION_ID
 import com.my.kizzy.data.rpc.Timestamps
 import com.my.kizzy.data.rpc.RpcImage
+import com.my.kizzy.data.get_current_data.media.MediaMetadataSanitizer.sanitizeMediaText
+import com.my.kizzy.data.get_current_data.media.MediaMetadataSanitizer.summarizeStreamingDetails
 import com.my.kizzy.preference.Prefs
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -72,15 +74,15 @@ class GetCurrentPlayingMedia @Inject constructor(
             }
 
             val metadata = mediaController.metadata
-            val title = metadata?.getString(MediaMetadata.METADATA_KEY_TITLE)
+            val title = sanitizeMediaText(mediaController.packageName, metadata?.getString(MediaMetadata.METADATA_KEY_TITLE))
             val appName = AppUtils.getAppName(mediaController.packageName)
             val author =
                 if (Prefs[Prefs.MEDIA_RPC_ARTIST_NAME, false])
-                metadata?.let { metadataResolver.getArtistOrAuthor(it) }
+                sanitizeMediaText(mediaController.packageName, metadata?.let { metadataResolver.getArtistOrAuthor(it) })
                 else null
             val album =
                 if (Prefs[Prefs.MEDIA_RPC_ALBUM_NAME, false])
-                metadata?.let { metadataResolver.getAlbum(it) }
+                sanitizeMediaText(mediaController.packageName, metadata?.let { metadataResolver.getAlbum(it) })
                 else null
             val bitmap = metadata?.let { metadataResolver.getCoverArt(it) }
             val duration = metadata?.getLong(MediaMetadata.METADATA_KEY_DURATION)
@@ -116,24 +118,24 @@ class GetCurrentPlayingMedia @Inject constructor(
                     CommonRpc(
                         name = title,
                         details = author,
-                        state = album,
+                        state = summarizeStreamingDetails(mediaController.packageName, title, album, author),
                         largeImage = largeIcon,
                         smallImage = smallIcon,
                         largeText = appName,
                         smallText = smallText,
-                        packageName = "$title::${mediaController.packageName}",
+                        packageName = "${title ?: ""}::${mediaController.packageName}",
                         time = timestamps.takeIf { it != null }
                     )
                 } else {
                     CommonRpc(
                         name = appName,
                         details = title,
-                        state = author,
+                        state = summarizeStreamingDetails(mediaController.packageName, title, album, author),
                         largeImage = largeIcon,
                         smallImage = smallIcon,
                         largeText = album,
                         smallText = smallText,
-                        packageName = "$title::${mediaController.packageName}",
+                        packageName = "${title ?: ""}::${mediaController.packageName}",
                         time = timestamps.takeIf { it != null }
                     )
                 }

@@ -222,6 +222,19 @@ object Prefs {
         "com.kick.mobile",
         "tv.twitch.android.app",
 
+        // browser-based streaming (Netflix web)
+        "com.android.chrome",
+        "com.chrome.beta",
+        "com.chrome.dev",
+        "com.chrome.canary",
+        "org.mozilla.firefox",
+        "com.microsoft.emmx",
+        "com.opera.browser",
+        "com.brave.browser",
+        "com.duckduckgo.mobile.android",
+        "com.sec.android.app.sbrowser",
+        "com.vivaldi.browser",
+
         // video player apps
         "com.mxtech.videoplayer.ad",
         "com.mxtech.videoplayer.pro",
