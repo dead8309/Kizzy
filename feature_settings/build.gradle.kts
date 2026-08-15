@@ -15,8 +15,7 @@ android {
 dependencies {
     implementation(libs.androidx.material)
     implementation(libs.material.icons.extended)
-    implementation(libs.accompanist.pager.layouts)
-    implementation(libs.accompanist.pager.indicators)
+
     implementation(libs.coil)
     implementation(libs.coil.svg)
     implementation(libs.android.svg)

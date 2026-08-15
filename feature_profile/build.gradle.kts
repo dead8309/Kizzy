@@ -15,4 +15,6 @@ dependencies {
     implementation (libs.coil)
     implementation (libs.activity.compose)
     implementation (libs.kotlinx.serialization.json)
+    implementation (libs.mmkv)
+    implementation (projects.common.preference)
 }

@@ -12,7 +12,7 @@ android {
 }
 
 dependencies {
-    implementation (libs.accompanist.flowLayout)
+
     implementation (libs.material.icons.extended)
     implementation (projects.featureRpcBase)
     implementation (projects.featureSettings)

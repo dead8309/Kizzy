@@ -14,5 +14,5 @@ dependencies {
     implementation (projects.common.preference)
     implementation (projects.color)
     implementation (libs.androidx.material)
-    implementation (libs.accompanist.systemUiController)
+
 }

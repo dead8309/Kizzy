@@ -26,7 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
+
 import com.google.android.material.color.DynamicColors
 import com.kyant.monet.dynamicColorScheme
 
@@ -74,14 +74,19 @@ fun KizzyTheme(
         isHighContrastModeEnabled,
         isDynamicColorEnabled,
     )
-    val window = LocalView.current.context.findWindow()
     val view = LocalView.current
-
-    window?.let {
-        WindowCompat.getInsetsController(it, view).isAppearanceLightStatusBars = darkTheme
+    val window = view.context.findWindow()
+    if (!view.isInEditMode) {
+        androidx.compose.runtime.SideEffect {
+            window?.let {
+                it.statusBarColor = android.graphics.Color.TRANSPARENT
+                it.navigationBarColor = android.graphics.Color.TRANSPARENT
+                val insetsController = WindowCompat.getInsetsController(it, view)
+                insetsController.isAppearanceLightStatusBars = !darkTheme
+                insetsController.isAppearanceLightNavigationBars = !darkTheme
+            }
+        }
     }
-
-    rememberSystemUiController(window).setSystemBarsColor(Color.Transparent, !darkTheme)
 
     MaterialTheme(
         colorScheme = colorScheme,
