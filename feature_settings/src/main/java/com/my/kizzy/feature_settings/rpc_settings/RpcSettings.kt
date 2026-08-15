@@ -240,6 +240,17 @@ fun RpcSettings(onBackPressed: () -> Boolean) {
                     Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
                 }
             }
+            item {
+                SettingItem(
+                    title = stringResource(id = R.string.disable_battery_optimization),
+                    description = stringResource(id = R.string.disable_battery_optimization_desc),
+                    icon = Icons.Default.Tune // Using Tune as battery is not available
+                ) {
+                    val intent = android.content.Intent(android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
+                    intent.data = android.net.Uri.parse("package:${context.packageName}")
+                    context.startActivity(intent)
+                }
+            }
         }
         if (showDirConfigDialog) {
             AlertDialog(

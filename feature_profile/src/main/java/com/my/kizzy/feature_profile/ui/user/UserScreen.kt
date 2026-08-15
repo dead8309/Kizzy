@@ -91,10 +91,14 @@ fun UserScreen(
                             ).run {
                                 when (this) {
                                     SnackbarResult.ActionPerformed -> try {
-                                        val runtime = Runtime.getRuntime()
-                                        // running shell command to clear data
-                                        // TODO replace with deleting directories and restarting the app to have multiple user accounts
-                                        runtime.exec("pm clear com.my.kizzy")
+                                        android.webkit.CookieManager.getInstance().removeAllCookies {
+                                            android.webkit.CookieManager.getInstance().flush()
+                                            android.webkit.WebStorage.getInstance().deleteAllData()
+                                            com.my.kizzy.preference.Prefs.kv.clearAll()
+                                            val intent = ctx.packageManager.getLaunchIntentForPackage(ctx.packageName)
+                                            intent?.addFlags(android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP or android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK or android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+                                            ctx.startActivity(intent)
+                                        }
                                     } catch (e: Exception) {
                                         e.printStackTrace()
                                     }

@@ -53,6 +53,7 @@ class GamesViewModel @Inject constructor(
             when (result) {
                 is Resource.Success -> {
                     _state.value = GamesState.Success(games = result.data ?: emptyList())
+                    games.clear()
                     games.addAll(result.data ?: emptyList())
                 }
 
@@ -71,7 +72,10 @@ class GamesViewModel @Inject constructor(
 
     fun onUiEvent(uiEvent: UiEvent) {
         when (uiEvent) {
-            UiEvent.CloseSearchBar -> isSearchBarVisible.value = false
+            UiEvent.CloseSearchBar -> {
+                isSearchBarVisible.value = false
+                searchForGame("")
+            }
             UiEvent.OpenSearchBar -> isSearchBarVisible.value = true
             is UiEvent.Search -> onSearch(uiEvent.query)
             UiEvent.TryAgain -> getGames()
@@ -86,11 +90,11 @@ class GamesViewModel @Inject constructor(
         }
     }
 
-    private fun searchForGame(query: String) = if (query == "")
+    private fun searchForGame(query: String) = if (query.trim() == "")
         _state.value = GamesState.Success(games = games)
     else {
         val newList = games.filter {
-            it.game_title.contains(query, ignoreCase = true)
+            it.game_title.contains(query.trim(), ignoreCase = true)
         }
         _state.value = GamesState.Success(games = newList)
     }

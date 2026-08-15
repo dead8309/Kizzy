@@ -36,6 +36,11 @@ internal fun DiscordLoginWebView(
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
             )
+            clearCache(true)
+            clearHistory()
+            clearFormData()
+            android.webkit.CookieManager.getInstance().removeAllCookies(null)
+            android.webkit.WebStorage.getInstance().deleteAllData()
             webViewClient = object : WebViewClient() {
 
                 @Deprecated("Deprecated in Java")

@@ -110,12 +110,13 @@ class CustomRpcService : Service() {
                         setLargeImage(it.largeImg.toRpcImage(), it.largeText)
                         setSmallImage(it.smallImg.toRpcImage(), it.smallText)
                         setStreamUrl(it.url.ifEmpty { null })
+                        setApplicationId(it.applicationId.ifEmpty { null })
                         build()
                     }
                 }
             }
         }
-        return super.onStartCommand(intent, flags, startId)
+        return START_STICKY
     }
 
     override fun onDestroy() {

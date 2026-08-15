@@ -54,8 +54,11 @@ class KizzyRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getGames(): List<Game> {
-        return api.getGames().getOrNull()?.body<List<GamesResponse>>()?.map { it.toGame() }
-            ?: emptyList()
+        return api.getGames().getOrThrow().body<List<GamesResponse>>().map { it.toGame() }
+    }
+
+    override suspend fun getApplicationDetails(appId: String): Game? {
+        return api.getApplicationDetails(appId).getOrNull()?.body<GamesResponse>()?.toGame()
     }
 
     override suspend fun getUser(userid: String): User {

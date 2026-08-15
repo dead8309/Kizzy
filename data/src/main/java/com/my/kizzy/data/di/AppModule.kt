@@ -43,22 +43,22 @@ object AppModule {
     @Provides
     @Singleton
     @Base
-    fun provideBaseUrl() = BuildConfig.BASE_URL
+    fun provideBaseUrl() = BuildConfig.BASE_URL.removeSurrounding("\"")
 
     @Provides
     @Singleton
     @Discord
-    fun provideDiscordBaseUrl() = BuildConfig.DISCORD_API_BASE_URL
+    fun provideDiscordBaseUrl() = BuildConfig.DISCORD_API_BASE_URL.removeSurrounding("\"")
 
     @Provides
     @Singleton
     @Github
-    fun provideGithubBaseUrl() = BuildConfig.GITHUB_API_BASE_URL
+    fun provideGithubBaseUrl() = BuildConfig.GITHUB_API_BASE_URL.removeSurrounding("\"")
 
     @Provides
     @Singleton
     @Imgur
-    fun provideImgurBaseUrl() = BuildConfig.IMGUR_API_BASE_URL
+    fun provideImgurBaseUrl() = BuildConfig.IMGUR_API_BASE_URL.removeSurrounding("\"")
 
     @Provides
     fun provideJson() = Json {
@@ -79,6 +79,13 @@ object AppModule {
                 connectTimeoutMillis = 30_000
                 requestTimeoutMillis = 30_000
                 socketTimeoutMillis = 30_000
+            }
+            install(io.ktor.client.plugins.HttpRequestRetry) {
+                retryOnServerErrors(maxRetries = 3)
+                exponentialDelay()
+                retryOnExceptionIf { _, cause ->
+                    cause is java.io.IOException
+                }
             }
             install(Logging) {
                 level = LogLevel.HEADERS

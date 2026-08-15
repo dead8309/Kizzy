@@ -175,7 +175,7 @@ class ExperimentalRpc : Service() {
                 }
             }
         }
-        return super.onStartCommand(intent, flags, startId)
+        return START_STICKY
     }
 
     private fun startAppDetectionCoroutine() {

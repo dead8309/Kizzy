@@ -51,6 +51,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -218,18 +219,24 @@ fun GamesScreen(
                                     selected = game.game_title
                                     val string = Json.encodeToString(
                                         RpcConfig(
-                                            name = info.platform,
-                                            details = info.game_title,
+                                            name = info.game_title,
+                                            details = info.platform,
+                                            platform = "desktop",
                                             timestampsStart = System.currentTimeMillis().toString(),
                                             status = "dnd",
                                             largeImg = info.large_image ?: "",
                                             smallImg = info.small_image,
                                             type = "0",
+                                            applicationId = info.application_id ?: ""
                                         )
                                     )
                                     intent.apply {
                                         removeExtra("RPC")
                                         putExtra("RPC", string)
+                                    }
+                                    if (isConsoleRpcRunning) {
+                                        Prefs[Prefs.LAST_RUN_CONSOLE_RPC] = string
+                                        context.startService(intent)
                                     }
                                 }
                             }
@@ -271,6 +278,8 @@ fun SingleChoiceGameItem(
                     modifier = Modifier
                         .size(80.dp)
                         .clip(RoundedCornerShape(15.dp)),
+                    error = painterResource(id = R.drawable.ic_console_games),
+                    placeholder = painterResource(id = R.drawable.ic_console_games),
                     contentDescription = game.game_title,
                 )
                 androidx.compose.animation.AnimatedVisibility(
@@ -306,13 +315,6 @@ fun SingleChoiceGameItem(
                     overflow = TextOverflow.Ellipsis
                 )
             }
-            AsyncImage(
-                model = game.small_image,
-                modifier = Modifier
-                    .size(40.dp)
-                    .clip(CircleShape),
-                contentDescription = game.platform
-            )
         }
     }
 }

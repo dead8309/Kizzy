@@ -20,29 +20,32 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class GamesResponse(
-    @SerialName("label")
-    val label: String,
-    @SerialName("link")
-    val link: String? = null,
-    @SerialName("title")
-    val title: String
+    @SerialName("id")
+    val id: String,
+    @SerialName("name")
+    val name: String,
+    @SerialName("icon_hash")
+    val iconHash: String? = null,
+    @SerialName("cover_image_hash")
+    val coverImageHash: String? = null,
+    @SerialName("icon")
+    val iconId: String? = null,
+    @SerialName("cover_image")
+    val coverImageId: String? = null
+
 )
 
 fun GamesResponse.toGame() : Game {
+    val actualIconHash = iconHash ?: iconId
+    val actualCoverHash = coverImageHash ?: coverImageId
+    
+    val iconUrl = if (actualIconHash != null) "https://cdn.discordapp.com/app-icons/$id/$actualIconHash.png" else Constants.XBOX_LINK
+    
     return Game(
-        platform = when (label) {
-            "nintendo" -> Constants.NINTENDO
-            "wii" -> Constants.WII_U
-            "nintendo-3ds" -> Constants.NINTENDO_3DS
-            else -> Constants.XBOX
-        },
-        small_image = when (label) {
-            "nintendo" -> Constants.NINTENDO_LINK
-            "wii" -> Constants.WII_U_LINK
-            "nintendo-3ds" -> Constants.N3DS_LINK
-            else -> Constants.XBOX_LINK
-        },
-        large_image = link,
-        game_title = title
+        platform = "PC",
+        small_image = "",
+        large_image = iconUrl,
+        game_title = name,
+        application_id = id
     )
 }
