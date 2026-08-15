@@ -58,4 +58,6 @@ data class RpcConfig(
     val partyMaxSize: String = "",
     @SerialName("platform")
     val platform: String = "",
+    @SerialName("applicationId")
+    val applicationId: String = "",
 )

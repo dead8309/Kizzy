@@ -24,6 +24,7 @@ sealed interface UiEvent {
     object TriggerStartTimeStampsDialog: UiEvent
     object TriggerStopTimeStampsDialog: UiEvent
     class UploadImage(val file: File,val callback: (result: String) -> Unit): UiEvent
+    class FetchApplicationDetails(val appId: String, val onFetched: () -> Unit): UiEvent
 
     sealed interface SheetEvent: UiEvent {
         object TriggerLoadDialog: SheetEvent

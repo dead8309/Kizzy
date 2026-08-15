@@ -44,13 +44,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.flowlayout.FlowMainAxisAlignment
-import com.google.accompanist.flowlayout.FlowRow
-import com.google.accompanist.flowlayout.SizeMode
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.KSwitch
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun Features(
     homeItems: List<HomeFeature> = emptyList(), onValueUpdate: (Int) -> Unit
@@ -65,8 +64,8 @@ fun Features(
     )
     val featureSize = (LocalConfiguration.current.screenWidthDp.dp / 2)
     FlowRow(
-        mainAxisSize = SizeMode.Expand,
-        mainAxisAlignment = FlowMainAxisAlignment.SpaceBetween
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         for (i in homeItems.indices) {
             if (homeItems[i].tooltipText.isNotBlank()) {

@@ -52,7 +52,7 @@ suspend fun HttpResponse.toImageURL(): String? {
 suspend fun HttpResponse.toExternalAsset(): String? {
     return try {
         if (this.status == HttpStatusCode.OK)
-            "mp:" + this.body<Array<ExternalAsset>>().first().externalAssetPath
+            "mp:" + this.body<Array<ExternalAsset>>().first().externalAssetPath.substringBefore("?")
         else
             null
     } catch (e: Exception) {
@@ -63,7 +63,7 @@ suspend fun HttpResponse.toExternalAsset(): String? {
 suspend fun HttpResponse.toAttachmentAsset(): String? {
     return try {
         if (this.status == HttpStatusCode.OK)
-            this.body<ApiResponse>().id
+            this.body<ApiResponse>().id.substringBefore("?")
         else
             null
     } catch (e: Exception) {

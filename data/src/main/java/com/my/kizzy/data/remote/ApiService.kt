@@ -28,6 +28,7 @@ class ApiService @Inject constructor(
     private val client: HttpClient,
     @Base private val baseUrl: String,
     @Github private val githubBaseUrl: String,
+    @Discord private val discordBaseUrl: String,
 ) {
     suspend fun getImage(url: String) = runCatching {
         client.get {
@@ -52,7 +53,13 @@ class ApiService @Inject constructor(
 
     suspend fun getGames() = runCatching {
         client.get {
-            url("$baseUrl/games")
+            url("$discordBaseUrl/applications/detectable")
+        }
+    }
+
+    suspend fun getApplicationDetails(appId: String) = runCatching {
+        client.get {
+            url("$discordBaseUrl/oauth2/applications/$appId/rpc")
         }
     }
 

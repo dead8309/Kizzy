@@ -85,6 +85,19 @@ class KizzyRPC(
     }
 
     /**
+     * Application Id of Rpc
+     *
+     * @param id
+     * @return
+     */
+    fun setApplicationId(id: String?): KizzyRPC {
+        if (!id.isNullOrEmpty()) {
+            this.applicationIdNumber = id
+        }
+        return this
+    }
+
+    /**
      * Details of Rpc
      *
      * @param details
@@ -305,7 +318,9 @@ class KizzyRPC(
                 tag = "KizzyRPC",
                 event = "Token Seems to be invalid, Please Login if you haven't"
             )
-        discordWebSocket.connect()
+        if (!discordWebSocket.isWebSocketConnected()) {
+            discordWebSocket.connect()
+        }
         discordWebSocket.sendActivity(presence)
     }
 

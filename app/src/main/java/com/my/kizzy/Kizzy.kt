@@ -24,8 +24,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.google.accompanist.navigation.animation.AnimatedNavHost
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.my.kizzy.domain.model.toVersion
 import com.my.kizzy.feature_about.about.About
 import com.my.kizzy.feature_about.about.Credits
@@ -60,7 +62,6 @@ import xyz.dead8309.feature_experimental_rpc.ExperimentalRpcViewmodel
 import xyz.dead8309.feature_experimental_rpc.apps.ExperimentalRpcAppsScreen
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 internal fun ComponentActivity.Kizzy(
     usageAccessStatus: MutableState<Boolean>,
@@ -68,12 +69,12 @@ internal fun ComponentActivity.Kizzy(
 ) {
     Scaffold()
     {
-        val navController = rememberAnimatedNavController()
-        AnimatedNavHost(
+        val navController = rememberNavController()
+        NavHost(
             navController = navController,
             startDestination = if (Prefs[Prefs.IS_FIRST_LAUNCHED, true]) Routes.SETUP else Routes.HOME
         ) {
-            animatedComposable(Routes.SETUP) {
+            composable(Routes.SETUP) {
                 StartUp(
                     usageAccessStatus = usageAccessStatus,
                     mediaControlStatus = notificationListenerAccess,
@@ -92,7 +93,7 @@ internal fun ComponentActivity.Kizzy(
                         navController.navigate(Routes.PROFILE)
                     })
             }
-            animatedComposable(Routes.HOME) {
+            composable(Routes.HOME) {
                 val release = Prefs.getSavedLatestRelease()
                 val user = Prefs.getUser()
                 val viewModel by viewModels<HomeScreenViewModel>()
@@ -138,33 +139,33 @@ internal fun ComponentActivity.Kizzy(
                     }
                 )
             }
-            animatedComposable(Routes.APPS_DETECTION) {
+            composable(Routes.APPS_DETECTION) {
                 val viewModel by viewModels<AppsScreenViewModel>()
                 AppsRPC(
-                    onBackPressed = { navController.popBackStack() },
+                    onBackPressed = { navController.navigateUp() },
                     hasUsageAccess = usageAccessStatus.value,
                     state = viewModel.state.collectAsState().value,
                     updateAppEnabled = viewModel::updateAppEnabled,
                 )
             }
-            animatedComposable(Routes.CUSTOM_RPC) {
+            composable(Routes.CUSTOM_RPC) {
                 val viewModel by viewModels<CustomScreenViewModel>()
                 CustomRPC(
-                    onBackPressed = { navController.popBackStack() },
+                    onBackPressed = { navController.navigateUp() },
                     state = viewModel.uiState.collectAsState().value,
                     onEvent = viewModel::onEvent
                 )
             }
-            animatedComposable(Routes.MEDIA_RPC) {
+            composable(Routes.MEDIA_RPC) {
                 val viewModel by viewModels<MediaScreenViewModel>()
                 MediaRPC(
-                    onBackPressed = { navController.popBackStack() },
+                    onBackPressed = { navController.navigateUp() },
                     state = viewModel.state.collectAsState().value,
                     hasNotificationAccess = notificationListenerAccess.value,
                     updateMediaAppEnabled = viewModel::updateMediaAppEnabled
                 )
             }
-            animatedComposable(Routes.PROFILE) {
+            composable(Routes.PROFILE) {
                 var loggedIn by remember {
                     mutableStateOf(Prefs[Prefs.TOKEN, ""].isNotEmpty())
                 }
@@ -172,68 +173,68 @@ internal fun ComponentActivity.Kizzy(
                     val viewModel by viewModels<UserViewModel>()
                     UserScreen(
                         state = viewModel.state.value,
-                        onBackPressed = navController::popBackStack
+                        onBackPressed = navController::navigateUp
                     )
                 } else {
                     LoginScreen(
-                        onBackPressed = navController::popBackStack,
+                        onBackPressed = navController::navigateUp,
                         onCompleted = {
                             loggedIn = true
                         },
                     )
                 }
             }
-            animatedComposable(Routes.CONSOLE_RPC) {
+            composable(Routes.CONSOLE_RPC) {
                 val viewModel by viewModels<GamesViewModel>()
                 GamesScreen(
-                    onBackPressed = { navController.popBackStack() },
+                    onBackPressed = { navController.navigateUp() },
                     onEvent = { viewModel.onUiEvent(it) },
                     isSearchBarVisible = viewModel.isSearchBarVisible.value,
                     state = viewModel.state.value,
                     serviceEnabled = AppUtils.customRpcRunning()
                 )
             }
-            animatedComposable(Routes.LANGUAGES) {
+            composable(Routes.LANGUAGES) {
                 Language(
-                    onBackPressed = { navController.popBackStack() },
+                    onBackPressed = { navController.navigateUp() },
                     updateLocaleLanguage = MainActivity::setLanguage
                 )
             }
-            animatedComposable(Routes.STYLE_AND_APPEARANCE) {
+            composable(Routes.STYLE_AND_APPEARANCE) {
                 Appearance(onBackPressed = {
-                    navController.popBackStack()
+                    navController.navigateUp()
                 }) {
                     navController.navigate(Routes.DARK_THEME)
                 }
             }
-            animatedComposable(Routes.DARK_THEME) {
+            composable(Routes.DARK_THEME) {
                 DarkThemePreferences {
-                    navController.popBackStack()
+                    navController.navigateUp()
                 }
             }
-            animatedComposable(Routes.RPC_SETTINGS) {
-                RpcSettings { navController.popBackStack() }
+            composable(Routes.RPC_SETTINGS) {
+                RpcSettings { navController.navigateUp() }
             }
-            animatedComposable(Routes.LOGS_SCREEN) {
+            composable(Routes.LOGS_SCREEN) {
                 val viewModel by viewModels<LogsViewModel>()
                 LogScreen(viewModel)
             }
-            animatedComposable(Routes.ABOUT) {
+            composable(Routes.ABOUT) {
                 About(
                     onBackPressed = {
-                        navController.popBackStack()
+                        navController.navigateUp()
                     },
                     navigateToCredits = {
                         navController.navigate(Routes.CREDITS)
                     }
                 )
             }
-            animatedComposable(Routes.CREDITS) {
+            composable(Routes.CREDITS) {
                 val viewModel by viewModels<CreditsScreenViewModel>()
                 Credits(
                     state = viewModel.creditScreenState.collectAsState().value,
                     onBackPressed = {
-                        navController.popBackStack()
+                        navController.navigateUp()
                     }
                 )
             }
@@ -242,11 +243,11 @@ internal fun ComponentActivity.Kizzy(
                 viewModels<ExperimentalRpcViewmodel>()
             }
 
-            animatedComposable(Routes.EXPERIMENTAL_RPC) {
+            composable(Routes.EXPERIMENTAL_RPC) {
                 ExperimentalRpcScreen(
                     state = experimentalRpcViewModel.value.uiState.collectAsState().value,
                     onEvent = experimentalRpcViewModel.value::onEvent,
-                    onBackPressed = { navController.popBackStack() },
+                    onBackPressed = { navController.navigateUp() },
                     hasUsageAccess = usageAccessStatus.value,
                     hasNotificationAccess = notificationListenerAccess.value,
                     navigateToAppSelection = {
@@ -255,9 +256,9 @@ internal fun ComponentActivity.Kizzy(
                 )
             }
 
-            animatedComposable(Routes.EXPERIMENTAL_RPC_APPS) {
+            composable(Routes.EXPERIMENTAL_RPC_APPS) {
                 ExperimentalRpcAppsScreen(
-                    onBackPressed = { navController.popBackStack() },
+                    onBackPressed = { navController.navigateUp() },
                     state = experimentalRpcViewModel.value.uiState.collectAsState().value,
                     onEvent = experimentalRpcViewModel.value::onEvent,
                 )

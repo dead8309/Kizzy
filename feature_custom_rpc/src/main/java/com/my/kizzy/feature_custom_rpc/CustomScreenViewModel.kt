@@ -30,10 +30,13 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import javax.inject.Inject
 
+import com.my.kizzy.domain.repository.KizzyRepository
+
 @SuppressLint("StaticFieldLeak")
 @HiltViewModel
 class CustomScreenViewModel @Inject constructor(
-    private val uploadGalleryImageUseCase: UploadGalleryImageUseCase
+    private val uploadGalleryImageUseCase: UploadGalleryImageUseCase,
+    private val repository: KizzyRepository
 ) : ViewModel() {
     private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState
@@ -106,6 +109,22 @@ class CustomScreenViewModel @Inject constructor(
             is UiEvent.UploadImage -> {
                 uploadImage(event.file) {
                     event.callback(it)
+                }
+            }
+
+            is UiEvent.FetchApplicationDetails -> {
+                val game = repository.getApplicationDetails(event.appId)
+                if (game != null) {
+                    _uiState.value = _uiState.value.copy(
+                        rpcConfig = _uiState.value.rpcConfig.copy(
+                            name = game.game_title,
+                            largeImg = game.large_image ?: "",
+                            smallImg = game.small_image ?: ""
+                        )
+                    )
+                }
+                withContext(Dispatchers.Main) {
+                    event.onFetched()
                 }
             }
 

@@ -27,6 +27,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.EditCalendar
 import androidx.compose.material.icons.filled.Image
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -220,6 +221,18 @@ private fun RpcTextFieldsColumn(
     var isCustomRpcEnabled by remember {
         mutableStateOf(AppUtils.customRpcRunning())
     }
+
+    androidx.compose.runtime.LaunchedEffect(uiState.rpcConfig) {
+        if (isCustomRpcEnabled) {
+            kotlinx.coroutines.delay(1000)
+            val intent = Intent(context, CustomRpcService::class.java)
+            val string = uiState.rpcConfig.dataToString()
+            intent.putExtra("RPC", string)
+            Prefs[Prefs.LAST_RUN_CUSTOM_RPC] = string
+            context.startService(intent)
+        }
+    }
+
     LazyColumn(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -251,6 +264,32 @@ private fun RpcTextFieldsColumn(
                     value = name, label = R.string.activity_name
                 ) {
                     onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(name = it)))
+                }
+            }
+
+            item {
+                var isFetchingApp by remember { mutableStateOf(false) }
+                RpcField(
+                    value = applicationId, 
+                    label = R.string.application_id,
+                    trailingIcon = {
+                        if (applicationId.isNotBlank()) {
+                            Icon(
+                                imageVector = Icons.Default.Search,
+                                contentDescription = "Fetch details",
+                                modifier = Modifier.clickable {
+                                    if (!isFetchingApp) {
+                                        isFetchingApp = true
+                                        onEvent(UiEvent.FetchApplicationDetails(applicationId) {
+                                            isFetchingApp = false
+                                        })
+                                    }
+                                }
+                            )
+                        }
+                    }
+                ) {
+                    onEvent(UiEvent.SetFieldsFromConfig(uiState.rpcConfig.copy(applicationId = it)))
                 }
             }
 
