@@ -28,6 +28,8 @@ class TemplateProcessor(
     private val mediaPlayerAppName: String? = null,
     private val mediaPlayerPackageName: String? = null,
     private val detectedAppInfo: CommonRpc? = null,
+    /** Applied to media-derived values only, e.g. to censor them. */
+    private val mediaTextFilter: (String) -> String = { it },
 ) {
     fun process(template: String?): String? {
         if (template.isNullOrBlank()) return null
@@ -38,15 +40,15 @@ class TemplateProcessor(
             result = result
                 .replace(
                     TemplateKeys.MEDIA_TITLE,
-                    mediaMetadata.getString(MediaMetadata.METADATA_KEY_TITLE) ?: ""
+                    mediaTextFilter(mediaMetadata.getString(MediaMetadata.METADATA_KEY_TITLE) ?: "")
                 )
                 .replace(
                     TemplateKeys.MEDIA_ARTIST,
-                    mediaMetadata.getString(MediaMetadata.METADATA_KEY_ARTIST) ?: ""
+                    mediaTextFilter(mediaMetadata.getString(MediaMetadata.METADATA_KEY_ARTIST) ?: "")
                 )
                 .replace(
                     TemplateKeys.MEDIA_AUTHOR,
-                    mediaMetadata.getString(MediaMetadata.METADATA_KEY_AUTHOR) ?: ""
+                    mediaTextFilter(mediaMetadata.getString(MediaMetadata.METADATA_KEY_AUTHOR) ?: "")
                 )
                 .replace(TemplateKeys.APP_NAME, mediaPlayerAppName)
         } else if (detectedAppInfo != null) {

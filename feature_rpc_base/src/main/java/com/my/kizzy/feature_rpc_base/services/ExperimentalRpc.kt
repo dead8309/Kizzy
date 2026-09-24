@@ -34,6 +34,7 @@ import com.my.kizzy.data.rpc.RpcImage
 import com.my.kizzy.data.rpc.TemplateKeys
 import com.my.kizzy.data.rpc.TemplateProcessor
 import com.my.kizzy.data.rpc.Timestamps
+import com.my.kizzy.data.rpc.censor.ExplicitMetadataSanitizer
 import com.my.kizzy.domain.interfaces.Logger
 import com.my.kizzy.domain.model.rpc.RpcButtons
 import com.my.kizzy.feature_rpc_base.Constants
@@ -77,6 +78,9 @@ class ExperimentalRpc : Service() {
 
     @Inject
     lateinit var notificationBuilder: Notification.Builder
+
+    @Inject
+    lateinit var explicitMetadataSanitizer: ExplicitMetadataSanitizer
 
     private lateinit var mediaSessionManager: MediaSessionManager
 
@@ -248,11 +252,19 @@ class ExperimentalRpc : Service() {
             useMediaRpc && richMediaInfo != null && richMediaInfo.appName != null
         val currentContextIsApp = useAppsRpc && appInfo != null && appInfo.name.isNotEmpty()
 
+        val mediaTextFilter: (String) -> String =
+            if (Prefs[Prefs.EXPERIMENTAL_RPC_CENSOR_EXPLICIT_METADATA, false]) {
+                explicitMetadataSanitizer::sanitize
+            } else {
+                { it }
+            }
+
         val processor = TemplateProcessor(
             mediaMetadata = rawMediaMetadata,
             mediaPlayerAppName = richMediaInfo?.appName,
             mediaPlayerPackageName = richMediaInfo?.packageName,
-            detectedAppInfo = appInfo
+            detectedAppInfo = appInfo,
+            mediaTextFilter = mediaTextFilter,
         )
 
         if (currentContextIsMedia) {
@@ -260,8 +272,8 @@ class ExperimentalRpc : Service() {
 
             logger.d(TAG, "Processing Rich Media Context")
             finalName = processor.process(templateName) ?: richMediaInfo?.appName
-            finalDetails = processor.process(templateDetails) ?: richMediaInfo?.title
-            finalState = processor.process(templateState) ?: richMediaInfo?.artist
+            finalDetails = processor.process(templateDetails) ?: richMediaInfo?.title?.let(mediaTextFilter)
+            finalState = processor.process(templateState) ?: richMediaInfo?.artist?.let(mediaTextFilter)
 
             finalLargeImage = when {
                 Prefs[Prefs.EXPERIMENTAL_RPC_SHOW_COVER_ART, true] -> richMediaInfo?.coverArt
@@ -279,7 +291,7 @@ class ExperimentalRpc : Service() {
                 else -> null
             }
 
-            finalLargeText = richMediaInfo?.album
+            finalLargeText = richMediaInfo?.album?.let(mediaTextFilter)
             finalSmallText =
                 if (finalSmallImage == richMediaInfo?.appIcon) richMediaInfo?.appName else null
 

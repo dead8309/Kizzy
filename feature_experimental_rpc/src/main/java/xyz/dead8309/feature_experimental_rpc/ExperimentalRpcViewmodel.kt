@@ -43,6 +43,7 @@ class ExperimentalRpcViewmodel @Inject constructor(
             showPlaybackState = Prefs[Prefs.EXPERIMENTAL_RPC_SHOW_PLAYBACK_STATE, false],
             enableTimestamps = Prefs[Prefs.EXPERIMENTAL_RPC_ENABLE_TIMESTAMPS, false],
             hideOnPause = Prefs[Prefs.EXPERIMENTAL_RPC_HIDE_ON_PAUSE, false],
+            censorExplicitMetadata = Prefs[Prefs.EXPERIMENTAL_RPC_CENSOR_EXPLICIT_METADATA, false],
         )
     )
     val uiState = _uiState.asStateFlow()
@@ -157,6 +158,11 @@ class ExperimentalRpcViewmodel @Inject constructor(
                 is UiEvent.ToggleHideOnPause -> {
                     Prefs[Prefs.EXPERIMENTAL_RPC_HIDE_ON_PAUSE] = event.enabled
                     _uiState.update { it.copy(hideOnPause = event.enabled) }
+                }
+
+                is UiEvent.ToggleCensorExplicitMetadata -> {
+                    Prefs[Prefs.EXPERIMENTAL_RPC_CENSOR_EXPLICIT_METADATA] = event.enabled
+                    _uiState.update { it.copy(censorExplicitMetadata = event.enabled) }
                 }
             }
         }

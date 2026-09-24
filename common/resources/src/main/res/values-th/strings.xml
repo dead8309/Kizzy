@@ -218,4 +218,6 @@
     <string name="set_imgur_client_id">ตั้งค่า Imgur Client ID</string>
     <string name="set_imgur_client_id_desc">หากรูปภาพไม่แสดงเมื่อใช้ Imgur คุณสามารถลองตั้งค่า Client ID ของคุณเองได้</string>
     <string name="show_song_as_title">แสดงชื่อเพลงเป็นชื่อหัวข้อ</string>
+    <string name="censor_explicit_metadata">Censor Explicit Media Metadata</string>
+    <string name="censor_explicit_metadata_desc">Censor explicit language in media titles, artists and albums before displaying them on Discord</string>
 </resources>

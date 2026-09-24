@@ -242,6 +242,7 @@ object Prefs {
     const val EXPERIMENTAL_RPC_SHOW_PLAYBACK_STATE = "experimental_rpc_show_playback_state"
     const val EXPERIMENTAL_RPC_ENABLE_TIMESTAMPS = "experimental_rpc_enable_timestamps"
     const val EXPERIMENTAL_RPC_HIDE_ON_PAUSE = "experimental_rpc_hide_on_pause"
+    const val EXPERIMENTAL_RPC_CENSOR_EXPLICIT_METADATA = "experimental_rpc_censor_explicit_metadata"
     fun saveAppActivityType(packageName: String, activityType: Int) {
         val json = get(EXPERIMENTAL_RPC_APP_ACTIVITY_TYPES, "{}")
         val map: MutableMap<String, Int> = try {

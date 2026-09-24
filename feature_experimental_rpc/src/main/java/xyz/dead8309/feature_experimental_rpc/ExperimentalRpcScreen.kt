@@ -32,6 +32,7 @@ import androidx.compose.material.icons.outlined.AppSettingsAlt
 import androidx.compose.material.icons.outlined.Apps
 import androidx.compose.material.icons.outlined.Image
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.NoAdultContent
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LargeTopAppBar
@@ -263,6 +264,17 @@ fun ExperimentalRpcScreen(
                             onEvent(UiEvent.ToggleHideOnPause(!state.hideOnPause))
                         },
                         icon = Icons.Default.PauseCircle
+                    )
+                }
+                item {
+                    PreferenceSwitch(
+                        title = stringResource(R.string.censor_explicit_metadata),
+                        description = stringResource(R.string.censor_explicit_metadata_desc),
+                        isChecked = state.censorExplicitMetadata,
+                        onClick = {
+                            onEvent(UiEvent.ToggleCensorExplicitMetadata(!state.censorExplicitMetadata))
+                        },
+                        icon = Icons.Outlined.NoAdultContent
                     )
                 }
                 item {

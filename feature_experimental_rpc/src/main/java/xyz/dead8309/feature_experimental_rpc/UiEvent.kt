@@ -25,4 +25,5 @@ sealed interface UiEvent {
     data class ToggleShowPlaybackState(val enabled: Boolean) : UiEvent
     data class ToggleEnableTimestamps(val enabled: Boolean) : UiEvent
     data class ToggleHideOnPause(val enabled: Boolean) : UiEvent
+    data class ToggleCensorExplicitMetadata(val enabled: Boolean) : UiEvent
 }

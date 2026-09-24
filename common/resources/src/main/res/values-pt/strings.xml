@@ -218,4 +218,6 @@
     <string name="set_imgur_client_id">Set Imgur Client ID</string>
     <string name="set_imgur_client_id_desc">If images aren\'t showing using Imgur, you can try setting your own Client ID</string>
     <string name="show_song_as_title">Show Song as Title</string>
+    <string name="censor_explicit_metadata">Censor Explicit Media Metadata</string>
+    <string name="censor_explicit_metadata_desc">Censor explicit language in media titles, artists and albums before displaying them on Discord</string>
 </resources>
