@@ -1,0 +1,28 @@
+# Unambiguous profane stems that are also censored when they appear inside a
+# longer word (compounds such as "motherfucker" or "bullshit"). Only stems
+# that do not occur inside ordinary English words belong here.
+# Format: <stem><TAB><anywhere|prefix>
+fuck	anywhere
+shit	anywhere
+cunt	anywhere
+bitch	anywhere
+whore	anywhere
+slut	anywhere
+nigger	anywhere
+nigga	anywhere
+faggot	anywhere
+jizz	anywhere
+cocksuck	anywhere
+dickhead	anywhere
+asshole	anywhere
+arsehole	anywhere
+dildo	anywhere
+cumshot	anywhere
+blowjob	anywhere
+handjob	anywhere
+bastard	anywhere
+wank	prefix
+piss	prefix
+bollock	prefix
+pussy	prefix
+twat	prefix
