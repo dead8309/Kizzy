@@ -13,6 +13,7 @@
 package com.my.kizzy
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -47,6 +48,10 @@ import com.my.kizzy.feature_profile.ui.login.LoginScreen
 import com.my.kizzy.feature_profile.ui.user.UserScreen
 import com.my.kizzy.feature_profile.ui.user.UserViewModel
 import com.my.kizzy.feature_rpc_base.AppUtils
+import com.my.kizzy.feature_rpc_base.services.AppDetectionService
+import com.my.kizzy.feature_rpc_base.services.CustomRpcService
+import com.my.kizzy.feature_rpc_base.services.ExperimentalRpc
+import com.my.kizzy.feature_rpc_base.services.MediaRpcService
 import com.my.kizzy.feature_settings.language.Language
 import com.my.kizzy.feature_settings.rpc_settings.RpcSettings
 import com.my.kizzy.feature_settings.style.Appearance
@@ -172,7 +177,32 @@ internal fun ComponentActivity.Kizzy(
                     val viewModel by viewModels<UserViewModel>()
                     UserScreen(
                         state = viewModel.state.value,
-                        onBackPressed = navController::popBackStack
+                        onBackPressed = navController::popBackStack,
+                        onLoggedOut = {
+                            // Stop any running RPC service so the presence
+                            // does not keep broadcasting under the old account.
+                            // Each service closes its gateway connection in
+                            // onDestroy().
+                            stopService(Intent(this@Kizzy, AppDetectionService::class.java))
+                            stopService(Intent(this@Kizzy, MediaRpcService::class.java))
+                            stopService(Intent(this@Kizzy, CustomRpcService::class.java))
+                            stopService(Intent(this@Kizzy, ExperimentalRpc::class.java))
+                            // Restart the activity so no in-memory state of
+                            // the previous account survives the account
+                            // switch (UserViewModel is activity-scoped and
+                            // only loads the user in its init block).
+                            val restartIntent =
+                                packageManager.getLaunchIntentForPackage(packageName)
+                            if (restartIntent != null) {
+                                restartIntent.addFlags(
+                                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                )
+                                startActivity(restartIntent)
+                                finish()
+                            } else {
+                                loggedIn = false
+                            }
+                        }
                     )
                 } else {
                     LoginScreen(

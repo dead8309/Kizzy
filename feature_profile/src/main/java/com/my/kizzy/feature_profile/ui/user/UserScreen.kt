@@ -25,6 +25,7 @@ import com.my.kizzy.domain.model.user.User
 import com.my.kizzy.feature_profile.ui.component.Logout
 import com.my.kizzy.feature_profile.ui.component.ProfileCard
 import com.my.kizzy.feature_profile.ui.component.ProfileNetworkError
+import com.my.kizzy.preference.Prefs
 import com.my.kizzy.resources.R
 import com.my.kizzy.ui.components.BackButton
 import com.my.kizzy.ui.components.shimmer.AnimatedShimmer
@@ -35,7 +36,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun UserScreen(
     state: UserState,
-    onBackPressed: () -> Unit
+    onBackPressed: () -> Unit,
+    onLoggedOut: () -> Unit = {}
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
@@ -90,13 +92,20 @@ fun UserScreen(
                                 withDismissAction = true
                             ).run {
                                 when (this) {
-                                    SnackbarResult.ActionPerformed -> try {
-                                        val runtime = Runtime.getRuntime()
-                                        // running shell command to clear data
-                                        // TODO replace with deleting directories and restarting the app to have multiple user accounts
-                                        runtime.exec("pm clear com.my.kizzy")
-                                    } catch (e: Exception) {
-                                        e.printStackTrace()
+                                    SnackbarResult.ActionPerformed -> {
+                                        // Clear only the data that belongs to the
+                                        // current session, so settings and RPC
+                                        // configurations survive an account switch.
+                                        // This used to run `pm clear com.my.kizzy`,
+                                        // which wipes the whole app data and
+                                        // silently fails on devices where the app
+                                        // does not hold CLEAR_APP_USER_DATA.
+                                        Prefs.remove(Prefs.TOKEN)
+                                        Prefs.remove(Prefs.USER_DATA)
+                                        Prefs.remove(Prefs.USER_ID)
+                                        Prefs.remove(Prefs.USER_BIO)
+                                        Prefs.remove(Prefs.USER_NITRO)
+                                        onLoggedOut()
                                     }
 
                                     SnackbarResult.Dismissed -> Unit
