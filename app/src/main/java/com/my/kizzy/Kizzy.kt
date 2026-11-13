@@ -179,18 +179,10 @@ internal fun ComponentActivity.Kizzy(
                         state = viewModel.state.value,
                         onBackPressed = navController::popBackStack,
                         onLoggedOut = {
-                            // Stop any running RPC service so the presence
-                            // does not keep broadcasting under the old account.
-                            // Each service closes its gateway connection in
-                            // onDestroy().
                             stopService(Intent(this@Kizzy, AppDetectionService::class.java))
                             stopService(Intent(this@Kizzy, MediaRpcService::class.java))
                             stopService(Intent(this@Kizzy, CustomRpcService::class.java))
                             stopService(Intent(this@Kizzy, ExperimentalRpc::class.java))
-                            // Restart the activity so no in-memory state of
-                            // the previous account survives the account
-                            // switch (UserViewModel is activity-scoped and
-                            // only loads the user in its init block).
                             val restartIntent =
                                 packageManager.getLaunchIntentForPackage(packageName)
                             if (restartIntent != null) {

@@ -93,13 +93,6 @@ fun UserScreen(
                             ).run {
                                 when (this) {
                                     SnackbarResult.ActionPerformed -> {
-                                        // Clear only the data that belongs to the
-                                        // current session, so settings and RPC
-                                        // configurations survive an account switch.
-                                        // This used to run `pm clear com.my.kizzy`,
-                                        // which wipes the whole app data and
-                                        // silently fails on devices where the app
-                                        // does not hold CLEAR_APP_USER_DATA.
                                         Prefs.remove(Prefs.TOKEN)
                                         Prefs.remove(Prefs.USER_DATA)
                                         Prefs.remove(Prefs.USER_ID)
