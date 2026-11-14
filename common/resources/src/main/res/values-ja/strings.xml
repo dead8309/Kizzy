@@ -15,7 +15,7 @@
     <string name="activity_large_image">アクティビティの大きな画像</string>
     <string name="activity_small_image">アクティビティの小さな画像</string>
     <string name="activity_type">アクティビティの種類</string>
-    <string name="activity_platform">アクティビティのプラットフォーム</string>
+    <string name="activity_platform">使用するプラットフォーム</string>
     <string name="load_config">構成ファイルから読み込む</string>
     <string name="save_config">構成ファイルに内容を保存</string>
     <string name="delete_configs">構成ファイルの削除</string>
@@ -99,7 +99,7 @@
     <string name="custom_activity_status">カスタムアクティビティの状態</string>
     <string name="custom_activity_status_desc">既定のアクティビティの状態を上書きします</string>
     <string name="search">検索</string>
-    <string name="clear">クリア</string>
+    <string name="clear">削除</string>
     <string name="search_placeholder">検索…</string>
     <string name="hide_on_pause">一時停止時にRPCを非表示</string>
     <string name="idling_notification">待機中…</string>
